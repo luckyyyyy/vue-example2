@@ -1,0 +1,162 @@
+/*
+* @Author: William Chan
+* @Date:   2016-12-01 17:57:50
+* @Last Modified by:   William Chan
+* @Last Modified time: 2017-02-07 11:44:29
+*/
+
+// component(resolve) {
+// 	require(['./views/index.vue'], resolve)
+// }
+
+'use strict';
+
+import Vue from 'vue'
+import VueRouter from 'vue-router'
+import store from './store'
+
+Vue.use(VueRouter);
+
+const isAuth = () => {
+	try {
+		const data = JSON.parse(sessionStorage.getItem('user'));
+		return data.token
+	} catch(e) {
+		return false;
+	}
+};
+
+const routes = [
+	{
+		path: '/',
+		name: 'index',
+		meta: { requiresAuth: true },
+		components: {
+			main: resolve => {
+				require(['./views/index.vue'], resolve)
+			},
+		},
+	},
+	{
+		path: '/todo',
+		name: 'todo',
+		meta: { requiresAuth: true },
+		components: {
+			main: resolve => {
+				require(['./views/todo.vue'], resolve)
+			},
+		},
+	},
+	{
+		path: '/live',
+		meta: { requiresAuth: true },
+		children: [
+			{
+				name: 'live_list',
+				path: 'list/:type?',
+				meta: { requiresAuth: true },
+				component: resolve => {
+					require(['./views/live/list.vue'], resolve)
+				}
+			},
+			{
+				name: 'live_template',
+				path: 'template',
+				meta: { requiresAuth: true },
+				component: resolve => {
+					require(['./views/live/template.vue'], resolve)
+				}
+			},
+		],
+		components: {
+			main: resolve => {
+				require(['./views/live/main.vue'], resolve)
+			},
+		},
+	},
+	{
+		path: '/login',
+		name: 'login',
+		components: {
+			first: resolve => {
+				require(['./components/user/login.vue'], resolve)
+			}
+		}
+	},
+	{
+		path: '/register',
+		name: 'register',
+		components: {
+			first: resolve => {
+				require(['./components/user/register.vue'], resolve)
+			}
+		},
+		children: []
+	},
+	{
+		path: '/register/seccuss',
+		name: 'register/seccuss',
+		components: {
+			first: resolve => {
+				require(['./components/user/register-seccuss.vue'], resolve)
+			}
+		},
+	},
+	{
+		path: '/resetpwd',
+		name: 'resetpwd',
+		components: {
+			first: resolve => {
+				require(['./components/user/resetpwd.vue'], resolve)
+			}
+		}
+	},
+	{
+		path: '*',
+		name: '404',
+		components: {
+			first: resolve => {
+				require(['./components/user/login.vue'], resolve)
+			}
+		}
+	}
+]
+
+const route = new VueRouter({
+	base: __dirname,
+	routes,
+	mode: 'history',
+})
+
+route.beforeEach((to, from, next) => {
+	const requiresAuth = to.matched.some(record => record.meta.requiresAuth);
+	if (!isAuth()) {
+		if (to.name == '404') {
+			return next({ name: 'login' });
+		} else if (requiresAuth) {
+			 return next({ name: 'login', query: { redirect: to.fullPath } });
+		}
+	} else {
+		if (!requiresAuth) {
+			if (to.query.redirect) {
+				return next({ path: to.query.redirect })
+			} else {
+				return next({ name: 'index' })
+			}
+		}
+	}
+	return next();
+})
+route.afterEach(route => {
+	// console.dir(Vue)
+	// Vue.nextTick(() => {
+	// history.replaceState(null, null, 'a.html?aaaaa')
+	// })
+})
+export default route
+
+
+
+
+
+

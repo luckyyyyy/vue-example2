@@ -1,0 +1,66 @@
+<template>
+	<div class="form">
+		<div class="title">登录</div>
+		<el-form :rules="rules" ref="sign_in" label-position="top" :model="sign_in" v-loading.body="lock" element-loading-text="拼命加载中">
+			<el-form-item label="账号登录" prop="username">
+				<el-input v-model="sign_in.username" placeholder="请输手机号码"></el-input>
+			</el-form-item>
+			<el-form-item label="登录密码" prop="password">
+				<el-input type="password" v-model="sign_in.password" placeholder="请输入您的账户密码"></el-input>
+			</el-form-item>
+			<div class="bottom">
+				<router-link class="resetpwd" :to="{ name: 'resetpwd' }">忘记密码?</router-link>
+				<router-link class="register" :to="{ name: 'register' }">立即注册?</router-link>
+			</div>
+			<div class="bottom-center">
+				<el-button type="primary" @click="submit_sign_in">登录</el-button>
+			</div>
+		</el-form>
+	</div>
+</template>
+
+<script>
+import { mapState } from 'vuex';
+export default {
+	data () {
+		return {
+			sign_in: {},
+			rules: {
+				username: [
+					{ required: true, max: 20, message: '请填写正确的用户名' }
+				],
+				password: [
+					{ required: true, min: 6, max: 16, message: '请填写正确的密码' }
+				],
+			}
+		}
+	},
+	computed: {
+		...mapState({
+			lock: state => state.sign_in.lock
+		})
+	},
+	methods: {
+		submit_sign_in () {
+			this.$refs.sign_in.validate((valid) => {
+				if (valid) {
+					this.$store.dispatch('SIGNIN_REQUEST', this.sign_in).then( res => {
+						if (res.data.data.user.verified == 0) {
+							this.$alert('登录成功，但您没有通过审核，请您耐心等待。', '提示', {
+								type: 'warning'
+							})
+						}
+						this.$store.commit('SIGNIN_SUCCESS', res.data);
+					}).catch( err => {
+						this.$store.commit('SIGNIN_FAILURE', err);
+					})
+				} else {
+					return false;
+				}
+			});
+		}
+	}
+}
+</script>
+
+
