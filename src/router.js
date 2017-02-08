@@ -2,7 +2,7 @@
 * @Author: William Chan
 * @Date:   2016-12-01 17:57:50
 * @Last Modified by:   William Chan
-* @Last Modified time: 2017-02-07 11:44:29
+* @Last Modified time: 2017-02-08 15:42:04
 */
 
 // component(resolve) {
@@ -50,6 +50,11 @@ const routes = [
 	{
 		path: '/live',
 		meta: { requiresAuth: true },
+		components: {
+			main: resolve => {
+				require(['./views/live/main.vue'], resolve)
+			},
+		},
 		children: [
 			{
 				name: 'live_list',
@@ -67,12 +72,33 @@ const routes = [
 					require(['./views/live/template.vue'], resolve)
 				}
 			},
+			{
+				name: 'live_detail',
+				path: 'detail/:id',
+				meta: { requiresAuth: true, parent: 'live_list', default: 'live_detail_countdown' },
+				component: resolve => {
+					require(['./views/live/detail.vue'], resolve)
+				},
+				children: [
+					{
+						name: 'live_detail_countdown',
+						path: 'countdown',
+						meta: { requiresAuth: true },
+						component: resolve => {
+							require(['./views/live/detail-countdown.vue'], resolve)
+						}
+					},
+					{
+						name: 'live_detail_image',
+						path: 'image',
+						meta: { requiresAuth: true },
+						component: resolve => {
+							require(['./views/live/detail-image.vue'], resolve)
+						}
+					},
+				],
+			}
 		],
-		components: {
-			main: resolve => {
-				require(['./views/live/main.vue'], resolve)
-			},
-		},
 	},
 	{
 		path: '/login',
@@ -130,6 +156,7 @@ const route = new VueRouter({
 
 route.beforeEach((to, from, next) => {
 	const requiresAuth = to.matched.some(record => record.meta.requiresAuth);
+	const defaultPage  = to.meta.default; // 部分子路由默认页面
 	if (!isAuth()) {
 		if (to.name == '404') {
 			return next({ name: 'login' });
@@ -145,7 +172,12 @@ route.beforeEach((to, from, next) => {
 			}
 		}
 	}
-	return next();
+	if (defaultPage && to.name != defaultPage) {
+		return next({ name: defaultPage, params: to.params })
+	} else {
+		return next();
+	}
+
 })
 route.afterEach(route => {
 	// console.dir(Vue)

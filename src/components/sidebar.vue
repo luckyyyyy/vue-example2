@@ -51,7 +51,13 @@ export default {
 	},
 	computed: {
 		active () {
-			return this.$route.name;
+			let active = this.$route.name;
+			this.$route.matched.some(record => {
+				if (record.meta.parent) {
+					active = record.meta.parent;
+				}
+			})
+			return active;
 		},
 		...mapState({
 			user: state => state.user
