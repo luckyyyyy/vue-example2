@@ -1,7 +1,7 @@
 {
-  "name": "test",
-  "version": "1.0.0",
-  "description": "A Vue.js project",
+  "name": "RainbowStore",
+  "version": "0.0.1",
+  "description": "Rainbow Store Project",
   "author": "William Chan <zjmail.chen@gmail.com>",
   "private": true,
   "scripts": {
