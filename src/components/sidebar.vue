@@ -24,7 +24,7 @@
 			<el-menu-item index="/todo1"><i class="iconfont icon-circle"></i>营销</el-menu-item>
 		</el-menu>
 
-		<el-popover ref="popover" placement="top" width="149" trigger="click" popper-class="account-popper">
+		<el-popover ref="popover" placement="top-end" width="149" trigger="click" popper-class="account-popper">
 			<div class="account">
 				<p>admin</p>
 				<p>123232444</p>
@@ -35,8 +35,8 @@
 				<li><a @click="logout" href="javascript:;">退出系统</a></li>
 			</ul>
 		</el-popover>
-		<footer v-popover:popover>
-			{{ user.username }}
+		<footer>
+			<span v-popover:popover>{{ user.username }}</span>
 		</footer>
 	</div>
 </template>
@@ -121,13 +121,41 @@ export default {
 		height: 45px;
 		line-height: 45px;
 		text-align: center;
+		span {
+			width: 100%;
+			display: inline-block;
+			cursor: pointer;
+		}
 	}
 
 	.account-popper {
 		padding: 0;
-		margin: 0;
+		margin-left: 10px;
+		display: flex;
+		flex-direction: column;
 		.account {
+			margin-bottom: 10px;
+			padding: 8px 10px;
 			background: #ebecf0;
+			p {
+				margin: 5px;
+			}
+		}
+		.meun {
+			margin-bottom: 10px;
+			 a {
+			 	box-sizing: border-box;
+			 	width: 100%;
+			 	display: inline-block;
+				padding-left: 10px;
+				height: 40px;
+				line-height: 40px;
+				color: #666;
+				&:hover {
+					background: rgba(16, 144, 191, 0.2) !important;
+    				color: #1190BF !important;
+				}
+			}
 		}
 	}
 </style>

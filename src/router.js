@@ -2,7 +2,7 @@
 * @Author: William Chan
 * @Date:   2016-12-01 17:57:50
 * @Last Modified by:   William Chan
-* @Last Modified time: 2017-02-08 15:42:04
+* @Last Modified time: 2017-02-09 14:05:17
 */
 
 // component(resolve) {
@@ -94,6 +94,54 @@ const routes = [
 						meta: { requiresAuth: true },
 						component: resolve => {
 							require(['./views/live/detail-image.vue'], resolve)
+						}
+					},
+					{
+						name: 'live_detail_share',
+						path: 'share',
+						meta: { requiresAuth: true },
+						component: resolve => {
+							require(['./views/live/detail-share.vue'], resolve)
+						}
+					},
+					{
+						name: 'live_detail_livebuy',
+						path: 'livebuy',
+						meta: { requiresAuth: true },
+						component: resolve => {
+							require(['./views/live/detail-livebuy.vue'], resolve)
+						}
+					},
+					{
+						name: 'live_detail_liveshop',
+						path: 'liveshop',
+						meta: { requiresAuth: true },
+						component: resolve => {
+							require(['./views/live/detail-liveshop.vue'], resolve)
+						}
+					},
+					{
+						name: 'live_detail_luckydraw',
+						path: 'luckydraw',
+						meta: { requiresAuth: true },
+						component: resolve => {
+							require(['./views/live/detail-luckydraw.vue'], resolve)
+						}
+					},
+					{
+						name: 'live_detail_follow',
+						path: 'follow',
+						meta: { requiresAuth: true },
+						component: resolve => {
+							require(['./views/live/detail-follow.vue'], resolve)
+						}
+					},
+					{
+						name: 'live_detail_authorize',
+						path: 'authorize',
+						meta: { requiresAuth: true },
+						component: resolve => {
+							require(['./views/live/detail-authorize.vue'], resolve)
 						}
 					},
 				],
