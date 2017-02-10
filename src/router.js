@@ -2,7 +2,7 @@
 * @Author: William Chan
 * @Date:   2016-12-01 17:57:50
 * @Last Modified by:   William Chan
-* @Last Modified time: 2017-02-09 14:05:17
+* @Last Modified time: 2017-02-10 10:55:26
 */
 
 // component(resolve) {
@@ -72,6 +72,14 @@ const routes = [
 					require(['./views/live/template.vue'], resolve)
 				}
 			},
+			{
+				name: 'live_control',
+				path: 'control/:id',
+				meta: { requiresAuth: true, parent: 'live_list' },
+				component: resolve => {
+						require(['./views/live/control.vue'], resolve)
+					},
+				},
 			{
 				name: 'live_detail',
 				path: 'detail/:id',
