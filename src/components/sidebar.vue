@@ -19,7 +19,12 @@
 				<el-menu-item :route="{ name: 'live_list' }" index="live_list">直播列表</el-menu-item>
 				<el-menu-item :route="{ name: 'live_template' }" index="live_template">直播间模板</el-menu-item>
 			</el-submenu>
-			<el-menu-item index="/todo1"><i class="iconfont icon-shop"></i>电商</el-menu-item>
+			<el-submenu index="2">
+				<template slot="title"><i class="iconfont icon-shop"></i>电商</template>
+				<el-menu-item :route="{ name: 'store_shop_list' }" index="store_shop_list">商品</el-menu-item>
+				<el-menu-item :route="{ name: 'store_order_list' }" index="store_order_list">订单</el-menu-item>
+				<el-menu-item :route="{ name: 'store_setting' }" index="store_setting">设置</el-menu-item>
+			</el-submenu>
 			<el-menu-item index="/todo1"><i class="iconfont icon-recharge"></i>账户</el-menu-item>
 			<el-menu-item index="/todo1"><i class="iconfont icon-circle"></i>营销</el-menu-item>
 		</el-menu>

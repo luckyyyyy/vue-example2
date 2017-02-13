@@ -2,7 +2,7 @@
 * @Author: William Chan
 * @Date:   2016-12-01 17:57:50
 * @Last Modified by:   William Chan
-* @Last Modified time: 2017-02-10 10:55:26
+* @Last Modified time: 2017-02-13 11:28:37
 */
 
 // component(resolve) {
@@ -46,6 +46,41 @@ const routes = [
 				require(['./views/todo.vue'], resolve)
 			},
 		},
+	},
+	{
+		path: '/store',
+		meta: { requiresAuth: true },
+		components: {
+			main: resolve => {
+				require(['./views/store/main.vue'], resolve)
+			},
+		},
+		children: [
+			{
+				name: 'store_shop_list',
+				path: 'shop/:type?',
+				meta: { requiresAuth: true },
+				component: resolve => {
+					require(['./views/store/shop_list.vue'], resolve)
+				}
+			},
+			{
+				name: 'store_order_list',
+				path: 'order/:type?',
+				meta: { requiresAuth: true },
+				component: resolve => {
+					require(['./views/store/order_list.vue'], resolve)
+				}
+			},
+			{
+				name: 'store_setting',
+				path: 'setting',
+				meta: { requiresAuth: true },
+				component: resolve => {
+					require(['./views/store/setting.vue'], resolve)
+				}
+			},
+		]
 	},
 	{
 		path: '/live',

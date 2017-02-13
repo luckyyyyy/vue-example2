@@ -20,6 +20,10 @@
 						<el-radio-button label="live_detail_follow">关注观看</el-radio-button>
 						<el-radio-button label="live_detail_authorize">授权观看</el-radio-button>
 					</el-radio-group>
+					<div class="button">
+						<el-button>直播数据</el-button>
+						<el-button @click="toControl">中控台</el-button>
+					</div>
 				</div>
 			</div>
 		</Affix>
@@ -43,6 +47,10 @@
 		methods: {
 			groupChange (val) {
 				this.$router.push({ name: val, params: this.$route.params })
+			},
+			toControl () {
+				const uri = `/live/control/${this.$route.params.id}`
+				window.open(uri)
 			}
 		}
 	}

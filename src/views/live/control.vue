@@ -115,8 +115,6 @@
 				<li><em>我曹:</em><span>啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊</span></li>
 				<li><em>我曹:</em><span>啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊</span></li>
 				<li><em>我曹:</em><span>啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊</span></li>
-
-
 			</ul>
 			<div class="chat-input">
 				<el-input v-model="input" placeholder="请输入内容"></el-input>

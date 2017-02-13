@@ -33,10 +33,7 @@ a {
 	color: #108ee9;
 	text-decoration: none;
 }
-.r-affix {
-	z-index: 10;
-	position: fixed;
-}
+
 .commoon-page {
 	// position: relative;
 	box-sizing: border-box;
@@ -65,20 +62,31 @@ a {
 	.commoon-menu {
 		position: absolute;
 		width: 135px;
+		height: 100%;
 		z-index: 11;
 		.box {
 			height: 100%;
 			border-right: 1px solid #EBECF0;
+			.button {
+				margin-top: 30px;
+				display: flex;
+				flex-direction: column;
+				align-items: center;
+				.el-button {
+					margin: 10px 0;
+					width: 120px;
+				}
+			}
 			.el-radio-group {
 				padding-top: 20px;
-				height: 100%;
+				// height: 100%;
 				display: flex;
 				flex-direction: column;
 				.el-radio-button {
 					span {
 						text-align: left;
 						text-indent: 20px;
-						width: 135px;
+						width: 134px;
 						border: 0;
 						color: #666;
 					}
@@ -118,8 +126,6 @@ a {
 	background: url(iPhone.png) center center no-repeat;
 }
 
-
-
 .el-tabs {
 	.el-tabs__content {
 		padding: 0;
@@ -128,7 +134,13 @@ a {
 
 
 
-
+.r-affix {
+	z-index: 10;
+	position: fixed;
+	.commoon-menu {
+		height: auto;
+	}
+}
 
 
 
