@@ -1,16 +1,18 @@
 <template>
 	<div class="commoon-menu-view">
-		<div class="commoon-menu">
-			<div class="box">
-				<el-radio-group v-model="select">
-					<el-radio-button label="a">未开始</el-radio-button>
-					<el-radio-button label="直播中"></el-radio-button>
-					<el-radio-button label="已结束"></el-radio-button>
-					<div class="line"></div>
-					<el-radio-button label="回收站"></el-radio-button>
-				</el-radio-group>
+		<Affix>
+			<div class="commoon-menu">
+				<div class="box">
+					<el-radio-group v-model="select">
+						<el-radio-button label="a">未开始</el-radio-button>
+						<el-radio-button label="直播中"></el-radio-button>
+						<el-radio-button label="已结束"></el-radio-button>
+						<div class="line"></div>
+						<el-radio-button label="回收站"></el-radio-button>
+					</el-radio-group>
+				</div>
 			</div>
-		</div>
+		</Affix>
 		<div class="commoon-view">
 			<ul class="list">
 				<li>
@@ -276,7 +278,11 @@
 </template>
 
 <script>
+	import Affix from '../../components/item/affix.vue'
 	export default {
+		components: {
+			Affix
+		},
 		data () {
 			return {
 				createDialog: false,

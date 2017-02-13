@@ -2,7 +2,7 @@
 * @Author: William Chan
 * @Date:   2016-12-01 17:57:50
 * @Last Modified by:   William Chan
-* @Last Modified time: 2017-02-13 11:28:37
+* @Last Modified time: 2017-02-13 15:18:58
 */
 
 // component(resolve) {
@@ -61,7 +61,7 @@ const routes = [
 				path: 'shop/:type?',
 				meta: { requiresAuth: true },
 				component: resolve => {
-					require(['./views/store/shop_list.vue'], resolve)
+					require(['./views/store/shop.vue'], resolve)
 				}
 			},
 			{
@@ -69,7 +69,7 @@ const routes = [
 				path: 'order/:type?',
 				meta: { requiresAuth: true },
 				component: resolve => {
-					require(['./views/store/order_list.vue'], resolve)
+					require(['./views/store/order.vue'], resolve)
 				}
 			},
 			{
