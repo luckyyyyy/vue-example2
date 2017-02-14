@@ -2,7 +2,7 @@
 * @Author: William Chan
 * @Date:   2016-12-01 17:57:50
 * @Last Modified by:   William Chan
-* @Last Modified time: 2017-02-13 15:18:58
+* @Last Modified time: 2017-02-14 15:33:51
 */
 
 // component(resolve) {
@@ -38,16 +38,6 @@ const routes = [
 		},
 	},
 	{
-		path: '/todo',
-		name: 'todo',
-		meta: { requiresAuth: true },
-		components: {
-			main: resolve => {
-				require(['./views/todo.vue'], resolve)
-			},
-		},
-	},
-	{
 		path: '/store',
 		meta: { requiresAuth: true },
 		components: {
@@ -56,6 +46,14 @@ const routes = [
 			},
 		},
 		children: [
+			{ // 保证在前面 先后顺序匹配
+				name: 'store_shop_create',
+				path: 'shop/create',
+				meta: { requiresAuth: true, parent: 'store_shop_list', },
+				component: resolve => {
+					require(['./views/store/create.vue'], resolve)
+				}
+			},
 			{
 				name: 'store_shop_list',
 				path: 'shop/:type?',
@@ -75,10 +73,29 @@ const routes = [
 			{
 				name: 'store_setting',
 				path: 'setting',
-				meta: { requiresAuth: true },
+				meta: { requiresAuth: true, parent: 'store_setting', default: 'store_setting_pay' },
 				component: resolve => {
 					require(['./views/store/setting.vue'], resolve)
-				}
+				},
+				children: [
+					{
+						name: 'store_setting_pay',
+						path: 'pay',
+						meta: { requiresAuth: true },
+						component: resolve => {
+							require(['./views/store/setting-pay.vue'], resolve)
+						}
+					},
+					{
+						name: 'store_setting_order',
+						path: 'order',
+						meta: { requiresAuth: true },
+						component: resolve => {
+							require(['./views/store/setting-order.vue'], resolve)
+						}
+					},
+				],
+
 			},
 		]
 	},

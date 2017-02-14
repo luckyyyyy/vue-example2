@@ -16,17 +16,22 @@
 						<el-option label="33" value="2"></el-option>
 					</el-select>
 				</el-form-item>
-				<el-input placeholder="请输入内容">
-					<el-select class="bugfix" v-model="select" slot="prepend" placeholder="请选择">
-						<el-option label="订单号" value="1"></el-option>
-						<el-option label="收货人姓名" value="2"></el-option>
-						<el-option label="收货人手机号" value="3"></el-option>
-					</el-select>
-				</el-input>
-				<el-form-item label="下单时间">
-    				<el-date-picker v-model="value7" type="daterange" align="right" placeholder="选择日期范围" :picker-options="pickerOptions2"></el-date-picker>
-				</el-form-item>
-				<el-button type="primary">筛选</el-button>
+				<p>
+					<el-form-item label="筛选信息">
+						<el-input placeholder="请输入内容">
+							<el-select class="bugfix" v-model="select" slot="prepend" placeholder="请选择">
+								<el-option label="订单号" value="1"></el-option>
+								<el-option label="姓名" value="2"></el-option>
+								<el-option label="手机号" value="3"></el-option>
+							</el-select>
+						</el-input>
+					</el-form-item>
+					<el-form-item label="下单时间">
+	    				<el-date-picker v-model="value7" type="daterange" align="right" placeholder="选择日期范围" :picker-options="pickerOptions2"></el-date-picker>
+					</el-form-item>
+					<el-button type="primary">筛选</el-button>
+				</p>
+
 			</el-form>
 		</div>
 		<div class="order">
@@ -199,20 +204,15 @@
 	}
 </script>
 
-<style>
-	.bugfix .el-input > .el-input__inner {
-		width: 130px;
-	}
-	.bugfix .el-input__inner {
-		width: 250px;
-	}
-</style>
 <style scoped lang="less">
 	.commoon-menu-view {
 		flex-direction: column;
 		padding: 20px 30px;
 		.el-input {
 			width: 250px;
+		}
+		.bugfix {
+			width: 100px;
 		}
 		.order {
 			display: flex;
