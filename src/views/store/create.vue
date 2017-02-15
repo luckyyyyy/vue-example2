@@ -152,17 +152,20 @@
 					<el-button>预览</el-button>
 				</template>
 			</div>
+			<Album @submit="selectAlbum" :multiple="false" :openDialog="true"></Album>
 		</el-form>
 	</div>
 </template>
 
 <script>
+	import Album from '../../components/item/album'
 	import { quillEditor } from 'vue-quill-editor'
 	import moment from 'moment'
 
 	export default {
 		components: {
-			quillEditor
+			quillEditor,
+			Album
 		},
 		data () {
 			return {
@@ -183,13 +186,16 @@
 			// }, 1800)
 		},
 		methods: {
-			onEditorBlur(editor) {
+			selectAlbum (select) {
+				console.log(select)
+			},
+			onEditorBlur (editor) {
 				// console.log('editor blur!', editor)
 			},
-			onEditorFocus(editor) {
+			onEditorFocus (editor) {
 				// console.log('editor focus!', editor)
 			},
-			onEditorReady(editor) {
+			onEditorReady (editor) {
 				// console.log('editor ready!', editor)
 			},
 			next () {

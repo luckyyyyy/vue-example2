@@ -2,7 +2,7 @@
 * @Author: William Chan
 * @Date:   2016-12-01 17:57:50
 * @Last Modified by:   William Chan
-* @Last Modified time: 2017-02-15 11:34:33
+* @Last Modified time: 2017-02-15 16:05:48
 */
 
 // component(resolve) {
@@ -213,7 +213,7 @@ const routes = [
 		name: 'login',
 		components: {
 			first: resolve => {
-				require(['./components/user/login.vue'], resolve)
+				require(['./views/user/login.vue'], resolve)
 			}
 		}
 	},
@@ -222,7 +222,7 @@ const routes = [
 		name: 'register',
 		components: {
 			first: resolve => {
-				require(['./components/user/register.vue'], resolve)
+				require(['./views/user/register.vue'], resolve)
 			}
 		},
 		children: []
@@ -232,7 +232,7 @@ const routes = [
 		name: 'register/seccuss',
 		components: {
 			first: resolve => {
-				require(['./components/user/register-seccuss.vue'], resolve)
+				require(['./views/user/register-seccuss.vue'], resolve)
 			}
 		},
 	},
@@ -241,7 +241,7 @@ const routes = [
 		name: 'resetpwd',
 		components: {
 			first: resolve => {
-				require(['./components/user/resetpwd.vue'], resolve)
+				require(['./views/user/resetpwd.vue'], resolve)
 			}
 		}
 	},
@@ -250,7 +250,7 @@ const routes = [
 		name: '404',
 		components: {
 			first: resolve => {
-				require(['./components/user/login.vue'], resolve)
+				require(['./views/user/login.vue'], resolve)
 			}
 		}
 	}
