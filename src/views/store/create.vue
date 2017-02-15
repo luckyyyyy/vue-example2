@@ -7,7 +7,7 @@
 		</el-steps>
 		<el-form ref="form" label-position="left" label-width="100px">
 			<div class="setp setp1" v-show="active == 1">
-				<el-radio-group v-model="radio3">
+				<el-radio-group>
 					<el-radio-button label="女人"></el-radio-button>
 					<el-radio-button label="男人"></el-radio-button>
 					<el-radio-button label="食品"></el-radio-button>
@@ -43,7 +43,7 @@
 						</el-form-item>
 						<el-form-item label="总库存">
 							<el-input placeholder="请输入内容"></el-input>
-							<el-checkbox v-model="checked" checked>页面不显示商品库存</el-checkbox>
+							<el-checkbox checked>页面不显示商品库存</el-checkbox>
 							<div class="tips">
 								<p>总库存为 0 时，会上架到『已售罄的商品』列表里</p>
 								<p>发布后商品同步更新，以库存数字为准</p>
@@ -69,9 +69,6 @@
 							  action="//jsonplaceholder.typicode.com/posts/"
 							  type="drag"
 							  :thumbnail-mode="true"
-							  :on-preview="handlePreview"
-							  :on-remove="handleRemove"
-							  :default-file-list="fileList"
 							>
 								<div class="el-dragger__text"><em>点击上传</em></div>
 							</el-upload>
@@ -79,9 +76,6 @@
 							  action="//jsonplaceholder.typicode.com/posts/"
 							  type="drag"
 							  :thumbnail-mode="true"
-							  :on-preview="handlePreview"
-							  :on-remove="handleRemove"
-							  :default-file-list="fileList"
 							>
 								<div class="el-dragger__text"><em>点击上传</em></div>
 							</el-upload>
@@ -89,9 +83,6 @@
 							  action="//jsonplaceholder.typicode.com/posts/"
 							  type="drag"
 							  :thumbnail-mode="true"
-							  :on-preview="handlePreview"
-							  :on-remove="handleRemove"
-							  :default-file-list="fileList"
 							>
 								<div class="el-dragger__text"><em>点击上传</em></div>
 							</el-upload>
@@ -99,9 +90,6 @@
 							  action="//jsonplaceholder.typicode.com/posts/"
 							  type="drag"
 							  :thumbnail-mode="true"
-							  :on-preview="handlePreview"
-							  :on-remove="handleRemove"
-							  :default-file-list="fileList"
 							>
 								<div class="el-dragger__text"><em>点击上传</em></div>
 							</el-upload>
@@ -109,9 +97,6 @@
 							  action="//jsonplaceholder.typicode.com/posts/"
 							  type="drag"
 							  :thumbnail-mode="true"
-							  :on-preview="handlePreview"
-							  :on-remove="handleRemove"
-							  :default-file-list="fileList"
 							>
 								<div class="el-dragger__text"><em>点击上传</em></div>
 							</el-upload>
@@ -125,12 +110,12 @@
 					<div class="right">
 						<el-form-item label="运费设置">
 							<div class="select">
-								<el-radio class="radio" v-model="radio" label="1">统一邮费</el-radio>
+								<el-radio class="radio" label="1">统一邮费</el-radio>
 								<el-input></el-input>
 							</div>
 							<div class="select">
-								<el-radio class="radio" v-model="radio" label="2">运费模板</el-radio>
-								<el-select v-model="value" placeholder="请选择">
+								<el-radio class="radio" label="2">运费模板</el-radio>
+								<el-select placeholder="请选择">
 									<el-option label="item.label" value="item.value"></el-option>
 								</el-select>
 							</div>
@@ -138,32 +123,81 @@
 					</div>
 				</div>
 			</div>
+			<div class="setp setp3" v-show="active == 3">
+				<div class="left">
+					<div class="iPhone-bg">
+						<div class="iPhone-view">
+							<div class="html ql-editor" v-html="content"></div>
+						</div>
+					</div>
+				</div>
+
+				<div class="right">
+					<quill-editor
+						ref="myTextEditor"
+						v-model="content"
+						:config="editorOption"
+						@blur="onEditorBlur($event)"
+						@focus="onEditorFocus($event)"
+						@ready="onEditorReady($event)">
+					</quill-editor>
+				</div>
+			</div>
 			<div class="button">
 				<el-button v-show="active != 1" @click="prev">上一步</el-button>
-				<el-button type="primary" @click="next">下一步</el-button>
+				<el-button v-show="active != 3" type="primary" @click="next">下一步</el-button>
+				<template v-if="active == 3">
+					<el-button type="primary">上架</el-button>
+					<el-button>下架</el-button>
+					<el-button>预览</el-button>
+				</template>
 			</div>
 		</el-form>
 	</div>
 </template>
 
 <script>
+	import { quillEditor } from 'vue-quill-editor'
 	import moment from 'moment'
+
 	export default {
+		components: {
+			quillEditor
+		},
 		data () {
 			return {
+				content: '',
+				editorOption: {},
 				input: 80,
-				active: 2
+				active: 3
+			}
+		},
+		computed: {
+			editor () {
+				return this.$refs.myTextEditor.quillEditor
 			}
 		},
 		mounted () {
+			// setTimeout(() => {
+			// 	this.content = '<h1>i am changed!</h1>'
+			// }, 1800)
 		},
 		methods: {
+			onEditorBlur(editor) {
+				// console.log('editor blur!', editor)
+			},
+			onEditorFocus(editor) {
+				// console.log('editor focus!', editor)
+			},
+			onEditorReady(editor) {
+				// console.log('editor ready!', editor)
+			},
 			next () {
 				 this.active++;
 			},
 			prev () {
 				this.active--;
-			}
+			},
 		}
 	}
 </script>
@@ -235,6 +269,21 @@
 						line-height: 100px;
 					}
 				}
+			}
+		}
+		.setp3 {
+			display: flex;
+			.iPhone-view {
+				padding-top: 95px;
+				padding-left: 55px;
+			}
+			.html {
+				// margin-top: 50px;
+				box-sizing: border-box;
+				overflow: auto;
+				width: 233px;
+				background: #fff;
+				height: 380px;
 			}
 		}
 		.button {

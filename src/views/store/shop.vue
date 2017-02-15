@@ -14,7 +14,7 @@
 		<div class="commoon-view">
 			<div class="button">
 				<div class="left">
-					<el-button type="primary">新建商品</el-button>
+					<el-button type="primary" @click="create">新建商品</el-button>
 					<el-button :plain="true" type="danger">删除</el-button>
 					<el-button>下架</el-button>
 				</div>
@@ -99,8 +99,8 @@
 			}
 		},
 		methods: {
-			openCreateDialog () {
-
+			create () {
+				this.$router.push({ name: 'store_shop_create' })
 			}
 		}
 	}
