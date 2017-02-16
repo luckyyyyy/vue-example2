@@ -59,10 +59,18 @@ const routes = [
 			},
 			{
 				name: 'store_order_list',
-				path: 'order/:type?',
+				path: 'order',
 				meta: { requiresAuth: true },
 				component: resolve => {
 					require(['./views/store/order.vue'], resolve)
+				}
+			},
+			{
+				name: 'store_order_detail',
+				path: 'order/detail/:id',
+				meta: { requiresAuth: true, parent: 'store_order_list' },
+				component: resolve => {
+					require(['./views/store/order-detail.vue'], resolve)
 				}
 			},
 			{
@@ -87,6 +95,14 @@ const routes = [
 						meta: { requiresAuth: true },
 						component: resolve => {
 							require(['./views/store/setting-order.vue'], resolve)
+						}
+					},
+					{
+						name: 'store_setting_address',
+						path: 'address',
+						meta: { requiresAuth: true },
+						component: resolve => {
+							require(['./views/store/setting-address.vue'], resolve)
 						}
 					},
 				],
