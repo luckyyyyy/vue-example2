@@ -22,7 +22,6 @@ export default {
 			return this.$store.state.sign_out.lock;
 		},
 		token () {
-			// console.log(this.$store.state)
 			if (this.$route.name) {
 				const requiresAuth = this.$route.meta.requiresAuth;
 				if (!this.$store.state.token) {

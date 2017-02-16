@@ -2,7 +2,7 @@
 * @Author: William Chan
 * @Date:   2016-12-03 19:24:59
 * @Last Modified by:   William Chan
-* @Last Modified time: 2017-01-10 11:49:50
+* @Last Modified time: 2017-02-15 18:20:22
 */
 
 'use strict';
@@ -24,6 +24,7 @@ import * as actions   from './actions'
 import * as mutations from './mutations'
 
 const state = {
+	shop: 0,
 	user: {},
 	token: '',
 	invitation: {},

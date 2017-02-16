@@ -36,7 +36,7 @@
 			</div>
 			<ul class="meun">
 				<li><a>账号设置</a></li>
-				<li><a>切换频道</a></li>
+				<li><a @click="switchShop" href="javascript:;">切换频道</a></li>
 				<li><a @click="logout" href="javascript:;">退出系统</a></li>
 			</ul>
 		</el-popover>
@@ -68,9 +68,22 @@ export default {
 			user: state => state.user
 		})
 	},
+	mounted () {
+
+	},
 	methods: {
 		logout () {
 			this.$store.commit('SIGNIN_FAILURE');
+		},
+		switchShop () {
+			this.$confirm('确定切换频道么?', '提示', {
+				confirmButtonText: '确定',
+				cancelButtonText: '取消',
+				type: 'warning'
+			}).then(() => {
+				this.$store.commit('SET_SHOP', 0);
+			})
+
 		}
 	}
 }

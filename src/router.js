@@ -2,7 +2,7 @@
 * @Author: William Chan
 * @Date:   2016-12-01 17:57:50
 * @Last Modified by:   William Chan
-* @Last Modified time: 2017-02-15 16:05:48
+* @Last Modified time: 2017-02-16 13:52:03
 */
 
 // component(resolve) {
@@ -18,12 +18,7 @@ import store from './store'
 Vue.use(VueRouter);
 
 const isAuth = () => {
-	try {
-		const data = JSON.parse(sessionStorage.getItem('user'));
-		return data.token
-	} catch(e) {
-		return false;
-	}
+	return store.getters.member.token;
 };
 
 const routes = [
@@ -209,6 +204,25 @@ const routes = [
 		],
 	},
 	{
+		path: '/select',
+		meta: { requiresAuth: true, default: 'select_shop' },
+		components: {
+			select: resolve => {
+				require(['./views/select/select.vue'], resolve)
+			},
+		},
+		children: [
+			{
+				name: 'select_shop',
+				path: 'list',
+				meta: { requiresAuth: true, group: 'select' },
+				component: resolve => {
+					require(['./views/select/list.vue'], resolve)
+				}
+			},
+		]
+	},
+	{
 		path: '/login',
 		name: 'login',
 		components: {
@@ -225,7 +239,6 @@ const routes = [
 				require(['./views/user/register.vue'], resolve)
 			}
 		},
-		children: []
 	},
 	{
 		path: '/register/seccuss',
@@ -277,6 +290,19 @@ route.beforeEach((to, from, next) => {
 				return next({ path: to.query.redirect })
 			} else {
 				return next({ name: 'index' })
+			}
+		}
+		if (store.getters.shop > 0) {
+			if (to.meta.group == 'select') {
+				if (to.query.redirect) {
+					return next({ path: to.query.redirect })
+				} else {
+					return next({ name: 'index' })
+				}
+			}
+		} else {
+			if (to.meta.group != 'select') {
+				return next({ name: 'select_shop', query: { redirect: to.fullPath } });
 			}
 		}
 	}
