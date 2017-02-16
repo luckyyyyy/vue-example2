@@ -2,7 +2,7 @@
 * @Author: William Chan
 * @Date:   2016-12-01 17:57:50
 * @Last Modified by:   William Chan
-* @Last Modified time: 2017-02-16 13:52:03
+* @Last Modified time: 2017-02-16 14:21:08
 */
 
 // component(resolve) {
@@ -282,16 +282,9 @@ route.beforeEach((to, from, next) => {
 		if (to.name == '404') {
 			return next({ name: 'login' });
 		} else if (requiresAuth) {
-			 return next({ name: 'login', query: { redirect: to.fullPath } });
+			return next({ name: 'login', query: { redirect: to.fullPath } });
 		}
 	} else {
-		if (!requiresAuth) {
-			if (to.query.redirect) {
-				return next({ path: to.query.redirect })
-			} else {
-				return next({ name: 'index' })
-			}
-		}
 		if (store.getters.shop > 0) {
 			if (to.meta.group == 'select') {
 				if (to.query.redirect) {
@@ -303,6 +296,13 @@ route.beforeEach((to, from, next) => {
 		} else {
 			if (to.meta.group != 'select') {
 				return next({ name: 'select_shop', query: { redirect: to.fullPath } });
+			}
+		}
+		if (!requiresAuth) {
+			if (to.query.redirect) {
+				return next({ path: to.query.redirect })
+			} else {
+				return next({ name: 'index' })
 			}
 		}
 	}

@@ -21,17 +21,20 @@ export default {
 			user: state => state.user
 		}),
 		shop () {
-			if (this.$store.state.shop > 0) {
-				if (this.$route.meta.group == 'select') {
-					if (this.$route.query.redirect) {
-						this.$router.push({ path: this.$route.query.redirect })
-					} else {
-						this.$router.push({ name: 'index' })
+			const requiresAuth = this.$route.meta.requiresAuth;
+			if (requiresAuth) {
+				if (this.$store.state.shop > 0) {
+					if (this.$route.meta.group == 'select') {
+						if (this.$route.query.redirect) {
+							this.$router.push({ path: this.$route.query.redirect })
+						} else {
+							this.$router.push({ name: 'index' })
+						}
 					}
-				}
-			} else {
-				if (this.$route.meta.group != 'select') {
-					this.$router.push({ name: 'select_shop', query: { redirect: this.$route.fullPath } });
+				} else {
+					if (this.$route.meta.group != 'select') {
+						this.$router.push({ name: 'select_shop', query: { redirect: this.$route.fullPath } });
+					}
 				}
 			}
 			return this.$store.state.shop;

@@ -15,6 +15,7 @@
 			</div>
 		</div>
 		<router-view class="box"></router-view>
+		<div class="footer">© rainbowbr.cn</div>
 	</div>
 </template>
 <script>
@@ -74,6 +75,10 @@
 			width: 100%;
 			box-shadow: 0 0 6px 0 rgba(0, 0, 0, 0.04), 0 2px 4px 0 rgba(0, 0, 0, 0.12);
 			border: solid 1px #d3dce6;
+		}
+		.footer {
+			margin: 10px 0;
+			color: #aaa;
 		}
 	}
 </style>

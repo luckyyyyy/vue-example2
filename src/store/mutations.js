@@ -2,7 +2,7 @@
 * @Author: Administrator
 * @Date:   2017-01-06 02:42:21
 * @Last Modified by:   William Chan
-* @Last Modified time: 2017-02-16 13:31:55
+* @Last Modified time: 2017-02-16 15:55:23
 */
 
 'use strict';
@@ -17,6 +17,7 @@ export const SIGNIN_SUCCESS = (state, { data }) => {
 export const SIGNIN_FAILURE = (state, err) => {
 	state.token = '';
 	state.user  = {};
+	state.shop  = 0;
 	sessionStorage.removeItem('user');
 	sessionStorage.removeItem('shop');
 	console.log(err);
