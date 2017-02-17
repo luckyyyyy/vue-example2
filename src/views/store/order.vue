@@ -51,7 +51,7 @@
 							<p>支付宝流水号：<span>12382142412414124213</span></p>
 						</div>
 						<div class="button">
-							<el-button>查看详情</el-button>
+							<el-button @click="scanOrderDetail">查看详情</el-button>
 						</div>
 					</div>
 					<div class="body">
@@ -200,6 +200,9 @@
 			}
 		},
 		methods: {
+			scanOrderDetail() {
+				this.$router.push({name: 'store_order_detail'})
+			}
 		}
 	}
 </script>
