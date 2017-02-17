@@ -56,22 +56,6 @@ export default {
 					font-size: 80px;
 				}
 			}
-			.register-seccuss {
-				text-align: center;
-				.top {
-					width: 480px;
-					&:after {
-						content: "";
-						margin: 50px 0 45px 0;
-						background-image: linear-gradient(to right, #ad6b88, #4095b2);
-						display: block;
-						height: 2px;
-					}
-				}
-				img {
-					width: 170px;
-				}
-			}
 			.form {
 				width: 480px;
 				padding-top: 8px;

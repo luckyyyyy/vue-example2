@@ -68,7 +68,7 @@
 				this.$store.dispatch('SELECT_SHOP', id);
 			},
 			sign_out () {
-				this.$store.dispatch('SIGNOUT_REQUEST');
+				this.$store.dispatch('LOGOUT_REQUEST');
 			}
 		}
 	}

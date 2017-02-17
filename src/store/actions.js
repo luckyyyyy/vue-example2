@@ -2,17 +2,19 @@
 * @Author: Administrator
 * @Date:   2017-01-06 02:29:39
 * @Last Modified by:   William Chan
-* @Last Modified time: 2017-02-17 17:36:44
+* @Last Modified time: 2017-02-17 22:18:41
 */
 
 'use strict';
 
-export const SIGNIN_CHECK = (store) => {
+import { LOGIN } from './types'
+
+export const LOGIN_CHECK = (store) => {
 	const getters = store.getters;
 	if (!getters.member.user){
 		console.log('无法直接登录');
 	} else {
-		store.commit('SIGNIN_SUCCESS', getters.member);
+		store.commit(LOGIN.SUCCESS, getters.member);
 	}
 }
 

@@ -2,7 +2,7 @@
 * @Author: William Chan
 * @Date:   2016-12-03 20:43:22
 * @Last Modified by:   William Chan
-* @Last Modified time: 2017-01-10 11:50:16
+* @Last Modified time: 2017-02-17 22:22:16
 */
 
 'use strict';
@@ -17,10 +17,10 @@ const export_var = (str, ...args) => {
 	return data;
 }
 
-export const SIGNIN           = export_var('SIGNIN', 'CHECK');
-export const SIGNUP           = export_var('SIGNUP');
-export const SIGNOUT          = export_var('SIGNOUT');
-export const SIGNUP_SMSCODE   = export_var('SIGNUP_SMSCODE', 'COUNTDOWN');
+export const LOGIN            = export_var('LOGIN');
+export const REGISTER         = export_var('REGISTER');
+export const LOGOUT           = export_var('LOGOUT');
+export const REGISTER_CAPTCHA = export_var('REGISTER_CAPTCHA', 'COUNTDOWN');
 export const RESETPWD         = export_var('RESETPWD');
-export const RESETPWD_SMSCODE = export_var('RESETPWD_SMSCODE', 'COUNTDOWN');
+export const RESETPWD_CAPTCHA = export_var('RESETPWD_CAPTCHA', 'COUNTDOWN');
 

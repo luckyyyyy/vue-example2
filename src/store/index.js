@@ -2,7 +2,7 @@
 * @Author: William Chan
 * @Date:   2016-12-03 19:24:59
 * @Last Modified by:   William Chan
-* @Last Modified time: 2017-02-17 15:53:17
+* @Last Modified time: 2017-02-17 23:06:04
 */
 
 'use strict';
@@ -10,12 +10,12 @@ import Vue from 'vue'
 import Vuex from 'vuex'
 Vue.use(Vuex)
 
-import sign_in from './modules/user/sign_in'
-import sign_up from './modules/user/sign_up'
-import sign_out from './modules/user/sign_out'
-import resetpwd from './modules/user/resetpwd'
+import login from './modules/user/login'
+import register from './modules/user/register'
+import logout from './modules/user/logout'
+import reset_password from './modules/user/reset_password'
 const modules = {
-	sign_in, sign_up, resetpwd, sign_out
+	login, register, reset_password, logout
 }
 
 // globle and common

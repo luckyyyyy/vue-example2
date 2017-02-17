@@ -19,14 +19,14 @@ export default {
 	},
 	computed: {
 		fullLoading () {
-			return this.$store.state.sign_out.lock;
+			return this.$store.state.logout.lock;
 		},
 		token () {
 			return this.$store.state.token;
 		},
 	},
 	beforeCreate () {
-		this.$store.dispatch('SIGNIN_CHECK');
+		this.$store.dispatch('LOGIN_CHECK');
 	},
 	methods: {
 	}

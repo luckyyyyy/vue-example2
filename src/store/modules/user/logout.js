@@ -2,13 +2,13 @@
 * @Author: Administrator
 * @Date:   2017-01-06 02:33:52
 * @Last Modified by:   William Chan
-* @Last Modified time: 2017-01-10 17:54:43
+* @Last Modified time: 2017-02-17 22:31:00
 */
 
 'use strict';
 
-import { sign_out } from '../../api'
-import { SIGNIN, SIGNOUT } from '../../types'
+import { logout } from '../../api'
+import { LOGIN, LOGOUT } from '../../types'
 
 const state = {
 	lock: false
@@ -17,12 +17,12 @@ const state = {
 const getters = {}
 
 const actions = {
-	[SIGNOUT.REQUEST] ({ commit }, ...args) {
-		commit(SIGNOUT.REQUEST);
+	[LOGOUT.REQUEST] ({ commit }, ...args) {
+		commit(LOGOUT.REQUEST);
 		return new Promise((resolve, reject) => {
 			setTimeout(() => {
-				commit(SIGNOUT.FAILURE);
-				commit(SIGNIN.FAILURE);
+				commit(LOGOUT.SUCCESS);
+				commit(LOGIN.FAILURE);
 				resolve();
 			}, 1000);
 			// reject(error);
@@ -31,13 +31,13 @@ const actions = {
 }
 
 const mutations = {
-	[SIGNOUT.REQUEST] (state) {
+	[LOGOUT.REQUEST] (state) {
 		state.lock = true
 	},
-	[SIGNOUT.SUCCESS] (state, { data }) {
+	[LOGOUT.SUCCESS] (state) {
 		state.lock = false;
 	},
-	[SIGNOUT.FAILURE] (state, err) {
+	[LOGOUT.FAILURE] (state, err) {
 		state.lock = false;
 	},
 }

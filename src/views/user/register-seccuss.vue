@@ -2,10 +2,10 @@
 	<div class="register-seccuss">
 		<div class="top">
 			<h1>注册成功</h1>
-			<p>您的账号正在审核中，审核通过后客服会与您联系。</p>
+			<p @click="to_login">请点击此处登录，或等待3秒页面跳转。</p>
 		</div>
 		<div class="contact">
-			<img :src="qrcode">
+			<img src="../../assets/qrcode.png">
 			<p>彩虹云直播微信公众号</p>
 			<p>客服热线：123456789</p>
 		</div>
@@ -13,15 +13,42 @@
 </template>
 
 <script>
-import qrcode from '../../assets/qrcode.png'
 
 export default {
-	computed: {
+	mounted () {
+		setTimeout(() => {
+			this.to_login();
+		}, 3000);
 	},
-	data () {
-		return {
-			qrcode: this.$store.state.invitation && this.$store.state.invitation.qrcode_url || qrcode
+	methods: {
+		to_login () {
+			this.$router.push({ name: 'login' });
 		}
 	}
 }
 </script>
+
+<style scoped lang="less">
+	.register-seccuss {
+		text-align: center;
+		.top {
+			width: 480px;
+			&:after {
+				content: "";
+				margin: 50px 0 45px 0;
+				background-image: linear-gradient(to right, #ad6b88, #4095b2);
+				display: block;
+				height: 2px;
+			}
+			p {
+				cursor: pointer;
+				&:hover {
+					color: #4095b2;
+				}
+			}
+		}
+		img {
+			width: 170px;
+		}
+	}
+</style>

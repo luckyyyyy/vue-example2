@@ -2,7 +2,7 @@
 * @Author: William Chan
 * @Date:   2016-12-02 11:31:24
 * @Last Modified by:   William Chan
-* @Last Modified time: 2017-02-17 14:46:38
+* @Last Modified time: 2017-02-17 22:38:22
 */
 
 // axios.request(config)
@@ -92,27 +92,25 @@ axios.interceptors.response.use( res => {
 	return Promise.reject(error);
 })
 
-// POST /api/v1/user/captcha 获取验证码
-export const sign_up_smscode = ({ phone }) => {
-	return axios.post(`${HOST}/user/captcha`, { phone }, { interceptors: false })
+// POST /api/v1/user/register/captcha 获取验证码
+export const register_captcha = ({ phone }) => {
+	return axios.post(`${HOST}/user/register/captcha`, { phone }, { interceptors: false })
 }
 // POST /api/v1/user/register 用户使用手机号和短信验证码进行注册
-export const sign_up = ({ phone, password, authCode, nickname, email_address }) => {
-	return axios.post(`${HOST}/user/register`, { phone, password, authCode, nickname, email_address })
+export const register = ({ phone, password, captcha, nickname, email_address }) => {
+	return axios.post(`${HOST}/user/register`, { phone, password, captcha, nickname, email_address })
 }
 // POST /api/v1/user/login 用户登录
-export const sign_in = ({ phone, password }) => {
+export const login = ({ phone, password }) => {
 	return axios.post(`${HOST}/user/login`, { phone, password })
 }
-
-
-// // 4.修改密码短信验证请求 /api/v2/users/password-reset-request POST 必须参数 phone
-export const resetpwd_smscode = ({ phone }) => {
-	return axios.post(`${HOST}/users/password-reset-request`, { phone })
+// POST /api/v1/user/reset_password/captcha
+export const reset_password_captcha = ({ phone }) => {
+	return axios.post(`${HOST}/user/reset_password/captcha`, { phone })
 }
-// // 5.修改密码 /api/v2/users/password-reset POST 必须参数 username, new_password, smscode
-export const resetpwd = ({ username, new_password, smscode }) => {
-	return axios.post(`${HOST}/users/password-reset`, { username, new_password, smscode })
+// POST /api/v1/user/reset_password
+export const reset_password = ({ phone, password, captcha }) => {
+	return axios.post(`${HOST}/user/reset_password`, { phone, password, captcha })
 }
 
 

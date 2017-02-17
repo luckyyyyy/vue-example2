@@ -2,14 +2,14 @@
 * @Author: Administrator
 * @Date:   2017-01-06 02:42:21
 * @Last Modified by:   William Chan
-* @Last Modified time: 2017-02-17 17:53:04
+* @Last Modified time: 2017-02-17 22:17:16
 */
 
 'use strict';
 
 import router from "../router"
 
-export const SIGNIN_SUCCESS = (state, data) => {
+export const LOGIN_SUCCESS = (state, data) => {
 	state.token = data.token;
 	state.user  = data.user;
 	sessionStorage.setItem('user', JSON.stringify({ token: data.token, user: data.user }));
@@ -24,7 +24,7 @@ export const SIGNIN_SUCCESS = (state, data) => {
 	}
 }
 
-export const SIGNIN_FAILURE = (state, err) => {
+export const LOGIN_FAILURE = (state, err) => {
 	state.token = '';
 	state.user  = {};
 	state.shop  = 0;

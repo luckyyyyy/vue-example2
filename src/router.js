@@ -2,7 +2,7 @@
 * @Author: William Chan
 * @Date:   2016-12-01 17:57:50
 * @Last Modified by:   William Chan
-* @Last Modified time: 2017-02-17 18:04:47
+* @Last Modified time: 2017-02-17 21:49:17
 */
 
 // component(resolve) {
@@ -336,7 +336,7 @@ const routes = [
 		name: 'resetpwd',
 		components: {
 			first: resolve => {
-				require(['./views/user/resetpwd.vue'], resolve)
+				require(['./views/user/reset_password.vue'], resolve)
 			}
 		}
 	},

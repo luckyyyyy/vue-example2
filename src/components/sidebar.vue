@@ -80,7 +80,7 @@ export default {
 	},
 	methods: {
 		logout () {
-			this.$store.commit('SIGNIN_FAILURE');
+			this.$store.dispatch('LOGOUT_REQUEST');
 		},
 		switchShop () {
 			this.$confirm('确定切换频道么?', '提示', {
@@ -90,7 +90,6 @@ export default {
 			}).then(() => {
 				this.$store.dispatch('SELECT_SHOP', 0);
 			})
-
 		}
 	}
 }
