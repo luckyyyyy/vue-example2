@@ -2,7 +2,7 @@
 * @Author: William Chan
 * @Date:   2016-12-01 17:57:50
 * @Last Modified by:   William Chan
-* @Last Modified time: 2017-02-17 17:56:40
+* @Last Modified time: 2017-02-17 18:04:47
 */
 
 // component(resolve) {
@@ -125,7 +125,7 @@ const routes = [
 			},
 			main: resolve => {
 				require(['./views/live/main.vue'], resolve)
-			},
+			}
 		},
 		children: [
 			{
@@ -229,7 +229,45 @@ const routes = [
 		],
 	},
 	{
-		path: '/page',
+		path: '/account',
+		meta: { requiresAuth: true },
+		components: {
+			sidebar: resolve => {
+				require(['./components/sidebar.vue'], resolve)
+			},
+			main: resolve => {
+				require(['./views/live/main.vue'], resolve)
+			},
+		},
+		children: [
+			{
+				name: 'account_overview',
+				path: 'overview',
+				meta: { requiresAuth: true },
+				component: resolve => {
+					require(['./views/account/overview.vue'], resolve)
+				}
+			},
+			{
+				name: 'account_upgrade',
+				path: 'uphrade',
+				meta: { requiresAuth: true },
+				component: resolve => {
+					require(['./views/account/upgrade.vue'], resolve)
+				}
+			},
+			{
+				name: 'account_flow',
+				path: 'flow',
+				meta: { requiresAuth: true },
+				component: resolve => {
+					require(['./views/account/flow.vue'], resolve)
+				},
+			},
+		],
+	},
+	{
+		path: '/select',
 		meta: { requiresAuth: true, default: 'select_shop' },
 		components: {
 			select: resolve => {
