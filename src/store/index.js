@@ -2,7 +2,7 @@
 * @Author: William Chan
 * @Date:   2016-12-03 19:24:59
 * @Last Modified by:   William Chan
-* @Last Modified time: 2017-02-15 18:20:22
+* @Last Modified time: 2017-02-17 15:53:17
 */
 
 'use strict';
@@ -26,8 +26,7 @@ import * as mutations from './mutations'
 const state = {
 	shop: 0,
 	user: {},
-	token: '',
-	invitation: {},
+	token: null,
 }
 
 export default new Vuex.Store({

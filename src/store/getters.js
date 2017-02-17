@@ -2,7 +2,7 @@
 * @Author: Administrator
 * @Date:   2017-01-06 02:28:10
 * @Last Modified by:   William Chan
-* @Last Modified time: 2017-02-16 13:31:42
+* @Last Modified time: 2017-02-17 15:57:38
 */
 
 'use strict';
@@ -16,9 +16,9 @@ export const member = state => {
 	if (state.user.length > 0 && state.token) {
 		return { user: state.user, token: state.token };
 	} else {
-		const user = sessionStorage.getItem('user');
-		if (user) {
-			return JSON.parse(user);
+		const data = sessionStorage.getItem('user');
+		if (data) {
+			return JSON.parse(data);
 		} else {
 			return {}
 		}

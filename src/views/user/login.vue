@@ -2,8 +2,8 @@
 	<div class="form">
 		<div class="title">登录</div>
 		<el-form :rules="rules" ref="sign_in" label-position="top" :model="sign_in" v-loading.body="lock" element-loading-text="拼命加载中">
-			<el-form-item label="账号登录" prop="username">
-				<el-input v-model="sign_in.username" placeholder="请输手机号码"></el-input>
+			<el-form-item label="账号登录" prop="phone">
+				<el-input v-model="sign_in.phone" placeholder="请输手机号码"></el-input>
 			</el-form-item>
 			<el-form-item label="登录密码" prop="password">
 				<el-input type="password" v-model="sign_in.password" placeholder="请输入您的账户密码"></el-input>
@@ -26,7 +26,7 @@ export default {
 		return {
 			sign_in: {},
 			rules: {
-				username: [
+				phone: [
 					{ required: true, max: 20, message: '请填写正确的用户名' }
 				],
 				password: [
@@ -45,11 +45,6 @@ export default {
 			this.$refs.sign_in.validate((valid) => {
 				if (valid) {
 					this.$store.dispatch('SIGNIN_REQUEST', this.sign_in).then( res => {
-						if (res.data.data.user.verified == 0) {
-							this.$alert('登录成功，但您没有通过审核，请您耐心等待。', '提示', {
-								type: 'warning'
-							})
-						}
 						this.$store.commit('SIGNIN_SUCCESS', res.data);
 					}).catch( err => {
 						this.$store.commit('SIGNIN_FAILURE', err);

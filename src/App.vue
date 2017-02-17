@@ -22,22 +22,6 @@ export default {
 			return this.$store.state.sign_out.lock;
 		},
 		token () {
-			if (this.$route.name) {
-				const requiresAuth = this.$route.meta.requiresAuth;
-				if (!this.$store.state.token) {
-					if (requiresAuth) {
-						this.$router.push({ name: 'login', query: { redirect: this.$route.fullPath } })
-					}
-				} else {
-					if (!requiresAuth) {
-						if (this.$route.query.redirect) {
-							this.$router.push({ path: this.$route.query.redirect })
-						} else {
-							this.$router.push({ name: 'index' })
-						}
-					}
-				}
-			}
 			return this.$store.state.token;
 		},
 	},

@@ -5,9 +5,6 @@ import 'normalize.css'
 import 'element-ui/lib/theme-default/index.css'
 import './assets/common.less'
 
-import _L from './store/api/api_zhcn'
-window._L = _L
-
 import App from './App.vue'
 import router from "./router"
 import store from './store'

@@ -2,7 +2,7 @@
 * @Author: William Chan
 * @Date:   2016-12-02 11:31:24
 * @Last Modified by:   William Chan
-* @Last Modified time: 2017-01-07 07:28:20
+* @Last Modified time: 2017-02-17 14:46:38
 */
 
 // axios.request(config)
@@ -20,7 +20,7 @@ import store from '../'
 import { MessageBox } from 'element-ui'
 import axios from 'axios'
 
-const HOST = 'http://api.rainbowbr.cn/api/v2';
+const HOST = 'http://api.rainbowlive.shop/api/v1';
 
 
 window.onerror = (msg, url, lineNo, columnNo, error) => {
@@ -63,10 +63,9 @@ axios.interceptors.request.use( req => {
 })
 
 axios.interceptors.response.use( res => {
-	if (res.data.code !== 0) {
+	if (res.data.retCode !== 0) {
 		if (res.config.interceptors === true) {
-			const err = _L[res.data.code] || res.data.error;
-			MessageBox.alert(`ERROR（${res.data.code}）${err}`, '错误', {
+			MessageBox.alert(res.data.retMsg, `错误 (${res.data.retCode})`, {
 				type: 'error'
 			})
 		}
@@ -74,29 +73,39 @@ axios.interceptors.response.use( res => {
 	}
 	return res
 }, error => {
-	if (error.response.status === 401) {
-		store.commit('LOGIN_FAILURE');
-		console.log('LOGIN_FAILURE');
+	if (!error.response) {
+		MessageBox.alert(`${error.stack}`, error.message, {
+			type: 'error'
+		})
+	} else {
+		if (error.response.status === 401) {
+			store.commit('LOGIN_FAILURE');
+			console.log('LOGIN_FAILURE');
+		}
+		// console.dir(error)
+		// TODO 500 必定显示 or 拦截器配置
+		MessageBox.alert(`${error.response.status} ${error.response.data.retMsg}`, '操作失败', {
+			type: 'error'
+		})
 	}
-	// TODO 500 必定显示 or 拦截器配置
-	MessageBox.alert(`${error.response.status} ${error.response.statusText}`, '操作失败', {
-		type: 'error'
-	})
+
 	return Promise.reject(error);
 })
 
-// 1.请求验证码 /api/v2/users/smscode-request POST 必须参数 phone
+// POST /api/v1/user/captcha 获取验证码
 export const sign_up_smscode = ({ phone }) => {
-	return axios.post(`${HOST}/users/smscode-request`, { phone }, { interceptors: false })
+	return axios.post(`${HOST}/user/captcha`, { phone }, { interceptors: false })
 }
-// // 2.注册 /api/v2/users/signup POST 必须参数 username, password, smscode  可选参数 nickname, email_address
-export const sign_up = ({ username, password, smscode, nickname, email_address }) => {
-	return axios.post(`${HOST}/users/signup`, { username, password, smscode, nickname, email_address })
+// POST /api/v1/user/register 用户使用手机号和短信验证码进行注册
+export const sign_up = ({ phone, password, authCode, nickname, email_address }) => {
+	return axios.post(`${HOST}/user/register`, { phone, password, authCode, nickname, email_address })
 }
-// // 3.登录 /api/v2/users/login POST 必须参数 username, password
-export const sign_in = ({ username, password }) => {
-	return axios.post(`${HOST}/users/signin`, { username, password })
+// POST /api/v1/user/login 用户登录
+export const sign_in = ({ phone, password }) => {
+	return axios.post(`${HOST}/user/login`, { phone, password })
 }
+
+
 // // 4.修改密码短信验证请求 /api/v2/users/password-reset-request POST 必须参数 phone
 export const resetpwd_smscode = ({ phone }) => {
 	return axios.post(`${HOST}/users/password-reset-request`, { phone })

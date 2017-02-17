@@ -31,8 +31,8 @@
 
 		<el-popover ref="popover" placement="top-end" width="149" trigger="click" popper-class="account-popper">
 			<div class="account">
-				<p>admin</p>
-				<p>123232444</p>
+				<p v-show="user.nickName">{{ user.nickName }}</p>
+				<p>{{ user.phone }}</p>
 			</div>
 			<ul class="meun">
 				<li><a>账号设置</a></li>
@@ -41,7 +41,7 @@
 			</ul>
 		</el-popover>
 		<footer>
-			<span v-popover:popover>{{ user.username }}</span>
+			<span v-popover:popover>{{ user.nickName || user.phone }}</span>
 		</footer>
 	</div>
 </template>
@@ -81,7 +81,7 @@ export default {
 				cancelButtonText: '取消',
 				type: 'warning'
 			}).then(() => {
-				this.$store.commit('SET_SHOP', 0);
+				this.$store.dispatch('SELECT_SHOP', 0);
 			})
 
 		}

@@ -2,7 +2,7 @@
 * @Author: William Chan
 * @Date:   2016-12-01 17:57:50
 * @Last Modified by:   William Chan
-* @Last Modified time: 2017-02-16 14:21:08
+* @Last Modified time: 2017-02-17 17:56:40
 */
 
 // component(resolve) {
@@ -27,6 +27,9 @@ const routes = [
 		name: 'index',
 		meta: { requiresAuth: true },
 		components: {
+			sidebar: resolve => {
+				require(['./components/sidebar.vue'], resolve)
+			},
 			main: resolve => {
 				require(['./views/index.vue'], resolve)
 			},
@@ -36,6 +39,9 @@ const routes = [
 		path: '/store',
 		meta: { requiresAuth: true },
 		components: {
+			sidebar: resolve => {
+				require(['./components/sidebar.vue'], resolve)
+			},
 			main: resolve => {
 				require(['./views/store/main.vue'], resolve)
 			},
@@ -114,6 +120,9 @@ const routes = [
 		path: '/live',
 		meta: { requiresAuth: true },
 		components: {
+			sidebar: resolve => {
+				require(['./components/sidebar.vue'], resolve)
+			},
 			main: resolve => {
 				require(['./views/live/main.vue'], resolve)
 			},
@@ -220,11 +229,11 @@ const routes = [
 		],
 	},
 	{
-		path: '/select',
+		path: '/page',
 		meta: { requiresAuth: true, default: 'select_shop' },
 		components: {
 			select: resolve => {
-				require(['./views/select/select.vue'], resolve)
+				require(['./views/page/page.vue'], resolve)
 			},
 		},
 		children: [
@@ -233,7 +242,26 @@ const routes = [
 				path: 'list',
 				meta: { requiresAuth: true, group: 'select' },
 				component: resolve => {
-					require(['./views/select/list.vue'], resolve)
+					require(['./views/page/list.vue'], resolve)
+				}
+			},
+		]
+	},
+	{
+		path: '/user',
+		meta: { requiresAuth: true, default: 'profile' },
+		components: {
+			user: resolve => {
+				require(['./views/page/page.vue'], resolve)
+			},
+		},
+		children: [
+			{
+				path: 'profile',
+				name: 'profile',
+				meta: { requiresAuth: true, group: 'global' },
+				component: resolve => {
+					require(['./views/page/profile.vue'], resolve)
 				}
 			},
 		]
@@ -302,7 +330,7 @@ route.beforeEach((to, from, next) => {
 		}
 	} else {
 		if (store.getters.shop > 0) {
-			if (to.meta.group == 'select') {
+			if (to.meta.group == 'select' && to.meta.group != 'global') {
 				if (to.query.redirect) {
 					return next({ path: to.query.redirect })
 				} else {
@@ -310,7 +338,7 @@ route.beforeEach((to, from, next) => {
 				}
 			}
 		} else {
-			if (to.meta.group != 'select') {
+			if (to.meta.group != 'select' && to.meta.group != 'global') {
 				return next({ name: 'select_shop', query: { redirect: to.fullPath } });
 			}
 		}
