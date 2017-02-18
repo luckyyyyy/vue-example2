@@ -43,13 +43,13 @@
 		data () {
 			return {
 				user: {},
-				lock: false,
 				upload: USER_AVATAR
 			}
 		},
 		computed: {
 			...mapState({
-				info: state => state.user
+				info: state => state.user,
+				lock: state => state.update_user.lock
 			})
 		},
 		mounted () {

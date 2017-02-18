@@ -2,17 +2,21 @@
 * @Author: Administrator
 * @Date:   2017-01-06 02:42:21
 * @Last Modified by:   William Chan
-* @Last Modified time: 2017-02-17 22:17:16
+* @Last Modified time: 2017-02-18 19:09:46
 */
 
 'use strict';
 
 import router from "../router"
 
+const setSession = ({token, user}) => {
+	sessionStorage.setItem('user', JSON.stringify({ token, user }));
+}
+
 export const LOGIN_SUCCESS = (state, data) => {
 	state.token = data.token;
 	state.user  = data.user;
-	sessionStorage.setItem('user', JSON.stringify({ token: data.token, user: data.user }));
+	setSession(data);
 	const route = state.route;
 	const requiresAuth = route.meta.requiresAuth;
 	if (!requiresAuth && route.name) {
@@ -36,6 +40,11 @@ export const LOGIN_FAILURE = (state, err) => {
 		router.push({ name: 'login', query: { redirect: route.fullPath } })
 	}
 	console.log(err);
+}
+
+export const UPDATE_USER_SUCCESS = (state, data) => {
+	state.user = data.user;
+	setSession(state);
 }
 
 export const SET_SHOP = (state, id) => {

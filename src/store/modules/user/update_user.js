@@ -2,7 +2,7 @@
 * @Author: Administrator
 * @Date:   2017-01-06 02:33:52
 * @Last Modified by:   William Chan
-* @Last Modified time: 2017-02-18 12:11:27
+* @Last Modified time: 2017-02-18 19:05:57
 */
 
 'use strict';
@@ -21,7 +21,6 @@ const actions = {
 		commit(UPDATE_USER.REQUEST);
 		update_user(...args).then(res => {
 			commit(UPDATE_USER.SUCCESS, res.data);
-			console.log(res);
 			Message.success({
 				message: '修改成功'
 			})

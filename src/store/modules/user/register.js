@@ -2,7 +2,7 @@
 * @Author: Administrator
 * @Date:   2017-01-06 02:33:57
 * @Last Modified by:   William Chan
-* @Last Modified time: 2017-02-17 23:47:33
+* @Last Modified time: 2017-02-18 16:41:31
 */
 
 'use strict';
@@ -11,8 +11,7 @@ import { register_captcha, register } from '../../api'
 import { REGISTER_CAPTCHA, REGISTER } from '../../types'
 import { MessageBox } from 'element-ui';
 import router from '../../../router'
-
-const PHONE_CAPTCHA_EXPIRED = 60;
+import { PHONE_CAPTCHA_EXPIRED } from '../../../options'
 
 const state = {
 	lock: false,
@@ -45,20 +44,22 @@ const actions = {
 			}, 1000)
 			store.commit(REGISTER_CAPTCHA.SUCCESS, interval);
 		}).catch(err => {
-			if (err.data.retCode == -197) {
-				MessageBox.confirm('该用户已注册，是否立即登录？', '提示', {
-					confirmButtonText: '登录',
-					cancelButtonText: '取消',
-					type: 'warning'
-				}).then(() => {
-					router.push({ name: 'login' })
-				}).catch(() => {
-					console.log('cancel')
-				})
-			} else {
-				MessageBox.alert(err.data.retMsg, '错误', {
-					type: 'error'
-				})
+			if (err.data) {
+				if (err.data.retCode == -197) {
+					MessageBox.confirm('该用户已注册，是否立即登录？', '提示', {
+						confirmButtonText: '登录',
+						cancelButtonText: '取消',
+						type: 'warning'
+					}).then(() => {
+						router.push({ name: 'login' })
+					}).catch(() => {
+						console.log('cancel')
+					})
+				} else {
+					MessageBox.alert(err.data.retMsg, '错误', {
+						type: 'error'
+					})
+				}
 			}
 			store.commit(REGISTER_CAPTCHA.FAILURE, err);
 		})

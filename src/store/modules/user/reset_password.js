@@ -2,7 +2,7 @@
 * @Author: Administrator
 * @Date:   2017-01-06 02:34:03
 * @Last Modified by:   William Chan
-* @Last Modified time: 2017-02-17 22:33:17
+* @Last Modified time: 2017-02-18 16:28:00
 */
 
 'use strict';
@@ -11,8 +11,7 @@ import { reset_password_captcha, reset_password } from '../../api'
 import { RESETPWD_CAPTCHA, RESETPWD } from '../../types'
 import { MessageBox } from 'element-ui';
 import router from '../../../router'
-
-const PHONE_CAPTCHA_EXPIRED = 60;
+import { PHONE_CAPTCHA_EXPIRED } from '../../../options'
 
 const state = {
 	lock: false,
