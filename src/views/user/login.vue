@@ -1,7 +1,7 @@
 <template>
 	<div class="form">
 		<div class="title">登录</div>
-		<el-form @submit.native.prevent :rules="rules" ref="login" label-position="top" :model="login" v-loading.body="lock" element-loading-text="拼命加载中">
+		<el-form @submit.native.prevent :rules="rules" ref="login" label-position="top" :model="login">
 			<el-form-item label="账号登录" prop="phone">
 				<el-input v-model="login.phone" placeholder="请输手机号码"></el-input>
 			</el-form-item>
@@ -13,7 +13,7 @@
 				<router-link class="register" :to="{ name: 'register' }">立即注册?</router-link>
 			</div>
 			<div class="bottom-center">
-				<el-button native-type="submit" type="primary" @click="submit_login">登录</el-button>
+				<el-button :loading="lock" native-type="submit" type="primary" @click="submit_login">登录</el-button>
 			</div>
 		</el-form>
 	</div>

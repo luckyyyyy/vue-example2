@@ -1,7 +1,7 @@
 <template>
 	<div class="form">
 		<div class="title">找回密码</div>
-		<el-form @submit.native.prevent :rules="rules" ref="reset_password" label-width="100px" :model="reset_password" v-loading.body="lock" element-loading-text="拼命加载中">
+		<el-form @submit.native.prevent :rules="rules" ref="reset_password" label-width="100px" :model="reset_password">
 			<el-form-item label="手机号码" prop="phone">
 				<el-input v-model="reset_password.phone" placeholder="请输入手机号"></el-input>
 			</el-form-item>
@@ -13,7 +13,7 @@
 				<el-input v-model="reset_password.password" type="password" placeholder="请输入密码"></el-input>
 			</el-form-item>
 			<div class="bottom-center">
-				<el-button native-type="submit" type="primary" @click="submit_reset_password">确认修改</el-button>
+				<el-button :loading="lock" native-type="submit" type="primary" @click="submit_reset_password">确认修改</el-button>
 				<el-button type="text" @click="to_login">登录</el-button>
 			</div>
 		</el-form>

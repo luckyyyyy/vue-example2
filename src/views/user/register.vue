@@ -1,7 +1,7 @@
 <template>
 	<div class="form">
 		<div class="title">注册</div>
-		<el-form @submit.native.prevent :rules="rules" ref="register" label-width="100px" :model="register" v-loading.body="lock" element-loading-text="拼命加载中">
+		<el-form @submit.native.prevent :rules="rules" ref="register" label-width="100px" :model="register">
 			<el-form-item label="手机号码" prop="phone">
 				<el-input v-model="register.phone" placeholder="请输手机号码"></el-input>
 			</el-form-item>
@@ -20,7 +20,7 @@
 			</el-form-item>
 
 			<div class="bottom-center">
-				<el-button native-type="submit" type="primary" @click="submit_register">注册</el-button>
+				<el-button :loading="lock" native-type="submit" type="primary" @click="submit_register">注册</el-button>
 			</div>
 			<div class="bottom-center">
 				<router-link class="login" :to="{ name: 'login' }">登录</router-link>

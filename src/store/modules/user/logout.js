@@ -2,7 +2,7 @@
 * @Author: Administrator
 * @Date:   2017-01-06 02:33:52
 * @Last Modified by:   William Chan
-* @Last Modified time: 2017-02-18 12:38:18
+* @Last Modified time: 2017-02-18 14:19:05
 */
 
 'use strict';
@@ -11,7 +11,6 @@ import { logout } from '../../api'
 import { LOGIN, LOGOUT } from '../../types'
 
 import { MessageBox } from 'element-ui'
-
 const state = {
 	lock: false
 }
@@ -19,7 +18,7 @@ const state = {
 const getters = {}
 
 const actions = {
-	[LOGOUT.REQUEST] ({ commit }, ...args) {
+	[LOGOUT.REQUEST] ({ commit, dispatch }, ...args) {
 		MessageBox.confirm('确定退出系统?', '提示', {
 			confirmButtonText: '确定',
 			cancelButtonText: '取消',
@@ -40,7 +39,7 @@ const actions = {
 
 const mutations = {
 	[LOGOUT.REQUEST] (state) {
-		state.lock = true
+		state.lock = true;
 	},
 	[LOGOUT.SUCCESS] (state) {
 		state.lock = false;

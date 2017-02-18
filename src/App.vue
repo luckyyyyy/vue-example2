@@ -1,18 +1,20 @@
 <template>
-	<div v-if="token" class="main" v-loading="fullLoading" element-loading-text="拼命加载中">
-		<router-view name="sidebar"></router-view>
-		<router-view name="main" class="router-view"></router-view>
-		<router-view name="select"></router-view>
-		<router-view name="user"></router-view>
-	</div>
-	<div v-else class="sign_in">
-		<div class="box">
-			<div class="logo">
-				<a href=""><img src="./assets/logo.png"></a>
-			</div>
-			<router-view name="first"></router-view>
-			<div class="footer">
-				2016 © rainbowbr.cn - 浙ICP备16022511号
+	<div class="wrap" v-loading.fullscreen.lock="lock" element-loading-text="拼命加载中">
+		<div v-if="token" class="main">
+			<router-view name="sidebar"></router-view>
+			<router-view name="main" class="router-view"></router-view>
+			<router-view name="select"></router-view>
+			<router-view name="user"></router-view>
+		</div>
+		<div v-else class="home">
+			<div class="box">
+				<div class="logo">
+					<img src="./assets/logo.png">
+				</div>
+				<router-view name="first"></router-view>
+				<div class="footer">
+					2016 © rainbowbr.cn - 浙ICP备16022511号
+				</div>
 			</div>
 		</div>
 	</div>
@@ -21,7 +23,12 @@
 
 export default {
 	computed: {
-		fullLoading () {
+		lock () {
+			if (this.$store.state.logout.lock) {
+				// this.$loading({ fullscreen: true })
+			} else {
+
+			}
 			return this.$store.state.logout.lock;
 		},
 		token () {
@@ -53,7 +60,7 @@ export default {
 		}
 	}
 	@color-red: #C1272D;
-	.sign_in {
+	.home {
 		position: absolute;
 		background-image: linear-gradient(90deg, #e85471, #00aecb);
 		top: 0;

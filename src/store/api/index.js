@@ -2,7 +2,7 @@
 * @Author: William Chan
 * @Date:   2016-12-02 11:31:24
 * @Last Modified by:   William Chan
-* @Last Modified time: 2017-02-18 12:06:22
+* @Last Modified time: 2017-02-18 13:43:24
 */
 
 // axios.request(config)
@@ -73,6 +73,7 @@ axios.interceptors.response.use(res => {
 	return res
 }, error => {
 	if (!error.response) {
+		// console.dir(error)
 		MessageBox.alert(`${error.stack}`, error.message, {
 			type: 'error'
 		})

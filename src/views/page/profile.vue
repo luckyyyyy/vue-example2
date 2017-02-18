@@ -2,7 +2,7 @@
 	<div>
 		<div class="body">
 		<!-- :rules="rules" -->
-			<el-form @submit.native.prevent label-width="100px" ref="user" :model="user" v-loading.body="lock">
+			<el-form @submit.native.prevent label-width="100px" ref="user" :model="user">
 				<el-form-item label="账号：">
 					<span>{{ info.phone }} <router-link :to="{ name: 'profile' }">修改密码</router-link></span>
 				</el-form-item>
@@ -28,7 +28,7 @@
 					<el-input type="textarea" v-model="user.description"></el-input>
 				</el-form-item>
 				<el-form-item>
-					<el-button native-type="submit" type="primary" @click="submit">确认修改</el-button>
+					<el-button :loading="lock" native-type="submit" type="primary" @click="submit">确认修改</el-button>
 					<el-button @click="toIndex">返回控制台</el-button>
 				</el-form-item>
 			</el-form>

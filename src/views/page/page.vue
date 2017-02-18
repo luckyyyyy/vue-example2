@@ -1,5 +1,5 @@
 <template>
-	<div class="select-page">
+	<div class="page">
 		<div class="title">
 			<div class="left">
 				<img src="../../assets/logo2.png" height="28" width="39" alt="彩虹云直播">
@@ -38,7 +38,7 @@
 </script>
 
 <style lang="less" scoped>
-	.select-page {
+	.page {
 		margin: 0 auto;
 		display: flex;
 		flex-direction: column;
