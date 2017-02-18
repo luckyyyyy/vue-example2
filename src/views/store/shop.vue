@@ -28,15 +28,15 @@
 					<template scope="scope">{{ scope.row.date }}</template>
 				</el-table-column>
 				<el-table-column label="价格" width="120">
-					<template scope="scope">￥123.00</template>
+					<template scope="scope">￥12323.00</template>
 				</el-table-column>
-				<el-table-column label="访问量" width="120">
+				<el-table-column label="访问量" width="80">
 					<template scope="scope"><p>PV：<span>3</span></p><p>UV：<span>4</span></p></template>
 				</el-table-column>
-				<el-table-column label="库存" width="120">
+				<el-table-column label="库存" width="80">
 					<template scope="scope">33333</template>
 				</el-table-column>
-				<el-table-column label="总销量" width="120">
+				<el-table-column label="总销量" width="80">
 					<template scope="scope">33333</template>
 				</el-table-column>
 				<el-table-column label="创建时间" width="180">
@@ -45,7 +45,7 @@
 				<el-table-column label="序号" width="70">
 					<template scope="scope">01</template>
 				</el-table-column>
-				<el-table-column label="操作" width="240">
+				<el-table-column label="操作" width="150">
 					<template scope="scope">
 						<el-button type="text">编辑</el-button>
 						<el-button type="text">复制</el-button>
