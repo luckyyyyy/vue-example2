@@ -2,7 +2,7 @@
 * @Author: William Chan
 * @Date:   2016-12-01 17:57:50
 * @Last Modified by:   William Chan
-* @Last Modified time: 2017-02-17 21:49:17
+* @Last Modified time: 2017-02-18 12:25:37
 */
 
 // component(resolve) {
@@ -278,7 +278,7 @@ const routes = [
 			{
 				name: 'select_shop',
 				path: 'list',
-				meta: { requiresAuth: true, group: 'select' },
+				meta: { requiresAuth: true, group: 'select', name: "选择频道" },
 				component: resolve => {
 					require(['./views/page/list.vue'], resolve)
 				}
@@ -287,7 +287,7 @@ const routes = [
 	},
 	{
 		path: '/user',
-		meta: { requiresAuth: true, default: 'profile' },
+		meta: { requiresAuth: true, default: 'profile', group: 'global' },
 		components: {
 			user: resolve => {
 				require(['./views/page/page.vue'], resolve)
@@ -297,7 +297,7 @@ const routes = [
 			{
 				path: 'profile',
 				name: 'profile',
-				meta: { requiresAuth: true, group: 'global' },
+				meta: { requiresAuth: true, group: 'global', name: "个人中心" },
 				component: resolve => {
 					require(['./views/page/profile.vue'], resolve)
 				}
@@ -324,7 +324,7 @@ const routes = [
 	},
 	{
 		path: '/register/seccuss',
-		name: 'register/seccuss',
+		name: 'register_seccuss',
 		components: {
 			first: resolve => {
 				require(['./views/user/register-seccuss.vue'], resolve)

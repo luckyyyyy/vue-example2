@@ -12,11 +12,11 @@
 			<el-form-item label="设置密码" prop="password">
 				<el-input type="password" v-model="register.password" placeholder="密码"></el-input>
 			</el-form-item>
-			<el-form-item label="邮箱" prop="email_address">
-				<el-input v-model="register.email_address" placeholder="邮箱"></el-input>
+			<el-form-item label="邮箱" prop="email">
+				<el-input v-model="register.email" placeholder="邮箱"></el-input>
 			</el-form-item>
-			<el-form-item label="个人昵称" prop="nickname">
-				<el-input v-model="register.nickname" placeholder="输入个人昵称"></el-input>
+			<el-form-item label="个人昵称" prop="nickName">
+				<el-input v-model="register.nickName" placeholder="输入个人昵称"></el-input>
 			</el-form-item>
 
 			<div class="bottom-center">
@@ -44,7 +44,7 @@ export default {
 				password: [
 					{ required: true, min: 6, max: 16, message: '请输入6-16位密码' }
 				],
-				email_address: [
+				email: [
 					{ type: 'email', message: '请输入正确的邮箱' }
 				]
 			}

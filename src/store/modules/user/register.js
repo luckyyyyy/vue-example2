@@ -2,7 +2,7 @@
 * @Author: Administrator
 * @Date:   2017-01-06 02:33:57
 * @Last Modified by:   William Chan
-* @Last Modified time: 2017-02-17 22:32:24
+* @Last Modified time: 2017-02-17 23:47:33
 */
 
 'use strict';
@@ -27,7 +27,7 @@ const actions = {
 		commit(REGISTER.REQUEST);
 		register(...args).then(res => {
 			commit(REGISTER.SUCCESS, res);
-			router.push({ name: 'register/seccuss' })
+			router.push({ name: 'register_seccuss' })
 		}).catch(err => {
 			commit(REGISTER.FAILURE, err);
 		})

@@ -4,12 +4,12 @@
 			<div class="left">
 				<img src="../../assets/logo2.png" height="28" width="39" alt="彩虹云直播">
 				<h1>彩虹云直播</h1>
-				<h2>创建频道</h2>
+				<h2>{{ name }}</h2>
 			</div>
 			<div class="right">
 				<span class="text">账号：{{ user.nickname || user.phone }}</span>
 				<div class="button">
-					<router-link :to="{ name: 'login' }">设置</router-link>
+					<router-link :to="{ name: 'profile' }">设置</router-link>
 					<a href="javascript:;" @click="sign_out">退出</a>
 				</div>
 			</div>
@@ -24,7 +24,10 @@
 		computed: {
 			...mapState({
 				user: state => state.user
-			})
+			}),
+			name () {
+				return this.$route.meta.name;
+			}
 		},
 		methods: {
 			sign_out () {

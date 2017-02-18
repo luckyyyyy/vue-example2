@@ -419,9 +419,12 @@
 		}
 	// }
 	.dialog {
-		.el-input {
-			width: 420px;
-			display: inline-block;
+		.title {
+			display: flex;
+			align-items: center;
+			span {
+				width: 100px
+			}
 		}
 		.title, .help {
 			margin: 20px;

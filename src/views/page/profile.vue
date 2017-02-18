@@ -1,173 +1,91 @@
 <template>
 	<div>
-		<div class="head">
-			<div class="left">
-				<img v-if="user.avatar" class="avatar" src="">
-				<i v-else class="iconfont icon-morentouxiang"></i>
-				<div class="info">
-					<span class="name">{{ user.nickname }}</span>
-					<div class="account">
-						<span class="text">账号：{{ user.phone }}</span>
-						<div class="button">
-							<!-- <router-link :to="{ name: 'login' }">设置</router-link> -->
-							<a href="javascript:;" @click="sign_out">退出</a>
-						</div>
-					</div>
-				</div>
-			</div>
-			<div class="create" v-if="list">
-				<router-link :to="{ name: 'login' }">创建新频道</router-link>
-			</div>
-		</div>
 		<div class="body">
-			<ul class="list" v-if="list">
-				<li v-for="item in list" @click="select(item.id)">
-					<div class="logo"></div>
-					<div class="info">
-						<div class="name">{{ item.name }}</div>
-						<div class="wechat">公众号：{{ item.alias }}</div>
-					</div>
-					<div class="button">
-						<a href="">修改</a>
-						<a href="">删除</a>
-					</div>
-				</li>
-			</ul>
-			<div class="empty" v-else>
-				<p>您还没有自己的频道</p>
-				<el-button type="primary">创建频道</el-button>
-			</div>
+		<!-- :rules="rules" -->
+			<el-form @submit.native.prevent label-width="100px" ref="user" :model="user" v-loading.body="lock">
+				<el-form-item label="账号：">
+					<span>{{ info.phone }} <router-link :to="{ name: 'profile' }">修改密码</router-link></span>
+				</el-form-item>
+				<el-form-item label="昵称：">
+					<el-input placeholder="请输入昵称" v-model="user.nickName"></el-input>
+				</el-form-item>
+				<el-form-item label="邮箱：">
+					<el-input placeholder="请输入邮箱" v-model="user.email"></el-input>
+				</el-form-item>
+				<el-form-item label="性别：">
+					<el-radio-group v-model="user.sex">
+						<el-radio :label="1">男</el-radio>
+						<el-radio :label="2">女</el-radio>
+						<el-radio :label="0">保密</el-radio>
+					</el-radio-group>
+				</el-form-item>
+				<el-form-item label="头像：">
+					<el-upload class="avatar" :show-upload-list="false" :action="upload.action" :headers="upload.headers" :name="upload.name">
+						<img src="../../assets/qrcode.png" height="50" width="50" alt="">
+					</el-upload>
+				</el-form-item>
+				<el-form-item label="个性签名：">
+					<el-input type="textarea" v-model="user.description"></el-input>
+				</el-form-item>
+				<el-form-item>
+					<el-button native-type="submit" type="primary" @click="submit">确认修改</el-button>
+					<el-button @click="toIndex">返回控制台</el-button>
+				</el-form-item>
+			</el-form>
 		</div>
 	</div>
 </template>
 <script>
 	import { mapState } from 'vuex';
+	import { USER_AVATAR } from '../../options/upload'
+
 	export default {
 		data () {
 			return {
-				list: [
-					{
-						name: '测试',
-						alias: '测试',
-						id: 123
-					}, {
-						name: '测试2',
-						alias: '测试2',
-						id: 444
-					}
-				]
+				user: {},
+				lock: false,
+				upload: USER_AVATAR
 			}
 		},
 		computed: {
 			...mapState({
-				user: state => state.user
+				info: state => state.user
 			})
 		},
+		mounted () {
+			this.user = Object.assign({}, this.info);
+		},
 		methods: {
-			select (id) {
-				this.$store.dispatch('SELECT_SHOP', id);
+			submit () {
+				this.$store.dispatch('UPDATE_USER_REQUEST', this.user);
 			},
-			sign_out () {
-				this.$store.dispatch('LOGOUT_REQUEST');
+			toIndex () {
+				this.$router.push({ name: 'index' })
 			}
 		}
 	}
 </script>
 
 <style lang="less" scoped>
-
-	.head {
-		background: #ebeff5;
-		height: 90px;
-		display: flex;
-		padding: 20px;
-		box-sizing: border-box;
-		justify-content: space-between;
-		border-bottom: solid 1px #d3dce6;
-		.left {
-			display: flex;
-			.icon-morentouxiang {
-				font-size: 45px;
-				color: #b7b9c4;
-			}
-			.info {
-				display: flex;
-				flex-direction: column;
-				justify-content: center;
-				// align-content: space-around;
-				.name, .account {
-					color: #666666;
-					padding: 5px 15px;
-				}
-				.account {
-					.text {
-						padding-right: 15px;
-					}
-					.button {
-						display: inline-block;
-						a {
-							padding: 5px;
-						}
-					}
-				}
-			}
-		}
-		.create {
-			 align-self: flex-end;
-		}
-	}
 	.body {
-		.list {
-			padding: 15px 8px;
-			display: flex;
-			flex-wrap: wrap;
-			height: 380px;
-			overflow: auto;
-			li {
-				width: 230px;
-				height: 110px;
-				border: 1px solid #d3dce6;
-				margin: 8px;
-				display: flex;
-				padding: 16px;
-				box-sizing: border-box;
-				cursor: pointer;
-				position: relative;
-				transition: border .1s ease-in-out;
-				.logo {
-					width: 50px;
-					height: 50px;
-					background: #ccc;
-				}
-				.button {
-					position: absolute;
-					bottom: 16px;
-					right: 16px;
-					visibility: hidden;
-					a {
-						padding-left: 10px;
-					}
-				}
-				.info {
-					font-size: 14px;
-					color: #666;
-					padding-left: 10px;
-					line-height: 25px;
-				}
-				&:hover {
-					border-color: #51bfff;
-					.button {
-						visibility: visible;
-					}
-				}
-			}
+		display: flex;
+		padding: 30px 0;
+		justify-content: center;
+
+		.el-input {
+			width: 240px;
 		}
-		.empty {
-			display: flex;
-			flex-direction: column;
-			justify-content: center;
-			align-items: center;
-			padding-top: 80px;
+		.avatar {
+			cursor: pointer;
+			width: 50px;
+			height: 50px;
 		}
 	}
 </style>
+
+
+
+
+
+
+

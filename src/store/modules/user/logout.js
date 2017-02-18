@@ -2,13 +2,15 @@
 * @Author: Administrator
 * @Date:   2017-01-06 02:33:52
 * @Last Modified by:   William Chan
-* @Last Modified time: 2017-02-17 22:31:00
+* @Last Modified time: 2017-02-18 12:38:18
 */
 
 'use strict';
 
 import { logout } from '../../api'
 import { LOGIN, LOGOUT } from '../../types'
+
+import { MessageBox } from 'element-ui'
 
 const state = {
 	lock: false
@@ -18,14 +20,20 @@ const getters = {}
 
 const actions = {
 	[LOGOUT.REQUEST] ({ commit }, ...args) {
-		commit(LOGOUT.REQUEST);
-		return new Promise((resolve, reject) => {
-			setTimeout(() => {
-				commit(LOGOUT.SUCCESS);
-				commit(LOGIN.FAILURE);
-				resolve();
-			}, 1000);
-			// reject(error);
+		MessageBox.confirm('确定退出系统?', '提示', {
+			confirmButtonText: '确定',
+			cancelButtonText: '取消',
+			type: 'warning'
+		}).then(() => {
+			commit(LOGOUT.REQUEST);
+			return new Promise((resolve, reject) => {
+				setTimeout(() => {
+					commit(LOGOUT.SUCCESS);
+					commit(LOGIN.FAILURE);
+					resolve();
+				}, 1000);
+				// reject(error);
+			})
 		})
 	}
 }

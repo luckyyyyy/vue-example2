@@ -2,7 +2,7 @@
 * @Author: William Chan
 * @Date:   2016-12-02 11:31:24
 * @Last Modified by:   William Chan
-* @Last Modified time: 2017-02-17 22:38:22
+* @Last Modified time: 2017-02-18 12:06:22
 */
 
 // axios.request(config)
@@ -20,8 +20,7 @@ import store from '../'
 import { MessageBox } from 'element-ui'
 import axios from 'axios'
 
-const HOST = 'http://api.rainbowlive.shop/api/v1';
-
+import { API_HOST } from '../../options'
 
 window.onerror = (msg, url, lineNo, columnNo, error) => {
 	// const string = msg.toLowerCase();
@@ -48,8 +47,8 @@ window.onerror = (msg, url, lineNo, columnNo, error) => {
 // 1) HTTP status 200 code != 0;
 // 2) HTTP status != 200;
 // TODO 3) 404 403 res tips;
-axios.interceptors.request.use( req => {
-	if (req.url.indexOf(HOST) >= 0) { // self api auto add Authorization
+axios.interceptors.request.use(req => {
+	if (req.url.indexOf(API_HOST) >= 0) { // self api auto add Authorization
 		if (!req.headers.Authorization && store.state.token) {
 			req.headers.Authorization = store.getters.auth;
 		}
@@ -62,7 +61,7 @@ axios.interceptors.request.use( req => {
 	return Promise.reject(error);
 })
 
-axios.interceptors.response.use( res => {
+axios.interceptors.response.use(res => {
 	if (res.data.retCode !== 0) {
 		if (res.config.interceptors === true) {
 			MessageBox.alert(res.data.retMsg, `错误 (${res.data.retCode})`, {
@@ -94,24 +93,49 @@ axios.interceptors.response.use( res => {
 
 // POST /api/v1/user/register/captcha 获取验证码
 export const register_captcha = ({ phone }) => {
-	return axios.post(`${HOST}/user/register/captcha`, { phone }, { interceptors: false })
+	return axios.post(`${API_HOST}/user/register/captcha`, { phone }, { interceptors: false })
 }
 // POST /api/v1/user/register 用户使用手机号和短信验证码进行注册
-export const register = ({ phone, password, captcha, nickname, email_address }) => {
-	return axios.post(`${HOST}/user/register`, { phone, password, captcha, nickname, email_address })
+export const register = ({ phone, password, captcha, nickName, email }) => {
+	return axios.post(`${API_HOST}/user/register`, { phone, password, captcha, nickName, email })
 }
 // POST /api/v1/user/login 用户登录
 export const login = ({ phone, password }) => {
-	return axios.post(`${HOST}/user/login`, { phone, password })
+	return axios.post(`${API_HOST}/user/login`, { phone, password })
 }
 // POST /api/v1/user/reset_password/captcha
 export const reset_password_captcha = ({ phone }) => {
-	return axios.post(`${HOST}/user/reset_password/captcha`, { phone })
+	return axios.post(`${API_HOST}/user/reset_password/captcha`, { phone })
 }
 // POST /api/v1/user/reset_password
 export const reset_password = ({ phone, password, captcha }) => {
-	return axios.post(`${HOST}/user/reset_password`, { phone, password, captcha })
+	return axios.post(`${API_HOST}/user/reset_password`, { phone, password, captcha })
 }
+// POST /api/v1/user/update/user
+export const update_user = ({ nickName, email, sex, description }) => {
+	return axios.post(`${API_HOST}/user/update_user`, { nickName, email, sex, description })
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
