@@ -16,7 +16,7 @@
 				</div>
 			</div>
 			<div class="create" v-if="list">
-				<router-link :to="{ name: 'login' }">创建新频道</router-link>
+				<router-link :to="{ name: 'create_shop' }">创建新频道</router-link>
 			</div>
 		</div>
 		<div class="body">
@@ -28,14 +28,13 @@
 						<div class="wechat">公众号：{{ item.alias }}</div>
 					</div>
 					<div class="button">
-						<a href="">修改</a>
-						<a href="">删除</a>
+						<a href="javascript:;" @click.stop="onDelete(item.id)">删除</a>
 					</div>
 				</li>
 			</ul>
 			<div class="empty" v-else>
 				<p>您还没有自己的频道</p>
-				<el-button type="primary">创建频道</el-button>
+				<el-button type="primary" @click="toCreate">创建频道</el-button>
 			</div>
 		</div>
 	</div>
@@ -69,6 +68,12 @@
 			},
 			sign_out () {
 				this.$store.dispatch('LOGOUT_REQUEST');
+			},
+			toCreate () {
+				this.$router.push({ name: 'create_shop' })
+			},
+			onDelete (id) {
+				console.log(123)
 			}
 		}
 	}

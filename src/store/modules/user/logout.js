@@ -2,7 +2,7 @@
 * @Author: Administrator
 * @Date:   2017-01-06 02:33:52
 * @Last Modified by:   William Chan
-* @Last Modified time: 2017-02-18 14:19:05
+* @Last Modified time: 2017-02-20 11:20:54
 */
 
 'use strict';
@@ -25,13 +25,11 @@ const actions = {
 			type: 'warning'
 		}).then(() => {
 			commit(LOGOUT.REQUEST);
-			return new Promise((resolve, reject) => {
-				setTimeout(() => {
-					commit(LOGOUT.SUCCESS);
-					commit(LOGIN.FAILURE);
-					resolve();
-				}, 1000);
-				// reject(error);
+			logout().then(() => {
+				commit(LOGOUT.SUCCESS);
+				commit(LOGIN.FAILURE);
+			}).catch(() => {
+				commit(LOGOUT.FAILURE);
 			})
 		})
 	}

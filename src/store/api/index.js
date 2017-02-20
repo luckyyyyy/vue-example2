@@ -2,7 +2,7 @@
 * @Author: William Chan
 * @Date:   2016-12-02 11:31:24
 * @Last Modified by:   William Chan
-* @Last Modified time: 2017-02-18 13:43:24
+* @Last Modified time: 2017-02-20 11:29:33
 */
 
 // axios.request(config)
@@ -73,7 +73,6 @@ axios.interceptors.response.use(res => {
 	return res
 }, error => {
 	if (!error.response) {
-		// console.dir(error)
 		MessageBox.alert(`${error.stack}`, error.message, {
 			type: 'error'
 		})
@@ -103,6 +102,10 @@ export const register = ({ phone, password, captcha, nickName, email }) => {
 // POST /api/v1/user/login 用户登录
 export const login = ({ phone, password }) => {
 	return axios.post(`${API_HOST}/user/login`, { phone, password })
+}
+// POST /api/v1/user/logout
+export const logout = () => {
+	return axios.post(`${API_HOST}/user/logout`)
 }
 // POST /api/v1/user/reset_password/captcha
 export const reset_password_captcha = ({ phone }) => {

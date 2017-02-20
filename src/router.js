@@ -2,7 +2,7 @@
 * @Author: William Chan
 * @Date:   2016-12-01 17:57:50
 * @Last Modified by:   William Chan
-* @Last Modified time: 2017-02-18 12:25:37
+* @Last Modified time: 2017-02-20 11:33:52
 */
 
 // component(resolve) {
@@ -267,7 +267,7 @@ const routes = [
 		],
 	},
 	{
-		path: '/select',
+		path: '/page',
 		meta: { requiresAuth: true, default: 'select_shop' },
 		components: {
 			select: resolve => {
@@ -277,10 +277,18 @@ const routes = [
 		children: [
 			{
 				name: 'select_shop',
-				path: 'list',
+				path: 'select',
 				meta: { requiresAuth: true, group: 'select', name: "选择频道" },
 				component: resolve => {
-					require(['./views/page/list.vue'], resolve)
+					require(['./views/page/select.vue'], resolve)
+				}
+			},
+			{
+				name: 'create_shop',
+				path: 'create',
+				meta: { requiresAuth: true, group: 'select', name: "创建频道" },
+				component: resolve => {
+					require(['./views/page/create.vue'], resolve)
 				}
 			},
 		]
