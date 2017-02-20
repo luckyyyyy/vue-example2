@@ -2,7 +2,7 @@
 * @Author: William Chan
 * @Date:   2016-12-01 17:57:50
 * @Last Modified by:   Administrator
-* @Last Modified time: 2017-02-21 03:29:07
+* @Last Modified time: 2017-02-21 04:06:10
 */
 
 // component(resolve) {
@@ -14,6 +14,9 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 import store from './store'
+
+import NProgress from 'nprogress'
+import 'nprogress/nprogress.css'
 
 Vue.use(VueRouter);
 
@@ -393,6 +396,8 @@ const route = new VueRouter({
 })
 
 route.beforeEach((to, from, next) => {
+	NProgress.remove();
+	NProgress.start();
 	const requiresAuth = to.matched.some(record => record.meta.requiresAuth);
 	const defaultPage  = to.meta.default; // 部分子路由默认页面
 	if (!isAuth()) {
@@ -431,10 +436,7 @@ route.beforeEach((to, from, next) => {
 
 })
 route.afterEach(route => {
-	// console.dir(Vue)
-	// Vue.nextTick(() => {
-	// history.replaceState(null, null, 'a.html?aaaaa')
-	// })
+	NProgress.done(true);
 })
 export default route
 
