@@ -38,6 +38,9 @@ export default {
 </script>
 
 <style lang="less">
+	.wrap {
+		height: 100%;
+	}
 	.main {
 		height: 100%;
 		position: relative;

@@ -2,7 +2,7 @@
 * @Author: William Chan
 * @Date:   2016-12-01 17:57:50
 * @Last Modified by:   Administrator
-* @Last Modified time: 2017-02-21 02:24:08
+* @Last Modified time: 2017-02-21 02:56:57
 */
 
 // component(resolve) {
@@ -43,7 +43,7 @@ const routes = [
 				require(['./components/sidebar.vue'], resolve)
 			},
 			main: resolve => {
-				require(['./views/store/main.vue'], resolve)
+				require(['./components/breadcrumb.vue'], resolve)
 			},
 		},
 		children: [
@@ -58,7 +58,10 @@ const routes = [
 			{
 				name: 'store_shop_list',
 				path: 'shop/:type?',
-				meta: { requiresAuth: true },
+				meta: { requiresAuth: true, breadcrumb: [
+					{ route: 'store_shop_list', name: '商品列表' },
+					{ route: 'store_shop_list', name: '商品列表' },
+				] },
 				component: resolve => {
 					require(['./views/store/shop.vue'], resolve)
 				}
@@ -124,7 +127,7 @@ const routes = [
 				require(['./components/sidebar.vue'], resolve)
 			},
 			main: resolve => {
-				require(['./views/live/main.vue'], resolve)
+				require(['./components/breadcrumb.vue'], resolve)
 			}
 		},
 		children: [
@@ -236,7 +239,7 @@ const routes = [
 				require(['./components/sidebar.vue'], resolve)
 			},
 			main: resolve => {
-				require(['./views/live/main.vue'], resolve)
+				require(['./components/breadcrumb.vue'], resolve)
 			},
 		},
 		children: [
