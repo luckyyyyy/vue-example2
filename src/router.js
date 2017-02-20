@@ -264,6 +264,14 @@ const routes = [
 					require(['./views/account/flow.vue'], resolve)
 				},
 			},
+			{
+				name: 'account_recharge',
+				path: 'recharge',
+				meta: { requiresAuth: true },
+				component: resolve => {
+					require(['./views/account/recharge.vue'], resolve)
+				},
+			}
 		],
 	},
 	{

@@ -30,7 +30,7 @@
 				<el-menu-item :route="{ name: 'account_overview' }" index="account_overview">账户总览</el-menu-item>
 				<el-menu-item :route="{ name: 'account_upgrade' }" index="account_upgrade">账户升级</el-menu-item>
 				<el-menu-item :route="{ name: 'account_flow' }" index="account_flow">流量管理</el-menu-item>
-				<el-menu-item :route="{ name: 'store_setting' }" index="store_setting">立即充值</el-menu-item>
+				<el-menu-item :route="{ name: 'account_recharge' }" index="account_recharge">立即充值</el-menu-item>
 				<el-menu-item :route="{ name: 'store_setting' }" index="store_setting">我的收入</el-menu-item>
 			</el-submenu>
 			<el-menu-item index="/todo1"><i class="iconfont icon-circle"></i>营销</el-menu-item>

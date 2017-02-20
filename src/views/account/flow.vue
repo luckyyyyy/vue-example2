@@ -107,13 +107,6 @@
 			color: #1190bf;
 			font-size: 18px;
 		}
-		.orange-text {
-			color: #fe5000;
-			font-size: 18px;
-		}
-		.amount {
-			font-size: 18px;
-		}
 		.header {
 			background-color: #f7f8fa;
 			padding: 22px 16px;
@@ -127,28 +120,6 @@
 				color: #666666;
 				line-height: 14px;
 				margin-bottom: 15px;
-			}
-		}
-		.package-detail {
-			.title {
-				color: #797979;
-				width: 80px;
-				display: inline-block;
-				text-align: right;
-				margin-right: 20px;
-			}
-			.content {
-				color: #666;
-			}
-			padding: 25px 40px;
-			li {
-				margin-top: 30px;
-				display: flex;
-				align-items: center;
-			}
-			hr {
-				margin: 0 -30px;
-				margin-top: 30px;
 			}
 		}
 		hr {
