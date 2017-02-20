@@ -8,10 +8,7 @@
 					<span class="name">您好：{{ user.nickName }}</span>
 					<div class="account">
 						<span class="text">账号：{{ user.phone }}</span>
-						<div class="button">
-							<!-- <router-link :to="{ name: 'login' }">设置</router-link> -->
-							<!-- <a href="javascript:;" @click="sign_out">退出</a> -->
-						</div>
+						<div class="button"></div>
 					</div>
 				</div>
 			</div>

@@ -1,11 +1,13 @@
 <template>
 	<div class="page">
 		<div class="title">
-			<div class="left">
-				<img src="../../assets/logo2.png" height="28" width="39" alt="彩虹云直播">
-				<h1>彩虹云直播</h1>
-				<h2>{{ name }}</h2>
-			</div>
+			<router-link tag="div" :to="{ name: 'index' }">
+				<div class="left">
+					<img src="../../assets/logo2.png" height="28" width="39" alt="彩虹云直播">
+					<h1>彩虹云直播</h1>
+					<h2>{{ name }}</h2>
+				</div>
+			</router-link>
 			<div class="right">
 				<span class="text">账号：{{ user.nickname || user.phone }}</span>
 				<div class="button">
@@ -51,6 +53,9 @@
 			margin-top: 30px;
 			display: flex;
 			justify-content: space-between;
+			.router-link-active {
+				cursor: pointer;
+			}
 			.left {
 				display: flex;
 				align-items: center;
@@ -78,6 +83,7 @@
 			width: 100%;
 			box-shadow: 0 0 6px 0 rgba(0, 0, 0, 0.04), 0 2px 4px 0 rgba(0, 0, 0, 0.12);
 			border: solid 1px #d3dce6;
+			position: relative;
 		}
 		.footer {
 			margin: 10px 0;

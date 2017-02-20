@@ -2,7 +2,7 @@
 * @Author: William Chan
 * @Date:   2016-12-01 17:57:50
 * @Last Modified by:   William Chan
-* @Last Modified time: 2017-02-20 11:33:52
+* @Last Modified time: 2017-02-20 15:03:11
 */
 
 // component(resolve) {
@@ -293,7 +293,7 @@ const routes = [
 			},
 			{
 				name: 'create_shop',
-				path: 'create',
+				path: 'create/:id?',
 				meta: { requiresAuth: true, group: 'select', name: "创建频道" },
 				component: resolve => {
 					require(['./views/page/create.vue'], resolve)
