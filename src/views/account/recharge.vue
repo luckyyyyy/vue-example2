@@ -15,9 +15,15 @@
 			<p>选择付款方式：</p>
 			<hr>
 			<div class="pay-methods-box">
-				<el-radio class="radio" v-model="pay_method" label="alipay">支付宝</el-radio>
-	  			<el-radio class="radio" v-model="pay_method" label="wechat">微信</el-radio>
-	  			<el-radio class="radio" v-model="pay_method" label="offline">线下支付</el-radio>
+				<el-radio class="radio" v-model="pay_method" label="alipay">
+					<img src="../../assets/account/alipay.png" height="43" width="125">
+				</el-radio>
+	  			<el-radio class="radio" v-model="pay_method" label="wechat">
+	  				<img src="../../assets/account/wechat.png" height="43" width="125">
+	  			</el-radio>
+	  			<el-radio class="radio" v-model="pay_method" label="offline">
+	  				<img src="../../assets/account/offline.png" height="43" width="125">
+	  			</el-radio>
 			</div>
 			<el-button type="primary">立即支付</el-button>
 		</div>
@@ -114,6 +120,10 @@
 				padding: 5px 30px;
 				.el-radio {
 					margin-right: 30px;
+				}
+				img {
+					vertical-align: middle;
+					margin-left: 5px;
 				}
 			}
 			p {

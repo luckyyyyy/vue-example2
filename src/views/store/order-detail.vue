@@ -67,8 +67,8 @@
 			</el-table>
 			<p class="total">总计 245</p>
 			<span slot="footer" class="dialog-footer">
-    			<el-button @click="dialogVisible = false">取 消</el-button>
-    			<el-button type="primary" @click="dialogVisible = false">确 定</el-button>
+    			<el-button @click="alter_dialog_visible = false">取 消</el-button>
+    			<el-button type="primary" @click="alter_dialog_visible = false">确 定</el-button>
   			</span>
 		</el-dialog>
     	<el-dialog class="deliver-dialog" title="发货" v-model="deliver_dialog_visible" size="tiny">
@@ -81,7 +81,7 @@
     		</div>
     		<div class="express-company-box">
     			<span>快递公司：</span>
-    			<el-select v-model="value" placeholder="请选择物流公司">
+    			<el-select v-model="express" placeholder="请选择物流公司">
     				<el-option v-for="express_company in express_companys" :label="express_company" :value="express_company"></el-option>
 				</el-select>
     		</div>
@@ -90,8 +90,8 @@
     			<el-input v-model="input" placeholder="请输入单号"></el-input>
     		</div>
 			<span slot="footer" class="dialog-footer">
-    			<el-button @click="dialogVisible = false">取 消</el-button>
-    			<el-button type="primary" @click="dialogVisible = false">确 定</el-button>
+    			<el-button @click="deliver_dialog_visible = false">取 消</el-button>
+    			<el-button type="primary" @click="deliver_dialog_visible = false">确 定</el-button>
   			</span>
 		</el-dialog>
 	</div>
@@ -102,6 +102,8 @@
 		data () {
 			return {
 				input: "12",
+				radio: "1",
+				express: "1",
 				alter_dialog_visible: false,
 				deliver_dialog_visible: false,
 				order: {
