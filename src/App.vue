@@ -24,11 +24,6 @@
 export default {
 	computed: {
 		lock () {
-			if (this.$store.state.logout.lock) {
-				// this.$loading({ fullscreen: true })
-			} else {
-
-			}
 			return this.$store.state.logout.lock;
 		},
 		token () {
@@ -37,7 +32,7 @@ export default {
 	},
 	beforeCreate () {
 		this.$store.dispatch('LOGIN_CHECK');
-		this.$store.dispatch('SELECT_SHOP');
+		this.$store.dispatch('SELECT_CHANNEL');
 	},
 }
 </script>

@@ -74,7 +74,7 @@
 			<template v-if="active == 3">
 				<div class="success">
 					恭喜，您的频道已创建成功！
-					<el-button type="primary" size="large">绑定微信公众号</el-button>
+					<el-button type="primary" size="large">进入店铺管理后台</el-button>
 				</div>
 			</template>
 		</div>
@@ -82,12 +82,11 @@
 </template>
 <script>
 	import { mapState } from 'vuex';
-	import { USER_AVATAR } from '../../options/upload'
 
 	export default {
 		data () {
 			return {
-				active: 3,
+				active: 1,
 				user: {},
 				options: [{
 				  value: '选项1',

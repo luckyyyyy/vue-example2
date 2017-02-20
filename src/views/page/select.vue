@@ -13,7 +13,7 @@
 				</div>
 			</div>
 			<div class="create" v-if="list">
-				<router-link :to="{ name: 'create_shop' }">创建新频道</router-link>
+				<router-link :to="{ name: 'create_channel' }">创建新频道</router-link>
 			</div>
 		</div>
 		<div class="body">
@@ -61,13 +61,13 @@
 		},
 		methods: {
 			select (id) {
-				this.$store.dispatch('SELECT_SHOP', id);
+				this.$store.dispatch('SELECT_CHANNEL', id);
 			},
 			sign_out () {
 				this.$store.dispatch('LOGOUT_REQUEST');
 			},
 			toCreate () {
-				this.$router.push({ name: 'create_shop' })
+				this.$router.push({ name: 'create_channel' })
 			},
 			onDelete (id) {
 				console.log(123)

@@ -1,8 +1,8 @@
 /*
 * @Author: William Chan
 * @Date:   2016-12-03 19:24:59
-* @Last Modified by:   William Chan
-* @Last Modified time: 2017-02-18 12:07:35
+* @Last Modified by:   Administrator
+* @Last Modified time: 2017-02-21 02:23:25
 */
 
 'use strict';
@@ -26,7 +26,7 @@ import * as actions   from './actions'
 import * as mutations from './mutations'
 
 const state = {
-	shop: 0,
+	channel: 0,
 	user: {},
 	token: null,
 }

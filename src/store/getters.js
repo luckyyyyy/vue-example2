@@ -1,8 +1,8 @@
 /*
 * @Author: Administrator
 * @Date:   2017-01-06 02:28:10
-* @Last Modified by:   William Chan
-* @Last Modified time: 2017-02-17 15:57:38
+* @Last Modified by:   Administrator
+* @Last Modified time: 2017-02-21 02:23:37
 */
 
 'use strict';
@@ -25,13 +25,13 @@ export const member = state => {
 	}
 }
 
-export const shop = state => {
-	if (state.shop > 0) {
-		return state.shop;
+export const channel = state => {
+	if (state.channel > 0) {
+		return state.channel;
 	} else {
-		const shop = sessionStorage.getItem('shop');
-		if (shop) {
-			return shop;
+		const channel = sessionStorage.getItem('channel');
+		if (channel) {
+			return channel;
 		} else {
 			return 0
 		}

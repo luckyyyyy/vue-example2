@@ -1,8 +1,8 @@
 /*
 * @Author: Administrator
 * @Date:   2017-01-06 02:29:39
-* @Last Modified by:   William Chan
-* @Last Modified time: 2017-02-17 22:18:41
+* @Last Modified by:   Administrator
+* @Last Modified time: 2017-02-21 02:23:19
 */
 
 'use strict';
@@ -18,14 +18,14 @@ export const LOGIN_CHECK = (store) => {
 	}
 }
 
-export const SELECT_SHOP = (store, id) => {
+export const SELECT_CHANNEL = (store, id) => {
 	if (id === undefined) {
-		if (store.getters.shop > 0) {
-			store.commit('SET_SHOP', store.getters.shop);
+		if (store.getters.channel > 0) {
+			store.commit('SET_CHANNEL', store.getters.channel);
 		} else {
 			console.log('没有选择频道');
 		}
 	} else {
-		store.commit('SET_SHOP', id);
+		store.commit('SET_CHANNEL', id);
 	}
 }

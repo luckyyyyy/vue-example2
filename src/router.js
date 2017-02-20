@@ -1,8 +1,8 @@
 /*
 * @Author: William Chan
 * @Date:   2016-12-01 17:57:50
-* @Last Modified by:   William Chan
-* @Last Modified time: 2017-02-20 17:34:43
+* @Last Modified by:   Administrator
+* @Last Modified time: 2017-02-21 02:24:08
 */
 
 // component(resolve) {
@@ -284,7 +284,7 @@ const routes = [
 	},
 	{
 		path: '/page',
-		meta: { requiresAuth: true, default: 'select_shop' },
+		meta: { requiresAuth: true, default: 'select_channel' },
 		components: {
 			select: resolve => {
 				require(['./views/page/page.vue'], resolve)
@@ -292,7 +292,7 @@ const routes = [
 		},
 		children: [
 			{
-				name: 'select_shop',
+				name: 'select_channel',
 				path: 'select',
 				meta: { requiresAuth: true, group: 'select', name: "选择频道" },
 				component: resolve => {
@@ -300,7 +300,7 @@ const routes = [
 				}
 			},
 			{
-				name: 'create_shop',
+				name: 'create_channel',
 				path: 'create/:id?',
 				meta: { requiresAuth: true, group: 'select', name: "创建频道" },
 				component: resolve => {
@@ -399,7 +399,7 @@ route.beforeEach((to, from, next) => {
 			return next({ name: 'login', query: { redirect: to.fullPath } });
 		}
 	} else {
-		if (store.getters.shop > 0) {
+		if (store.getters.channel > 0) {
 			if (to.meta.group == 'select' && to.meta.group != 'global') {
 				if (to.query.redirect) {
 					return next({ path: to.query.redirect })
@@ -409,7 +409,7 @@ route.beforeEach((to, from, next) => {
 			}
 		} else {
 			if (to.meta.group != 'select' && to.meta.group != 'global') {
-				return next({ name: 'select_shop', query: { redirect: to.fullPath } });
+				return next({ name: 'select_channel', query: { redirect: to.fullPath } });
 			}
 		}
 		if (!requiresAuth) {

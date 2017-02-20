@@ -1,8 +1,8 @@
 /*
 * @Author: William Chan
 * @Date:   2016-12-02 11:31:24
-* @Last Modified by:   William Chan
-* @Last Modified time: 2017-02-20 11:29:33
+* @Last Modified by:   Administrator
+* @Last Modified time: 2017-02-21 02:09:53
 */
 
 // axios.request(config)
@@ -43,11 +43,7 @@ window.onerror = (msg, url, lineNo, columnNo, error) => {
 	return false;
 };
 
-// Promise.reject:
-// 1) HTTP status 200 code != 0;
-// 2) HTTP status != 200;
-// TODO 3) 404 403 res tips;
-axios.interceptors.request.use(req => {
+export const onRequest = req => {
 	if (req.url.indexOf(API_HOST) >= 0) { // self api auto add Authorization
 		if (!req.headers.Authorization && store.state.token) {
 			req.headers.Authorization = store.getters.auth;
@@ -57,21 +53,26 @@ axios.interceptors.request.use(req => {
 		req.interceptors = true;
 	}
 	return req;
-}, error => {
-	return Promise.reject(error);
-})
+}
 
-axios.interceptors.response.use(res => {
+export const onRequestError = error => {
+	return Promise.reject(error);
+}
+
+export const onResponse = res => {
 	if (res.data.retCode !== 0) {
-		if (res.config.interceptors === true) {
+		if (!res.config || res.config && res.config.interceptors === true) {
 			MessageBox.alert(res.data.retMsg, `错误 (${res.data.retCode})`, {
 				type: 'error'
 			})
 		}
 		return Promise.reject(res);
 	}
-	return res
-}, error => {
+
+	return Promise.resolve(res)
+}
+
+export const onResponseError = error => {
 	if (!error.response) {
 		MessageBox.alert(`${error.stack}`, error.message, {
 			type: 'error'
@@ -89,7 +90,17 @@ axios.interceptors.response.use(res => {
 	}
 
 	return Promise.reject(error);
-})
+}
+
+axios.interceptors.request.use(onRequest, onRequestError);
+axios.interceptors.response.use(onResponse, onResponseError);
+
+// 图片上传接口配置
+export const USER_AVATAR = {
+	action: `${API_HOST}/user/update/avatar`,
+	name: 'avatar',
+	// accept: 'image/jpeg, image/x-png, image/gif'
+}
 
 // POST /api/v1/user/register/captcha 获取验证码
 export const register_captcha = ({ phone }) => {
@@ -119,13 +130,6 @@ export const reset_password = ({ phone, password, captcha }) => {
 export const update_user = ({ nickName, email, sex, description }) => {
 	return axios.post(`${API_HOST}/user/update_user`, { nickName, email, sex, description })
 }
-
-
-
-
-
-
-
 
 
 

@@ -88,7 +88,7 @@ export default {
 				cancelButtonText: '取消',
 				type: 'warning'
 			}).then(() => {
-				this.$store.dispatch('SELECT_SHOP', 0);
+				this.$store.dispatch('SELECT_CHANNEL', 0);
 			})
 		}
 	}

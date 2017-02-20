@@ -20,9 +20,17 @@
 					</el-radio-group>
 				</el-form-item>
 				<el-form-item label="头像：">
-					<el-upload class="avatar" :show-upload-list="false" :action="upload.action" :headers="upload.headers" :name="upload.name">
-						<img src="../../assets/qrcode.png" height="80" width="80" alt="">
-					</el-upload>
+					<el-progress v-show="upload.start" class="progress" :percentage="upload.progress"></el-progress>
+					<upload
+						v-show="!upload.start"
+						class="avatar"
+						:upload="option"
+						@success="avatar_success"
+						@fail="avatar_fail"
+						@progress="avatar_progress"
+					>
+						<img :src="info.avatar" height="80" width="80" alt="">
+					</upload>
 				</el-form-item>
 				<el-form-item label="个性签名：">
 					<el-input type="textarea" v-model="user.description"></el-input>
@@ -37,13 +45,21 @@
 </template>
 <script>
 	import { mapState } from 'vuex';
-	import { USER_AVATAR } from '../../options/upload'
-
+	import { USER_AVATAR } from '../../store/api'
+	import upload from '../../components/item/upload'
 	export default {
+		components: {
+			upload
+		},
 		data () {
 			return {
 				user: {},
-				upload: USER_AVATAR
+				option: USER_AVATAR,
+				upload: {
+					progress: 0,
+					start: false
+				}
+
 			}
 		},
 		computed: {
@@ -56,6 +72,17 @@
 			this.user = Object.assign({}, this.info);
 		},
 		methods: {
+			avatar_progress (event) {
+				this.upload.start = true;
+				this.upload.progress = Math.floor(event.percent);
+			},
+			avatar_fail (res) {
+				this.upload.start = false;
+			},
+			avatar_success (res) {
+				this.$store.commit('UPDATE_USER_AVATAR', res.url);
+				this.upload.start = false;
+			},
 			submit () {
 				this.$store.dispatch('UPDATE_USER_REQUEST', this.user);
 			},
@@ -74,6 +101,11 @@
 		height: 100%;
 		.el-input {
 			width: 240px;
+		}
+		.progress {
+			height: 40px;
+			display: flex;
+			align-items: center;
 		}
 		.avatar {
 			cursor: pointer;

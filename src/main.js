@@ -6,8 +6,8 @@ import 'element-ui/lib/theme-default/index.css'
 import './assets/common.less'
 
 import App from './App.vue'
-import router from "./router"
 import store from './store'
+import router from "./router"
 import { sync } from 'vuex-router-sync'
 
 sync(store, router) // done.
