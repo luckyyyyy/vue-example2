@@ -2,7 +2,7 @@
 * @Author: William Chan
 * @Date:   2016-12-01 17:57:50
 * @Last Modified by:   Administrator
-* @Last Modified time: 2017-02-21 02:56:57
+* @Last Modified time: 2017-02-21 03:29:07
 */
 
 // component(resolve) {
@@ -37,7 +37,7 @@ const routes = [
 	},
 	{
 		path: '/store',
-		meta: { requiresAuth: true },
+		meta: { requiresAuth: true, default: 'store_shop_create' },
 		components: {
 			sidebar: resolve => {
 				require(['./components/sidebar.vue'], resolve)
@@ -121,7 +121,7 @@ const routes = [
 	},
 	{
 		path: '/live',
-		meta: { requiresAuth: true },
+		meta: { requiresAuth: true, default: 'live_list' },
 		components: {
 			sidebar: resolve => {
 				require(['./components/sidebar.vue'], resolve)
@@ -233,7 +233,7 @@ const routes = [
 	},
 	{
 		path: '/account',
-		meta: { requiresAuth: true },
+		meta: { requiresAuth: true, default: 'account_overview' },
 		components: {
 			sidebar: resolve => {
 				require(['./components/sidebar.vue'], resolve)
