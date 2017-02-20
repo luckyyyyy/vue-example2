@@ -4,7 +4,7 @@
 		<!-- :rules="rules" -->
 			<el-form @submit.native.prevent label-width="100px" ref="user" :model="user">
 				<el-form-item label="账号：">
-					<span>{{ info.phone }} <router-link :to="{ name: 'profile' }">修改密码</router-link></span>
+					<span>{{ info.phone }} <router-link :to="{ name: 'password' }">修改密码</router-link></span>
 				</el-form-item>
 				<el-form-item label="昵称：">
 					<el-input placeholder="请输入昵称" v-model="user.nickName"></el-input>
@@ -21,7 +21,7 @@
 				</el-form-item>
 				<el-form-item label="头像：">
 					<el-upload class="avatar" :show-upload-list="false" :action="upload.action" :headers="upload.headers" :name="upload.name">
-						<img src="../../assets/qrcode.png" height="50" width="50" alt="">
+						<img src="../../assets/qrcode.png" height="80" width="80" alt="">
 					</el-upload>
 				</el-form-item>
 				<el-form-item label="个性签名：">
@@ -69,16 +69,16 @@
 <style lang="less" scoped>
 	.body {
 		display: flex;
-		padding: 30px 0;
 		justify-content: center;
-
+		align-items: center;
+		height: 100%;
 		.el-input {
 			width: 240px;
 		}
 		.avatar {
 			cursor: pointer;
-			width: 50px;
-			height: 50px;
+			width: 80px;
+			height: 80px;
 		}
 	}
 </style>

@@ -2,7 +2,7 @@
 * @Author: William Chan
 * @Date:   2016-12-01 17:57:50
 * @Last Modified by:   William Chan
-* @Last Modified time: 2017-02-20 15:03:11
+* @Last Modified time: 2017-02-20 17:34:43
 */
 
 // component(resolve) {
@@ -316,6 +316,14 @@ const routes = [
 				meta: { requiresAuth: true, group: 'global', name: "个人中心" },
 				component: resolve => {
 					require(['./views/page/profile.vue'], resolve)
+				}
+			},
+			{
+				path: 'password',
+				name: 'password',
+				meta: { requiresAuth: true, group: 'global', name: "修改密码" },
+				component: resolve => {
+					require(['./views/page/password.vue'], resolve)
 				}
 			},
 		]
