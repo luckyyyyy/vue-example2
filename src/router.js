@@ -262,7 +262,7 @@ const routes = [
 				meta: { requiresAuth: true },
 				component: resolve => {
 					require(['./views/account/flow.vue'], resolve)
-				},
+				}
 			},
 			{
 				name: 'account_recharge',
@@ -270,7 +270,15 @@ const routes = [
 				meta: { requiresAuth: true },
 				component: resolve => {
 					require(['./views/account/recharge.vue'], resolve)
-				},
+				}
+			},
+			{
+				name: 'account_income',
+				path: 'income',
+				meta: { requiresAuth: true },
+				component: resolve => {
+					require(['./views/account/income.vue'], resolve)
+				}
 			}
 		],
 	},
