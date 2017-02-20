@@ -117,6 +117,23 @@ export default {
 		}
 		.el-menu {
 			background: #fff;
+			// &::-webkit-scrollbar {
+			// 	display: none;
+			// 	width: 10px;
+			// 	border-radius: 0;
+			// 	background: transparent;
+			// }
+			// &:hover::-webkit-scrollbar {
+			// 	display: block;
+			// }
+			// &:hover::-webkit-scrollbar-thumb {
+			// 	border-radius: 10px;
+			// 	width: 10px;
+			// 	background-color: rgb(128, 128, 128);
+			// }
+			// &::-webkit-scrollbar-thumb:hover {
+			// 	background-color: rgb(156, 156, 156);
+			// }
 			.iconfont {
 				margin-right: 10px;
 			}
