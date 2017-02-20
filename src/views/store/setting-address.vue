@@ -98,8 +98,8 @@
                 </el-form-item>
             </el-form>
             <span slot="footer" class="dialog-footer">
-            <el-button @click="dialogVisible = false">取 消</el-button>
-            <el-button type="primary" @click="dialogVisible = false">确 定</el-button>
+            <el-button @click="creat_dialog_visible = false">取 消</el-button>
+            <el-button type="primary" @click="creat_dialog_visible = false">确 定</el-button>
           </span>
         </el-dialog>
     </div>
@@ -142,6 +142,12 @@ export default {
             switchChange(enabled) {
 
             },
+            handleEdit() {
+
+            },
+            handleDelete() {
+                
+            }
         }
 }
 </script>

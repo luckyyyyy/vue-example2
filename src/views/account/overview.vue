@@ -8,15 +8,15 @@
 		</div>
 		<div class="account-overview-wrapper">
 			<p class="account-overview-title">账户总览</p>
-			<ul class="account-overview-box">
+			<ul class="account-overview-box" router="router">
 				<li>
 					<span>当前账户余额：</span><strong>100.00元</strong>
-					<el-button type="text">充值</el-button>
+					<el-button type="text" @click="goRecharge()">充值</el-button>
 				</li>
 				<li>
 					<span>当前账户版本：</span><strong>基础版</strong>
 					<strong class="expire">（到期时间：2017-02-02 23:59:59）</strong>
-					<el-button type="text">升级</el-button>					
+					<el-button type="text" @click="goUpgrade()">升级</el-button>					
 				</li>
 			</ul>
 		</div>
@@ -25,36 +25,77 @@
 			<ul class="package-overview-box">
 				<li>
 					<span>当前流量套餐：无</span>
-					<el-button type="text">购买</el-button>
+					<el-button type="text" @click="goFlow()">购买</el-button>
 				</li>
 			</ul>
+			<div class="indicator-box">	
+				<div class="indicator-item">
+					<p>剩余存储空间（GB）</p>
+					<dial-indicator min_value="0" :max_value="100" :current_value="value1"></dial-indicator>
+				</div>	
+				<div class="indicator-item">
+					<p>本月剩余观看时长（分钟）</p>
+					<dial-indicator min_value="0" :max_value="4000" :current_value="value2"></dial-indicator>
+				</div>	
+			</div>
 		</div>
 		<div>
+		</div>
+		<div class="test">
+			
 		</div>
 	</div>
 </template>
 
 <script>
 	import moment from 'moment'
+	import DialIndicator from '../../components/DialIndicator.vue'
 	export default {
+		mounted() {
+			setTimeout(()=> {
+				this.value1 = 70;
+				this.value2 = 1400;
+			}, 1000)
+		},
 		data () {
 			return {
-				input: 80
+				input: 80,
+				router: true,
+				value1: 0,
+				value2: 0
 			}
 		},
-		mounted () {
+		components: {
+			DialIndicator
 		},
 		methods: {
 			switchChange (enabled) {
 
 			},
+			goRecharge() {
+				this.$router.push({ name: 'account_recharge' })
+			},
+			goUpgrade() {
+				this.$router.push({ name: 'account_upgrade' })
+			},
+			goFlow() {
+				this.$router.push({ name: 'account_flow' })
+			}
 		}
 	}
 </script>
 
 <style scoped lang='less'>
+/*.test {
+	width: 100px;
+	height: 100px;
+	background-color: red;
+	transition: all 2s;
+	transform: rotate(100deg);
+}*/
 .container {
 	padding: 25px;
+	height: 100vh;
 	.el-button  {
 		margin-left: 30px;
 	}
@@ -90,6 +131,17 @@
 	}
 	.package-overview-wrapper {
 		margin-top: 25px;
+		.indicator-box {
+			background-color: #f7f8fa;
+			padding: 20px 50px;
+			display: flex;
+			.indicator-item {
+				margin-right: 100px;
+				p {
+					margin: 0px;
+				}
+			}
+		}
 	}
 }
 </style>
