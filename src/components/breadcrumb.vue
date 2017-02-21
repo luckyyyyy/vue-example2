@@ -2,7 +2,7 @@
 	<div class="commoon-page">
 		<div class="breadcrumb">
 			<el-breadcrumb separator="/">
-				<el-breadcrumb-item v-for="item of breadcrumb" :to="{ name: item.route }">{{ item.name }}</el-breadcrumb-item>
+				<el-breadcrumb-item v-for="item of breadcrumb" :to="{ name: item.route, params: $route.params }">{{ item.name }}</el-breadcrumb-item>
 			</el-breadcrumb>
 		</div>
 		<router-view class="commoon-router-view"></router-view>
@@ -13,7 +13,6 @@
 	export default {
 		computed: {
 			breadcrumb () {
-
 				let breadcrumb = [
 					{ route: this.$route.name, name: '测试面包' },
 					{ route: this.$route.name, name: '测试面包' },
@@ -24,7 +23,6 @@
 				if (this.$route.meta.breadcrumb) {
 					breadcrumb = this.$route.meta.breadcrumb;
 				}
-				console.log(breadcrumb)
 				return breadcrumb
 			}
 		}

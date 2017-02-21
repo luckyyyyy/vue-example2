@@ -39,6 +39,7 @@
 					<el-button @click="toIndex">返回控制台</el-button>
 				</el-form-item>
 			</el-form>
+
 		</div>
 	</div>
 </template>

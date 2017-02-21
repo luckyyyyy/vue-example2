@@ -18,7 +18,6 @@
 			<el-form-item label="个人昵称" prop="nickName">
 				<el-input v-model="register.nickName" placeholder="输入个人昵称"></el-input>
 			</el-form-item>
-
 			<div class="bottom-center">
 				<el-button :loading="lock" native-type="submit" type="primary" @click="submit_register">注册</el-button>
 			</div>
@@ -40,6 +39,9 @@ export default {
 				],
 				captcha: [
 					{ required: true, min: 6, max: 6, message: '请输入正确的短信验证码' }
+				],
+				nickName: [
+					{ max: 20, message: '昵称请小于20个字符' }
 				],
 				password: [
 					{ required: true, min: 6, max: 16, message: '请输入6-16位密码' }
