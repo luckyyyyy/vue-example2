@@ -31,8 +31,8 @@
 		computed: {
 			option () {
 				this.default_option.onError = (err, response, file) => {
-					this.$emit('error', err, response, file);
-					onResponseError(response);
+					this.$emit('fail');
+					onResponseError(err);
 				}
 				this.default_option.onProgress = (...args) => {
 					this.$emit('progress', ...args);

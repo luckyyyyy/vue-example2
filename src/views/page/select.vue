@@ -2,8 +2,7 @@
 	<div>
 		<div class="head">
 			<div class="left">
-				<img v-if="user.avatar" class="avatar" src="">
-				<i v-else class="iconfont icon-morentouxiang"></i>
+				<img class="avatar" :src="user.avatar">
 				<div class="info">
 					<span class="name">您好：{{ user.nickName }}</span>
 					<div class="account">
@@ -89,9 +88,15 @@
 		border-bottom: solid 1px #d3dce6;
 		.left {
 			display: flex;
+			align-items: center;
 			.icon-morentouxiang {
 				font-size: 45px;
 				color: #b7b9c4;
+			}
+			.avatar {
+				width: 50px;
+				height: 50px;
+				border-radius: 50%;
 			}
 			.info {
 				display: flex;

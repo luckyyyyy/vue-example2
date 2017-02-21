@@ -1,15 +1,14 @@
 <template>
 	<div>
 		<div class="body">
-		<!-- :rules="rules" -->
-			<el-form @submit.native.prevent label-width="100px" ref="user" :model="user">
+			<el-form @submit.native.prevent :rules="rules" label-width="100px" ref="user" :model="user">
 				<el-form-item label="账号：">
 					<span>{{ info.phone }} <router-link :to="{ name: 'password' }">修改密码</router-link></span>
 				</el-form-item>
-				<el-form-item label="昵称：">
+				<el-form-item label="昵称：" prop="nickName">
 					<el-input placeholder="请输入昵称" v-model="user.nickName"></el-input>
 				</el-form-item>
-				<el-form-item label="邮箱：">
+				<el-form-item label="邮箱：" prop="email">
 					<el-input placeholder="请输入邮箱" v-model="user.email"></el-input>
 				</el-form-item>
 				<el-form-item label="性别：">
@@ -29,7 +28,7 @@
 						@fail="avatar_fail"
 						@progress="avatar_progress"
 					>
-						<img :src="info.avatar" height="80" width="80" alt="">
+						<img :src="info.avatar" height="80" width="80">
 					</upload>
 				</el-form-item>
 				<el-form-item label="个性签名：">
@@ -58,8 +57,15 @@
 				upload: {
 					progress: 0,
 					start: false
+				},
+				rules: {
+					email: [
+						{ type: 'email', message: '请输入正确的邮箱' }
+					],
+					nickName: [
+						{ max: 20, message: '昵称请小于20个字符' }
+					],
 				}
-
 			}
 		},
 		computed: {
@@ -80,11 +86,18 @@
 				this.upload.start = false;
 			},
 			avatar_success (res) {
-				this.$store.commit('UPDATE_USER_AVATAR', res.url);
+				this.$store.commit('UPDATE_USER_AVATAR', res.data.url);
 				this.upload.start = false;
 			},
 			submit () {
-				this.$store.dispatch('UPDATE_USER_REQUEST', this.user);
+
+				this.$refs.user.validate(valid => {
+					if (valid) {
+						this.$store.dispatch('UPDATE_USER_REQUEST', this.user);
+					} else {
+						return false;
+					}
+				})
 			},
 			toIndex () {
 				this.$router.push({ name: 'index' })
@@ -111,6 +124,9 @@
 			cursor: pointer;
 			width: 80px;
 			height: 80px;
+			img {
+				border-radius: 50%;
+			}
 		}
 	}
 </style>
