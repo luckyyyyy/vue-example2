@@ -16,9 +16,16 @@
 		<div class="commoon-view">
 			<ul class="list">
 				<li>
-					<a class="create" href="javascript:;" @click="openCreateDialog">
-						<svg width="240px" height="207px" viewBox="312 148 240 207" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-							<!-- Generator: Sketch 41 (35326) - http://www.bohemiancoding.com/sketch -->
+					<div class="creat-live-box" @click="openCreateDialog">
+						<div class="line-box">
+							<span class="across-line"></span>
+							<span class="vertical-line"></span>
+						</div>
+						<p>新建直播</p>
+					</div>
+					<!-- <a class="create" href="javascript:;" @click="openCreateDialog"> -->
+
+<!-- 						<svg width="240px" height="207px" viewBox="312 148 240 207" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
 							<desc>Created with Sketch.</desc>
 							<defs>
 								<rect id="path-1" x="0" y="0" width="240" height="207" rx="5"></rect>
@@ -33,15 +40,22 @@
 								</text>
 								<path d="M120.761905,97.2380952 L120.761905,82 L119.238095,82 L119.238095,97.2380952 L104,97.2380952 L104,98.7619048 L119.238095,98.7619048 L119.238095,114 L120.761905,114 L120.761905,98.7619048 L136,98.7619048 L136,97.2380952 L120.761905,97.2380952 Z" id="Plus-Copy" fill="#C4C6CF"></path>
 							</g>
-						</svg>
-					</a>
+						</svg> -->
+					<!-- </a> -->
 				</li>
-				<li>
+				<li v-for='(live, index) in lives'>
 					<div class="item">
-						<div class="body first">
+						<div class="body">
 							<div class="btn">
 								<em class="qrcode">二维码</em>
-								<em class="qrcode">删除</em>
+								<el-popover placement="top" width="160">
+									<p>删除后将无法恢复，确定删除吗？</p>
+									<div style="text-align: right; margin: 0" >
+										<el-button size="mini" type="text" @click="handleCancle(index)">取消</el-button>
+								    	<el-button type="primary" size="mini" @click="handleConfirm(live, index)">确定</el-button>
+									</div>
+									<em class="qrcode" :class="'qrcode_' + index" slot="reference">删除</em>
+								</el-popover>
 							</div>
 							<div class="title">
 								<span>这是一个厂标题我耳机我其二级Oprah破壳我靠谱12323</span>
@@ -68,185 +82,6 @@
 									<span>直播数据</span>
 								</li>
 
-							</ul>
-						</div>
-					</div>
-				</li>
-				<li>
-					<div class="item">
-						<div class="body">
-							<div class="btn">
-								<em class="qrcode">二维码</em>
-								<em class="qrcode">删除</em>
-							</div>
-							<div class="title">
-								<span>这是一个厂标题我耳机我其二级Oprah破壳我靠谱12323</span>
-								<i class="iconfont icon-video"></i>
-							</div>
-						</div>
-						<div class="buttom">
-							<div class="time">直播开始时间：<span>未设置</span></div>
-							<ul class="button">
-								<li>
-									<i class="iconfont icon-video"></i>
-									<span>直播装修</span>
-								</li>
-								<li>
-									<i class="iconfont icon-video"></i>
-									<span>互动设置</span>
-								</li>
-								<li>
-									<i class="iconfont icon-video"></i>
-									<span>直播数据</span>
-								</li>
-								<li>
-									<i class="iconfont icon-video"></i>
-									<span>直播数据</span>
-								</li>
-
-							</ul>
-						</div>
-					</div>
-				</li>
-				<li>
-					<div class="item">
-						<div class="body">
-							<div class="btn">
-								<em class="qrcode">二维码</em>
-								<em class="qrcode">删除</em>
-							</div>
-							<div class="title">
-								<span>这是一个厂标题我耳机我其二级Oprah破壳我靠谱12323</span>
-								<i class="iconfont icon-video"></i>
-							</div>
-						</div>
-						<div class="buttom">
-							<div class="time">直播开始时间：<span>未设置</span></div>
-							<ul class="button">
-								<li>
-									<i class="iconfont icon-video"></i>
-									<span>直播装修</span>
-								</li>
-								<li>
-									<i class="iconfont icon-video"></i>
-									<span>互动设置</span>
-								</li>
-								<li>
-									<i class="iconfont icon-video"></i>
-									<span>直播数据</span>
-								</li>
-								<li>
-									<i class="iconfont icon-video"></i>
-									<span>直播数据</span>
-								</li>
-
-							</ul>
-						</div>
-					</div>
-				</li>
-				<li>
-					<div class="item">
-						<div class="body">
-							<div class="btn">
-								<em class="qrcode">二维码</em>
-								<em class="qrcode">删除</em>
-							</div>
-							<div class="title">
-								<span>这是一个厂标题我耳机我其二级Oprah破壳我靠谱12323</span>
-								<i class="iconfont icon-video"></i>
-							</div>
-						</div>
-						<div class="buttom">
-							<div class="time">直播开始时间：<span>未设置</span></div>
-							<ul class="button">
-								<li>
-									<i class="iconfont icon-video"></i>
-									<span>直播装修</span>
-								</li>
-								<li>
-									<i class="iconfont icon-video"></i>
-									<span>互动设置</span>
-								</li>
-								<li>
-									<i class="iconfont icon-video"></i>
-									<span>直播数据</span>
-								</li>
-								<li>
-									<i class="iconfont icon-video"></i>
-									<span>直播数据</span>
-								</li>
-
-							</ul>
-						</div>
-					</div>
-				</li>
-				<li>
-					<div class="item">
-						<div class="body">
-							<div class="btn">
-								<em class="qrcode">二维码</em>
-								<em class="qrcode">删除</em>
-							</div>
-							<div class="title">
-								<span>这是一个厂标题我耳机我其二级Oprah破壳我靠谱12323</span>
-								<i class="iconfont icon-video"></i>
-							</div>
-						</div>
-						<div class="buttom">
-							<div class="time">直播开始时间：<span>未设置</span></div>
-							<ul class="button">
-								<li>
-									<i class="iconfont icon-video"></i>
-									<span>直播装修</span>
-								</li>
-								<li>
-									<i class="iconfont icon-video"></i>
-									<span>互动设置</span>
-								</li>
-								<li>
-									<i class="iconfont icon-video"></i>
-									<span>直播数据</span>
-								</li>
-								<li>
-									<i class="iconfont icon-video"></i>
-									<span>直播数据</span>
-								</li>
-
-							</ul>
-						</div>
-					</div>
-				</li>
-				<li>
-					<div class="item">
-						<div class="body">
-							<div class="btn">
-								<em class="qrcode">二维码</em>
-								<em class="qrcode">删除</em>
-							</div>
-							<div class="title">
-								<span>这是一个厂标题我耳机我其二级Oprah破壳我靠谱12323</span>
-								<i class="iconfont icon-video"></i>
-							</div>
-						</div>
-						<div class="buttom">
-							<div class="time">直播开始时间：<span>未设置</span></div>
-							<ul class="button">
-								<li>
-									<i class="iconfont icon-video"></i>
-									<span>直播装修</span>
-								</li>
-								<li>
-									<i class="iconfont icon-video"></i>
-									<span>互动设置</span>
-								</li>
-								<li>
-									<i class="iconfont icon-video"></i>
-									<span>直播数据</span>
-								</li>
-								<li>
-									<i class="iconfont icon-video"></i>
-									<span>直播数据</span>
-								</li>
 							</ul>
 						</div>
 					</div>
@@ -274,6 +109,7 @@
 				<el-button :disabled="!createAgree" type="primary">确 定</el-button>
 			</span>
 		</el-dialog>
+
 	</div>
 </template>
 
@@ -288,24 +124,51 @@
 				createDialog: false,
 				createName: '',
 				createAgree: true,
-				select: 'a'
+				select: 'a',
+				delete_live_popover_visible: true,
+				test: '111',
+				lives: [1, 2, 3, 4, 5, 6, 7]
 			}
 		},
 		methods: {
+			simulateClick(index) {
+				var ems = document.getElementsByTagName('em')
+				for (var i = 0; i < ems.length; i++) {
+					var em = ems[i]
+					for (var j = 0; j < em.classList.length; j++) {
+						let className = ems[i].classList[j]
+						if (className === 'qrcode_' + index) {
+							ems[i].click()
+						}
+					}
+				}
+			},
 			openCreateDialog () {
 				this.createName   = '';
 				this.createAgree  = true;
 				this.createDialog = true;
 
+			},
+			handleCancle(index) {
+				this.simulateClick(index)
+			},
+			handleConfirm(live_id, index) {
+				console.log(live_id)
+				this.simulateClick(index)
 			}
 		}
 	}
 </script>
 
 
-<style scoped lang="less">
+<style scoped lang='less'>
 	// .commoon-view {
 		.list {
+			li:nth-child(2) {
+				.body {
+					background-image: linear-gradient(241deg, #1190bf, #e85471);
+				}
+			}
 			display: flex;
 			flex-wrap: wrap;
 			> li {
@@ -317,9 +180,50 @@
 				.create {
 					display: inline-block;
 				}
+				.creat-live-box {
+					height: 203px;
+					/*width: 100%;*/
+					border: dashed 2px #dcdee3;
+					position: relative;
+					cursor: pointer;
+					user-select: none;
+					.line-box {
+						position: absolute;
+						top: 45%;
+						left: 50%;
+						transform: translate(-50%, -50%);
+						.across-line {
+							position: absolute;
+							width: 32px;
+							height: 2px;
+							background-color: #c4c6cf;
+							top: 50%;
+							left: 50%;
+							transform: translate(-50%, -50%);
+						}
+						.vertical-line {
+							position: absolute;
+							width: 2px;
+							height: 32px;
+							background-color: #c4c6cf;
+							top: 50%;
+							left: 50%;
+							transform: translate(-50%, -50%);
+						}
+					}
+					p {
+						color: #c4c6cf;
+						position: absolute;
+						top: 55%;
+						left: 50%;
+						transform: translate(-50%, -50%);
+						font-size: 16px;
+					}
+				}
 				&:hover {
 					box-shadow: 0 1px 20px 0 rgba(0,43,59,0.20);
 				}
+
 				.body {
 					height: 135px;
 					box-sizing: border-box;

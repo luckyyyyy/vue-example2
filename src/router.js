@@ -47,7 +47,7 @@ const routes = [
 			},
 			main: resolve => {
 				require(['./components/breadcrumb.vue'], resolve)
-			},
+			}
 		},
 		children: [
 			{ // 保证在前面 先后顺序匹配
@@ -72,7 +72,10 @@ const routes = [
 			{
 				name: 'store_order_list',
 				path: 'order',
-				meta: { requiresAuth: true },
+				meta: { requiresAuth: true, breadcrumb: [
+					{ route: 'store_shop_list', name: '订单管理' },
+					{ route: 'store_shop_list', name: '订单详情' }
+					] },
 				component: resolve => {
 					require(['./views/store/order.vue'], resolve)
 				}
@@ -137,7 +140,9 @@ const routes = [
 			{
 				name: 'live_list',
 				path: 'list/:type?',
-				meta: { requiresAuth: true },
+				meta: { requiresAuth: true, breadcrumb: [
+					{ route: 'live_list', name: '直播列表' }
+				] },
 				component: resolve => {
 					require(['./views/live/list.vue'], resolve)
 				}
