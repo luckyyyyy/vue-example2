@@ -15,64 +15,63 @@
 		</Affix>
 		<div class="commoon-view">
 			<ul class="list">
-				<li>
-					<div class="creat-live-box" @click="openCreateDialog">
-						<div class="line-box">
-							<span class="across-line"></span>
-							<span class="vertical-line"></span>
-						</div>
-						<p>新建直播</p>
+				<li class="creat-live-box" @click="openCreateDialog">
+					<div class="line-box">
+						<span class="across-line"></span>
+						<span class="vertical-line"></span>
 					</div>
+					<p>新建直播</p>
 				</li>
-				<li v-for='index in 10'>
-					<div class="item">
-						<div class="body">
-							<div class="btn">
-								<div class="qrcode-wrapper">
-									<em class="qrcode">二维码</em>
-									<div class="qrcode-box">
-										<p>微信扫一扫查看</p>
-										<div class="qr"></div>
-										<copy-board :btn_class="`copy${index}`" :copy_str="`yeoman${index}`"></copy-board>
+				<li v-for='index in 10' class="item">
+					<div class="body">
+						<div class="btn">
+							<el-popover trigger="hover" popper-class="qrcode-wrapper" placement="top" width="240">
+								<div class="qrcode-box">
+									<p>微信扫一扫查看</p>
+									<div class="qr"></div>
+									<div class="clipboard">
+										<el-input :value="`yeoman${index}`" :disabled="true" size="small"></el-input>
+										<el-button @success="handleSuccess" size="small" v-clipboard="`yeoman${index}`">复制</el-button>
 									</div>
 								</div>
-								<el-popover popper-class="delete_popper" placement="top" width="160">
-									<p>删除后将无法恢复，确定删除吗？</p>
-									<div class="deletee_btn">
-										<el-button size="mini" type="text" @click="handleConfirm(index)">取消</el-button>
-								    	<el-button type="primary" size="mini" @click="handleConfirm(index, live)">确定</el-button>
-									</div>
-									<em :ref="`delete_${index}`" slot="reference">删除</em>
-								</el-popover>
-							</div>
-							<div class="title">
-								<span>这是一个厂标题我耳机我其二级Oprah破壳我靠谱12323</span>
-								<i class="iconfont icon-video"></i>
-							</div>
+								<em slot="reference">二维码</em>
+							</el-popover>
+							<el-popover popper-class="delete_popper" placement="top" width="160">
+								<p>删除后将无法恢复，确定删除吗？</p>
+								<div class="deletee_btn">
+									<el-button size="mini" type="text" @click="handleConfirm(index)">取消</el-button>
+							    	<el-button type="primary" size="mini" @click="handleConfirm(index, live)">确定</el-button>
+								</div>
+								<em :ref="`delete_${index}`" slot="reference">删除</em>
+							</el-popover>
 						</div>
-						<div class="buttom">
-							<div class="time">直播开始时间：<span>未设置</span></div>
-							<div class="button">
-								<router-link :to="{ name: 'live_detail', params: { id: index } }">
-									<i class="iconfont icon-paintfill"></i>
-									<span>直播装修</span>
-								</router-link>
+						<div class="title">
+							<span>这是一个厂标题我耳机我其二级Oprah破壳我靠谱12323</span>
+							<i class="iconfont icon-video"></i>
+						</div>
+					</div>
+					<div class="buttom">
+						<div class="time">直播开始时间：<span>未设置</span></div>
+						<div class="button">
+							<router-link :to="{ name: 'live_detail', params: { id: index } }">
+								<i class="iconfont icon-paintfill"></i>
+								<span>直播装修</span>
+							</router-link>
 
-								<router-link :to="{ name: 'live_detail_image', params: { id: index } }">
-									<i class="iconfont icon-wefill"></i>
-									<span>互动设置</span>
-								</router-link>
+							<router-link :to="{ name: 'live_detail_image', params: { id: index } }">
+								<i class="iconfont icon-wefill"></i>
+								<span>互动设置</span>
+							</router-link>
 
-								<router-link :to="{ name: 'live_control', params: { id: index } }">
-									<i class="iconfont icon-rankfill"></i>
-									<span>直播数据</span>
-								</router-link>
+							<router-link :to="{ name: 'live_control', params: { id: index } }">
+								<i class="iconfont icon-rankfill"></i>
+								<span>直播数据</span>
+							</router-link>
 
-								<router-link :to="{ name: 'live_detail', params: { id: index } }">
-									<i class="iconfont icon-k"></i>
-									<span>中控台</span>
-								</router-link>
-							</div>
+							<router-link :to="{ name: 'live_detail', params: { id: index } }">
+								<i class="iconfont icon-k"></i>
+								<span>中控台</span>
+							</router-link>
 						</div>
 					</div>
 				</li>
@@ -102,20 +101,10 @@
 </template>
 
 <script>
-	import Affix from '../../components/item/affix.vue'
-	import Clipboard from 'clipboard'
-	import CopyBoard from '../../components/CopyBoard.vue'
+	import Affix from '../../components/item/affix'
 	export default {
 		components: {
 			Affix,
-			CopyBoard
-		},
-		mounted() {
-	        let clipboard = new Clipboard('.copy-btn');
-	        clipboard.on('success', (e) => {
-	        	alert`复制成功`
-	            e.clearSelection();
-	        });
 		},
 		data () {
 			return {
@@ -159,6 +148,12 @@
 					this.lock = false;
 				}, 1000)
 				this.createDialog = false;
+			},
+			handleSuccess () {
+				this.$message({
+					 message: '复制成功',
+					 type: 'success'
+				})
 			}
 		}
 	}
@@ -183,7 +178,7 @@
 			.create {
 				display: inline-block;
 			}
-			.creat-live-box {
+			&.creat-live-box {
 				height: 203px;
 				/*width: 100%;*/
 				border: dashed 2px #dcdee3;
@@ -255,14 +250,6 @@
 				}
 				.btn {
 					text-align: right;
-					.qrcode-wrapper {
-						display: inline;
-						&:hover {
-							.qrcode-box {
-								display: block;
-							}
-						}
-					}
 					em {
 						cursor: pointer;
 						font-style: normal;
@@ -273,29 +260,6 @@
 						border-radius: 100px;
 						position: relative;
 						z-index: 9999;
-					}
-				
-					.qrcode-box {
-						box-shadow: 0 0 4px 0 rgba(0, 0, 0, 0.2);
-						position: absolute;
-						width: 228px;
-						height: 204px;
-						background-color: #fff;
-						display: none;
-						margin-left: 30px;
-						margin-top: 2px;
-						p {
-							font-size: 12px;
-							color: #666;
-							text-align: center;
-							margin-top: 20px;
-						}
-						.qr {
-							background-color: #999;
-							width: 90px;
-							height: 90px;
-							margin: 0 auto;
-						}
 					}
 				}
 				.title {
@@ -334,7 +298,9 @@
 						border-right: 1px solid #EBECF0;
 						flex: 1;
 						cursor: pointer;
-						text-align: center;
+						display: flex;
+						justify-content: center;
+						align-items: center;
 						&:last-child {
 							border: none;
 						}
@@ -343,6 +309,7 @@
 							font-size: 12px;
 						}
 						i {
+							vertical-align: middle;
 							font-size: 24px;
 							color: #999;
 							margin-bottom: 5px;
@@ -379,7 +346,37 @@
 			text-align: right;
 		}
 	}
+</style>
 
+
+<style lang="less">
+	.qrcode-wrapper {
+		margin: 0;
+		// padding: 20px;
+		.qrcode-box {
+			display: flex;
+			flex-direction: column;
+			align-items: center;
+			p {
+				font-size: 14px;
+				color: #666;
+				margin: 0;
+			}
+			.qr {
+				background-color: #999;
+				width: 100px;
+				height: 100px;
+				margin: 5px;
+			}
+			.clipboard {
+				display: flex;
+				margin: 5px;
+				.el-button {
+					margin-left: 5px;
+				}
+			}
+		}
+	}
 </style>
 
 

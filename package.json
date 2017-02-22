@@ -19,6 +19,7 @@
     "nprogress": "^0.2.0",
     "qrcodejs2": "0.0.2",
     "vue": "^2.1.0",
+    "vue-clipboards": "^0.2.5",
     "vue-quill-editor": "^1.1.1",
     "vue-router": "^2.1.1",
     "vuex": "^2.0.0",
