@@ -25,17 +25,10 @@
 				<li v-for='index in 10' class="item">
 					<div class="body">
 						<div class="btn">
-							<el-popover popper-class="qrcode-wrapper" placement="top" width="240">
-								<div class="qrcode-box">
-									<p>微信扫一扫查看</p>
-									<div class="qr"></div>
-									<div class="clipboard">
-										<el-input :value="`yeoman${index}`" :disabled="true" size="small"></el-input>
-										<el-button @success="handleSuccess" size="small" v-clipboard="`yeoman${index}`">复制</el-button>
-									</div>
-								</div>
+							<qrcodePopover text="123">
+								<p slot="tips">微信扫一扫查看</p>
 								<em slot="reference">二维码</em>
-							</el-popover>
+							</qrcodePopover>
 							<el-popover popper-class="delete_popper" placement="top" width="160">
 								<p>删除后将无法恢复，确定删除吗？</p>
 								<div class="deletee_btn">
@@ -102,9 +95,10 @@
 
 <script>
 	import Affix from '../../components/item/affix'
+	import qrcodePopover from '../../components/item/qrcodePopover'
 	export default {
 		components: {
-			Affix,
+			Affix, qrcodePopover
 		},
 		data () {
 			return {
@@ -148,12 +142,6 @@
 					this.lock = false;
 				}, 1000)
 				this.createDialog = false;
-			},
-			handleSuccess () {
-				this.$message({
-					 message: '复制成功',
-					 type: 'success'
-				})
 			}
 		}
 	}
@@ -347,36 +335,3 @@
 		}
 	}
 </style>
-
-
-<style lang="less">
-	.qrcode-wrapper {
-		margin: 0;
-		// padding: 20px;
-		.qrcode-box {
-			display: flex;
-			flex-direction: column;
-			align-items: center;
-			p {
-				font-size: 14px;
-				color: #666;
-				margin: 0;
-			}
-			.qr {
-				background-color: #999;
-				width: 100px;
-				height: 100px;
-				margin: 5px;
-			}
-			.clipboard {
-				display: flex;
-				margin: 5px;
-				.el-button {
-					margin-left: 5px;
-				}
-			}
-		}
-	}
-</style>
-
-
