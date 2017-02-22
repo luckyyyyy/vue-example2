@@ -25,7 +25,7 @@
 				<li v-for='index in 10' class="item">
 					<div class="body">
 						<div class="btn">
-							<el-popover trigger="hover" popper-class="qrcode-wrapper" placement="top" width="240">
+							<el-popover popper-class="qrcode-wrapper" placement="top" width="240">
 								<div class="qrcode-box">
 									<p>微信扫一扫查看</p>
 									<div class="qr"></div>
