@@ -133,15 +133,16 @@
 				<div class="btn"><a class="active">评论用户</a></div>
 				<div class="btn"><a class="disabled">禁言用户</a></div>
 			</div>
-			<ul class="chat">
-				<li><em>我曹:</em><span>啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊</span></li>
-				<li><em>我曹:</em><span>啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊</span></li>
-				<li><em>我曹:</em><span>啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊</span></li>
-				<li><em>我曹:</em><span>啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊</span></li>
-			</ul>
-			<div class="chat-input">
-				<el-input v-model="input" placeholder="请输入内容"></el-input>
-				<el-button type="primary">发送</el-button>
+			<div class="chat">
+				<div class="list">
+					<p v-for="n in 100">
+						<em>我曹:</em><span>啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊</span>
+					</p>
+				</div>
+				<div class="chat-input">
+					<el-input v-model="input" placeholder="请输入内容"></el-input>
+					<el-button type="primary">发送</el-button>
+				</div>
 			</div>
 		</div>
 		<el-dialog title="公告" v-model="notice_dialog_visible" size="tiny">
@@ -271,11 +272,14 @@
 			padding: 10px;
 			padding-bottom: 0;
 			align-items: center;
+			// min-width: 600px;
 			.video {
+				// min-width: 600px;
+				min-height: 400px;
 				// flex: 1;
-				height: 400px;
-				width: 800px;
+				width: 100%;
 				display: flex;
+				// flex-direction: column;
 				.video-view {
 					flex: 1;
 					background: #333;
@@ -337,28 +341,39 @@
 			}
 			.chat {
 				width: 100%;
-				padding: 10px 20px;
 				box-sizing: border-box;
 				height: 0;
 				overflow: auto;
 				flex: 1;
 				background: #f7f8fa;
-				li {
-					padding: 10px 0;
-					em {
-						color: #0076FF;
-						font-style: normal;
+				display: flex;
+				flex-direction: column;
+				padding-top: 10px;
+				.list {
+					padding: 0 20px;
+					overflow: auto;
+					box-sizing: border-box;
+					flex: 1;
+					p {
+						padding: 5px 0;
+						margin: 0;
+						em {
+							color: #0076FF;
+							font-style: normal;
+						}
+					}
+				}
+				.chat-input {
+					box-sizing: border-box;
+					width: 100%;
+					display: flex;
+					padding: 10px;
+					.el-button {
+						margin-left: 10px;
 					}
 				}
 			}
-			.chat-input {
-				width: 100%;
-				display: flex;
-				padding: 10px 10px 0 10px;
-				.el-button {
-					margin-left: 10px;
-				}
-			}
+
 		}
 		.left {
 			width: 550px;
