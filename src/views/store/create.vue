@@ -65,41 +65,7 @@
 							<el-input></el-input>
 						</el-form-item>
 						<el-form-item label="商品图">
-							<el-upload
-							  action="//jsonplaceholder.typicode.com/posts/"
-							  type="drag"
-							  :thumbnail-mode="true"
-							>
-								<div class="el-dragger__text"><em>点击上传</em></div>
-							</el-upload>
-							<el-upload
-							  action="//jsonplaceholder.typicode.com/posts/"
-							  type="drag"
-							  :thumbnail-mode="true"
-							>
-								<div class="el-dragger__text"><em>点击上传</em></div>
-							</el-upload>
-							<el-upload
-							  action="//jsonplaceholder.typicode.com/posts/"
-							  type="drag"
-							  :thumbnail-mode="true"
-							>
-								<div class="el-dragger__text"><em>点击上传</em></div>
-							</el-upload>
-							<el-upload
-							  action="//jsonplaceholder.typicode.com/posts/"
-							  type="drag"
-							  :thumbnail-mode="true"
-							>
-								<div class="el-dragger__text"><em>点击上传</em></div>
-							</el-upload>
-							<el-upload
-							  action="//jsonplaceholder.typicode.com/posts/"
-							  type="drag"
-							  :thumbnail-mode="true"
-							>
-								<div class="el-dragger__text"><em>点击上传</em></div>
-							</el-upload>
+
 						</el-form-item>
 					</div>
 				</div>
@@ -172,7 +138,7 @@
 				content: '',
 				editorOption: {},
 				input: 80,
-				active: 3
+				active: 2
 			}
 		},
 		computed: {

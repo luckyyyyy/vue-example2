@@ -3,7 +3,7 @@
 		:on-error="option.onError"
 		:on-progress="option.onProgress"
 		:on-success="option.onSuccess"
-		:show-upload-list="false"
+		:show-file-list="false"
 		:action="option.action"
 		:headers="option.headers"
 		:name="option.name"

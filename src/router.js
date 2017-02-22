@@ -1,8 +1,8 @@
 /*
 * @Author: William Chan
 * @Date:   2016-12-01 17:57:50
-* @Last Modified by:   William Chan
-* @Last Modified time: 2017-02-22 16:59:25
+* @Last Modified by:   Administrator
+* @Last Modified time: 2017-02-22 22:23:28
 */
 
 'use strict';
@@ -77,9 +77,8 @@ const routes = [
 				name: 'store_order_list',
 				path: 'order',
 				meta: { requiresAuth: true, breadcrumb: [
-					{ route: 'store_shop_list', name: '订单管理' },
-					{ route: 'store_shop_list', name: '订单详情' }
-					] },
+					{ route: 'store_order_list', name: '订单管理' },
+				] },
 				component: resolve => {
 					require(['./views/store/order.vue'], resolve)
 				}
@@ -87,7 +86,10 @@ const routes = [
 			{
 				name: 'store_order_detail',
 				path: 'order/detail/:id',
-				meta: { requiresAuth: true, parent: 'store_order_list' },
+				meta: { requiresAuth: true, parent: 'store_order_list' [
+					{ route: 'store_order_list', name: '订单管理' },
+					{ route: 'store_order_detail', name: '订单详情' }
+				] },
 				component: resolve => {
 					require(['./views/store/order-detail.vue'], resolve)
 				}
