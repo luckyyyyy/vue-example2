@@ -2,12 +2,8 @@
 * @Author: William Chan
 * @Date:   2016-12-01 17:57:50
 * @Last Modified by:   William Chan
-* @Last Modified time: 2017-02-21 18:18:36
+* @Last Modified time: 2017-02-22 11:45:26
 */
-
-// component(resolve) {
-// 	require(['./views/index.vue'], resolve)
-// }
 
 'use strict';
 
