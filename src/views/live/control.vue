@@ -129,14 +129,14 @@
 					<li>总评论数<span>1111万</span><li>
 				</ul>
 			</div>
-			<div class="head">
-				<div class="btn"><a class="active">评论用户</a></div>
-				<div class="btn"><a class="disabled">禁言用户</a></div>
-			</div>
 			<div class="chat">
+				<div class="head">
+					<div class="btn"><a class="active">评论用户</a></div>
+					<div class="btn"><a class="disabled">禁言用户</a></div>
+				</div>
 				<div class="list">
 					<p v-for="n in 100">
-						<em>我曹:</em><span>啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊</span>
+						<em>我我:</em><span>啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊</span>
 					</p>
 				</div>
 				<div class="chat-input">
@@ -279,7 +279,6 @@
 				// flex: 1;
 				width: 100%;
 				display: flex;
-				// flex-direction: column;
 				.video-view {
 					flex: 1;
 					background: #333;
@@ -306,36 +305,12 @@
 					flex-direction: column;
 					width: 75px;
 					padding: 50px 10px;
-					margin-left: 10px;
 					justify-content: space-between;
 					align-items: center;
 					li {
 						align-items: center;
 						display: flex;
 						flex-direction: column;
-					}
-				}
-			}
-			.head {
-				width: 100%;
-				display: flex;
-				background: #f7f8fa;
-				margin-top: 10px;
-				border-bottom: 1px solid #EBECF0;
-				text-align: center;
-				.btn {
-					flex: 1;
-					a {
-						display: inline-block;
-						padding: 10px 20px;
-						color: #1190BF;
-						&.active {
-							border-bottom: 2px solid #1190BF;
-						}
-						&.disabled {
-							color: #ccc;
-							cursor: not-allowed;
-						}
 					}
 				}
 			}
@@ -348,9 +323,29 @@
 				background: #f7f8fa;
 				display: flex;
 				flex-direction: column;
-				padding-top: 10px;
+				.head {
+					display: flex;
+					border-bottom: 1px solid #EBECF0;
+					text-align: center;
+					.btn {
+						flex: 1;
+						a {
+							display: inline-block;
+							padding: 10px 20px;
+							color: #1190BF;
+							&.active {
+								border-bottom: 2px solid #1190BF;
+							}
+							&.disabled {
+								color: #ccc;
+								cursor: not-allowed;
+							}
+						}
+					}
+				}
 				.list {
 					padding: 0 20px;
+					margin-top: 10px;
 					overflow: auto;
 					box-sizing: border-box;
 					flex: 1;
@@ -376,7 +371,7 @@
 
 		}
 		.left {
-			width: 550px;
+			width: 560px;
 			display: flex;
 			flex-direction: column;
 			.button-address,
