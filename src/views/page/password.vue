@@ -50,16 +50,14 @@
 		},
 		computed: {
 			...mapState({
-				lock: state => state.update_user.lock
+				lock: state => state.password.lock
 			})
-		},
-		mounted () {
 		},
 		methods: {
 			submit () {
 			this.$refs.password.validate((valid) => {
 				if (valid) {
-					// this.$store.dispatch('LOGIN_REQUEST', this.login);
+					this.$store.dispatch('PASSWORD_REQUEST', this.login);
 				} else {
 					return false;
 				}

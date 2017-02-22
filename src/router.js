@@ -1,8 +1,8 @@
 /*
 * @Author: William Chan
 * @Date:   2016-12-01 17:57:50
-* @Last Modified by:   Administrator
-* @Last Modified time: 2017-02-21 04:06:10
+* @Last Modified by:   William Chan
+* @Last Modified time: 2017-02-21 18:18:36
 */
 
 // component(resolve) {
@@ -62,8 +62,16 @@ const routes = [
 				name: 'store_shop_list',
 				path: 'shop/:type?',
 				meta: { requiresAuth: true, breadcrumb: [
+					{ route: 'index', name: 'A' },
+					{ route: 'store_shop_list', name: 'B' },
+					{ route: 'store_shop_list', name: 'C' },
 					{ route: 'store_shop_list', name: '商品列表' },
+					{ route: 'store_shop_list', name: 'D' },
+					{ route: 'index', name: 'A' },
+					{ route: 'store_shop_list', name: 'B' },
+					{ route: 'store_shop_list', name: 'C' },
 					{ route: 'store_shop_list', name: '商品列表' },
+					{ route: 'store_shop_list', name: 'D' },
 				] },
 				component: resolve => {
 					require(['./views/store/shop.vue'], resolve)

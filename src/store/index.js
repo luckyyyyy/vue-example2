@@ -1,8 +1,8 @@
 /*
 * @Author: William Chan
 * @Date:   2016-12-03 19:24:59
-* @Last Modified by:   Administrator
-* @Last Modified time: 2017-02-21 02:23:25
+* @Last Modified by:   William Chan
+* @Last Modified time: 2017-02-21 19:33:09
 */
 
 'use strict';
@@ -15,9 +15,10 @@ import register from './modules/user/register'
 import logout from './modules/user/logout'
 import reset_password from './modules/user/reset_password'
 import update_user from './modules/user/update_user'
+import password from './modules/user/password'
 
 const modules = {
-	login, register, reset_password, logout, update_user
+	login, register, reset_password, logout, update_user, password
 }
 
 // globle and common

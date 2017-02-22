@@ -1,8 +1,8 @@
 /*
 * @Author: William Chan
 * @Date:   2016-12-02 11:31:24
-* @Last Modified by:   Administrator
-* @Last Modified time: 2017-02-21 02:09:53
+* @Last Modified by:   William Chan
+* @Last Modified time: 2017-02-21 19:37:03
 */
 
 // axios.request(config)
@@ -102,6 +102,10 @@ export const USER_AVATAR = {
 	// accept: 'image/jpeg, image/x-png, image/gif'
 }
 
+// -----------------------------
+// user 用户接口
+// -----------------------------
+
 // POST /api/v1/user/register/captcha 获取验证码
 export const register_captcha = ({ phone }) => {
 	return axios.post(`${API_HOST}/user/register/captcha`, { phone }, { interceptors: false })
@@ -130,10 +134,19 @@ export const reset_password = ({ phone, password, captcha }) => {
 export const update_user = ({ nickName, email, sex, description }) => {
 	return axios.post(`${API_HOST}/user/update_user`, { nickName, email, sex, description })
 }
+export const password = ({ nickName, email, sex, description }) => {
+	return axios.post(`${API_HOST}/user/update_user`, { nickName, email, sex, description })
+}
 
 
+// -----------------------------
+// channel 频道接口
+// -----------------------------
 
-
+// POST /api/v1/channel/create
+export const create_channel = ({ name, commodityCatalog, province, city, county, address, companyName }) => {
+	return axios.post(`${API_HOST}/channel/create`, { name, commodityCatalog, province, city, county, address, companyName })
+}
 
 
 

@@ -7,12 +7,12 @@
 		</div>
 		<div class="body">
 			<template v-if="active == 1">
-				<el-form class="form" @submit.native.prevent label-width="100px" ref="user" :model="user">
-					<el-form-item label="频道名称：">
-						<el-input placeholder="请输入名称" v-model="user.name"></el-input>
+				<el-form class="form" @submit.native.prevent :rules="rules" label-width="100px" ref="user" :model="create">
+					<el-form-item label="频道名称：" prop="name">
+						<el-input placeholder="请输入名称" v-model="create.name"></el-input>
 					</el-form-item>
-					<el-form-item label="直播商品：">
-						<el-select placeholder="请选择">
+					<el-form-item label="直播商品：" prop="commodityCatalog">
+						<el-select placeholder="请选择" v-model="create.commodityCatalog">
 							<el-option
 								v-for="item in options"
 								:label="item.label"
@@ -42,16 +42,18 @@
 								:value="item.value">
 							</el-option>
 						</el-select>
-						<div class="address"><el-input placeholder="请填写具体地址" v-model="user.name"></el-input></div>
+					</el-form-item>
+					<el-form-item>
+						<el-input class="address" placeholder="请填写具体地址" v-model="create.address"></el-input>
 					</el-form-item>
 					<el-form-item label="公司名称：">
-						<el-input placeholder="请输入营业执照上的公司全名" v-model="user.name"></el-input>
+						<el-input placeholder="请输入营业执照上的公司全名" v-model="create.companyName"></el-input>
 					</el-form-item>
 					<el-form-item>
-						<el-checkbox v-model="user.agree" checked>我已阅读并同意 <a>彩虹云直播用户协议</a></el-checkbox>
+						<el-checkbox v-model="create.agree">我已阅读并同意 <a>彩虹云直播用户协议</a></el-checkbox>
 					</el-form-item>
 					<el-form-item>
-						<el-button :loading="lock" native-type="submit" type="primary" @click="submit">创建</el-button>
+						<el-button :disabled="!create.agree" :loading="lock" native-type="submit" type="primary" @click="submit">创建频道</el-button>
 					</el-form-item>
 				</el-form>
 			</template>
@@ -62,7 +64,7 @@
 					<span>基于微信公众号直播 + 电商的全场景化应用解决方案</span>
 				</div>
 				<div class="button">
-					<el-button type="primary" size="large">绑定微信公众号</el-button>
+					<el-button type="primary" size="large" @click="openWxUrl">绑定微信公众号</el-button>
 					<a class="wx" href="">还没有公众号？去申请吧 ></a>
 				</div>
 				<div class="tips">
@@ -86,13 +88,26 @@
 	export default {
 		data () {
 			return {
-				active: 1,
-				user: {},
+				rules: {
+					email: [
+						{ type: 'email', message: '请输入正确的邮箱' }
+					],
+					name: [
+						{ required: true, max: 12, message: '频道名称小于12个字符' }
+					],
+					commodityCatalog: [
+						{ required: true, type: 'number', message: '请选择正确的分类' }
+					]
+				},
+				create: {
+					agree: true,
+					commodityCatalog: ''
+				},
 				options: [{
-				  value: '选项1',
+				  value: 0,
 				  label: '黄金糕'
 				}, {
-				  value: '选项2',
+				  value: 1,
 				  label: '双皮奶'
 				}, {
 				  value: '选项3',
@@ -110,7 +125,14 @@
 			...mapState({
 				info: state => state.user,
 				lock: state => state.update_user.lock
-			})
+			}),
+			active () {
+				if (this.$route.params.id) {
+					return 2;
+				} else {
+					return 1;
+				}
+			}
 		},
 		mounted () {
 			this.user = Object.assign({}, this.info);
@@ -118,6 +140,9 @@
 		methods: {
 			submit () {
 				this.$store.dispatch('UPDATE_USER_REQUEST', this.user);
+			},
+			openWxUrl () {
+
 			},
 			toIndex () {
 				this.$router.push({ name: 'index' })
@@ -168,10 +193,7 @@
 				width: 120px;
 			}
 			.address {
-				margin-top: 10px;
-				.el-input {
-					width: 300px;
-				}
+				width: 300px;
 			}
 		}
 		.logo {
