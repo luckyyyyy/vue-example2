@@ -28,7 +28,14 @@
 					<div class="item">
 						<div class="body">
 							<div class="btn">
-								<em class="qrcode">二维码</em>
+								<div class="qrcode-wrapper">
+									<em class="qrcode">二维码</em>
+									<div class="qrcode-box">
+										<p>微信扫一扫查看</p>
+										<div class="qr"></div>
+										<copy-board :btn_class="`copy${index}`" :copy_str="`yeoman${index}`"></copy-board>
+									</div>
+								</div>
 								<el-popover popper-class="delete_popper" placement="top" width="160">
 									<p>删除后将无法恢复，确定删除吗？</p>
 									<div class="deletee_btn">
@@ -47,23 +54,23 @@
 							<div class="time">直播开始时间：<span>未设置</span></div>
 							<div class="button">
 								<router-link :to="{ name: 'live_detail', params: { id: index } }">
-									<i class="iconfont icon-video"></i>
+									<i class="iconfont icon-paintfill"></i>
 									<span>直播装修</span>
 								</router-link>
 
 								<router-link :to="{ name: 'live_detail_image', params: { id: index } }">
-									<i class="iconfont icon-video"></i>
+									<i class="iconfont icon-wefill"></i>
 									<span>互动设置</span>
 								</router-link>
 
 								<router-link :to="{ name: 'live_control', params: { id: index } }">
-									<i class="iconfont icon-video"></i>
-									<span>中控台</span>
+									<i class="iconfont icon-rankfill"></i>
+									<span>直播数据</span>
 								</router-link>
 
 								<router-link :to="{ name: 'live_detail', params: { id: index } }">
-									<i class="iconfont icon-video"></i>
-									<span>直播数据</span>
+									<i class="iconfont icon-k"></i>
+									<span>中控台</span>
 								</router-link>
 							</div>
 						</div>
@@ -96,9 +103,19 @@
 
 <script>
 	import Affix from '../../components/item/affix.vue'
+	import Clipboard from 'clipboard'
+	import CopyBoard from '../../components/CopyBoard.vue'
 	export default {
 		components: {
-			Affix
+			Affix,
+			CopyBoard
+		},
+		mounted() {
+	        let clipboard = new Clipboard('.copy-btn');
+	        clipboard.on('success', (e) => {
+	        	alert`复制成功`
+	            e.clearSelection();
+	        });
 		},
 		data () {
 			return {
@@ -238,6 +255,14 @@
 				}
 				.btn {
 					text-align: right;
+					.qrcode-wrapper {
+						display: inline;
+						&:hover {
+							.qrcode-box {
+								display: block;
+							}
+						}
+					}
 					em {
 						cursor: pointer;
 						font-style: normal;
@@ -246,6 +271,31 @@
 						font-size: 12px;
 						background: rgba(0, 0, 0, .3);
 						border-radius: 100px;
+						position: relative;
+						z-index: 9999;
+					}
+				
+					.qrcode-box {
+						box-shadow: 0 0 4px 0 rgba(0, 0, 0, 0.2);
+						position: absolute;
+						width: 228px;
+						height: 204px;
+						background-color: #fff;
+						display: none;
+						margin-left: 30px;
+						margin-top: 2px;
+						p {
+							font-size: 12px;
+							color: #666;
+							text-align: center;
+							margin-top: 20px;
+						}
+						.qr {
+							background-color: #999;
+							width: 90px;
+							height: 90px;
+							margin: 0 auto;
+						}
 					}
 				}
 				.title {
@@ -279,6 +329,7 @@
 				.button {
 					display: flex;
 					justify-content: space-around;
+					margin-bottom: 8px;
 					a {
 						border-right: 1px solid #EBECF0;
 						flex: 1;
@@ -291,6 +342,11 @@
 							display: none;
 							font-size: 12px;
 						}
+						i {
+							font-size: 24px;
+							color: #999;
+							margin-bottom: 5px;
+						}
 						&:hover {
 							span {
 								display: inline-block;
@@ -298,6 +354,7 @@
 							}
 							i {
 								display: none;
+
 							}
 						}
 					}
