@@ -13,7 +13,7 @@
 				</el-form-item>
 				<el-form-item>
 					<el-button :loading="lock" native-type="submit" type="primary" @click="submit">确认修改</el-button>
-					<el-button @click="toIndex">返回控制台</el-button>
+					<el-button @click="backConsole">返回控制台</el-button>
 				</el-form-item>
 			</el-form>
 		</div>
@@ -64,8 +64,12 @@
 			});
 				// this.$store.dispatch('UPDATE_USER_REQUEST', this.user);
 			},
-			toIndex () {
-				this.$router.push({ name: 'index' })
+			backConsole () {
+				if (this.$route.query.redirect) {
+					this.$router.push({ path: this.$route.query.redirect })
+				} else {
+					this.$router.push({ name: 'index' })
+				}
 			}
 		}
 	}

@@ -3,7 +3,7 @@
 		<div class="body">
 			<el-form @submit.native.prevent :rules="rules" label-width="100px" ref="user" :model="user">
 				<el-form-item label="账号：">
-					<span>{{ info.phone }} <router-link :to="{ name: 'password' }">修改密码</router-link></span>
+					<span>{{ info.phone }} <router-link :to="{ name: 'password', query: { redirect: $route.query.redirect } }">修改密码</router-link></span>
 				</el-form-item>
 				<el-form-item label="昵称：" prop="nickName">
 					<el-input placeholder="请输入昵称" v-model="user.nickName"></el-input>
@@ -36,7 +36,7 @@
 				</el-form-item>
 				<el-form-item>
 					<el-button :loading="lock" native-type="submit" type="primary" @click="submit">确认修改</el-button>
-					<el-button @click="toIndex">返回控制台</el-button>
+					<el-button @click="backConsole">返回控制台</el-button>
 				</el-form-item>
 			</el-form>
 
@@ -91,7 +91,6 @@
 				this.upload.start = false;
 			},
 			submit () {
-
 				this.$refs.user.validate(valid => {
 					if (valid) {
 						this.$store.dispatch('UPDATE_USER_REQUEST', this.user);
@@ -100,8 +99,12 @@
 					}
 				})
 			},
-			toIndex () {
-				this.$router.push({ name: 'index' })
+			backConsole () {
+				if (this.$route.query.redirect) {
+					this.$router.push({ path: this.$route.query.redirect })
+				} else {
+					this.$router.push({ name: 'index' })
+				}
 			}
 		}
 	}

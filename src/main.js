@@ -11,7 +11,6 @@ import router from "./router"
 import { sync } from 'vuex-router-sync'
 
 sync(store, router) // done.
-Vue.config.devtools = process.env.NODE_ENV !== 'production'; // 开启debug模式
 Vue.use(ElementUI); // 饿了么组件库 插件形式安装
 
 // create app

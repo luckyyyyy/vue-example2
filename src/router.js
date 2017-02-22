@@ -2,7 +2,7 @@
 * @Author: William Chan
 * @Date:   2016-12-01 17:57:50
 * @Last Modified by:   William Chan
-* @Last Modified time: 2017-02-22 11:45:26
+* @Last Modified time: 2017-02-22 16:59:25
 */
 
 'use strict';
@@ -410,7 +410,7 @@ route.beforeEach((to, from, next) => {
 	const requiresAuth = to.matched.some(record => record.meta.requiresAuth);
 	const defaultPage  = to.meta.default; // 部分子路由默认页面
 	if (!isAuth()) {
-		if (to.name == '404') {
+		if (to.name == '404' || to.fullPath == '/') {
 			return next({ name: 'login' });
 		} else if (requiresAuth) {
 			return next({ name: 'login', query: { redirect: to.fullPath } });
@@ -442,7 +442,6 @@ route.beforeEach((to, from, next) => {
 	} else {
 		return next();
 	}
-
 })
 route.afterEach(route => {
 	NProgress.done(true);

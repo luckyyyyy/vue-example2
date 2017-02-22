@@ -1,7 +1,7 @@
 <template>
 	<div class="page">
 		<div class="title">
-			<router-link tag="div" :to="{ name: 'index' }">
+			<router-link tag="div" :to="{ name: 'index' }" title="返回首页">
 				<div class="left">
 					<img src="../../assets/logo2.png" height="28" width="39" alt="彩虹云直播">
 					<h1>彩虹云直播</h1>
