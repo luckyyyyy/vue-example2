@@ -71,7 +71,16 @@
 			</ul>
 		</div>
 
-		<el-dialog custom-class="dialog" title="新建直播" v-model="openDialog" size="tiny" @close="closeDialog">
+		<el-dialog
+			custom-class="dialog"
+			title="新建直播"
+			v-model="openDialog"
+			size="tiny"
+			@close="closeDialog"
+			:close-on-click-modal="!lock"
+			:close-on-press-escape="!lock"
+			:show-close="!lock"
+		>
 			<el-form label-position="left" label-width="80px" :model="create" @submit.native.prevent>
 				<el-form-item label="直播标题">
 					<el-input :autofocus="true" v-model="create.name" placeholder="请输入直播标题" :maxlength="16" :minlength="1"></el-input>
@@ -82,10 +91,9 @@
 						平台有义务配合有关部门将上传违规文件的用户信息保存，并保留因配合调
 						查及冻结账号的权利。
 					</p>
-					<el-checkbox v-model="createAgree" checked>我已阅读</el-checkbox>
+					<el-checkbox v-model="createAgree">我已阅读</el-checkbox>
 				</div>
 				<div class="footer">
-					<el-button @click="closeDialog">取 消</el-button>
 					<el-button @click="onSubmit" :loading="lock" native-type="submit" :disabled="!createAgree" type="primary">创 建</el-button>
 				</div>
 			</el-form>
