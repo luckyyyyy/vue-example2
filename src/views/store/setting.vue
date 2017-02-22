@@ -3,7 +3,7 @@
 		<Affix>
 			<div class="commoon-menu">
 				<div class="box">
-					<el-radio-group v-model="select" @change="groupChange">
+					<el-radio-group v-model="select">
 						<div class="title">
 							<i class="iconfont icon-video"></i>电商设置
 						</div>
@@ -25,17 +25,18 @@
 		components: {
 			Affix
 		},
-		data () {
-			return {
-				select: this.$route.name
-			}
-		},
 		computed: {
+			select: {
+				get () {
+					return this.$route.name;
+				},
+				set (val) {
+					this.$router.push({ name: val, params: this.$route.params })
+				}
+			}
 		},
 		methods: {
-			groupChange (val) {
-				this.$router.push({ name: val, params: this.$route.params })
-			}
+
 		}
 	}
 </script>
