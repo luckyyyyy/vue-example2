@@ -16,7 +16,7 @@
 				<li>
 					<span>当前账户版本：</span><strong>基础版</strong>
 					<strong class="expire">（到期时间：2017-02-02 23:59:59）</strong>
-					<el-button type="text" @click="goUpgrade()">升级</el-button>					
+					<el-button type="text" @click="goUpgrade()">升级</el-button>
 				</li>
 			</ul>
 		</div>
@@ -28,28 +28,28 @@
 					<el-button type="text" @click="goFlow()">购买</el-button>
 				</li>
 			</ul>
-			<div class="indicator-box">	
+			<div class="indicator-box">
 				<div class="indicator-item">
 					<p>剩余存储空间（GB）</p>
 					<dial-indicator min_value="0" :max_value="100" :current_value="value1"></dial-indicator>
-				</div>	
+				</div>
 				<div class="indicator-item">
 					<p>本月剩余观看时长（分钟）</p>
 					<dial-indicator min_value="0" :max_value="4000" :current_value="value2"></dial-indicator>
-				</div>	
+				</div>
 			</div>
 		</div>
 		<div>
 		</div>
 		<div class="test">
-			
+
 		</div>
 	</div>
 </template>
 
 <script>
 	import moment from 'moment'
-	import DialIndicator from '../../components/DialIndicator.vue'
+	import DialIndicator from '../../components/item/dialIndicator'
 	export default {
 		mounted() {
 			setTimeout(()=> {
@@ -116,7 +116,7 @@
 	}
 	.account-overview-wrapper {
 		margin-top: 30px;
-		.account-overview-box {	
+		.account-overview-box {
 			.expire {
 				font-size: 12px;
 			}

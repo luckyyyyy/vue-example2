@@ -12,7 +12,7 @@
 
 				</div>
 			</div>
-			<img src="../../src/assets/account/pointer.png" :style="{ transform: 'translate(-80%, -50%) rotate(' + ((current_value / max_value) * 180) + 'deg)' }">
+			<img src="../../../src/assets/account/pointer.png" :style="{ transform: 'translate(-80%, -50%) rotate(' + ((current_value / max_value) * 180) + 'deg)' }">
 		</div>
 		<p class="min-max"><span>{{ min_value }}</span><span>{{ max_value }}</span></p>
 	</div>

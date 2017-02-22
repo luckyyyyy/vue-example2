@@ -72,25 +72,24 @@
 			</ul>
 		</div>
 
-		<el-dialog title="新建直播" v-model="createDialog" size="tiny">
-			<div class="dialog">
-				<div class="title">
-					<span>直播标题：</span>
-					<el-input v-model="createName" placeholder="请输入直播标题" :maxlength="16" :minlength="1"></el-input>
-				</div>
+		<el-dialog custom-class="dialog" title="新建直播" v-model="openDialog" size="tiny" @close="closeDialog">
+			<el-form label-position="left" label-width="80px" :model="create" @submit.native.prevent>
+				<el-form-item label="直播标题">
+					<el-input :autofocus="true" v-model="create.name" placeholder="请输入直播标题" :maxlength="16" :minlength="1"></el-input>
+				</el-form-item>
 				<div class="help">
 					<p>
-					说明：彩虹云直播严禁上传包括反动、暴力、色情、违法及侵权内容的文件。
-					平台有义务配合有关部门将上传违规文件的用户信息保存，并保留因配合调
-					查及冻结账号的权利。
+						说明：彩虹云直播严禁上传包括反动、暴力、色情、违法及侵权内容的文件。
+						平台有义务配合有关部门将上传违规文件的用户信息保存，并保留因配合调
+						查及冻结账号的权利。
 					</p>
 					<el-checkbox v-model="createAgree" checked>我已阅读</el-checkbox>
 				</div>
-	  		</div>
-			<span slot="footer" class="dialog-footer">
-				<el-button @click="createDialog = false">取 消</el-button>
-				<el-button :disabled="!createAgree" type="primary">确 定</el-button>
-			</span>
+				<div class="footer">
+					<el-button @click="closeDialog">取 消</el-button>
+					<el-button @click="onSubmit" :loading="lock" native-type="submit" :disabled="!createAgree" type="primary">创 建</el-button>
+				</div>
+			</el-form>
 		</el-dialog>
 	</div>
 </template>
@@ -103,10 +102,18 @@
 		},
 		data () {
 			return {
+				create: {
+					name: ''
+				},
 				createDialog: false,
-				createName: '',
 				createAgree: true,
 				select: 'a',
+				lock: false,
+			}
+		},
+		computed: {
+			openDialog () {
+				return this.lock || this.createDialog;
 			}
 		},
 		methods: {
@@ -114,8 +121,11 @@
 				const el = this.$refs[`delete_${index}`][0];
 				el.click();
 			},
+			closeDialog () {
+				this.createDialog = false;
+			},
 			openCreateDialog () {
-				this.createName   = '';
+				this.create.name  = '';
 				this.createAgree  = true;
 				this.createDialog = true;
 			},
@@ -124,21 +134,29 @@
 				if (live) {
 					// commit
 				}
+			},
+			onSubmit () {
+				// commit
+				this.lock = true;
+				setTimeout(() => {
+					this.lock = false;
+				}, 1000)
+				this.createDialog = false;
 			}
 		}
 	}
 </script>
 
 
-<style scoped lang='less'>
+<style lang="less" scoped>
 	.list {
+		display: flex;
+		flex-wrap: wrap;
 		li:nth-child(2) {
 			.body {
 				background-image: linear-gradient(241deg, #1190bf, #e85471);
 			}
 		}
-		display: flex;
-		flex-wrap: wrap;
 		> li {
 			width: 240px;
 			height: 207px;
@@ -295,22 +313,13 @@
 		}
 	}
 	.dialog {
-		.title {
-			display: flex;
-			align-items: center;
-			span {
-				width: 100px
-			}
-		}
-		.title, .help {
-			margin: 20px;
-			margin-bottom: 0;
-			color: #666666;
-		}
+		display: flex;
 		.help {
 			font-size: 12px;
-			// margin-right: 100px;
 			text-align: justify;
+		}
+		.footer {
+			text-align: right;
 		}
 	}
 

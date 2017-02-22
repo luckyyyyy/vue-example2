@@ -3,7 +3,7 @@
 		<el-dialog title="我的图库" v-model="openAlbum" size="small">
 			<div class="list">
 				<ul @scroll="scroll">
-					<li v-for="n in 100" @click="select">
+					<li v-for="n in 100" @click="onSelect(n)" :class="{ select: select[n] }">
 						<img src="../../assets/qrcode.png">
 						<span>777 x 777</span>
 					</li>
@@ -52,8 +52,8 @@
 				this.openAlbum = false;
 				this.$emit('submit', this.select);
 			},
-			select () {
-
+			onSelect (index) {
+				this.$set(this.select, index, !this.select[index])
 			},
 			scroll (e) {
 				const el = e.target
