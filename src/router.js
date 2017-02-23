@@ -166,9 +166,17 @@ const routes = [
 				path: 'control/:id',
 				meta: { requiresAuth: true, parent: 'live_list' },
 				component: resolve => {
-						require(['./views/live/control.vue'], resolve)
-					},
+					require(['./views/live/control.vue'], resolve)
 				},
+			},
+			{	
+				name: 'live_data',
+				path: 'data/:id',
+				meta: { requiresAuth: true, parent: 'live_list' },
+				component: resolve => {
+					require(['./views/live/data.vue'], resolve)
+				}
+			},
 			{
 				name: 'live_detail',
 				path: 'detail/:id',

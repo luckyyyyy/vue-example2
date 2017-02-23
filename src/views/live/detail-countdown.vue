@@ -26,7 +26,7 @@
 						</template>
 					</p>
 				</el-form>
-			</template>
+			</template> 
 			<template v-else>
 				<p class="tips">倒计时功能开启时，会以倒计时形式（xx天xx时xx分xx秒）显示在直播页面</p>
 			</template>
