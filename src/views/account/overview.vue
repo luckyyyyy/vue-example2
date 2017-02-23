@@ -85,7 +85,7 @@
 	}
 </script>
 
-<style scoped lang='less'>
+<style scoped lang="less">
 /*.test {
 	width: 100px;
 	height: 100px;
@@ -95,7 +95,6 @@
 }*/
 .container {
 	padding: 25px;
-	height: 100vh;
 	.el-button  {
 		margin-left: 30px;
 	}

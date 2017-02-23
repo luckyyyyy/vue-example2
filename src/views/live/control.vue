@@ -9,10 +9,10 @@
 				</el-popover>
 				<el-button v-popover:download-popover>下载直播工具</el-button>
 
-                <qrcodePopover text="rtmp://pub.mudu.tv/watch/f4aj52">
-                    <p slot="tips">扫码开启直播</p>
-                    <el-button slot="reference">推流地址</el-button>
-                </qrcodePopover>
+				<qrcodePopover text="rtmp://pub.mudu.tv/watch/f4aj52">
+					<p slot="tips">扫码开启直播</p>
+					<el-button slot="reference">推流地址</el-button>
+				</qrcodePopover>
 
 				<qrcodePopover text="rtmp://pub.mudu.tv/watch/f4aj52">
 					<p slot="tips">微信扫码观看直播</p>
@@ -216,50 +216,50 @@
 	</div>
 </template>
 <script>
-    import qrcodePopover from '../../components/item/qrcodePopover'
-    export default {
-    	components: {
-    		qrcodePopover
-    	},
-    	data() {
-    		return {
-    			select: this.$route.name,
-    			input: '',
-    			notice_dialog_visible: false,
-    			product_dialog_visible: false,
-    			screen_dialog_visible: false,
-    			product_data: [{
+	import qrcodePopover from '../../components/item/qrcodePopover'
+	export default {
+		components: {
+			qrcodePopover
+		},
+		data() {
+			return {
+				select: this.$route.name,
+				input: '',
+				notice_dialog_visible: false,
+				product_dialog_visible: false,
+				screen_dialog_visible: false,
+				product_data: [{
 
-    			}, {
+				}, {
 
-    			}, {
+				}, {
 
-    			}, {
+				}, {
 
-    			}]
-    		}
-    	},
-    	computed: {},
-    	methods: {
-    		endLive() {
-    			this.$confirm('确定要结束直播吗？点击确定将彻底关闭直播。', '结束直播', {
-    				confirmButtonText: '确定',
-    				cancelButtonText: '取消',
-    				type: 'warning'
-    			}).then(() => {
-    				this.$message({
-    					type: 'success',
-    					message: '删除成功!'
-    				});
-    			}).catch(() => {
-    				this.$message({
-    					type: 'info',
-    					message: '已取消删除'
-    				});
-    			});
-    		}
-    	}
-    }
+				}]
+			}
+		},
+		computed: {},
+		methods: {
+			endLive() {
+				this.$confirm('确定要结束直播吗？点击确定将彻底关闭直播。', '结束直播', {
+					confirmButtonText: '确定',
+					cancelButtonText: '取消',
+					type: 'warning'
+				}).then(() => {
+					this.$message({
+						type: 'success',
+						message: '删除成功!'
+					});
+				}).catch(() => {
+					this.$message({
+						type: 'info',
+						message: '已取消删除'
+					});
+				});
+			}
+		}
+	}
 </script>
 <style scoped lang="less">
 	.control {

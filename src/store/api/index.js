@@ -1,8 +1,8 @@
 /*
 * @Author: William Chan
 * @Date:   2016-12-02 11:31:24
-* @Last Modified by:   William Chan
-* @Last Modified time: 2017-02-23 17:33:03
+* @Last Modified by:   Administrator
+* @Last Modified time: 2017-02-24 00:10:30
 */
 
 // axios.request(config)
@@ -156,9 +156,9 @@ export const channel_create = ({ name, commodityCatalog, province, city, county,
 // weixin 微信接口
 // -----------------------------
 
-// GET /api/v1/wx_open/auth_url
-export const wx_get_auth_url = () => {
-	return axios.get(`${API_HOST}/wx_open/auth_url`)
+// POST /api/v1/wx_open/auth_url
+export const wx_get_auth_url = ({ channelID }) => {
+	return axios.post(`${API_HOST}/wx_open/auth_url`, { channelID })
 }
 
 

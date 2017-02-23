@@ -48,7 +48,7 @@
 					<span>基于微信公众号直播 + 电商的全场景化应用解决方案</span>
 				</div>
 				<div class="button">
-					<el-button type="primary" size="large" @click="openWxUrl">绑定微信公众号</el-button>
+					<el-button :disabled="lock_open_button" type="primary" size="large" @click="openWxUrl">绑定微信公众号</el-button>
 					<a class="wx" href="">还没有公众号？去申请吧 ></a>
 				</div>
 				<div class="tips">
@@ -93,7 +93,7 @@
 		computed: {
 			active () {
 				if (this.$route.params.id) {
-					this.$store.dispatch('WEXIN_AUTH_URL_REQUEST');
+					this.$store.dispatch('WEXIN_AUTH_URL_REQUEST', { channelID: this.$route.params.id });
 					return 2;
 				} else {
 					this.$store.dispatch('COMMODITY_CATALOGS_REQUEST');
@@ -102,14 +102,14 @@
 			},
 			...mapState({
 				lock_catalogs: state => state.catalogs.lock,
-				lock: state => state.channel_create.lock
+				lock: state => state.channel_create.lock,
+				lock_open_button: state => state.weixin_auth_url.lock,
+				url: state => state.weixin_auth_url.url,
 			}),
 			catalogs () {
 				return this.$store.getters.option;
 			}
 
-		},
-		mounted () {
 		},
 		methods: {
 			submit () {
@@ -125,6 +125,19 @@
 				});
 			},
 			openWxUrl () {
+				window.open(this.url);
+				this.$confirm('请在弹出的页面中完成公众号绑定，如果未弹出请检查浏览器设置。', '提示', {
+					confirmButtonText: '已成功绑定',
+					cancelButtonText: '绑定失败',
+					closeOnPressEscape: false,
+					closeOnClickModal: false,
+					type: 'warning'
+				}).then(() => {
+					alert('then 现在什么都没做');
+				}).catch(() => {
+					alert('catch 现在什么都没做');
+				});
+
 
 			},
 			toIndex () {

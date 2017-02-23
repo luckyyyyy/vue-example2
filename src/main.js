@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import ElementUI from 'element-ui'
 
-import 'normalize.css'
+import 'element-ui/lib/theme-default/reset.css'
 import 'element-ui/lib/theme-default/index.css'
 import './assets/common.less'
 

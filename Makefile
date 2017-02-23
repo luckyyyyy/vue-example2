@@ -1,8 +1,5 @@
 # Makefile for rainbow build
 
-
-NPM=npm
-
 all:
 	@echo "------------------------------------------"
 	@echo "rainbow build manager"
@@ -15,4 +12,7 @@ master-check:
 	git status | grep "On branch master" > /dev/null 2>&1
 
 build: master-check
-	$(NPM) run build
+	npm run build
+
+update: master-check
+	npm install

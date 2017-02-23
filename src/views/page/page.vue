@@ -48,9 +48,11 @@
 		align-items: center;
 		height: 100%;
 		width: 760px;
+
 		.title {
 			width: 100%;
-			margin-top: 30px;
+			margin-bottom: 30px;
+			margin-top: 50px;
 			display: flex;
 			justify-content: space-between;
 			.router-link-active {

@@ -1,8 +1,8 @@
 /*
 * @Author: Administrator
 * @Date:   2017-01-06 02:33:52
-* @Last Modified by:   William Chan
-* @Last Modified time: 2017-02-23 17:34:48
+* @Last Modified by:   Administrator
+* @Last Modified time: 2017-02-24 00:14:47
 */
 
 'use strict';
@@ -11,7 +11,8 @@ import { wx_get_auth_url } from '../../api'
 import { WEXIN_AUTH_URL } from '../../types'
 
 const state = {
-	lock: false
+	lock: true,
+	url: ''
 }
 
 const getters = {}
@@ -20,9 +21,7 @@ const actions = {
 	[WEXIN_AUTH_URL.REQUEST] ({ commit, dispatch }, ...args) {
 		commit(WEXIN_AUTH_URL.REQUEST);
 		wx_get_auth_url(...args).then(res => {
-			commit(WEXIN_AUTH_URL.SUCCESS, res.data);
-			console.log(res)
-			// dispatch('SELECT_CHANNEL', { id: res.data.channel.channelId, to: true });
+			commit(WEXIN_AUTH_URL.SUCCESS, res);
 		}).catch(err => {
 			commit(WEXIN_AUTH_URL.FAILURE, err);
 		})
@@ -31,13 +30,16 @@ const actions = {
 
 const mutations = {
 	[WEXIN_AUTH_URL.REQUEST] (state) {
-		state.lock = true
+		state.lock = true;
+		state.url = '';
 	},
 	[WEXIN_AUTH_URL.SUCCESS] (state, { data }) {
 		state.lock = false;
+		state.url = data.url;
 	},
 	[WEXIN_AUTH_URL.FAILURE] (state, err) {
-		state.lock = false;
+		state.lock = true;
+		state.url = '';
 	},
 }
 export default {
