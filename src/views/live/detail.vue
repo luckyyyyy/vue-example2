@@ -21,7 +21,7 @@
 						<el-radio-button label="live_detail_authorize">授权观看</el-radio-button>
 					</el-radio-group>
 					<div class="button">
-						<el-button>直播数据</el-button>
+						<el-button @click="goData">直播数据</el-button>
 						<el-button @click="toControl">中控台</el-button>
 					</div>
 				</div>
@@ -51,6 +51,9 @@
 			toControl () {
 				const uri = `/live/control/${this.$route.params.id}`
 				window.open(uri)
+			},
+			goData() {
+				this.$router.push({name: 'live_data', params: this.$route.params})
 			}
 		}
 	}
