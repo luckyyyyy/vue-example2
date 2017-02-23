@@ -14,6 +14,10 @@
 
 <script>
 	import qrcodejs from 'qrcodejs2'
+	import VueClipboards from 'vue-clipboards'
+	import Vue from 'vue'
+	Vue.use(VueClipboards);
+
 	export default {
 		props: {
 			text: '',
