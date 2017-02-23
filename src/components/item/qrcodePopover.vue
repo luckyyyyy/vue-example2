@@ -22,14 +22,6 @@
 		props: {
 			text: '',
 		},
-		computed: {
-			// text () {
-			// 	return this.text;
-			// }
-		},
-		mounted () {
-
-		},
 		methods: {
 			handleSuccess () {
 				this.$message({

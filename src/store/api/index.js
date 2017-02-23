@@ -2,7 +2,7 @@
 * @Author: William Chan
 * @Date:   2016-12-02 11:31:24
 * @Last Modified by:   William Chan
-* @Last Modified time: 2017-02-21 19:37:03
+* @Last Modified time: 2017-02-23 17:33:03
 */
 
 // axios.request(config)
@@ -134,20 +134,32 @@ export const reset_password = ({ phone, password, captcha }) => {
 export const update_user = ({ nickName, email, sex, description }) => {
 	return axios.post(`${API_HOST}/user/update_user`, { nickName, email, sex, description })
 }
-export const password = ({ nickName, email, sex, description }) => {
-	return axios.post(`${API_HOST}/user/update_user`, { nickName, email, sex, description })
+// POST /api/v1/user/update_password
+export const password = ({ password }) => {
+	return axios.post(`${API_HOST}/user/update_password`, { password })
 }
-
-
+// 获取商品目录
+// GET /api/v1/commodity/catalogs
+export const get_commodity_catalogs = () => {
+	return axios.get(`${API_HOST}/commodity/catalogs`)
+}
 // -----------------------------
 // channel 频道接口
 // -----------------------------
 
 // POST /api/v1/channel/create
-export const create_channel = ({ name, commodityCatalog, province, city, county, address, companyName }) => {
+export const channel_create = ({ name, commodityCatalog, province, city, county, address, companyName }) => {
 	return axios.post(`${API_HOST}/channel/create`, { name, commodityCatalog, province, city, county, address, companyName })
 }
 
+// -----------------------------
+// weixin 微信接口
+// -----------------------------
+
+// GET /api/v1/wx_open/auth_url
+export const wx_get_auth_url = () => {
+	return axios.get(`${API_HOST}/wx_open/auth_url`)
+}
 
 
 

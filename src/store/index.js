@@ -2,7 +2,7 @@
 * @Author: William Chan
 * @Date:   2016-12-03 19:24:59
 * @Last Modified by:   William Chan
-* @Last Modified time: 2017-02-21 19:33:09
+* @Last Modified time: 2017-02-23 17:37:48
 */
 
 'use strict';
@@ -17,8 +17,17 @@ import reset_password from './modules/user/reset_password'
 import update_user from './modules/user/update_user'
 import password from './modules/user/password'
 
+import catalogs from './modules/commodity/catalogs'
+
+import channel_create from './modules/channel/create'
+
+import weixin_auth_url from './modules/weixin/auth_url'
+
 const modules = {
-	login, register, reset_password, logout, update_user, password
+	login, register, reset_password, logout, update_user, password,
+	catalogs,
+	channel_create,
+	weixin_auth_url
 }
 
 // globle and common

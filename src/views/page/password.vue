@@ -55,13 +55,13 @@
 		},
 		methods: {
 			submit () {
-			this.$refs.password.validate((valid) => {
-				if (valid) {
-					this.$store.dispatch('PASSWORD_REQUEST', this.login);
-				} else {
-					return false;
-				}
-			});
+				this.$refs.password.validate((valid) => {
+					if (valid) {
+						this.$store.dispatch('PASSWORD_REQUEST', this.login);
+					} else {
+						return false;
+					}
+				});
 				// this.$store.dispatch('UPDATE_USER_REQUEST', this.user);
 			},
 			backConsole () {

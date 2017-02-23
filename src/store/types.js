@@ -2,7 +2,7 @@
 * @Author: William Chan
 * @Date:   2016-12-03 20:43:22
 * @Last Modified by:   William Chan
-* @Last Modified time: 2017-02-21 19:31:00
+* @Last Modified time: 2017-02-23 17:34:15
 */
 
 'use strict';
@@ -17,12 +17,16 @@ const export_var = (str, ...args) => {
 	return data;
 }
 
-export const LOGIN            = export_var('LOGIN');
-export const REGISTER         = export_var('REGISTER');
-export const LOGOUT           = export_var('LOGOUT');
-export const REGISTER_CAPTCHA = export_var('REGISTER_CAPTCHA', 'COUNTDOWN');
-export const RESETPWD         = export_var('RESETPWD');
-export const RESETPWD_CAPTCHA = export_var('RESETPWD_CAPTCHA', 'COUNTDOWN');
-export const UPDATE_USER      = export_var('UPDATE_USER');
-export const PASSWORD         = export_var('PASSWORD');
+export const LOGIN              = export_var('LOGIN');
+export const REGISTER           = export_var('REGISTER');
+export const LOGOUT             = export_var('LOGOUT');
+export const REGISTER_CAPTCHA   = export_var('REGISTER_CAPTCHA', 'COUNTDOWN');
+export const RESETPWD           = export_var('RESETPWD');
+export const RESETPWD_CAPTCHA   = export_var('RESETPWD_CAPTCHA', 'COUNTDOWN');
+export const UPDATE_USER        = export_var('UPDATE_USER');
+export const PASSWORD           = export_var('PASSWORD');
+export const COMMODITY_CATALOGS = export_var('COMMODITY_CATALOGS');
 
+export const CHANNEL_CREATE     = export_var('CHANNEL_CREATE');
+
+export const WEXIN_AUTH_URL     = export_var('WEXIN_AUTH_URL');

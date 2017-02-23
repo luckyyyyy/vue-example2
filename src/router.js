@@ -1,8 +1,8 @@
 /*
 * @Author: William Chan
 * @Date:   2016-12-01 17:57:50
-* @Last Modified by:   Administrator
-* @Last Modified time: 2017-02-22 22:23:28
+* @Last Modified by:   William Chan
+* @Last Modified time: 2017-02-23 17:19:05
 */
 
 'use strict';
@@ -418,7 +418,7 @@ route.beforeEach((to, from, next) => {
 			return next({ name: 'login', query: { redirect: to.fullPath } });
 		}
 	} else {
-		if (store.getters.channel > 0) {
+		if (store.getters.channel != 0) {
 			if (to.meta.group == 'select' && to.meta.group != 'global') {
 				if (to.query.redirect) {
 					return next({ path: to.query.redirect })

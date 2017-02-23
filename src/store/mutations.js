@@ -2,7 +2,7 @@
 * @Author: Administrator
 * @Date:   2017-01-06 02:42:21
 * @Last Modified by:   William Chan
-* @Last Modified time: 2017-02-21 13:33:47
+* @Last Modified time: 2017-02-23 17:18:45
 */
 
 'use strict';
@@ -58,7 +58,7 @@ export const SET_CHANNEL = (state, id) => {
 	const route = state.route;
 	const requiresAuth = route.meta.requiresAuth;
 	if (requiresAuth) {
-		if (state.channel > 0) {
+		if (state.channel != 0) {
 			if (route.meta.group == 'select' && route.meta.group != 'global') {
 				if (route.query.redirect) {
 					router.push({ path: route.query.redirect })
