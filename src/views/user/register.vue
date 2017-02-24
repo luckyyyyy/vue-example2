@@ -65,9 +65,7 @@ export default {
 			this.$refs.register.validateField('phone', errors => {
 				if (!errors) {
 					const phone = this.register.phone;
-					this.$store.dispatch('REGISTER_CAPTCHA_REQUEST', { phone }).then((data) => {
-
-					}, (err) => {
+					this.$store.dispatch('REGISTER_CAPTCHA_REQUEST', { phone }).catch(err =>{
 						if (err.data) {
 							if (err.data.retCode == -197) {
 								this.$confirm('该用户已注册，是否立即登录？', '提示', {
@@ -76,8 +74,6 @@ export default {
 									type: 'warning'
 								}).then(() => {
 									this.$router.push({ name: 'login' })
-								}).catch(() => {
-									console.log('cancel')
 								})
 							} else {
 								this.$alert(err.data.retMsg, '错误', {
@@ -94,7 +90,9 @@ export default {
 		submit_register () {
 			this.$refs.register.validate(valid => {
 				if (valid) {
-					this.$store.dispatch('REGISTER_REQUEST', this.register)
+					this.$store.dispatch('REGISTER_REQUEST', this.register).then(() => {
+						this.router.push({ name: 'register_seccuss' });
+					})
 				} else {
 					return false;
 				}

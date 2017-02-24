@@ -2,15 +2,13 @@
 * @Author: Administrator
 * @Date:   2017-01-06 02:33:57
 * @Last Modified by:   William Chan
-* @Last Modified time: 2017-02-18 16:41:31
+* @Last Modified time: 2017-02-24 16:36:55
 */
 
 'use strict';
 
 import { register_captcha, register } from '../../api'
 import { REGISTER_CAPTCHA, REGISTER } from '../../types'
-import { MessageBox } from 'element-ui';
-import router from '../../../router'
 import { PHONE_CAPTCHA_EXPIRED } from '../../../options'
 
 const state = {
@@ -23,16 +21,20 @@ const getters = {}
 
 const actions = {
 	[REGISTER.REQUEST] ({ commit }, ...args) {
-		commit(REGISTER.REQUEST);
-		register(...args).then(res => {
-			commit(REGISTER.SUCCESS, res);
-			router.push({ name: 'register_seccuss' })
-		}).catch(err => {
-			commit(REGISTER.FAILURE, err);
+		const promise = new Promise(function(resolve, reject) {
+			commit(REGISTER.REQUEST);
+			register(...args).then(res => {
+				commit(REGISTER.SUCCESS, res);
+				resolve();
+			}).catch(err => {
+				commit(REGISTER.FAILURE, err);
+				reject();
+			})
 		})
+		return promise;
 	},
 	[REGISTER_CAPTCHA.REQUEST] (store, ...args) {
-		var promise = new Promise(function(resolve, reject) {
+		const promise = new Promise(function(resolve, reject) {
 			store.commit(REGISTER_CAPTCHA.REQUEST);
 			register_captcha(...args).then(res => {
 				const interval = setInterval(() => {
@@ -44,10 +46,10 @@ const actions = {
 					}
 				}, 1000)
 				store.commit(REGISTER_CAPTCHA.SUCCESS, interval);
-				resolve()
+				resolve();
 			}).catch(err => {
-				reject(err)
 				store.commit(REGISTER_CAPTCHA.FAILURE, err);
+				reject(err);
 			})
 		})
 		return promise

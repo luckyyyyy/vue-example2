@@ -1,8 +1,8 @@
 /*
 * @Author: William Chan
 * @Date:   2016-12-02 11:31:24
-* @Last Modified by:   Administrator
-* @Last Modified time: 2017-02-24 00:10:30
+* @Last Modified by:   William Chan
+* @Last Modified time: 2017-02-24 14:09:56
 */
 
 // axios.request(config)
@@ -150,6 +150,10 @@ export const get_commodity_catalogs = () => {
 // POST /api/v1/channel/create
 export const channel_create = ({ name, commodityCatalog, province, city, county, address, companyName }) => {
 	return axios.post(`${API_HOST}/channel/create`, { name, commodityCatalog, province, city, county, address, companyName })
+}
+// GET /api/v1/channel/find
+export const channel_find = ({ page, limits }) => {
+	return axios.get(`${API_HOST}/channel/find`, { page, limits })
 }
 
 // -----------------------------

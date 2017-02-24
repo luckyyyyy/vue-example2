@@ -20,7 +20,7 @@
 							</el-option>
 						</el-select>
 					</el-form-item>
-					<el-form-item label="联系地址：">
+					<el-form-item label="联系地址：" prop="area">
 						<el-cascader
 							class="cascader"
 							:options="area"
@@ -49,7 +49,7 @@
 				</div>
 				<div class="button">
 					<el-button :disabled="lock_open_button" type="primary" size="large" @click="openWxUrl">绑定微信公众号</el-button>
-					<a class="wx" href="">还没有公众号？去申请吧 ></a>
+					<a class="wx" target="_blank" href="https://www.baidu.com">还没有公众号？去申请吧 ></a>
 				</div>
 				<div class="tips">
 					<strong>说明：</strong>
@@ -78,6 +78,9 @@
 					],
 					name: [
 						{ required: true, max: 12, message: '频道名称小于12个字符' }
+					],
+					area: [
+						{ required: true, message: '请选择联系地址' }
 					],
 					commodityCatalog: [
 						{ required: true, type: 'number', message: '请选择正确的分类' }
@@ -113,7 +116,7 @@
 		},
 		methods: {
 			submit () {
-				this.$refs.create.validate((valid) => {
+				this.$refs.create.validate(valid => {
 					if (valid) {
 						this.create.province = this.create.area[0];
 						this.create.city     = this.create.area[1];
@@ -139,9 +142,6 @@
 				});
 
 
-			},
-			toIndex () {
-				this.$router.push({ name: 'index' })
 			}
 		}
 	}

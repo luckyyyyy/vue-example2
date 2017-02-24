@@ -2,7 +2,7 @@
 * @Author: William Chan
 * @Date:   2016-12-03 20:43:22
 * @Last Modified by:   William Chan
-* @Last Modified time: 2017-02-23 17:34:15
+* @Last Modified time: 2017-02-24 14:11:07
 */
 
 'use strict';
@@ -28,5 +28,6 @@ export const PASSWORD           = export_var('PASSWORD');
 export const COMMODITY_CATALOGS = export_var('COMMODITY_CATALOGS');
 
 export const CHANNEL_CREATE     = export_var('CHANNEL_CREATE');
+export const CHANNEL_FIND       = export_var('CHANNEL_FIND');
 
 export const WEXIN_AUTH_URL     = export_var('WEXIN_AUTH_URL');
