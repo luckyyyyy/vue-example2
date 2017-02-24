@@ -32,38 +32,26 @@ const actions = {
 		})
 	},
 	[REGISTER_CAPTCHA.REQUEST] (store, ...args) {
-		store.commit(REGISTER_CAPTCHA.REQUEST);
-		register_captcha(...args).then(res => {
-			const interval = setInterval(() => {
-				const countdown = store.state.countdown - 1;
-				if (countdown <= 0) {
-					store.commit(REGISTER_CAPTCHA.FAILURE);
-				} else {
-					store.commit(REGISTER_CAPTCHA.COUNTDOWN, countdown);
-				}
-			}, 1000)
-			store.commit(REGISTER_CAPTCHA.SUCCESS, interval);
-		}).catch(err => {
-			if (err.data) {
-				if (err.data.retCode == -197) {
-					MessageBox.confirm('该用户已注册，是否立即登录？', '提示', {
-						confirmButtonText: '登录',
-						cancelButtonText: '取消',
-						type: 'warning'
-					}).then(() => {
-						router.push({ name: 'login' })
-					}).catch(() => {
-						console.log('cancel')
-					})
-				} else {
-					MessageBox.alert(err.data.retMsg, '错误', {
-						type: 'error'
-					})
-				}
-			}
-			store.commit(REGISTER_CAPTCHA.FAILURE, err);
+		var promise = new Promise(function(resolve, reject) {
+			store.commit(REGISTER_CAPTCHA.REQUEST);
+			register_captcha(...args).then(res => {
+				const interval = setInterval(() => {
+					const countdown = store.state.countdown - 1;
+					if (countdown <= 0) {
+						store.commit(REGISTER_CAPTCHA.FAILURE);
+					} else {
+						store.commit(REGISTER_CAPTCHA.COUNTDOWN, countdown);
+					}
+				}, 1000)
+				store.commit(REGISTER_CAPTCHA.SUCCESS, interval);
+				resolve()
+			}).catch(err => {
+				reject(err)
+				store.commit(REGISTER_CAPTCHA.FAILURE, err);
+			})
 		})
-	},
+		return promise
+	}
 }
 
 const mutations = {
