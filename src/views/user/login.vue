@@ -44,7 +44,7 @@ export default {
 		submit_login () {
 			this.$refs.login.validate((valid) => {
 				if (valid) {
-					this.$store.dispatch('LOGIN_REQUEST', this.login);
+					this.$store.dispatch('LOGIN_REQUEST', this.login)
 				} else {
 					return false;
 				}

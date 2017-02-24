@@ -65,7 +65,27 @@ export default {
 			this.$refs.register.validateField('phone', errors => {
 				if (!errors) {
 					const phone = this.register.phone;
-					this.$store.dispatch('REGISTER_CAPTCHA_REQUEST', { phone });
+					this.$store.dispatch('REGISTER_CAPTCHA_REQUEST', { phone }).then((data) => {
+
+					}, (err) => {
+						if (err.data) {
+							if (err.data.retCode == -197) {
+								this.$confirm('该用户已注册，是否立即登录？', '提示', {
+									confirmButtonText: '登录',
+									cancelButtonText: '取消',
+									type: 'warning'
+								}).then(() => {
+									this.$router.push({ name: 'login' })
+								}).catch(() => {
+									console.log('cancel')
+								})
+							} else {
+								this.$alert(err.data.retMsg, '错误', {
+									type: 'error'
+								})
+							}
+						}
+					});
 				} else {
 					return false;
 				}
