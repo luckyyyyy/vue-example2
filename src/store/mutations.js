@@ -2,7 +2,7 @@
 * @Author: Administrator
 * @Date:   2017-01-06 02:42:21
 * @Last Modified by:   William Chan
-* @Last Modified time: 2017-02-23 17:18:45
+* @Last Modified time: 2017-02-24 17:50:01
 */
 
 'use strict';
@@ -18,12 +18,14 @@ export const LOGIN_SUCCESS = (state, data) => {
 	state.user  = data.user;
 	setSession(data);
 	const route = state.route;
-	const requiresAuth = route.meta.requiresAuth;
-	if (!requiresAuth && route.name) {
-		if (route.query.redirect) {
-			router.push({ path: route.query.redirect })
-		} else {
-			router.push({ name: 'index' })
+	if (route.meta){
+		const requiresAuth = route.meta.requiresAuth;
+		if (!requiresAuth && route.name) {
+			if (route.query.redirect) {
+				router.push({ path: route.query.redirect })
+			} else {
+				router.push({ name: 'index' })
+			}
 		}
 	}
 }
@@ -56,19 +58,21 @@ export const SET_CHANNEL = (state, id) => {
 	sessionStorage.setItem('channel', id);
 	state.channel = id || 0;
 	const route = state.route;
-	const requiresAuth = route.meta.requiresAuth;
-	if (requiresAuth) {
-		if (state.channel != 0) {
-			if (route.meta.group == 'select' && route.meta.group != 'global') {
-				if (route.query.redirect) {
-					router.push({ path: route.query.redirect })
-				} else {
-					router.push({ name: 'index' })
+	if (route.meta) {
+		const requiresAuth = route.meta.requiresAuth;
+		if (requiresAuth) {
+			if (state.channel != 0) {
+				if (route.meta.group == 'select' && route.meta.group != 'global') {
+					if (route.query.redirect) {
+						router.push({ path: route.query.redirect })
+					} else {
+						router.push({ name: 'index' })
+					}
 				}
-			}
-		} else {
-			if (route.meta.group != 'select' && route.meta.group != 'global') {
-				router.push({ name: 'select_channel', query: { redirect: route.fullPath } });
+			} else {
+				if (route.meta.group != 'select' && route.meta.group != 'global') {
+					router.push({ name: 'select_channel', query: { redirect: route.fullPath } });
+				}
 			}
 		}
 	}
