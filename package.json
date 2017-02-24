@@ -18,13 +18,13 @@
     "moment": "^2.17.0",
     "nprogress": "^0.2.0",
     "qrcodejs2": "0.0.2",
-    "vue": "^2.1.0",
+    "vue": "2.1.10",
     "vue-clipboards": "^0.2.5",
     "vue-highcharts": "0.0.9",
     "vue-quill-editor": "^1.1.1",
-    "vue-router": "^2.1.1",
-    "vuex": "^2.0.0",
-    "vuex-router-sync": "^4.1.0"
+    "vue-router": "2.2.1",
+    "vuex": "2.1.2",
+    "vuex-router-sync": "4.1.0"
   },
   "devDependencies": {
     "autoprefixer": "^6.4.0",
