@@ -1,6 +1,31 @@
-# test
+彩虹云直播 - Business前端源码 (based on Vue2)
+===========================
 
-> A Vue.js project
+彩虹云直播 web B端，基于 [Vue2](https://vuejs.org)
+核心组件包括Vuex，axios，eleme.element，vue-router
+
+DIRECTORY STRUCTURE
+-------------------
+
+    node_modules/       contains node modules
+    build/              contains webpack build script
+    config/             contains build & env config
+    components/         contains misc component classes
+    config/             contains application configurations
+    dist/               distribute path
+    src/                source
+        assets/         contains static(css img font)
+        components/     contains vue commom components
+        options/        contains static options
+        store/          vuex
+        views/          contains view page
+
+
+INSTALLATION
+------------
+
+请在工作环境安装好 nodejs 以及 npm包管理器 并克隆仓库至本地环境
+请修改npm镜像为taobao镜像 https://npm.taobao.org/
 
 ## Build Setup
 
@@ -14,5 +39,3 @@ npm run dev
 # build for production with minification
 npm run build
 ```
-
-For detailed explanation on how things work, checkout the [guide](http://vuejs-templates.github.io/webpack/) and [docs for vue-loader](http://vuejs.github.io/vue-loader).

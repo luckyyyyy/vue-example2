@@ -1,13 +1,13 @@
 /*
 * @Author: Administrator
 * @Date:   2017-01-06 02:33:57
-* @Last Modified by:   William Chan
-* @Last Modified time: 2017-02-24 16:36:55
+* @Last Modified by:   Administrator
+* @Last Modified time: 2017-02-25 14:50:36
 */
 
 'use strict';
 
-import { register_captcha, register } from '../../api'
+import { register_captcha, register } from '../../api/user'
 import { REGISTER_CAPTCHA, REGISTER } from '../../types'
 import { PHONE_CAPTCHA_EXPIRED } from '../../../options'
 
@@ -21,7 +21,7 @@ const getters = {}
 
 const actions = {
 	[REGISTER.REQUEST] ({ commit }, ...args) {
-		const promise = new Promise(function(resolve, reject) {
+		return new Promise((resolve, reject) => {
 			commit(REGISTER.REQUEST);
 			register(...args).then(res => {
 				commit(REGISTER.SUCCESS, res);
@@ -31,7 +31,6 @@ const actions = {
 				reject();
 			})
 		})
-		return promise;
 	},
 	[REGISTER_CAPTCHA.REQUEST] (store, ...args) {
 		const promise = new Promise(function(resolve, reject) {

@@ -1,13 +1,13 @@
 /*
 * @Author: Administrator
 * @Date:   2017-01-06 02:33:52
-* @Last Modified by:   William Chan
-* @Last Modified time: 2017-02-23 16:05:53
+* @Last Modified by:   Administrator
+* @Last Modified time: 2017-02-25 14:59:07
 */
 
 'use strict';
 
-import { get_commodity_catalogs } from '../../api'
+import { get_commodity_catalogs } from '../../api/commodity'
 import { COMMODITY_CATALOGS } from '../../types'
 
 const state = {

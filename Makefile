@@ -16,3 +16,6 @@ build: master-check
 
 update: master-check
 	npm install
+
+start: master-check
+	npm run dev

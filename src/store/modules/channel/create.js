@@ -1,13 +1,13 @@
 /*
 * @Author: Administrator
 * @Date:   2017-01-06 02:33:52
-* @Last Modified by:   William Chan
-* @Last Modified time: 2017-02-23 17:22:10
+* @Last Modified by:   Administrator
+* @Last Modified time: 2017-02-25 14:59:42
 */
 
 'use strict';
 
-import { channel_create } from '../../api'
+import { channel_create } from '../../api/channel'
 import { CHANNEL_CREATE } from '../../types'
 
 const state = {

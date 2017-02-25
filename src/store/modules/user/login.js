@@ -1,13 +1,13 @@
 /*
 * @Author: Administrator
 * @Date:   2017-01-06 02:33:52
-* @Last Modified by:   William Chan
-* @Last Modified time: 2017-02-17 22:15:58
+* @Last Modified by:   Administrator
+* @Last Modified time: 2017-02-25 14:49:11
 */
 
 'use strict';
 
-import { login } from '../../api'
+import { login } from '../../api/user'
 import { LOGIN } from '../../types'
 
 const state = {

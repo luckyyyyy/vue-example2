@@ -1,16 +1,14 @@
 /*
 * @Author: Administrator
 * @Date:   2017-01-06 02:34:03
-* @Last Modified by:   William Chan
-* @Last Modified time: 2017-02-18 16:28:00
+* @Last Modified by:   Administrator
+* @Last Modified time: 2017-02-25 14:54:31
 */
 
 'use strict';
 
-import { reset_password_captcha, reset_password } from '../../api'
+import { reset_password_captcha, reset_password } from '../../api/user'
 import { RESETPWD_CAPTCHA, RESETPWD } from '../../types'
-import { MessageBox } from 'element-ui';
-import router from '../../../router'
 import { PHONE_CAPTCHA_EXPIRED } from '../../../options'
 
 const state = {
@@ -40,17 +38,14 @@ const actions = {
 	},
 	[RESETPWD.REQUEST] ({ commit }, ...args) {
 		commit(RESETPWD.REQUEST);
-		reset_password(...args).then(res => {
-			commit(RESETPWD.SUCCESS, res.data);
-			MessageBox.alert('密码重置成功', '提示', {
-				type: 'success',
-				confirmButtonText: '登录',
-				callback: action => {
-					router.push({ name: 'login' })
-				}
+		return new Promise((resolve, reject) => {
+			reset_password(...args).then(res => {
+				commit(RESETPWD.SUCCESS, res.data);
+				resolve();
+			}).catch(err => {
+				commit(RESETPWD.FAILURE, err);
+				reject();
 			})
-		}).catch(err => {
-			commit(RESETPWD.FAILURE, err);
 		})
 	}
 }

@@ -1,13 +1,13 @@
 /*
 * @Author: Administrator
 * @Date:   2017-01-06 02:33:52
-* @Last Modified by:   William Chan
-* @Last Modified time: 2017-02-18 19:05:57
+* @Last Modified by:   Administrator
+* @Last Modified time: 2017-02-25 14:49:32
 */
 
 'use strict';
 
-import { update_user } from '../../api'
+import { update_user } from '../../api/user'
 import { UPDATE_USER } from '../../types'
 import { Message } from 'element-ui';
 const state = {

@@ -2,12 +2,12 @@
 * @Author: Administrator
 * @Date:   2017-01-06 02:33:52
 * @Last Modified by:   Administrator
-* @Last Modified time: 2017-02-24 00:14:47
+* @Last Modified time: 2017-02-25 15:00:59
 */
 
 'use strict';
 
-import { wx_get_auth_url } from '../../api'
+import { wx_get_auth_url } from '../../api/weixin'
 import { WEXIN_AUTH_URL } from '../../types'
 
 const state = {

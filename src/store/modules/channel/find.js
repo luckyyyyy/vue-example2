@@ -1,13 +1,13 @@
 /*
 * @Author: Administrator
 * @Date:   2017-01-06 02:33:52
-* @Last Modified by:   William Chan
-* @Last Modified time: 2017-02-24 14:12:56
+* @Last Modified by:   Administrator
+* @Last Modified time: 2017-02-25 14:59:45
 */
 
 'use strict';
 
-import { login } from '../../api'
+import { login } from '../../api/channel'
 import { CHANNEL_FIND } from '../../types'
 
 const state = {

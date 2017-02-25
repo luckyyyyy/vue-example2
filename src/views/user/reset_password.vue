@@ -65,7 +65,15 @@ export default {
 		submit_reset_password () {
 			this.$refs.reset_password.validate((valid) => {
 				if (valid) {
-					this.$store.dispatch('RESETPWD_REQUEST', this.reset_password);
+					this.$store.dispatch('RESETPWD_REQUEST', this.reset_password).then(() => {
+						this.$alert('密码重置成功', '提示', {
+							type: 'success',
+							confirmButtonText: '登录',
+							callback: action => {
+								this.$router.push({ name: 'login' })
+							}
+						})
+					})
 				} else {
 					return false;
 				}

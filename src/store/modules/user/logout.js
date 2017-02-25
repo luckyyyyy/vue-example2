@@ -1,13 +1,13 @@
 /*
 * @Author: Administrator
 * @Date:   2017-01-06 02:33:52
-* @Last Modified by:   William Chan
-* @Last Modified time: 2017-02-20 11:20:54
+* @Last Modified by:   Administrator
+* @Last Modified time: 2017-02-25 14:49:17
 */
 
 'use strict';
 
-import { logout } from '../../api'
+import { logout } from '../../api/user'
 import { LOGIN, LOGOUT } from '../../types'
 
 import { MessageBox } from 'element-ui'
