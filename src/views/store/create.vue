@@ -1,10 +1,10 @@
 <template>
 	<div class="view">
-		<el-steps :align-center="false" :center="true" :active="active" finish-status="success">
-			<el-step title="选择商品类目"></el-step>
-			<el-step title="编辑基本信息"></el-step>
-			<el-step title="编辑商品详情"></el-step>
-		</el-steps>
+		<div class="step">
+			<div :class="{ active: active == 1 }" class="tab">选择商品类目</div>
+			<div :class="{ active: active == 2 }" class="tab">编辑基本信息</div>
+			<div :class="{ active: active == 3 }" class="tab">编辑商品详情</div>
+		</div>
 		<el-form ref="form" label-position="left" label-width="100px">
 			<div class="setp setp1" v-show="active == 1">
 				<el-radio-group>
@@ -175,6 +175,28 @@
 </script>
 
 <style lang="less">
+	.step {
+		display: flex;
+		width: 100%;
+		.tab {
+			flex: 1;
+			height: 40px;
+			line-height: 40px;
+			background: #eff2f7;
+			border-right: 1px solid #d3dce6;
+			border-bottom: 1px solid #d3dce6;
+			text-align: center;
+
+			&:last-child {
+				border-right: 0;
+			}
+			&.active {
+				background: #1190BF;
+				color: white;
+			}
+
+		}
+	}
 	.view {
 		width: 100%;
 		box-sizing: border-box;
@@ -202,7 +224,7 @@
 					box-sizing: border-box;
 					margin: 10px 0;
 					background: #f7f8fa;
-					padding: 0 10px;
+					padding: 10px 10px;
 				}
 				.left {
 					width: 100px;
@@ -214,7 +236,7 @@
 						width: 200px;
 					}
 					.select {
-						margin: 10px 0;
+						margin-bottom: 10px;
 						.el-radio {
 							margin-right: 10px;
 						}
