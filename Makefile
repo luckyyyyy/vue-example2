@@ -13,6 +13,7 @@ master-check:
 
 build: master-check
 	npm run build
+	gulp publish
 
 update: master-check
 	npm install
