@@ -2,7 +2,7 @@
 * @Author: William Chan
 * @Date:	 2017-02-26 13:20:04
 * @Last Modified by:   William Chan
-* @Last Modified time: 2017-02-26 14:04:44
+* @Last Modified time: 2017-02-26 14:11:08
 */
 
 'use strict';
@@ -26,8 +26,7 @@ gulp.task('publish', () =>
 				bucket: 'rainbow-static'
 			},
 			headers: {
-				// CacheControl: 'no-cache',
-				// ServerSideEncryption: 'AES256'
+				CacheControl: 'max-age=7200,s-maxage=3600',
 			}
 		}))
 );
