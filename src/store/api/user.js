@@ -2,7 +2,7 @@
 * @Author: Administrator
 * @Date:   2017-02-25 14:41:16
 * @Last Modified by:   Administrator
-* @Last Modified time: 2017-02-25 14:49:50
+* @Last Modified time: 2017-02-28 00:22:05
 */
 
 'use strict';
@@ -42,6 +42,6 @@ export const update_user = ({ nickName, email, sex, description }) => {
 	return axios.post(`${API_HOST}/user/update_user`, { nickName, email, sex, description })
 }
 // POST /api/v1/user/update_password
-export const password = ({ password }) => {
-	return axios.post(`${API_HOST}/user/update_password`, { password })
+export const password = ({ oldPassword, newPassword }) => {
+	return axios.put(`${API_HOST}/user/update_password`, { oldPassword, newPassword })
 }
