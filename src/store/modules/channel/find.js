@@ -2,12 +2,12 @@
 * @Author: Administrator
 * @Date:   2017-01-06 02:33:52
 * @Last Modified by:   Administrator
-* @Last Modified time: 2017-02-25 14:59:45
+* @Last Modified time: 2017-02-27 22:06:26
 */
 
 'use strict';
 
-import { login } from '../../api/channel'
+import { channel_find } from '../../api/channel'
 import { CHANNEL_FIND } from '../../types'
 
 const state = {
@@ -21,7 +21,7 @@ const getters = {}
 const actions = {
 	[CHANNEL_FIND.REQUEST] ({ commit }, ...args) {
 		commit(CHANNEL_FIND.REQUEST);
-		login(...args).then(res => {
+		channel_find(...args).then(res => {
 			commit(CHANNEL_FIND.SUCCESS, res);
 		}).catch(err => {
 			commit(CHANNEL_FIND.FAILURE, err);

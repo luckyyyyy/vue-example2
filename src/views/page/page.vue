@@ -10,10 +10,8 @@
 			</router-link>
 			<div class="right">
 				<span class="text">账号：{{ user.nickname || user.phone }}</span>
-				<div class="button">
-					<router-link :to="{ name: 'profile' }">设置</router-link>
-					<a href="javascript:;" @click="sign_out">退出</a>
-				</div>
+				<router-link :to="{ name: 'profile' }">设置</router-link>
+				<a href="javascript:;" @click="sign_out">退出</a>
 			</div>
 		</div>
 		<router-view class="box"></router-view>
@@ -55,12 +53,12 @@
 			margin-top: 50px;
 			display: flex;
 			justify-content: space-between;
+			align-items: center;
 			.router-link-active {
 				cursor: pointer;
 			}
 			.left {
 				display: flex;
-				align-items: center;
 				line-height: 30px;
 				img {
 					margin-right: 10px;
@@ -72,9 +70,7 @@
 				}
 			}
 			.right {
-				line-height: 30px;
 				display: flex;
-				align-items: center;
 				a {
 					margin-left: 5px;
 				}

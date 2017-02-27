@@ -1,8 +1,8 @@
 /*
 * @Author: William Chan
 * @Date:   2016-12-03 19:24:59
-* @Last Modified by:   William Chan
-* @Last Modified time: 2017-02-23 17:37:48
+* @Last Modified by:   Administrator
+* @Last Modified time: 2017-02-27 21:35:54
 */
 
 'use strict';
@@ -20,13 +20,14 @@ import password from './modules/user/password'
 import catalogs from './modules/commodity/catalogs'
 
 import channel_create from './modules/channel/create'
+import channel_find from './modules/channel/find'
 
 import weixin_auth_url from './modules/weixin/auth_url'
 
 const modules = {
 	login, register, reset_password, logout, update_user, password,
 	catalogs,
-	channel_create,
+	channel_create, channel_find,
 	weixin_auth_url
 }
 

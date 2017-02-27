@@ -11,23 +11,32 @@
 					</div>
 				</div>
 			</div>
-			<div class="create" v-if="list">
+			<div class="create">
 				<router-link :to="{ name: 'create_channel' }">创建新频道</router-link>
 			</div>
 		</div>
-		<div class="body">
-			<ul class="list" v-if="list">
-				<li v-for="item in list" @click="select(item.id)">
-					<div class="logo"></div>
-					<div class="info">
-						<div class="name">{{ item.name }}</div>
-						<div class="wechat">公众号：{{ item.alias }}</div>
-					</div>
-					<div class="button">
-						<a href="javascript:;" @click.stop="onDelete(item.id)">删除</a>
-					</div>
-				</li>
-			</ul>
+		<div class="body" v-loading="lock" element-loading-text="正在获取频道列表">
+			<div class="channel" v-if="total">
+				<ul class="list">
+					<li v-for="item in data" @click="select(item.channel.channelId)">
+						<div class="logo">
+							<img witdh="50" height="50" :src="item.wxAvatarUrl">
+						</div>
+						<div class="info">
+							<div class="name">{{ item.channel.name }}</div>
+							<div class="wechat">公众号：
+								<template v-if="item.wxAppName">{{ item.wxAppName }}</template>
+								<template v-else><span class="unbind">未绑定</span></template>
+							</div>
+						</div>
+					</li>
+				</ul>
+				<el-pagination v-if="total > limits"
+					@current-change="currentChange"
+					layout="prev, pager, next"
+					:total="total">
+				</el-pagination>
+			</div>
 			<div class="empty" v-else>
 				<p>您还没有自己的频道</p>
 				<el-button type="primary" @click="toCreate">创建频道</el-button>
@@ -40,25 +49,27 @@
 	export default {
 		data () {
 			return {
-				list: [
-					{
-						name: '测试',
-						alias: '测试',
-						id: 123
-					}, {
-						name: '测试2',
-						alias: '测试2',
-						id: 444
-					}
-				]
+				limits: 9,
 			}
 		},
 		computed: {
 			...mapState({
-				user: state => state.user
+				user: state => state.user,
+				total: state => state.channel_find.total,
+				lock: state => state.channel_find.lock,
+				data: state => state.channel_find.data
 			})
 		},
+		mounted () {
+			this.currentChange();
+		},
 		methods: {
+			currentChange (currentPage) {
+				const page   = currentPage || (this.$store.params && this.$store.params.id) || 1;
+				const limits = this.limits;
+				this.$store.dispatch('CHANNEL_FIND_REQUEST', { limits, page });
+
+			},
 			select (id) {
 				this.$store.dispatch('SELECT_CHANNEL', id);
 			},
@@ -67,9 +78,6 @@
 			},
 			toCreate () {
 				this.$router.push({ name: 'create_channel' })
-			},
-			onDelete (id) {
-				console.log(123)
 			}
 		}
 	}
@@ -125,49 +133,55 @@
 		}
 	}
 	.body {
-		.list {
-			padding: 15px 8px;
+		.channel {
 			display: flex;
-			flex-wrap: wrap;
-			height: 380px;
-			overflow: auto;
-			li {
-				width: 230px;
-				height: 110px;
-				border: 1px solid #d3dce6;
-				margin: 8px;
+			align-items: center;
+			justify-content: space-around;
+			flex-direction: column;
+			height: 410px;
+			box-sizing: border-box;
+			.list {
 				display: flex;
-				padding: 16px;
-				box-sizing: border-box;
-				cursor: pointer;
-				position: relative;
-				transition: border .1s ease-in-out;
-				.logo {
-					width: 50px;
-					height: 50px;
-					background: #ccc;
-				}
-				.button {
-					position: absolute;
-					bottom: 16px;
-					right: 16px;
-					visibility: hidden;
-					a {
+				flex-wrap: wrap;
+				max-height: 380px;
+				// overflow: auto;
+				align-items: center;
+				justify-content: space-around;
+				li {
+					width: 225px;
+					height: 100px;
+					border: 1px solid #d3dce6;
+					margin: 10px 0;
+					display: flex;
+					align-items: center;
+					padding: 16px;
+					box-sizing: border-box;
+					cursor: pointer;
+					transition: border .1s ease-in-out;
+					.logo {
+						width: 50px;
+						height: 50px;
+						background: #ccc;
+					}
+					.unbind {
+						color: #ff5520;
+					}
+					.info {
+						font-size: 14px;
+						color: #666;
 						padding-left: 10px;
+						line-height: 25px;
+					}
+					&:hover {
+						border-color: #51bfff;
+						.button {
+							visibility: visible;
+						}
 					}
 				}
-				.info {
-					font-size: 14px;
-					color: #666;
-					padding-left: 10px;
-					line-height: 25px;
-				}
-				&:hover {
-					border-color: #51bfff;
-					.button {
-						visibility: visible;
-					}
-				}
+			}
+			.el-pagination {
+				padding: 10px;
 			}
 		}
 		.empty {
@@ -175,7 +189,10 @@
 			flex-direction: column;
 			justify-content: center;
 			align-items: center;
-			padding-top: 80px;
+			margin-top: 80px;
+			p {
+				margin-bottom: 10px;
+			}
 		}
 	}
 </style>

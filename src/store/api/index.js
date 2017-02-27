@@ -2,7 +2,7 @@
 * @Author: William Chan
 * @Date:   2016-12-02 11:31:24
 * @Last Modified by:   Administrator
-* @Last Modified time: 2017-02-25 15:00:25
+* @Last Modified time: 2017-02-27 22:01:17
 */
 
 // axios.request(config)
@@ -21,7 +21,7 @@ import { MessageBox } from 'element-ui'
 import axios from 'axios'
 export const API_HOST =
 	process.env.NODE_ENV !== 'production' ?
-	'http://api.rainbowlive.shop/api/v1'  :
+	'http://101.37.17.152:8088/api/v1'  :
 	'/api/v1';
 
 window.onerror = (msg, url, lineNo, columnNo, error) => {
@@ -86,7 +86,7 @@ export const onResponseError = error => {
 		}
 		// console.dir(error)
 		// TODO 500 必定显示 or 拦截器配置
-		MessageBox.alert(`${error.response.status} ${error.response.data.retMsg}`, '操作失败', {
+		MessageBox.alert(`${error.response.status} ${error.response.data.retMsg || '请求发生错误'}`, '操作失败', {
 			type: 'error'
 		})
 	}

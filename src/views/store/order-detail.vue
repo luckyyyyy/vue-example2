@@ -5,7 +5,7 @@
 		  <el-step title="买家付款" description="2017-09-23 13:36:21"></el-step>
 		  <el-step title="商家发货" description="2017-09-23 15:34:51"></el-step>
 		  <el-step title="交易完成" description="2017-09-23 15:56:51"></el-step>
-		</el-steps>	
+		</el-steps>
 		<div class="order-info-wrapper">
 			<ul class="base-info-box">
 				<li><span class="title">订单信息</span></li>
@@ -77,12 +77,17 @@
     		<div class="method-box">
     			<span>发货方式：</span>
 				<el-radio class="radio" v-model="radio" label="1">物流信息</el-radio>
-				<el-radio class="radio" v-model="radio" label="2">物流信息</el-radio>    			
+				<el-radio class="radio" v-model="radio" label="2">物流信息</el-radio>
     		</div>
     		<div class="express-company-box">
     			<span>快递公司：</span>
     			<el-select v-model="express" placeholder="请选择物流公司">
-    				<el-option v-for="express_company in express_companys" :label="express_company" :value="express_company"></el-option>
+    				<el-option
+    					v-for="express_company in express_companys"
+    					:key="express_company"
+    					:label="express_company"
+    					:value="express_company">
+    				</el-option>
 				</el-select>
     		</div>
     		<div class="numbers-box">
@@ -142,10 +147,10 @@
 		          this.$message({
 		            type: 'info',
 		            message: '已取消关闭'
-		          });          
+		          });
 		        });
 			},
-			changePrice() {		
+			changePrice() {
 
 			}
 		}

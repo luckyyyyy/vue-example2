@@ -2,7 +2,7 @@
 * @Author: Administrator
 * @Date:   2017-02-25 14:58:36
 * @Last Modified by:   Administrator
-* @Last Modified time: 2017-02-25 14:59:35
+* @Last Modified time: 2017-02-27 22:06:02
 */
 
 'use strict';
@@ -20,5 +20,5 @@ export const channel_create = ({ name, commodityCatalog, province, city, county,
 }
 // GET /api/v1/channel/find
 export const channel_find = ({ page, limits }) => {
-	return axios.get(`${API_HOST}/channel/find`, { page, limits })
+	return axios.get(`${API_HOST}/channel/find`, { params: { page, limits } })
 }

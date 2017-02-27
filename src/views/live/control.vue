@@ -126,7 +126,7 @@
 				<ul class="info">
 					<li>观看人数<span>12345</span></li>
 					<li>在线人数<span>12345</span></li>
-					<li>总评论数<span>1111万</span><li>
+					<li>总评论数<span>1111万</span></li>
 				</ul>
 			</div>
 			<div class="chat">

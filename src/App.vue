@@ -19,6 +19,9 @@
 				</div>
 			</div>
 		</div>
+		<div class="developer">
+			build: 20170207
+		</div>
 	</div>
 </template>
 <script>
@@ -40,6 +43,14 @@ export default {
 </script>
 
 <style lang="less">
+	.developer {
+		position: absolute;
+		left: 15px;
+		top: 10px;
+		color: red;
+		font-size: 12px;
+		z-index: 9999999;
+	}
 	.wrap {
 		height: 100%;
 	}
