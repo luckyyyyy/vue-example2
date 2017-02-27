@@ -19,8 +19,12 @@
 				</div>
 			</div>
 		</div>
-		<div class="developer">
-			build: 20170207
+		<div class="developer" @click="hideDeveloper" v-show="!hide">
+			<p>build: 20170207 vue 2.2.0</p>
+			<ol>
+				<li>饿了么组件库还未支持vue 2.2.0，diglog会有遮罩层问题。</li>
+				<li>新增了频道列表接口对接。</li>
+			</ol>
 		</div>
 	</div>
 </template>
@@ -35,10 +39,20 @@ export default {
 			return this.$store.state.token;
 		},
 	},
+	data () {
+		return {
+			hide: false
+		}
+	},
 	beforeCreate () {
 		this.$store.dispatch('LOGIN_CHECK');
 		this.$store.dispatch('SELECT_CHANNEL');
 	},
+	methods: {
+		hideDeveloper () {
+			this.hide = true;
+		}
+	}
 }
 </script>
 
@@ -50,6 +64,10 @@ export default {
 		color: red;
 		font-size: 12px;
 		z-index: 9999999;
+		ol {
+			list-style-type: decimal;
+			margin-left: 20px;
+		}
 	}
 	.wrap {
 		height: 100%;

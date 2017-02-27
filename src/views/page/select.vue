@@ -25,13 +25,13 @@
 						<div class="info">
 							<div class="name">{{ item.channel.name }}</div>
 							<div class="wechat">公众号：
-								<template v-if="item.wxAppName">{{ item.wxAppName }}</template>
+								<template v-if="item.channel.status == 2">{{ item.wxAppName }}</template>
 								<template v-else><span class="unbind">未绑定</span></template>
 							</div>
 						</div>
 					</li>
 				</ul>
-				<el-pagination v-if="total > limits"
+				<el-pagination v-show="total > limits"
 					@current-change="currentChange"
 					layout="prev, pager, next"
 					:total="total">
@@ -54,10 +54,10 @@
 		},
 		computed: {
 			...mapState({
-				user: state => state.user,
+				user: state  => state.user,
 				total: state => state.channel_find.total,
-				lock: state => state.channel_find.lock,
-				data: state => state.channel_find.data
+				lock: state  => state.channel_find.lock,
+				data: state  => state.channel_find.data
 			})
 		},
 		mounted () {
