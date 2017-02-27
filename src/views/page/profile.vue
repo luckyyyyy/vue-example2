@@ -23,6 +23,7 @@
 					<upload
 						v-show="!upload.start"
 						class="avatar"
+						:method="option.method"
 						:action="option.action"
 						:acceptn="option.acceptn"
 						@success="avatar_success"

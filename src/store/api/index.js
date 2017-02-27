@@ -2,7 +2,7 @@
 * @Author: William Chan
 * @Date:   2016-12-02 11:31:24
 * @Last Modified by:   Administrator
-* @Last Modified time: 2017-02-27 22:01:17
+* @Last Modified time: 2017-02-27 23:07:12
 */
 
 // axios.request(config)
@@ -100,8 +100,7 @@ axios.interceptors.response.use(onResponse, onResponseError);
 // 图片上传接口配置
 export const USER_AVATAR = {
 	action: `${API_HOST}/user/update/avatar`,
-	name: 'avatar',
-	// accept: 'image/jpeg, image/x-png, image/gif'
+	method: 'put'
 }
 
 

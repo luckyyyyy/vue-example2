@@ -34,7 +34,7 @@
 
 	function getError(action, xhr) {
 		let msg;
-		msg = `fail to post ${action} ${xhr.status}'`;
+		msg = `Network Error ${xhr.status}`;
 		// if (xhr.response) {
 		// 	msg = `${xhr.status} ${xhr.response.error || xhr.response}`;
 		// } else if (xhr.responseText) {
@@ -44,8 +44,8 @@
 		// }
 		const err = new Error(msg);
 		err.status = xhr.status;
-		err.method = 'post';
 		err.url = action;
+		// fail to post ${action} ${xhr.status}
 		return err;
 	}
 
@@ -62,6 +62,10 @@
 			multiple: {
 				type: Boolean,
 				default: true,
+			},
+			method: {
+				type: String,
+				default: 'post'
 			}
 		},
 		data () {
@@ -81,7 +85,7 @@
 			},
 			snedImages () {
 				const xhr = new XMLHttpRequest();
-				xhr.open('post', this.action, true);
+				xhr.open(this.method, this.action, true);
 				xhr.setRequestHeader('Content-Type', 'application/json');
 				xhr.setRequestHeader('Authorization', this.$store.getters.auth);
 				xhr.upload.onprogress = e => {
