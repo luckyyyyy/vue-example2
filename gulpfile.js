@@ -1,8 +1,8 @@
 /*
 * @Author: William Chan
 * @Date:	 2017-02-26 13:20:04
-* @Last Modified by:   William Chan
-* @Last Modified time: 2017-02-26 14:21:24
+* @Last Modified by:   Administrator
+* @Last Modified time: 2017-02-27 23:21:42
 */
 
 'use strict';
@@ -26,7 +26,8 @@ gulp.task('publish', () =>
 			bucket: 'rainbow-static'
 		},
 		headers: {
-			CacheControl: 'max-age=7200,s-maxage=3600',
+			CacheControl: 'max-age=604800',
+			ContentEncoding: 'gzip',
 		}
 	}))
 );
