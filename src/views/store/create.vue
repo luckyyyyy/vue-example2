@@ -177,8 +177,6 @@
 <style lang="less">
 	.step {
 		display: flex;
-		left: 0;
-		top: 0;
 		width: 100%;
 		.tab {
 			flex: 1;
@@ -226,7 +224,7 @@
 					box-sizing: border-box;
 					margin: 10px 0;
 					background: #f7f8fa;
-					padding: 0 10px;
+					padding: 10px 10px;
 				}
 				.left {
 					width: 100px;
@@ -238,7 +236,7 @@
 						width: 200px;
 					}
 					.select {
-						margin: 10px 0;
+						margin-bottom: 10px;
 						.el-radio {
 							margin-right: 10px;
 						}

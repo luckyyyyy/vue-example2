@@ -5,6 +5,8 @@ all:
 	@echo "rainbow build manager"
 	@echo "------------------------------------------"
 	@echo "make build: create dist folder"
+	@echo "make update: update npm package"
+	@echo "make dev: start dev server"
 	@echo "------------------------------------------"
 
 master-check:
@@ -13,9 +15,10 @@ master-check:
 
 build: master-check
 	npm run build
+	gulp publish
 
 update: master-check
 	npm install
 
-start: master-check
+dev: master-check
 	npm run dev

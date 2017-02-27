@@ -23,7 +23,8 @@
 					<upload
 						v-show="!upload.start"
 						class="avatar"
-						:upload="option"
+						:action="option.action"
+						:acceptn="option.acceptn"
 						@success="avatar_success"
 						@fail="avatar_fail"
 						@progress="avatar_progress"
@@ -39,7 +40,6 @@
 					<el-button @click="backConsole">返回控制台</el-button>
 				</el-form-item>
 			</el-form>
-
 		</div>
 	</div>
 </template>

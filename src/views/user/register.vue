@@ -91,7 +91,7 @@ export default {
 			this.$refs.register.validate(valid => {
 				if (valid) {
 					this.$store.dispatch('REGISTER_REQUEST', this.register).then(() => {
-						this.router.push({ name: 'register_seccuss' });
+						this.$router.push({ name: 'register_seccuss' });
 					})
 				} else {
 					return false;

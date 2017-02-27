@@ -18,5 +18,7 @@ Vue.use(ElementUI); // 饿了么组件库 插件形式安装
 const app = new Vue({
 	router,
 	store,
-	render: h => h(App)
-}).$mount('#app')
+	el: '#app',
+	template: '<App/>',
+	components: { App },
+})

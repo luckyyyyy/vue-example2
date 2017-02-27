@@ -1,52 +1,138 @@
 <template>
-	<el-upload
-		:on-error="option.onError"
-		:on-progress="option.onProgress"
-		:on-success="option.onSuccess"
-		:show-file-list="false"
-		:action="option.action"
-		:headers="option.headers"
-		:name="option.name"
-		:accept="option.accept"
-	>
+	<div :class="{ disabled: length > 0 }" class="rb-upload" @click="openBrowse">
 		<slot></slot>
-	</el-upload>
+		<input :accept="accept" :multiple="multiple && 'multiple'" @change="onChange" ref="fileInput" type="file" class="rb-upload__input">
+	</div>
 </template>
-
+<style lang="less" scoped>
+	.rb-upload {
+		display: inline-block;
+		text-align: center;
+		cursor: pointer;
+		&.disabled {
+			cursor: default;
+		}
+		.rb-upload__input {
+			display: none;
+		}
+	}
+</style>
 <script>
 	import { onResponse, onResponseError } from '../../store/api'
-	export default {
-		props: {
-			upload: Object
-		},
-		data () {
-			return {
-				default_option: {
-					headers: {
-						Authorization: this.$store.getters.auth
-					}
-				}
-			}
-		},
-		computed: {
-			option () {
-				this.default_option.onError = (err, response, file) => {
-					this.$emit('fail');
-					onResponseError(err);
-				}
-				this.default_option.onProgress = (...args) => {
-					this.$emit('progress', ...args);
-				}
-				this.default_option.onSuccess = (res, file, fileList) => {
-					onResponse({ data: res }).then(res => {
-						this.$emit('success', res, file, fileList);
-					}).catch(err => {
-						this.$emit('fail');
-					})
-				}
-				return Object.assign(this.default_option, this.upload);
-			}
+
+	function getBody(xhr) {
+		const text = xhr.responseText || xhr.response;
+		if (!text) {
+			return text;
+		}
+		try {
+			return JSON.parse(text);
+		} catch (e) {
+			return text;
 		}
 	}
 
+	function getError(action, xhr) {
+		let msg;
+		msg = `fail to post ${action} ${xhr.status}'`;
+		// if (xhr.response) {
+		// 	msg = `${xhr.status} ${xhr.response.error || xhr.response}`;
+		// } else if (xhr.responseText) {
+		// 	msg = `${xhr.status} ${xhr.responseText}`;
+		// } else {
+		// 	msg = `fail to post ${action} ${xhr.status}'`;
+		// }
+		const err = new Error(msg);
+		err.status = xhr.status;
+		err.method = 'post';
+		err.url = action;
+		return err;
+	}
+
+	export default {
+		props: {
+			accept: {
+				type: String,
+				default: 'image/jpeg, image/x-png, image/gif'
+			},
+			action: {
+				type: String,
+				default: 'http://localhost:8080'
+			},
+			multiple: {
+				type: Boolean,
+				default: true,
+			}
+		},
+		data () {
+			return {
+				files: [],
+				length: 0
+			}
+		},
+		methods: {
+			openBrowse () {
+				if (this.length == 0) this.$refs.fileInput.click();
+			},
+			clearQueue () {
+				this.$refs.fileInput.value = '';
+				this.length = 0;
+				this.files = [];
+			},
+			snedImages () {
+				const xhr = new XMLHttpRequest();
+				xhr.open('post', this.action, true);
+				xhr.setRequestHeader('Content-Type', 'application/json');
+				xhr.setRequestHeader('Authorization', this.$store.getters.auth);
+				xhr.upload.onprogress = e => {
+					if (e.total > 0) {
+						e.percent = e.loaded / e.total * 100;
+					}
+					this.$emit('progress', e);
+				}
+				xhr.onload = e => {
+					this.clearQueue();
+					if (xhr.status < 200 || xhr.status >= 300) {
+						onResponseError(getError(this.action, xhr));
+						return this.$emit('fail', xhr);
+					}
+					return this.$emit('success', getBody(xhr));
+				};
+				xhr.onerror = e => {
+					this.$emit('fail');
+				}
+				xhr.send(JSON.stringify(this.files));
+			},
+			onChange () {
+				const input = this.$refs.fileInput;
+				const files = input.files;
+				this.length = files.length;
+				const self = this;
+				for (const file of files) {
+					const reader = new FileReader();
+					reader.onload = (function (file){
+						self.$emit('queue', self.files.length, self.length);
+						return function (e) {
+							self.files.push({
+								body: this.result,
+								name: file.name,
+								type: file.type
+							});
+							if (self.files.length == self.length) {
+							  self.snedImages();
+							}
+						};
+					})(file);
+
+					reader.onerror = (function (file){
+						return function (e) {
+							self.clearQueue();
+						};
+					})(file);
+
+					reader.readAsDataURL(file);
+				}
+			}
+		}
+	}
 </script>

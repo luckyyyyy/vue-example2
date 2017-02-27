@@ -10,7 +10,6 @@ DIRECTORY STRUCTURE
     node_modules/       contains node modules
     build/              contains webpack build script
     config/             contains build & env config
-    components/         contains misc component classes
     config/             contains application configurations
     dist/               distribute path
     src/                source
@@ -26,6 +25,8 @@ INSTALLATION
 
 请在工作环境安装好 nodejs 以及 npm包管理器 并克隆仓库至本地环境
 请修改npm镜像为taobao镜像 https://npm.taobao.org/
+"node": ">= 4.3.0"
+"npm":  ">= 3.0.0"
 
 ## Build Setup
 
