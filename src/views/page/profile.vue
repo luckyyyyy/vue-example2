@@ -47,10 +47,9 @@
 	import { mapState } from 'vuex';
 	import { USER_AVATAR } from '../../store/api'
 	import upload from '../../components/item/upload'
-	import up from '../../components/item/up'
 	export default {
 		components: {
-			upload, up
+			upload
 		},
 		data () {
 			return {
