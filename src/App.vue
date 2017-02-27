@@ -24,6 +24,7 @@
 			<ol>
 				<li>饿了么组件库还未支持vue 2.2.0，diglog会有遮罩层问题。</li>
 				<li>新增了频道列表接口对接。</li>
+				<li>gzip测试。</li>
 			</ol>
 		</div>
 	</div>
