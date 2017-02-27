@@ -88,7 +88,7 @@
 				this.upload.start = false;
 			},
 			avatar_success (res) {
-				this.$store.commit('UPDATE_USER_AVATAR', res.data.url);
+				this.$store.commit('UPDATE_USER_AVATAR', res.url);
 				this.upload.start = false;
 			},
 			submit () {
