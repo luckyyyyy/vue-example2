@@ -2,7 +2,9 @@
 	<div class="wrap" v-loading.fullscreen.lock="lock" element-loading-text="拼命加载中">
 		<div v-if="token" class="main">
 			<router-view name="sidebar"></router-view>
-			<router-view name="main" class="router-view"></router-view>
+			<!-- <transition name="fade"> -->
+				<router-view name="main" class="router-view"></router-view>
+			<!-- </transition> -->
 			<router-view name="select"></router-view>
 			<router-view name="user"></router-view>
 		</div>

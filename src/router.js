@@ -1,8 +1,8 @@
 /*
 * @Author: William Chan
 * @Date:   2016-12-01 17:57:50
-* @Last Modified by:   William Chan
-* @Last Modified time: 2017-02-23 17:19:05
+* @Last Modified by:   Administrator
+* @Last Modified time: 2017-02-25 15:53:40
 */
 
 'use strict';
@@ -169,7 +169,7 @@ const routes = [
 					require(['./views/live/control.vue'], resolve)
 				},
 			},
-			{	
+			{
 				name: 'live_data',
 				path: 'data/:id',
 				meta: { requiresAuth: true, parent: 'live_list' },
@@ -408,13 +408,16 @@ const routes = [
 	}
 ]
 
-const route = new VueRouter({
+const router = new VueRouter({
 	base: __dirname,
 	routes,
 	mode: 'history',
+	scrollBehavior (to, from, savedPosition) {
+		return { x: 0, y: 0 }
+	}
 })
 
-route.beforeEach((to, from, next) => {
+router.beforeEach((to, from, next) => {
 	NProgress.remove();
 	NProgress.start();
 	const requiresAuth = to.matched.some(record => record.meta.requiresAuth);
@@ -453,10 +456,11 @@ route.beforeEach((to, from, next) => {
 		return next();
 	}
 })
-route.afterEach(route => {
+router.afterEach(route => {
 	NProgress.done(true);
 })
-export default route
+
+export default router
 
 
 
