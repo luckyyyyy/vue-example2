@@ -15,6 +15,7 @@
 						<el-select :disabled="lock_catalogs" placeholder="请选择" v-model="create.commodityCatalog">
 							<el-option
 								v-for="item in catalogs"
+								:key="item.label"
 								:label="item.label"
 								:value="item.value">
 							</el-option>

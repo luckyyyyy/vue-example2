@@ -2,7 +2,12 @@
 	<div class="commoon-page">
 		<div class="breadcrumb">
 			<el-breadcrumb separator="/">
-				<el-breadcrumb-item v-for="item of breadcrumb" :to="{ name: item.route, params: $route.params }">{{ item.name }}</el-breadcrumb-item>
+				<el-breadcrumb-item
+					v-for="item of breadcrumb"
+					:key="item.name"
+					:to="{ name: item.route, params: $route.params }">
+					{{ item.name }}
+				</el-breadcrumb-item>
 			</el-breadcrumb>
 		</div>
 		<router-view class="commoon-router-view"></router-view>
