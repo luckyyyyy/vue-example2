@@ -1,8 +1,8 @@
 /*
 * @Author: Administrator
 * @Date:   2017-02-25 14:41:16
-* @Last Modified by:   Administrator
-* @Last Modified time: 2017-02-25 14:49:50
+* @Last Modified by:   William Chan
+* @Last Modified time: 2017-02-28 10:40:27
 */
 
 'use strict';
@@ -33,15 +33,15 @@ export const logout = () => {
 export const reset_password_captcha = ({ phone }) => {
 	return axios.post(`${API_HOST}/user/reset_password/captcha`, { phone })
 }
-// POST /api/v1/user/reset_password
+// PUT /api/v1/user/reset_password
 export const reset_password = ({ phone, password, captcha }) => {
-	return axios.post(`${API_HOST}/user/reset_password`, { phone, password, captcha })
+	return axios.put(`${API_HOST}/user/reset_password`, { phone, password, captcha })
 }
-// POST /api/v1/user/update/user
+// PUT /api/v1/user/update/user
 export const update_user = ({ nickName, email, sex, description }) => {
-	return axios.post(`${API_HOST}/user/update_user`, { nickName, email, sex, description })
+	return axios.put(`${API_HOST}/user/update_user`, { nickName, email, sex, description })
 }
-// POST /api/v1/user/update_password
+// PUT /api/v1/user/update_password
 export const password = ({ password }) => {
-	return axios.post(`${API_HOST}/user/update_password`, { password })
+	return axios.put(`${API_HOST}/user/update_password`, { password })
 }
