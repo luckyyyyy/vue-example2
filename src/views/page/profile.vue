@@ -86,17 +86,18 @@
 		},
 		methods: {
 			avatar_progress (event) {
-				this.upload.start = true;
 				this.upload.progress = Math.floor(event.percent);
 			},
 			avatar_fail () {
 				this.upload.start = false;
+				this.$refs.avatar.src = this.info.avatar;
 			},
 			avatar_success (res) {
 				this.$store.commit('UPDATE_USER_AVATAR', res.url);
 				this.upload.start = false;
 			},
 			avatar_queue (files, length) {
+				this.upload.start = true;
 				this.$refs.avatar.src = files[0].body;
 			},
 			submit () {
