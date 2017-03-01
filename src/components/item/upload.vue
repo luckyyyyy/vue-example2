@@ -100,7 +100,12 @@
 						onResponseError(getError(this.action, xhr));
 						return this.$emit('fail', xhr);
 					}
-					return this.$emit('success', getBody(xhr));
+					const body = getBody(xhr);
+					onResponse({ data: body }).then(data => {
+						return this.$emit('success', data.data);
+					}).catch(() => {
+						return this.$emit('fail');
+					})
 				};
 				xhr.onerror = e => {
 					this.$emit('fail');
@@ -111,28 +116,22 @@
 				const input = this.$refs.fileInput;
 				const files = input.files;
 				this.length = files.length;
-				const self = this;
 				for (const file of files) {
 					const reader = new FileReader();
-					reader.onload = (function (file){
-						self.$emit('queue', self.files.length, self.length);
-						return function (e) {
-							self.files.push({
-								body: this.result,
-								name: file.name,
-								type: file.type
-							});
-							if (self.files.length == self.length) {
-							  self.snedImages();
-							}
-						};
-					})(file);
-
-					reader.onerror = (function (file){
-						return function (e) {
-							self.clearQueue();
-						};
-					})(file);
+					reader.onload = e => {
+						this.files.push({
+							body: e.target.result,
+							name: file.name,
+							type: file.type
+						});
+						this.$emit('queue', this.files, this.length);
+						if (this.files.length == this.length) {
+						  this.snedImages();
+						}
+					}
+					reader.onerror = e => {
+						this.clearQueue();
+					}
 
 					reader.readAsDataURL(file);
 				}
