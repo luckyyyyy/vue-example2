@@ -13,9 +13,7 @@
 				</el-form-item>
 				<el-form-item label="性别：">
 					<el-radio-group v-model="user.sex">
-						<el-radio :label="1">男</el-radio>
-						<el-radio :label="2">女</el-radio>
-						<el-radio :label="0">保密</el-radio>
+						<el-radio v-for="item in sex" :key="item.label" :label="item.label">{{ item.name }}</el-radio>
 					</el-radio-group>
 				</el-form-item>
 				<el-form-item label="头像：">
@@ -56,6 +54,11 @@
 		},
 		data () {
 			return {
+				sex: [
+					{ label: 0, name: '保密' },
+					{ label: 1, name: '男'   },
+					{ label: 2, name: '女'   },
+				],
 				user: {},
 				option: USER_AVATAR,
 				upload: {
