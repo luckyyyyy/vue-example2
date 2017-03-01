@@ -166,12 +166,12 @@
 				max-height: 380px;
 				// overflow: auto;
 				// align-items: center;
-				justify-content: space-around;
+				// justify-content: space-around;
 				li {
 					width: 225px;
 					height: 100px;
 					border: 1px solid #d3dce6;
-					margin: 10px 0;
+					margin: 10px 14px;
 					display: flex;
 					align-items: center;
 					position: relative;
