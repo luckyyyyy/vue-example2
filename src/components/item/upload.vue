@@ -100,9 +100,9 @@
 						onResponseError(getError(this.action, xhr));
 						return this.$emit('fail', xhr);
 					}
-					const body = getBody(xhr);
-					onResponse({ data: body }).then(data => {
-						return this.$emit('success', data.data);
+					const data = getBody(xhr);
+					onResponse({ data }).then(res => {
+						return this.$emit('success', res.data);
 					}).catch(() => {
 						return this.$emit('fail');
 					})
@@ -116,7 +116,7 @@
 				const input = this.$refs.fileInput;
 				const files = input.files;
 				this.length = files.length;
-				for (const file of files) {
+				for (let file of files) {
 					const reader = new FileReader();
 					reader.onload = e => {
 						this.files.push({
