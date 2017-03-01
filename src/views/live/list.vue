@@ -72,10 +72,9 @@
 		</div>
 
 		<el-dialog
-			custom-class="dialog"
+			custom-class="createDialog"
 			title="新建直播"
 			v-model="openDialog"
-			size="tiny"
 			@close="closeDialog"
 			:close-on-click-modal="!lock"
 			:close-on-press-escape="!lock"
@@ -332,8 +331,10 @@
 			text-align: right;
 		}
 	}
-	.dialog {
-		display: flex;
+</style>
+<style lang="less">
+	.createDialog {
+		width: 550px;
 		.help {
 			font-size: 12px;
 			text-align: justify;

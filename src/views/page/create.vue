@@ -49,7 +49,7 @@
 					<span>基于微信公众号直播 + 电商的全场景化应用解决方案</span>
 				</div>
 				<div class="button">
-					<el-button :disabled="lock_open_button" type="primary" size="large" @click="openWxUrl">绑定微信公众号</el-button>
+					<el-button :disabled="lock_open_button" type="primary" size="large" @click="openWxUrl">{{ lock_open_button ? '正在获取微信授权' : '绑定微信公众号' }}</el-button>
 					<a class="wx" target="_blank" href="https://www.baidu.com">还没有公众号？去申请吧 ></a>
 				</div>
 				<div class="tips">
@@ -97,7 +97,22 @@
 		computed: {
 			active () {
 				if (this.$route.params.id) {
-					this.$store.dispatch('WEXIN_AUTH_URL_REQUEST', { channelID: this.$route.params.id });
+					this.$store.dispatch('WEXIN_AUTH_URL_REQUEST', { channelID: this.$route.params.id }).catch(err =>{
+						if (err.data) {
+							if (err.data.retCode != 0) {
+								this.$confirm(`${err.data.retMsg}`, '错误', {
+									confirmButtonText: '重新获取',
+									type: 'error'
+								}).then(() => {
+									window.location.reload();
+								});
+							} else {
+								this.$alert(err.data.retMsg, '错误', {
+									type: 'error'
+								})
+							}
+						}
+					});
 					return 2;
 				} else {
 					this.$store.dispatch('COMMODITY_CATALOGS_REQUEST');

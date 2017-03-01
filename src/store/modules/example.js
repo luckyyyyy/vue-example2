@@ -1,8 +1,8 @@
 /*
 * @Author: Administrator
 * @Date:   2017-01-06 02:33:52
-* @Last Modified by:   Administrator
-* @Last Modified time: 2017-02-25 15:00:54
+* @Last Modified by:   William Chan
+* @Last Modified time: 2017-03-01 13:12:16
 */
 
 'use strict';
@@ -19,11 +19,15 @@ const getters = {}
 const actions = {
 	[LOGIN.REQUEST] ({ commit }, ...args) {
 		commit(LOGIN.REQUEST);
-		login(...args).then(res => {
-			commit(LOGIN.SUCCESS, res.data);
-		}).catch(err => {
-			commit(LOGIN.FAILURE, err);
-		})
+		return new Promise((resolve, reject) => {
+			login(...args).then(res => {
+				commit(LOGIN.SUCCESS, res.data);
+				resolve();
+			}).catch(err => {
+				commit(LOGIN.FAILURE, err);
+				reject();
+			})
+		}
 	}
 }
 

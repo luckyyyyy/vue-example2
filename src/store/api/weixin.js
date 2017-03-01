@@ -1,8 +1,8 @@
 /*
 * @Author: Administrator
 * @Date:   2017-02-25 14:58:36
-* @Last Modified by:   Administrator
-* @Last Modified time: 2017-02-25 15:00:29
+* @Last Modified by:   William Chan
+* @Last Modified time: 2017-03-01 15:15:25
 */
 
 'use strict';
@@ -16,6 +16,6 @@ import axios from 'axios'
 
 // POST /api/v1/wx_open/auth_url
 export const wx_get_auth_url = ({ channelID }) => {
-	return axios.post(`${API_HOST}/wx_open/auth_url`, { channelID })
+	return axios.post(`${API_HOST}/wx_open/auth_url`, { channelID }, { interceptors: false })
 }
 

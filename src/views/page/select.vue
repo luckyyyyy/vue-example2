@@ -16,31 +16,35 @@
 			</div>
 		</div>
 		<div class="body" v-loading="lock" element-loading-text="正在获取频道列表">
-			<div class="channel" v-if="total">
-				<ul class="list">
-					<li v-for="item in data" @click="select(item.channel.channelId)">
-						<div class="logo">
-							<img witdh="50" height="50" :src="item.wxAvatarUrl">
-						</div>
-						<div class="info">
-							<div class="name">{{ item.channel.name }}</div>
-							<div class="wechat">公众号：
-								<template v-if="item.channel.status == 2">{{ item.wxAppName }}</template>
-								<template v-else><span class="unbind">未绑定</span></template>
+			<template v-if="!lock">
+				<div class="channel" v-if="total">
+					<ul class="list">
+						<li v-for="item in data" @click="select(item.channel.channelId)">
+							<div class="logo">
+								<img witdh="50" height="50" :src="item.wxAvatarUrl">
 							</div>
-						</div>
-					</li>
-				</ul>
-				<el-pagination v-show="total > limits"
-					@current-change="currentChange"
-					layout="prev, pager, next"
-					:total="total">
-				</el-pagination>
-			</div>
-			<div class="empty" v-else>
-				<p>您还没有自己的频道</p>
-				<el-button type="primary" @click="toCreate">创建频道</el-button>
-			</div>
+							<div class="info">
+								<div class="name">{{ item.channel.name }}</div>
+								<div class="wechat">公众号：
+									<template v-if="item.channel.status == 2">{{ item.wxAppName }}</template>
+									<template v-else><span class="unbind">未绑定</span></template>
+								</div>
+							</div>
+							<el-button :loading="lock_del" @click.stop="onDelete(item.channel.channelId)" type="text" class="delete">删除</el-button>
+						</li>
+					</ul>
+					<el-pagination v-show="total > limits"
+						@current-change="currentChange"
+						:current-page="current"
+						layout="prev, pager, next"
+						:total="total">
+					</el-pagination>
+				</div>
+				<div class="empty" v-else>
+					<p>您还没有自己的频道</p>
+					<el-button type="primary" @click="toCreate">创建频道</el-button>
+				</div>
+			</template>
 		</div>
 	</div>
 </template>
@@ -50,23 +54,28 @@
 		data () {
 			return {
 				limits: 9,
+				current: 1,
 			}
 		},
 		computed: {
 			...mapState({
 				user: state  => state.user,
 				total: state => state.channel_find.total,
+				data: state  => state.channel_find.data,
 				lock: state  => state.channel_find.lock,
-				data: state  => state.channel_find.data
-			})
+				lock_del: state => state.channel_delete.lock,
+			}),
+
 		},
 		mounted () {
 			this.currentChange();
 		},
 		methods: {
 			currentChange (currentPage) {
-				const page   = currentPage || (this.$store.params && this.$store.params.id) || 1;
+				const page   = currentPage || parseInt(this.$route.params.id) || this.current;
 				const limits = this.limits;
+				this.current = page;
+				this.$router.push({ name: this.$route.name, params: { id: page }, query: this.$route.query })
 				this.$store.dispatch('CHANNEL_FIND_REQUEST', { limits, page });
 
 			},
@@ -78,6 +87,17 @@
 			},
 			toCreate () {
 				this.$router.push({ name: 'create_channel' })
+			},
+			onDelete (channel_id) {
+				this.$confirm('您确定删除频道吗？', '提示', {
+					confirmButtonText: '删除',
+					cancelButtonText: '取消',
+					type: 'warning'
+				}).then(() => {
+					this.$store.dispatch('CHANNEL_DELETE_REQUEST', channel_id).then(() => {
+						this.currentChange();
+					})
+				})
 			}
 		}
 	}
@@ -133,19 +153,19 @@
 		}
 	}
 	.body {
+		height: 410px;
 		.channel {
 			display: flex;
 			align-items: center;
-			justify-content: space-around;
+			// justify-content: space-around;
 			flex-direction: column;
-			height: 410px;
 			box-sizing: border-box;
 			.list {
 				display: flex;
 				flex-wrap: wrap;
 				max-height: 380px;
 				// overflow: auto;
-				align-items: center;
+				// align-items: center;
 				justify-content: space-around;
 				li {
 					width: 225px;
@@ -154,6 +174,7 @@
 					margin: 10px 0;
 					display: flex;
 					align-items: center;
+					position: relative;
 					padding: 16px;
 					box-sizing: border-box;
 					cursor: pointer;
@@ -174,13 +195,21 @@
 					}
 					&:hover {
 						border-color: #51bfff;
-						.button {
+						.delete {
 							visibility: visible;
 						}
+					}
+					.delete {
+						position: absolute;
+						right: 10px;
+						bottom: 0;
+						visibility: hidden;
 					}
 				}
 			}
 			.el-pagination {
+				position: absolute;
+				bottom: 8px;
 				padding: 10px;
 			}
 		}

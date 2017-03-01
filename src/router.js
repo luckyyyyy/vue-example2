@@ -1,8 +1,8 @@
 /*
 * @Author: William Chan
 * @Date:   2016-12-01 17:57:50
-* @Last Modified by:   Administrator
-* @Last Modified time: 2017-02-25 15:53:40
+* @Last Modified by:   William Chan
+* @Last Modified time: 2017-03-01 11:38:01
 */
 
 'use strict';
@@ -318,7 +318,7 @@ const routes = [
 		children: [
 			{
 				name: 'select_channel',
-				path: 'select',
+				path: 'select/:id?',
 				meta: { requiresAuth: true, group: 'select', name: "选择频道" },
 				component: resolve => {
 					require(['./views/page/select.vue'], resolve)

@@ -1,8 +1,8 @@
 /*
 * @Author: Administrator
 * @Date:   2017-01-06 02:33:52
-* @Last Modified by:   Administrator
-* @Last Modified time: 2017-02-27 22:06:26
+* @Last Modified by:   William Chan
+* @Last Modified time: 2017-03-01 11:34:07
 */
 
 'use strict';
@@ -21,10 +21,13 @@ const getters = {}
 const actions = {
 	[CHANNEL_FIND.REQUEST] ({ commit }, ...args) {
 		commit(CHANNEL_FIND.REQUEST);
-		channel_find(...args).then(res => {
-			commit(CHANNEL_FIND.SUCCESS, res);
-		}).catch(err => {
-			commit(CHANNEL_FIND.FAILURE, err);
+		return new Promise((resolve, reject) => {
+			channel_find(...args).then(res => {
+				commit(CHANNEL_FIND.SUCCESS, res);
+			}).catch(err => {
+				commit(CHANNEL_FIND.FAILURE, err);
+				reject();
+			})
 		})
 	}
 }

@@ -20,11 +20,11 @@
 			</div>
 		</div>
 		<div class="developer" @click="hideDeveloper" v-show="!hide">
-			<p>build: 20170207 vue 2.2.0</p>
+			<p>build: 20170301 vue 2.2.1</p>
 			<ol>
-				<li>饿了么组件库还未支持vue 2.2.0，diglog会有遮罩层问题。</li>
-				<li>新增了频道列表接口对接。</li>
-				<li>gzip测试。</li>
+				<li>更新饿了么组件库解决遮罩问题</li>
+				<li>对接频道删除接口</li>
+				<li>完善错误处理</li>
 			</ol>
 		</div>
 	</div>
