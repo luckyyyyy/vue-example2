@@ -1,8 +1,8 @@
 /*
 * @Author: William Chan
 * @Date:   2016-12-01 17:57:50
-* @Last Modified by:   William Chan
-* @Last Modified time: 2017-03-01 11:38:01
+* @Last Modified by:   Administrator
+* @Last Modified time: 2017-03-02 00:45:23
 */
 
 'use strict';
@@ -26,33 +26,23 @@ const routes = [
 		name: 'index',
 		meta: { requiresAuth: true },
 		components: {
-			sidebar: resolve => {
-				require(['./components/sidebar.vue'], resolve)
-			},
-			main: resolve => {
-				require(['./views/index.vue'], resolve)
-			},
+			sidebar: resolve => require(['./components/sidebar.vue'], resolve),
+			main: resolve    => require(['./views/index.vue'], resolve)
 		},
 	},
 	{
 		path: '/store',
 		meta: { requiresAuth: true, default: 'store_shop_create' },
 		components: {
-			sidebar: resolve => {
-				require(['./components/sidebar.vue'], resolve)
-			},
-			main: resolve => {
-				require(['./components/breadcrumb.vue'], resolve)
-			}
+			sidebar: resolve => require(['./components/sidebar.vue'], resolve),
+			main: resolve    => require(['./components/breadcrumb.vue'], resolve)
 		},
 		children: [
 			{ // 保证在前面 先后顺序匹配
 				name: 'store_shop_create',
 				path: 'shop/create',
 				meta: { requiresAuth: true, parent: 'store_shop_list', },
-				component: resolve => {
-					require(['./views/store/create.vue'], resolve)
-				}
+				component: resolve => require(['./views/store/create.vue'], resolve)
 			},
 			{
 				name: 'store_shop_list',
@@ -69,9 +59,7 @@ const routes = [
 					{ route: 'store_shop_list', name: '商品列表' },
 					{ route: 'store_shop_list', name: 'D' },
 				] },
-				component: resolve => {
-					require(['./views/store/shop.vue'], resolve)
-				}
+				component: resolve => require(['./views/store/shop.vue'], resolve)
 			},
 			{
 				name: 'store_order_list',
@@ -79,9 +67,7 @@ const routes = [
 				meta: { requiresAuth: true, breadcrumb: [
 					{ route: 'store_order_list', name: '订单管理' },
 				] },
-				component: resolve => {
-					require(['./views/store/order.vue'], resolve)
-				}
+				component: resolve => require(['./views/store/order.vue'], resolve)
 			},
 			{
 				name: 'store_order_detail',
@@ -90,41 +76,31 @@ const routes = [
 					{ route: 'store_order_list', name: '订单管理' },
 					{ route: 'store_order_detail', name: '订单详情' }
 				] },
-				component: resolve => {
-					require(['./views/store/order-detail.vue'], resolve)
-				}
+				component: resolve => require(['./views/store/order-detail.vue'], resolve)
 			},
 			{
 				name: 'store_setting',
 				path: 'setting',
 				meta: { requiresAuth: true, parent: 'store_setting', default: 'store_setting_pay' },
-				component: resolve => {
-					require(['./views/store/setting.vue'], resolve)
-				},
+				component: resolve => require(['./views/store/setting.vue'], resolve),
 				children: [
 					{
 						name: 'store_setting_pay',
 						path: 'pay',
 						meta: { requiresAuth: true },
-						component: resolve => {
-							require(['./views/store/setting-pay.vue'], resolve)
-						}
+						component: resolve => require(['./views/store/setting-pay.vue'], resolve)
 					},
 					{
 						name: 'store_setting_order',
 						path: 'order',
 						meta: { requiresAuth: true },
-						component: resolve => {
-							require(['./views/store/setting-order.vue'], resolve)
-						}
+						component: resolve => require(['./views/store/setting-order.vue'], resolve)
 					},
 					{
 						name: 'store_setting_address',
 						path: 'address',
 						meta: { requiresAuth: true },
-						component: resolve => {
-							require(['./views/store/setting-address.vue'], resolve)
-						}
+						component: resolve => require(['./views/store/setting-address.vue'], resolve)
 					},
 				],
 
@@ -135,12 +111,8 @@ const routes = [
 		path: '/live',
 		meta: { requiresAuth: true, default: 'live_list' },
 		components: {
-			sidebar: resolve => {
-				require(['./components/sidebar.vue'], resolve)
-			},
-			main: resolve => {
-				require(['./components/breadcrumb.vue'], resolve)
-			}
+			sidebar: resolve => require(['./components/sidebar.vue'], resolve),
+			main: resolve    => require(['./components/breadcrumb.vue'], resolve)
 		},
 		children: [
 			{
@@ -149,105 +121,79 @@ const routes = [
 				meta: { requiresAuth: true, breadcrumb: [
 					{ route: 'live_list', name: '直播列表' }
 				] },
-				component: resolve => {
-					require(['./views/live/list.vue'], resolve)
-				}
+				component: resolve => require(['./views/live/list.vue'], resolve)
 			},
 			{
 				name: 'live_template',
 				path: 'template',
 				meta: { requiresAuth: true },
-				component: resolve => {
-					require(['./views/live/template.vue'], resolve)
-				}
+				component: resolve => require(['./views/live/template.vue'], resolve)
 			},
 			{
 				name: 'live_control',
 				path: 'control/:id',
 				meta: { requiresAuth: true, parent: 'live_list' },
-				component: resolve => {
-					require(['./views/live/control.vue'], resolve)
-				},
+				component: resolve => require(['./views/live/control.vue'], resolve)
 			},
 			{
 				name: 'live_data',
 				path: 'data/:id',
 				meta: { requiresAuth: true, parent: 'live_list' },
-				component: resolve => {
-					require(['./views/live/data.vue'], resolve)
-				}
+				component: resolve => require(['./views/live/data.vue'], resolve)
 			},
 			{
 				name: 'live_detail',
 				path: 'detail/:id',
 				meta: { requiresAuth: true, parent: 'live_list', default: 'live_detail_countdown' },
-				component: resolve => {
-					require(['./views/live/detail.vue'], resolve)
-				},
+				component: resolve => require(['./views/live/detail.vue'], resolve),
 				children: [
 					{
 						name: 'live_detail_countdown',
 						path: 'countdown',
 						meta: { requiresAuth: true },
-						component: resolve => {
-							require(['./views/live/detail-countdown.vue'], resolve)
-						}
+						component: resolve => require(['./views/live/detail-countdown.vue'], resolve)
 					},
 					{
 						name: 'live_detail_image',
 						path: 'image',
 						meta: { requiresAuth: true },
-						component: resolve => {
-							require(['./views/live/detail-image.vue'], resolve)
-						}
+						component: resolve => require(['./views/live/detail-image.vue'], resolve)
 					},
 					{
 						name: 'live_detail_share',
 						path: 'share',
 						meta: { requiresAuth: true },
-						component: resolve => {
-							require(['./views/live/detail-share.vue'], resolve)
-						}
+						component: resolve => require(['./views/live/detail-share.vue'], resolve)
 					},
 					{
 						name: 'live_detail_livebuy',
 						path: 'livebuy',
 						meta: { requiresAuth: true },
-						component: resolve => {
-							require(['./views/live/detail-livebuy.vue'], resolve)
-						}
+						component: resolve => require(['./views/live/detail-livebuy.vue'], resolve)
 					},
 					{
 						name: 'live_detail_liveshop',
 						path: 'liveshop',
 						meta: { requiresAuth: true },
-						component: resolve => {
-							require(['./views/live/detail-liveshop.vue'], resolve)
-						}
+						component: resolve => require(['./views/live/detail-liveshop.vue'], resolve)
 					},
 					{
 						name: 'live_detail_luckydraw',
 						path: 'luckydraw',
 						meta: { requiresAuth: true },
-						component: resolve => {
-							require(['./views/live/detail-luckydraw.vue'], resolve)
-						}
+						component: resolve => require(['./views/live/detail-luckydraw.vue'], resolve)
 					},
 					{
 						name: 'live_detail_follow',
 						path: 'follow',
 						meta: { requiresAuth: true },
-						component: resolve => {
-							require(['./views/live/detail-follow.vue'], resolve)
-						}
+						component: resolve => require(['./views/live/detail-follow.vue'], resolve)
 					},
 					{
 						name: 'live_detail_authorize',
 						path: 'authorize',
 						meta: { requiresAuth: true },
-						component: resolve => {
-							require(['./views/live/detail-authorize.vue'], resolve)
-						}
+						component: resolve => require(['./views/live/detail-authorize.vue'], resolve)
 					},
 				],
 			}
@@ -257,53 +203,39 @@ const routes = [
 		path: '/account',
 		meta: { requiresAuth: true, default: 'account_overview' },
 		components: {
-			sidebar: resolve => {
-				require(['./components/sidebar.vue'], resolve)
-			},
-			main: resolve => {
-				require(['./components/breadcrumb.vue'], resolve)
-			},
+			sidebar: resolve => require(['./components/sidebar.vue'], resolve),
+			main: resolve    => require(['./components/breadcrumb.vue'], resolve)
 		},
 		children: [
 			{
 				name: 'account_overview',
 				path: 'overview',
 				meta: { requiresAuth: true },
-				component: resolve => {
-					require(['./views/account/overview.vue'], resolve)
-				}
+				component: resolve => require(['./views/account/overview.vue'], resolve)
 			},
 			{
 				name: 'account_upgrade',
 				path: 'uphrade',
 				meta: { requiresAuth: true },
-				component: resolve => {
-					require(['./views/account/upgrade.vue'], resolve)
-				}
+				component: resolve => require(['./views/account/upgrade.vue'], resolve)
 			},
 			{
 				name: 'account_flow',
 				path: 'flow',
 				meta: { requiresAuth: true },
-				component: resolve => {
-					require(['./views/account/flow.vue'], resolve)
-				}
+				component: resolve => require(['./views/account/flow.vue'], resolve)
 			},
 			{
 				name: 'account_recharge',
 				path: 'recharge',
 				meta: { requiresAuth: true },
-				component: resolve => {
-					require(['./views/account/recharge.vue'], resolve)
-				}
+				component: resolve => require(['./views/account/recharge.vue'], resolve)
 			},
 			{
 				name: 'account_income',
 				path: 'income',
 				meta: { requiresAuth: true },
-				component: resolve => {
-					require(['./views/account/income.vue'], resolve)
-				}
+				component: resolve => require(['./views/account/income.vue'], resolve)
 			}
 		],
 	},
@@ -311,26 +243,20 @@ const routes = [
 		path: '/page',
 		meta: { requiresAuth: true, default: 'select_channel' },
 		components: {
-			select: resolve => {
-				require(['./views/page/page.vue'], resolve)
-			},
+			select: resolve => require(['./views/page/page.vue'], resolve)
 		},
 		children: [
 			{
 				name: 'select_channel',
 				path: 'select/:id?',
 				meta: { requiresAuth: true, group: 'select', name: "选择频道" },
-				component: resolve => {
-					require(['./views/page/select.vue'], resolve)
-				}
+				component: resolve => require(['./views/page/select.vue'], resolve)
 			},
 			{
 				name: 'create_channel',
 				path: 'create/:id?',
 				meta: { requiresAuth: true, group: 'select', name: "创建频道" },
-				component: resolve => {
-					require(['./views/page/create.vue'], resolve)
-				}
+				component: resolve => require(['./views/page/create.vue'], resolve)
 			},
 		]
 	},
@@ -338,26 +264,20 @@ const routes = [
 		path: '/user',
 		meta: { requiresAuth: true, default: 'profile', group: 'global' },
 		components: {
-			user: resolve => {
-				require(['./views/page/page.vue'], resolve)
-			},
+			user: resolve => require(['./views/page/page.vue'], resolve)
 		},
 		children: [
 			{
 				path: 'profile',
 				name: 'profile',
 				meta: { requiresAuth: true, group: 'global', name: "个人中心" },
-				component: resolve => {
-					require(['./views/page/profile.vue'], resolve)
-				}
+				component: resolve => require(['./views/page/profile.vue'], resolve)
 			},
 			{
 				path: 'password',
 				name: 'password',
 				meta: { requiresAuth: true, group: 'global', name: "修改密码" },
-				component: resolve => {
-					require(['./views/page/password.vue'], resolve)
-				}
+				component: resolve => require(['./views/page/password.vue'], resolve)
 			},
 		]
 	},
@@ -365,45 +285,35 @@ const routes = [
 		path: '/login',
 		name: 'login',
 		components: {
-			first: resolve => {
-				require(['./views/user/login.vue'], resolve)
-			}
+			first: resolve => require(['./views/user/login.vue'], resolve)
 		}
 	},
 	{
 		path: '/register',
 		name: 'register',
 		components: {
-			first: resolve => {
-				require(['./views/user/register.vue'], resolve)
-			}
+			first: resolve => require(['./views/user/register.vue'], resolve)
 		},
 	},
 	{
 		path: '/register/seccuss',
 		name: 'register_seccuss',
 		components: {
-			first: resolve => {
-				require(['./views/user/register-seccuss.vue'], resolve)
-			}
+			first: resolve => require(['./views/user/register-seccuss.vue'], resolve)
 		},
 	},
 	{
 		path: '/resetpwd',
 		name: 'resetpwd',
 		components: {
-			first: resolve => {
-				require(['./views/user/reset_password.vue'], resolve)
-			}
+			first: resolve => require(['./views/user/reset_password.vue'], resolve)
 		}
 	},
 	{
 		path: '*',
 		name: '404',
 		components: {
-			first: resolve => {
-				require(['./views/user/login.vue'], resolve)
-			}
+			first: resolve => require(['./views/user/login.vue'], resolve)
 		}
 	}
 ]
