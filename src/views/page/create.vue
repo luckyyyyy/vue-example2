@@ -96,6 +96,7 @@
 		},
 		computed: {
 			active () {
+
 				if (this.$route.params.id) {
 					this.$store.dispatch('WEXIN_AUTH_URL_REQUEST', { channelID: this.$route.params.id }).catch(err =>{
 						if (err.data) {
@@ -128,7 +129,6 @@
 			catalogs () {
 				return this.$store.getters.option;
 			}
-
 		},
 		methods: {
 			submit () {
