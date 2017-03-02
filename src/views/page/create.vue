@@ -1,6 +1,7 @@
 <template>
 	<div>
 		<div class="step">
+		{{ active }}
 			<div :class="{ active: active == 1 }" class="tab">1.创建频道</div>
 			<div :class="{ active: active == 2 }" class="tab">2.绑定公众号</div>
 			<div :class="{ active: active == 3 }" class="tab">3.完成！</div>
@@ -75,6 +76,7 @@
 	export default {
 		data () {
 			return {
+				success: false,
 				rules: CHANNEL_CREATE_RULES,
 				create: {
 					agree: true,
@@ -85,7 +87,9 @@
 		},
 		computed: {
 			active () {
-				if (this.id) {
+				if (this.success) {
+					return 3;
+				} else if (this.id) {
 					this.$store.dispatch('WEXIN_AUTH_URL_REQUEST', { channelID: this.id }).then(res => {
 						if (res.data.retCode == -100) {
 							return 3;
@@ -151,7 +155,7 @@
 				}).then(() => {
 					this.$store.dispatch('CHANNEL_QUERY_REQUEST', this.id).then((data) => {
 						if (data.channel.status == 2) {
-							this.active = 3;
+							this.success = 3;
 						} else {
 							this.$alert('绑定未成功，请尝试重新打开连接绑定，或询问我们的客服。', '提示', {
 								type: 'error'
