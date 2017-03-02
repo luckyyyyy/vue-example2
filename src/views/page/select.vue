@@ -30,7 +30,7 @@
 									<template v-else><span class="unbind">未绑定</span></template>
 								</div>
 							</div>
-							<el-button :loading="lock_del" @click.stop="onDelete(item.channel.channelId)" type="text" class="delete">删除</el-button>
+							<el-button :loading="lock_del" @click.stop="onDelete(item.channel)" type="text" class="delete">删除</el-button>
 						</li>
 					</ul>
 					<el-pagination v-show="total > limits"
@@ -88,13 +88,14 @@
 			toCreate () {
 				this.$router.push({ name: 'create_channel' })
 			},
-			onDelete (channel_id) {
-				this.$confirm('您确定删除频道吗？', '提示', {
+			onDelete (channel) {
+				this.$prompt('请输入您的频道名来确认删除操作', '提示', {
 					confirmButtonText: '删除',
 					cancelButtonText: '取消',
-					type: 'warning'
+					inputPattern: eval(`/^${channel.name}$/`),
+					inputErrorMessage: '邮箱格式不正确'
 				}).then(() => {
-					this.$store.dispatch('CHANNEL_DELETE_REQUEST', channel_id).then(() => {
+					this.$store.dispatch('CHANNEL_DELETE_REQUEST', channel.channelId).then(() => {
 						this.currentChange();
 					})
 				})

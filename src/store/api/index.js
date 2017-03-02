@@ -2,7 +2,7 @@
 * @Author: William Chan
 * @Date:   2016-12-02 11:31:24
 * @Last Modified by:   Administrator
-* @Last Modified time: 2017-02-27 23:07:12
+* @Last Modified time: 2017-03-01 22:37:57
 */
 
 // axios.request(config)
@@ -86,7 +86,7 @@ export const onResponseError = error => {
 		}
 		// console.dir(error)
 		// TODO 500 必定显示 or 拦截器配置
-		MessageBox.alert(`${error.response.status} ${error.response.data.retMsg || '请求发生错误'}`, '操作失败', {
+		MessageBox.alert(`${error.response.data.retMsg || '请求发生错误'}`, `操作失败 ${error.response.status}`, {
 			type: 'error'
 		})
 	}
@@ -94,9 +94,13 @@ export const onResponseError = error => {
 	return Promise.reject(error);
 }
 
-axios.interceptors.request.use(onRequest, onRequestError);
-axios.interceptors.response.use(onResponse, onResponseError);
+export const http = axios.create({
+	baseURL: API_HOST,
+	timeout: 10000,
+});
 
+http.interceptors.request.use(onRequest, onRequestError);
+http.interceptors.response.use(onResponse, onResponseError);
 // 图片上传接口配置
 export const USER_AVATAR = {
 	action: `${API_HOST}/user/update/avatar`,

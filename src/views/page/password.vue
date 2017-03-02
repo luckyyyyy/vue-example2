@@ -57,7 +57,12 @@
 			submit () {
 				this.$refs.password.validate((valid) => {
 					if (valid) {
-						this.$store.dispatch('PASSWORD_REQUEST', this.password);
+						this.$store.dispatch('PASSWORD_REQUEST', this.password).then(() => {
+							this.$message({
+								type: 'success',
+								message: '用户密码修改成功'
+							})
+						})
 					} else {
 						return false;
 					}

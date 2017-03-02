@@ -13,24 +13,24 @@
 				</el-form-item>
 				<el-form-item label="性别：">
 					<el-radio-group v-model="user.sex">
-						<el-radio :label="1">男</el-radio>
-						<el-radio :label="2">女</el-radio>
-						<el-radio :label="0">保密</el-radio>
+						<el-radio v-for="item in sex" :key="item.label" :label="item.label">{{ item.name }}</el-radio>
 					</el-radio-group>
 				</el-form-item>
 				<el-form-item label="头像：">
-					<el-progress v-show="upload.start" class="progress" :percentage="upload.progress"></el-progress>
 					<upload
-						v-show="!upload.start"
 						class="avatar"
 						:method="option.method"
 						:action="option.action"
 						:acceptn="option.acceptn"
 						@success="avatar_success"
+						@queue="avatar_queue"
 						@fail="avatar_fail"
 						@progress="avatar_progress"
 					>
-						<img :src="info.avatar" height="80" width="80">
+						<div v-show="upload.start" class="avatar__img-shadow">
+							<span>{{ upload.progress }}%</span>
+						</div>
+						<img class="avatar__img" ref="avatar" :src="info.avatar" height="80" width="80">
 					</upload>
 				</el-form-item>
 				<el-form-item label="个性签名：">
@@ -54,6 +54,11 @@
 		},
 		data () {
 			return {
+				sex: [
+					{ label: 0, name: '保密' },
+					{ label: 1, name: '男'   },
+					{ label: 2, name: '女'   },
+				],
 				user: {},
 				option: USER_AVATAR,
 				upload: {
@@ -81,15 +86,19 @@
 		},
 		methods: {
 			avatar_progress (event) {
-				this.upload.start = true;
 				this.upload.progress = Math.floor(event.percent);
 			},
-			avatar_fail (res) {
+			avatar_fail () {
 				this.upload.start = false;
+				this.$refs.avatar.src = this.info.avatar;
 			},
 			avatar_success (res) {
 				this.$store.commit('UPDATE_USER_AVATAR', res.url);
 				this.upload.start = false;
+			},
+			avatar_queue (files, length) {
+				this.upload.start = true;
+				this.$refs.avatar.src = files[0].body;
 			},
 			submit () {
 				this.$refs.user.validate(valid => {
@@ -129,8 +138,26 @@
 			cursor: pointer;
 			width: 80px;
 			height: 80px;
-			img {
+			position: relative;
+			.avatar__img {
 				border-radius: 50%;
+			}
+			.avatar__img-shadow {
+				content: "";
+				position: absolute;
+				border-radius: 50%;
+				width: 100%;
+				height: 100%;
+				z-index: 9999;
+				background: rgba(0, 0, 0, .3);
+				span {
+					display: flex;
+					justify-content: center;
+					align-items: center;
+					width: 100%;
+					height: 100%;
+					color: white;
+				}
 			}
 		}
 	}

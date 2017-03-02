@@ -7,7 +7,7 @@ import './assets/common.less'
 
 import App from './App.vue'
 import store from './store'
-import router from "./router"
+import router from './router'
 import { sync } from 'vuex-router-sync'
 
 sync(store, router) // done.
