@@ -5,7 +5,7 @@
 			<div ref="qrcode" class="qr"></div>
 			<div class="clipboard">
 				<el-input :value="text" :disabled="true" size="small"></el-input>
-				<el-button @success="handleSuccess" size="small" v-clipboard="text">复制</el-button>
+				<el-button @click="handleSuccess" size="small" v-clipboard="text">复制</el-button>
 			</div>
 		</div>
 		<template slot="reference"><slot name="reference"></slot></template>
@@ -23,6 +23,7 @@
 			text: '',
 		},
 		methods: {
+			// bug VueClipboards 0.2.5
 			handleSuccess () {
 				this.$message({
 					 message: '复制成功',
