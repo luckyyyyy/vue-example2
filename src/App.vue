@@ -20,11 +20,10 @@
 			</div>
 		</div>
 		<div class="developer" @click="hideDeveloper" v-show="!hide">
-			<p>build: 20170301 vue 2.2.1</p>
+			<p>build: 20170302</p>
 			<ol>
-				<li>更新饿了么组件库解决遮罩问题</li>
-				<li>对接频道删除接口</li>
-				<li>完善错误处理</li>
+				<li>更新了频道绑定逻辑</li>
+				<li>拆构表单验证</li>
 			</ol>
 		</div>
 	</div>

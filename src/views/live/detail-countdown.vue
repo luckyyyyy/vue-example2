@@ -10,8 +10,7 @@
 					</el-form-item>
 					<el-form-item label="直播开始时间:">
 						<div class="block">
-							<el-date-picker @change="dateChange" v-model="form.date" type="date" placeholder="选择日期" :picker-options="pickerOptions0"></el-date-picker>
-							<el-time-picker v-model="form.time" :picker-options="pickerOptions1" placeholder="选择时间"> </el-time-picker>
+    						<el-date-picker :picker-options="pickerOptions0" @change="onChange" v-model="form.date" type="datetime" placeholder="选择日期时间"></el-date-picker>
 						</div>
 					</el-form-item>
 					<p class="datetime">倒计时剩余时间：
@@ -26,7 +25,7 @@
 						</template>
 					</p>
 				</el-form>
-			</template> 
+			</template>
 			<template v-else>
 				<p class="tips">倒计时功能开启时，会以倒计时形式（xx天xx时xx分xx秒）显示在直播页面</p>
 			</template>
@@ -62,10 +61,10 @@
 	export default {
 		data () {
 			return {
+				setInterval: '',
 				form: {
 					name: '',
-					time: moment().add(30, 'm').toDate(),//moment().format(),
-					date: moment().toDate()
+					date: moment().add(30, 'm').toDate()
 				},
 				countDown: {
 					start: false,
@@ -79,26 +78,20 @@
 					disabledDate(time) {
 						return time.getTime() < Date.now() - 8.64e7;
 					}
-				},
-				pickerOptions1: {
-					// selectableRange: `${moment().format('HH:mm:ss')} - 23:59:59`,
-					format: 'HH:mm:ss'
-
 				}
 			}
 		},
 		computed: {
 		},
 		mounted () {
-			setInterval(() => {
+			this.setInterval = setInterval(() => {
+				console.log(1)
 				if (this.enable) {
-					const time = moment(this.form.time).format('HH:mm:ss');
-					const date = moment(this.form.date).format('Y-MM-DD');
-					const start = moment(`${date} ${time}`);
-					const left = start.unix() - moment().unix();
+					const unix = moment(this.form.date).unix();
+					const left = unix - moment().unix();
 					if (left > 0) {
 						this.countDown.start = false;
-						this.countDown.d = parseInt(left / 86400);
+						this.countDown.d = parseInt(left / 8.64e4);
 						this.countDown.h = parseInt(left / 3600 % 24);
 						this.countDown.m = parseInt(left / 60 % 60);
 						this.countDown.s = parseInt(left % 60);
@@ -108,19 +101,15 @@
 				}
 			}, 1000);
 		},
+		beforeDestroy () {
+			if (this.setInterval) clearInterval(this.setInterval);
+		},
 		methods: {
 			switchChange (enabled) {
 
 			},
-			dateChange (val) {
-				// 有问题
-				// if (!moment(val).isSame(moment().format('Y-MM-DD'))) {
-				// 	this.pickerOptions1 = { selectableRange: null }
-				// } else {
-				// 	this.pickerOptions1 = {
-				// 		selectableRange: `${moment().format('HH:mm:ss')} - 23:59:59`
-				// 	}
-				// }
+			onChange (val) {
+
 			}
 		}
 	}
