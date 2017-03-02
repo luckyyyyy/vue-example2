@@ -2,7 +2,7 @@
 * @Author: Administrator
 * @Date:   2017-02-25 14:58:36
 * @Last Modified by:   William Chan
-* @Last Modified time: 2017-03-02 11:26:54
+* @Last Modified time: 2017-03-02 11:29:24
 */
 
 'use strict';
@@ -27,5 +27,5 @@ export const channel_delete = (id) => {
 }
 // GET /api/v1/channel/query/{channel_id}
 export const channel_query = (id) => {
-	return axios.get(`${API_HOST}/channel/query/${id}`)
+	return http.get(`channel/query/${id}`)
 }
