@@ -1,8 +1,8 @@
 /*
 * @Author: William Chan
 * @Date:   2016-12-01 17:57:50
-* @Last Modified by:   William Chan
-* @Last Modified time: 2017-03-02 11:26:26
+* @Last Modified by:   Administrator
+* @Last Modified time: 2017-03-02 23:07:02
 */
 
 'use strict';
@@ -328,6 +328,7 @@ const router = new VueRouter({
 })
 
 router.beforeEach((to, from, next) => {
+	NProgress.done(true);
 	NProgress.remove();
 	NProgress.start();
 	const requiresAuth = to.matched.some(record => record.meta.requiresAuth);

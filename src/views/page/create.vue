@@ -25,6 +25,8 @@
 						<el-cascader
 							class="cascader"
 							:options="area"
+							filterable
+							size="large"
 							v-model="create.area">
 						</el-cascader>
 					</el-form-item>

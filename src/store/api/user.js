@@ -2,7 +2,7 @@
 * @Author: Administrator
 * @Date:   2017-02-25 14:41:16
 * @Last Modified by:   Administrator
-* @Last Modified time: 2017-03-01 22:39:14
+* @Last Modified time: 2017-03-02 23:51:38
 */
 
 'use strict';
@@ -30,7 +30,7 @@ export const logout = () => {
 }
 // POST /api/v1/user/reset_password/captcha
 export const reset_password_captcha = ({ phone }) => {
-	return axios.post(`user/reset_password/captcha`, { phone })
+	return http.post(`user/reset_password/captcha`, { phone })
 }
 // PUT /api/v1/user/reset_password
 export const reset_password = ({ phone, password, captcha }) => {
