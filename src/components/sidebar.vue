@@ -80,7 +80,13 @@ export default {
 	},
 	methods: {
 		logout () {
-			this.$store.dispatch('LOGOUT_REQUEST');
+			this.$confirm('确定退出系统么?', '提示', {
+				confirmButtonText: '确定',
+				cancelButtonText: '取消',
+				type: 'warning'
+			}).then(() => {
+				this.$store.dispatch('LOGOUT_REQUEST');
+			})
 		},
 		switchShop () {
 			this.$confirm('确定切换频道么?', '提示', {

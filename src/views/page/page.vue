@@ -11,7 +11,7 @@
 			<div class="right">
 				<span class="text">账号：{{ user.nickname || user.phone }}</span>
 				<router-link :to="{ name: 'profile' }">设置</router-link>
-				<a href="javascript:;" @click="sign_out">退出</a>
+				<a href="javascript:;" @click="logout">退出</a>
 			</div>
 		</div>
 		<router-view class="box"></router-view>
@@ -30,8 +30,14 @@
 			}
 		},
 		methods: {
-			sign_out () {
-				this.$store.dispatch('LOGOUT_REQUEST');
+			logout () {
+				this.$confirm('确定退出系统么?', '提示', {
+					confirmButtonText: '确定',
+					cancelButtonText: '取消',
+					type: 'warning'
+				}).then(() => {
+					this.$store.dispatch('LOGOUT_REQUEST');
+				})
 			}
 		}
 	}

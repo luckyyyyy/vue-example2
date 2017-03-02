@@ -2,7 +2,7 @@
 * @Author: Administrator
 * @Date:   2017-01-06 02:33:52
 * @Last Modified by:   Administrator
-* @Last Modified time: 2017-02-25 14:49:17
+* @Last Modified time: 2017-03-02 20:45:55
 */
 
 'use strict';
@@ -10,7 +10,6 @@
 import { logout } from '../../api/user'
 import { LOGIN, LOGOUT } from '../../types'
 
-import { MessageBox } from 'element-ui'
 const state = {
 	lock: false
 }
@@ -19,18 +18,12 @@ const getters = {}
 
 const actions = {
 	[LOGOUT.REQUEST] ({ commit, dispatch }, ...args) {
-		MessageBox.confirm('确定退出系统?', '提示', {
-			confirmButtonText: '确定',
-			cancelButtonText: '取消',
-			type: 'warning'
-		}).then(() => {
-			commit(LOGOUT.REQUEST);
-			logout().then(() => {
-				commit(LOGOUT.SUCCESS);
-				commit(LOGIN.FAILURE);
-			}).catch(() => {
-				commit(LOGOUT.FAILURE);
-			})
+		commit(LOGOUT.REQUEST);
+		logout().then(() => {
+			commit(LOGOUT.SUCCESS);
+			commit(LOGIN.FAILURE);
+		}).catch(() => {
+			commit(LOGOUT.FAILURE);
 		})
 	}
 }
