@@ -1,7 +1,6 @@
 <template>
 	<div>
 		<div class="step">
-		{{ active }}
 			<div :class="{ active: active == 1 }" class="tab">1.创建频道</div>
 			<div :class="{ active: active == 2 }" class="tab">2.绑定公众号</div>
 			<div :class="{ active: active == 3 }" class="tab">3.完成！</div>
