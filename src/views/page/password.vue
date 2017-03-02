@@ -3,7 +3,7 @@
 		<div class="body">
 			<el-form @submit.native.prevent :rules="rules" label-width="120px" ref="password" :model="password">
 				<el-form-item label="原密码：" prop="oldPassword">
-					<el-input placeholder="请输入原密码" type="oldPassword" v-model="password.oldPassword"></el-input>
+					<el-input placeholder="请输入原密码" type="password" v-model="password.oldPassword"></el-input>
 				</el-form-item>
 				<el-form-item label="新密码：" prop="newPassword">
 					<el-input placeholder="请输入新密码" type="password" v-model="password.newPassword"></el-input>
