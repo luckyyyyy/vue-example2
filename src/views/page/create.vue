@@ -70,23 +70,12 @@
 <script>
 	import { mapState, mapGetters } from 'vuex';
 	import area from '../../options/area.json'
+	import { CHANNEL_CREATE_RULES } from '../../options/rules'
+
 	export default {
 		data () {
 			return {
-				rules: {
-					email: [
-						{ type: 'email', message: '请输入正确的邮箱' }
-					],
-					name: [
-						{ required: true, max: 12, message: '频道名称小于12个字符' }
-					],
-					area: [
-						{ required: true, message: '请选择联系地址' }
-					],
-					commodityCatalog: [
-						{ required: true, type: 'number', message: '请选择正确的分类' }
-					]
-				},
+				rules: CHANNEL_CREATE_RULES,
 				create: {
 					agree: true,
 					commodityCatalog: '',

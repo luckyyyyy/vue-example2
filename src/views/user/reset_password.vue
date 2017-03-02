@@ -23,21 +23,13 @@
 <script>
 
 import { mapState } from 'vuex';
+import { RESET_PASSWORD_RULES } from '../../options/rules'
+
 export default {
 	data () {
 		return {
 			reset_password: {},
-			rules: {
-				phone: [
-					{ required: true, pattern: /^1[34578]\d{9}$/, message: '请输入正确的手机号' }
-				],
-				captcha: [
-					{ required: true, min: 6, max: 6, message: '请输入正确的短信验证码' }
-				],
-				password: [
-					{ required: true, min: 6, max: 16, message: '请输入6-16位密码' }
-				]
-			}
+			rules: RESET_PASSWORD_RULES
 		}
 	},
 	computed: {

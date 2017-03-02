@@ -11,7 +11,7 @@
 				<el-form-item label="邮箱：" prop="email">
 					<el-input placeholder="请输入邮箱" v-model="user.email"></el-input>
 				</el-form-item>
-				<el-form-item label="性别：">
+				<el-form-item label="性别：" prop="sex">
 					<el-radio-group v-model="user.sex">
 						<el-radio v-for="item in sex" :key="item.label" :label="item.label">{{ item.name }}</el-radio>
 					</el-radio-group>
@@ -33,7 +33,7 @@
 						<img class="avatar__img" ref="avatar" :src="info.avatar" height="80" width="80">
 					</upload>
 				</el-form-item>
-				<el-form-item label="个性签名：">
+				<el-form-item label="个性签名：" prop="description">
 					<el-input type="textarea" v-model="user.description"></el-input>
 				</el-form-item>
 				<el-form-item>
@@ -48,6 +48,8 @@
 	import { mapState } from 'vuex';
 	import { USER_AVATAR } from '../../store/api'
 	import upload from '../../components/item/upload'
+	import { PROFILE_UPDATE_RULES } from '../../options/rules'
+
 	export default {
 		components: {
 			upload
@@ -65,14 +67,7 @@
 					progress: 0,
 					start: false
 				},
-				rules: {
-					email: [
-						{ type: 'email', message: '请输入正确的邮箱' }
-					],
-					nickName: [
-						{ max: 20, message: '昵称请小于20个字符' }
-					],
-				}
+				rules: PROFILE_UPDATE_RULES
 			}
 		},
 		computed: {

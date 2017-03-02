@@ -8,7 +8,7 @@
 				<el-form-item label="新密码：" prop="newPassword">
 					<el-input placeholder="请输入新密码" type="password" v-model="password.newPassword"></el-input>
 				</el-form-item>
-				<el-form-item label="确认新密码：" prop="new_password_confirm">
+				<el-form-item label="确认新密码：" prop="newPassword_confirm">
 					<el-input placeholder="确认新密码" type="password" v-model="password.newPassword_confirm"></el-input>
 				</el-form-item>
 				<el-form-item>
@@ -21,7 +21,7 @@
 </template>
 <script>
 	import { mapState } from 'vuex';
-
+	import { UPDATE_PASSWORD_RULES } from '../../options/rules'
 	export default {
 		data () {
 			const checkPassword = (rule, value, callback) => {
@@ -35,17 +35,11 @@
 			};
 			return {
 				password: {},
-				rules: {
-					oldPassword: [
-						{ required: true, min: 6, max: 16, message: '请填写正确的密码' }
-					],
-					newPassword: [
-						{ required: true, min: 6, max: 16, message: '请填写正确的密码' }
-					],
+				rules: Object.assign(UPDATE_PASSWORD_RULES, {
 					newPassword_confirm: [
-						{ validator: checkPassword, required: true, min: 6, max: 16 }
-					],
-				}
+						{ required: true, validator: checkPassword }
+					]
+				})
 			}
 		},
 		computed: {

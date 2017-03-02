@@ -29,27 +29,13 @@
 </template>
 <script>
 import { mapState } from 'vuex';
+import { REGISTER_RULES } from '../../options/rules'
+
 export default {
 	data () {
 		return {
 			register: {},
-			rules: {
-				phone: [
-					{ required: true, pattern: /^1[34578]\d{9}$/, message: '请输入正确的手机号' }
-				],
-				captcha: [
-					{ required: true, min: 6, max: 6, message: '请输入正确的短信验证码' }
-				],
-				nickName: [
-					{ max: 20, message: '昵称请小于20个字符' }
-				],
-				password: [
-					{ required: true, min: 6, max: 16, message: '请输入6-16位密码' }
-				],
-				email: [
-					{ type: 'email', message: '请输入正确的邮箱' }
-				]
-			}
+			rules: REGISTER_RULES
 		}
 	},
 	computed: {

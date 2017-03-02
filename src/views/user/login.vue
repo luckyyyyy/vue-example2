@@ -22,18 +22,12 @@
 <script>
 
 import { mapState } from 'vuex';
+import { LOGIN_RULES } from '../../options/rules'
 export default {
 	data () {
 		return {
 			login: {},
-			rules: {
-				phone: [
-					{ required: true, max: 20, message: '请填写正确的用户名' }
-				],
-				password: [
-					{ required: true, min: 6, max: 16, message: '请填写正确的密码' }
-				],
-			}
+			rules: LOGIN_RULES
 		}
 	},
 	computed: {
