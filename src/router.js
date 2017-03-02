@@ -2,7 +2,7 @@
 * @Author: William Chan
 * @Date:   2016-12-01 17:57:50
 * @Last Modified by:   Administrator
-* @Last Modified time: 2017-03-02 23:07:02
+* @Last Modified time: 2017-03-03 01:07:39
 */
 
 'use strict';
@@ -240,23 +240,23 @@ const routes = [
 		],
 	},
 	{
-		path: '/page',
+		path: '/home',
 		meta: { requiresAuth: true, default: 'select_channel' },
 		components: {
-			select: resolve => require(['./views/page/page.vue'], resolve)
+			select: resolve => require(['./views/home/page.vue'], resolve)
 		},
 		children: [
 			{
 				name: 'select_channel',
 				path: 'select/:id?',
 				meta: { requiresAuth: true, group: 'select', name: "选择频道" },
-				component: resolve => require(['./views/page/select.vue'], resolve)
+				component: resolve => require(['./views/home/select.vue'], resolve)
 			},
 			{
 				name: 'create_channel',
 				path: 'create/:id?',
 				meta: { requiresAuth: true, group: 'select', name: "创建频道" },
-				component: resolve => require(['./views/page/create.vue'], resolve)
+				component: resolve => require(['./views/home/create.vue'], resolve)
 			},
 		]
 	},
@@ -264,20 +264,20 @@ const routes = [
 		path: '/user',
 		meta: { requiresAuth: true, default: 'profile', group: 'global' },
 		components: {
-			user: resolve => require(['./views/page/page.vue'], resolve)
+			user: resolve => require(['./views/home/page.vue'], resolve)
 		},
 		children: [
 			{
 				path: 'profile',
 				name: 'profile',
 				meta: { requiresAuth: true, group: 'global', name: "个人中心" },
-				component: resolve => require(['./views/page/profile.vue'], resolve)
+				component: resolve => require(['./views/home/profile.vue'], resolve)
 			},
 			{
 				path: 'password',
 				name: 'password',
 				meta: { requiresAuth: true, group: 'global', name: "修改密码" },
-				component: resolve => require(['./views/page/password.vue'], resolve)
+				component: resolve => require(['./views/home/password.vue'], resolve)
 			},
 		]
 	},
