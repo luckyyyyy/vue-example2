@@ -91,25 +91,19 @@
 				if (this.success) {
 					return 3;
 				} else if (this.id) {
-					this.$store.dispatch('WEXIN_AUTH_URL_REQUEST', { channelID: this.id }).then(res => {
-						if (res.data.retCode == -100) {
-							this.success = true;
-						} else if (res.data.retCode == -101) {
-							this.$router.push({ name: 'create_channel' })
-						}
-					}).catch(err =>{
+					this.$store.dispatch('WEXIN_AUTH_URL_REQUEST', { channelID: this.id }).catch(err =>{
 						if (err.data) {
-							if (err.data.retCode != 0) {
+							if (err.data.retCode == -100) {
+								this.success = true;
+							} else if (err.data.retCode == -101) {
+								this.$router.push({ name: 'create_channel' })
+							} else {
 								this.$confirm(`${err.data.retMsg}`, '错误', {
 									confirmButtonText: '重新获取',
 									type: 'error'
 								}).then(() => {
 									window.location.reload();
 								});
-							} else {
-								this.$alert(err.data.retMsg, '错误', {
-									type: 'error'
-								})
 							}
 						}
 					});
