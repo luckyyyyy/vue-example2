@@ -2,7 +2,7 @@
 * @Author: Administrator
 * @Date:   2017-02-25 14:58:36
 * @Last Modified by:   William Chan
-* @Last Modified time: 2017-03-01 14:34:51
+* @Last Modified time: 2017-03-01 17:47:42
 */
 
 'use strict';
@@ -25,4 +25,8 @@ export const channel_find = ({ page, limits }) => {
 // DELETE /api/v1/channel/{channel_id}
 export const channel_delete = (id) => {
 	return axios.delete(`${API_HOST}/channel/${id}`)
+}
+// GET /api/v1/channel/query/{channel_id}
+export const channel_query = (id) => {
+	return axios.get(`${API_HOST}/channel/query/${id}`)
 }

@@ -156,7 +156,7 @@
 		height: 410px;
 		.channel {
 			display: flex;
-			align-items: center;
+			// align-items: center;
 			// justify-content: space-around;
 			flex-direction: column;
 			box-sizing: border-box;
@@ -211,6 +211,8 @@
 				position: absolute;
 				bottom: 8px;
 				padding: 10px;
+				text-align: center;
+				width: 100%;
 			}
 		}
 		.empty {

@@ -2,7 +2,7 @@
 * @Author: Administrator
 * @Date:   2017-01-06 02:33:52
 * @Last Modified by:   William Chan
-* @Last Modified time: 2017-03-01 13:12:16
+* @Last Modified time: 2017-03-01 17:56:15
 */
 
 'use strict';
@@ -27,7 +27,7 @@ const actions = {
 				commit(LOGIN.FAILURE, err);
 				reject();
 			})
-		}
+		})
 	}
 }
 

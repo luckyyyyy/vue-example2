@@ -2,7 +2,7 @@
 * @Author: Administrator
 * @Date:   2017-01-06 02:42:21
 * @Last Modified by:   William Chan
-* @Last Modified time: 2017-02-24 17:50:01
+* @Last Modified time: 2017-03-01 18:07:05
 */
 
 'use strict';
@@ -55,13 +55,17 @@ export const UPDATE_USER_AVATAR = (state, avatar) => {
 }
 
 export const SET_CHANNEL = (state, id) => {
-	sessionStorage.setItem('channel', id);
-	state.channel = id || 0;
+	if (id) {
+		sessionStorage.setItem('channel', id);
+	} else {
+		sessionStorage.removeItem('channel');
+	}
+	state.channel = id;
 	const route = state.route;
 	if (route.meta) {
 		const requiresAuth = route.meta.requiresAuth;
 		if (requiresAuth) {
-			if (state.channel != 0) {
+			if (state.channel) {
 				if (route.meta.group == 'select' && route.meta.group != 'global') {
 					if (route.query.redirect) {
 						router.push({ path: route.query.redirect })

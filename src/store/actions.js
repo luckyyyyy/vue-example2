@@ -1,8 +1,8 @@
 /*
 * @Author: Administrator
 * @Date:   2017-01-06 02:29:39
-* @Last Modified by:   Administrator
-* @Last Modified time: 2017-02-24 00:11:12
+* @Last Modified by:   William Chan
+* @Last Modified time: 2017-03-01 18:10:10
 */
 
 'use strict';
@@ -28,13 +28,22 @@ export const SELECT_CHANNEL = (store, channel) => {
 		id = channel;
 	}
 	id = id || store.getters.channel;
+
 	if (id) {
 		if (to) {
 			return router.push({ name: 'create_channel', params: { id: id } })
+		} else {
+			store.dispatch('CHANNEL_QUERY_REQUEST', id).then((data) => {
+				if (data.channel.status == 2) {
+					return store.commit('SET_CHANNEL', id);
+				} else {
+					return router.push({ name: 'create_channel', params: { id: id } })
+				}
+			});
 		}
+	} else {
+		return store.commit('SET_CHANNEL');
 	}
-	// console.log(id)
-	// 这里会调整 到时候会增加验证
-	store.commit('SET_CHANNEL', id);
+
 }
 

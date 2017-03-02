@@ -34,7 +34,9 @@
 export default {
 	computed: {
 		lock () {
-			return this.$store.state.logout.lock;
+			return
+			this.$store.state.logout.lock ||
+			this.$store.state.channel_query.lock
 		},
 		token () {
 			return this.$store.state.token;

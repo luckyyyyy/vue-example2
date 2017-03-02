@@ -2,7 +2,7 @@
 * @Author: William Chan
 * @Date:   2016-12-01 17:57:50
 * @Last Modified by:   William Chan
-* @Last Modified time: 2017-03-01 11:38:01
+* @Last Modified time: 2017-03-01 18:07:28
 */
 
 'use strict';
@@ -429,7 +429,7 @@ router.beforeEach((to, from, next) => {
 			return next({ name: 'login', query: { redirect: to.fullPath } });
 		}
 	} else {
-		if (store.getters.channel != 0) {
+		if (store.getters.channel) {
 			if (to.meta.group == 'select' && to.meta.group != 'global') {
 				if (to.query.redirect) {
 					return next({ path: to.query.redirect })
