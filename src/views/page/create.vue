@@ -61,7 +61,7 @@
 			<template v-if="active == 3">
 				<div class="success">
 					恭喜，您的频道已创建成功！
-					<el-button type="primary" size="large">进入店铺管理后台</el-button>
+					<el-button @click="onSelect" type="primary" size="large">进入店铺管理后台</el-button>
 				</div>
 			</template>
 		</div>
@@ -85,9 +85,14 @@
 		},
 		computed: {
 			active () {
-
-				if (this.$route.params.id) {
-					this.$store.dispatch('WEXIN_AUTH_URL_REQUEST', { channelID: this.$route.params.id }).catch(err =>{
+				if (this.id) {
+					this.$store.dispatch('WEXIN_AUTH_URL_REQUEST', { channelID: this.id }).then(res => {
+						if (res.data.retCode == -100) {
+							return 3;
+						} else if (res.data.retCode == -101) {
+							this.$router.push({ name: 'create_channel' })
+						}
+					}).catch(err =>{
 						if (err.data) {
 							if (err.data.retCode != 0) {
 								this.$confirm(`${err.data.retMsg}`, '错误', {
@@ -117,6 +122,9 @@
 			}),
 			catalogs () {
 				return this.$store.getters.option;
+			},
+			id () {
+				return this.$route.params.id;
 			}
 		},
 		methods: {
@@ -141,12 +149,21 @@
 					closeOnClickModal: false,
 					type: 'warning'
 				}).then(() => {
-					alert('then 现在什么都没做');
+					this.$store.dispatch('CHANNEL_QUERY_REQUEST', this.id).then((data) => {
+						if (data.channel.status == 2) {
+							this.active = 3;
+						} else {
+							this.$alert('绑定未成功，请尝试重新打开连接绑定，或询问我们的客服。', '提示', {
+								type: 'error'
+							})
+						}
+					});
 				}).catch(() => {
-					alert('catch 现在什么都没做');
+					this.$message('请尝试重新打开连接绑定，或询问我们的客服。');
 				});
-
-
+			},
+			onSelect () {
+				this.$store.dispatch('SELECT_CHANNEL', this.id);
 			}
 		}
 	}

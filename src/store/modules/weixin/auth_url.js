@@ -2,7 +2,7 @@
 * @Author: Administrator
 * @Date:   2017-01-06 02:33:52
 * @Last Modified by:   William Chan
-* @Last Modified time: 2017-03-01 15:16:09
+* @Last Modified time: 2017-03-02 15:34:11
 */
 
 'use strict';
@@ -23,7 +23,7 @@ const actions = {
 		return new Promise((resolve, reject) => {
 			wx_get_auth_url(...args).then(res => {
 				commit(WEXIN_AUTH_URL.SUCCESS, res);
-				resolve();
+				resolve(res);
 			}).catch(err => {
 				commit(WEXIN_AUTH_URL.FAILURE, err);
 				reject(err);
