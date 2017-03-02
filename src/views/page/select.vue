@@ -93,7 +93,7 @@
 					confirmButtonText: '删除',
 					cancelButtonText: '取消',
 					inputPattern: eval(`/^${channel.name}$/`),
-					inputErrorMessage: '邮箱格式不正确'
+					inputErrorMessage: '频道名称不正确'
 				}).then(() => {
 					this.$store.dispatch('CHANNEL_DELETE_REQUEST', channel.channelId).then(() => {
 						this.currentChange();
