@@ -92,7 +92,7 @@
 				} else if (this.id) {
 					this.$store.dispatch('WEXIN_AUTH_URL_REQUEST', { channelID: this.id }).then(res => {
 						if (res.data.retCode == -100) {
-							return 3;
+							this.success = true;
 						} else if (res.data.retCode == -101) {
 							this.$router.push({ name: 'create_channel' })
 						}
@@ -155,7 +155,7 @@
 				}).then(() => {
 					this.$store.dispatch('CHANNEL_QUERY_REQUEST', this.id).then((data) => {
 						if (data.channel.status == 2) {
-							this.success = 3;
+							this.success = true;
 						} else {
 							this.$alert('绑定未成功，请尝试重新打开连接绑定，或询问我们的客服。', '提示', {
 								type: 'error'

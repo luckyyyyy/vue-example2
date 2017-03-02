@@ -2,7 +2,7 @@
 * @Author: Administrator
 * @Date:   2017-01-06 02:42:21
 * @Last Modified by:   William Chan
-* @Last Modified time: 2017-03-01 18:07:05
+* @Last Modified time: 2017-03-02 17:09:52
 */
 
 'use strict';
@@ -38,10 +38,11 @@ export const LOGIN_FAILURE = (state, err) => {
 	sessionStorage.removeItem('channel');
 	const route = state.route;
 	const requiresAuth = route.meta.requiresAuth;
-	if (requiresAuth) {
+	if (requiresAuth && err) {
 		router.push({ name: 'login', query: { redirect: route.fullPath } })
+	} else { // 正常退出
+		router.push({ name: 'login' })
 	}
-	console.log(err);
 }
 
 export const UPDATE_USER_SUCCESS = (state, data) => {

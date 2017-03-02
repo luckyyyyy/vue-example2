@@ -1,8 +1,8 @@
 /*
 * @Author: William Chan
 * @Date:   2016-12-02 11:31:24
-* @Last Modified by:   Administrator
-* @Last Modified time: 2017-03-01 22:37:57
+* @Last Modified by:   William Chan
+* @Last Modified time: 2017-03-02 17:10:38
 */
 
 // axios.request(config)
@@ -81,8 +81,9 @@ export const onResponseError = error => {
 		})
 	} else {
 		if (error.response.status === 401) {
-			store.commit('LOGIN_FAILURE');
+			store.commit('LOGIN_FAILURE', error);
 			console.log('LOGIN_FAILURE');
+			console.dir(error)
 		}
 		// console.dir(error)
 		// TODO 500 必定显示 or 拦截器配置
