@@ -35,6 +35,7 @@
 					</ul>
 					<el-pagination v-show="total > limits"
 						@current-change="currentChange"
+						:page-size="limits"
 						:current-page="current"
 						layout="prev, pager, next"
 						:total="total">
