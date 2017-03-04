@@ -51,6 +51,10 @@
 
 	export default {
 		props: {
+			type: {
+				type: Number,
+				default: 2
+			},
 			accept: {
 				type: String,
 				default: 'image/jpeg, image/x-png, image/gif'
@@ -122,7 +126,7 @@
 						this.files.push({
 							body: e.target.result,
 							name: file.name,
-							type: file.type
+							type: this.type
 						});
 						this.$emit('queue', this.files, this.length);
 						if (this.files.length == this.length) {

@@ -205,8 +205,11 @@
 				li {
 					display: flex;
 					flex-direction: column;
-					padding-top: 10px;
-					padding-bottom: 25px;
+					align-items: center;
+					justify-content: space-around;
+					height: 50px;
+					padding: 10px;
+					flex: 1;
 					p {
 						font-size: 26px;
 						line-height: 20px;
@@ -217,8 +220,6 @@
 							color: #1190BF;
 						}
 					}
-					text-align: center;
-					flex: 1;
 				}
 			}
 		}

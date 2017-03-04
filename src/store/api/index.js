@@ -2,7 +2,7 @@
 * @Author: William Chan
 * @Date:   2016-12-02 11:31:24
 * @Last Modified by:   William Chan
-* @Last Modified time: 2017-03-02 17:10:38
+* @Last Modified time: 2017-03-04 18:10:34
 */
 
 // axios.request(config)
@@ -102,14 +102,18 @@ export const http = axios.create({
 
 http.interceptors.request.use(onRequest, onRequestError);
 http.interceptors.response.use(onResponse, onResponseError);
-// 图片上传接口配置
+// 头像接口
 export const USER_AVATAR = {
 	action: `${API_HOST}/user/update/avatar`,
-	method: 'put'
+	method: 'PUT',
+	type: 1
 }
-
-
-
+// 图片上传接口配置
+export const MULTIMEDIA_UPLOAD = {
+	action: `${API_HOST}/multimedia/upload/images`,
+	method: 'POST',
+	multiple: true,
+}
 
 
 

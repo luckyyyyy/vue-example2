@@ -2,7 +2,7 @@
 * @Author: William Chan
 * @Date:   2016-12-03 19:24:59
 * @Last Modified by:   William Chan
-* @Last Modified time: 2017-03-01 17:55:47
+* @Last Modified time: 2017-03-04 21:22:37
 */
 
 'use strict';
@@ -24,12 +24,15 @@ import channel_find from './modules/channel/find'
 import channel_delete from './modules/channel/delete'
 import channel_query from './modules/channel/query'
 
+import multimedia_find from './modules/multimedia/find'
+
 import weixin_auth_url from './modules/weixin/auth_url'
 
 const modules = {
 	login, register, reset_password, logout, update_user, password,
 	catalogs,
 	channel_create, channel_find, channel_delete, channel_query,
+	multimedia_find,
 	weixin_auth_url
 }
 

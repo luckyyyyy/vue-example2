@@ -118,7 +118,7 @@
 					<el-button>预览</el-button>
 				</template>
 			</div>
-			<Album @submit="selectAlbum" :multiple="false" :openDialog="true"></Album>
+			<Album @submit="selectAlbum" :openDialog="true"></Album>
 		</el-form>
 	</div>
 </template>
