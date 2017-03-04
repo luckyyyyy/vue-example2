@@ -4,19 +4,10 @@
 			直播引导图：<el-switch @change="switchChange" v-model="enable" on-text="开" off-text="关" on-color="#87D068"></el-switch>
 			<template v-if="enable">
 				<p class="tips">此图片显示在进入直播页面之前，用于展示直播相关介绍内容。</p>
-				<el-upload
-					type="drag"
-					:multiple="false"
-					:show-upload-list="false"
-					:on-preview="handlePreview"
-					:on-remove="handleRemove"
-					:on-success="handleSuccess"
-					:on-error="handleError"
-				>
-					<i class="el-icon-upload"></i>
-					<div class="el-dragger__text">将文件拖到此处，或<em>点击上传</em></div>
-					<div class="el-upload__tip" slot="tip"><i class="el-icon-warning"></i> 因手机机型众多，为保证图片正常展示，请严格按照 1080*1740 像素上传图片。图片大小4M以内支持扩展名：.png .jpg .jpeg</div>
-				</el-upload>
+				<Album @close="closeAlbum" class="upload" @submit="selectAlbum" :openAlbum="album">
+					<el-button @click="openAlbum">点击上传图片</el-button>
+					<p><i class="el-icon-warning"></i> 因手机机型众多，为保证图片正常展示，请严格按照 1080*1740 像素上传图片。图片大小4M以内支持扩展名：.png .jpg .jpeg</p>
+				</Album>
 			</template>
 			<template v-else>
 				<p class="tips">开启后，可上传图片作为直播开始前的引导图。</p>
@@ -35,30 +26,31 @@
 </template>
 
 <script>
-	import moment from 'moment'
+	import Album from '../../components/item/album'
 	export default {
+		components: {
+			Album
+		},
 		data () {
 			return {
-				enable: true
+				enable: true,
+				album: false,
 			}
 		},
 		mounted () {
 		},
 		methods: {
-			handleRemove (file, fileList) {
-				console.log(file, fileList);
-			},
-			handlePreview (file) {
-				console.log(file);
-			},
-			handleSuccess () {
-
-			},
-			handleError () {
-
+			openAlbum () {
+				this.album = true;
 			},
 			switchChange (enabled) {
 
+			},
+			selectAlbum () {
+
+			},
+			closeAlbum () {
+				this.album = false;
 			}
 		}
 	}
@@ -76,6 +68,11 @@
 		}
 		.el-icon-warning {
 			color: #FFAA00;
+		}
+		.upload {
+			.el-button {
+				margin: 10px 0;
+			}
 		}
 	}
 	.view {

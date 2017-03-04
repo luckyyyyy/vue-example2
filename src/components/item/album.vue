@@ -1,41 +1,45 @@
 <template>
-	<el-dialog
-		title="我的图库"
-		v-model="openAlbum"
-		size="small"
-		:close-on-click-modal="false"
-		:close-on-press-escape="false"
-		custom-class="albumDialog"
-	>
-		<div class="list" v-loading.lock="lock" element-loading-text="图片上传中">
-			<ul @scroll="scroll">
-				<li v-for="item in data" :title="item.name" @click="onSelect(item.id)" :class="{ select: select[item.id] }">
-					<img :src="item.url">
-					<span>{{ item.name }}</span>
-				</li>
-			</ul>
-		</div>
-		<span slot="footer" class="dialog-footer">
-			<div class="left">
-	 			<upload
-	 				:type="type"
-					:method="option.method"
-					:action="option.action"
-					:acceptn="option.acceptn"
-					@success="success"
-					@queue="queue"
-					@fail="fail"
-					@progress="progress"
-				>
-					<el-button :loading="lock" type="primary">{{ lock ? `上传中${lock}%` : '上传图片' }}</el-button>
-				</upload>
+	<div>
+		<el-dialog
+			v-model="openDialog"
+			size="small"
+			:close-on-click-modal="false"
+			:close-on-press-escape="false"
+			:show-close="false"
+			custom-class="albumDialog"
+		>
+			<template slot="title">我的图库 {{ find.length ? `已选择${find.length}张图片` : '' }}</template>
+			<div class="list" v-loading.lock="lock" element-loading-text="图片上传中">
+				<ul @scroll="onScroll">
+					<li v-for="item in data" :title="item.name" @click="onSelect(item.id, !select[item.id])" :class="{ select: select[item.id] }">
+						<img :src="item.url">
+						<span>{{ item.name }}</span>
+					</li>
+				</ul>
 			</div>
-			<div class="right">
-				<el-button @click="openAlbum = false">取 消</el-button>
-				<el-button type="primary" @click="submit">确 定</el-button>
-			</div>
-		</span>
-	</el-dialog>
+			<span slot="footer" class="dialog-footer">
+				<div class="left">
+		 			<upload
+		 				:type="type"
+						:method="option.method"
+						:action="option.action"
+						:acceptn="option.acceptn"
+						@success="success"
+						@queue="queue"
+						@fail="fail"
+						@progress="progress"
+					>
+						<el-button :loading="lock" type="primary">{{ lock ? `上传中${lock}%` : '上传图片' }}</el-button>
+					</upload>
+				</div>
+				<div class="right">
+					<el-button @click="pushClose">取 消</el-button>
+					<el-button type="primary" @click="onSubmit">确 定</el-button>
+				</div>
+			</span>
+		</el-dialog>
+		<slot></slot>
+	</div>
 </template>
 
 <script>
@@ -51,7 +55,7 @@
 				type: Number,
 				default: 3,
 			},
-			openDialog: {
+			openAlbum: {
 				type: Boolean,
 				default: false,
 			},
@@ -63,12 +67,18 @@
 		data () {
 			return {
 				option: MULTIMEDIA_UPLOAD,
-				openAlbum: this.openDialog,
 				find: [],
 				lock: false,
 			}
 		},
 		computed : {
+			openDialog () {
+				if (this.openAlbum) {
+					this.getImages();
+					this.find = [];
+				}
+				return this.openAlbum;
+			},
 			...mapState ({
 				data: state => state.multimedia_find.data,
 			}),
@@ -80,9 +90,6 @@
 				return select;
 			}
 		},
-		mounted () {
-			this.getImages();
-		},
 		methods: {
 			success (data) {
 				this.$store.commit('MULTIMEDIA_FIND_INSERT', data);
@@ -92,29 +99,36 @@
 				this.lock = false;
 			},
 			queue () {
-
+				// this.lock = 0;
 			},
 			progress (p) {
 				this.lock = Math.floor(p.percent);
 
 			},
-			submit () {
-				this.openAlbum = false;
+			onSubmit () {
 				this.$emit('submit', this.find);
+				this.$emit('close');
 			},
-			onSelect (index) {
-				if (this.multiple) {
-					if (this.find.length >= this.multiple) {
-						this.$message(`最多只能选择${this.multiple}张`)
+			onSelect (id, selected) {
+				if (selected) {
+					if (this.multiple) {
+						if (this.find.length >= this.multiple) {
+							this.$message(`最多只能选择${this.multiple}张`)
+						} else {
+							this.find.push(id);
+						}
 					} else {
-						this.find.push(index);
+						this.find = [];
+						this.find.push(id);
 					}
 				} else {
-					this.find = [];
-					this.find.push(index);
+					const index = this.find.indexOf(id);
+					if (index > -1) {
+						this.find.splice(index, 1);
+					}
 				}
 			},
-			scroll (e) {
+			onScroll (e) {
 				const el = e.target;
 				if (el.scrollHeight - el.scrollTop - el.offsetHeight < 100) {
 					this.getImages();
@@ -122,6 +136,9 @@
 			},
 			getImages () {
 				this.$store.dispatch('MULTIMEDIA_FIND_REQUEST');
+			},
+			pushClose () {
+				this.$emit('close');
 			}
 		}
     }
