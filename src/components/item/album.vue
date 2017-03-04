@@ -2,15 +2,18 @@
 	<div>
 		<el-dialog
 			v-model="openDialog"
-			size="small"
 			:close-on-click-modal="false"
 			:close-on-press-escape="false"
 			:show-close="false"
 			custom-class="albumDialog"
 		>
 			<template slot="title">我的图库 {{ find.length ? `已选择${find.length}张图片` : '' }}</template>
-			<div class="list" v-loading.lock="lock" element-loading-text="图片上传中">
-				<ul @scroll="onScroll">
+			<div class="loading" v-loading="lock" element-loading-text="图片上传中">
+				<ul
+					ref="list"
+					@scroll="onScroll"
+					class="list"
+				>
 					<li v-for="item in data" :title="item.name" @click="onSelect(item.id, !select[item.id])" :class="{ select: select[item.id] }">
 						<img :src="item.url">
 						<span>{{ item.name }}</span>
@@ -29,12 +32,12 @@
 						@fail="fail"
 						@progress="progress"
 					>
-						<el-button :loading="lock" type="primary">{{ lock ? `上传中${lock}%` : '上传图片' }}</el-button>
+						<el-button :loading="lock ? true : false" type="primary">{{ lock ? lock : '上传图片' }}</el-button>
 					</upload>
 				</div>
 				<div class="right">
 					<el-button @click="pushClose">取 消</el-button>
-					<el-button type="primary" @click="onSubmit">确 定</el-button>
+					<el-button :disabled="find.length == 0" type="primary" @click="onSubmit">确 定</el-button>
 				</div>
 			</span>
 		</el-dialog>
@@ -98,11 +101,11 @@
 			fail () {
 				this.lock = false;
 			},
-			queue () {
-				// this.lock = 0;
+			queue (files, length) {
+				this.lock = `分析中${files.length}/${length}`;
 			},
 			progress (p) {
-				this.lock = Math.floor(p.percent);
+				this.lock = `上传中${Math.floor(p.percent)}%`;
 
 			},
 			onSubmit () {
@@ -150,68 +153,71 @@
 	}
 	.list {
 		display: flex;
-		ul {
-			display: flex;
-			flex-wrap: wrap;
-			max-height: 400px;
-			overflow: auto;
-			// justify-content: center;
-			// align-items: center;
-			li {
-				margin: 8px;
-				position: relative;
+		flex-wrap: wrap;
+		max-height: 410px;
+		height: auto;
+		overflow: auto;
+		// justify-content: center;
+		// align-items: center;
+		&.lock {
+			overflow: hidden;
+		}
+		li {
+			margin: 8px;
+			position: relative;
+			width: 85px;
+			height: 85px;
+			&:after {
+				position: absolute;
+				content: "";
+				height: 100%;
+				left: 0;
+				top: 0;
+				width: 100%;
+				border: 2px solid red;
+				visibility: hidden;
+				box-sizing: border-box;
+				cursor: pointer;
+			}
+			&:hover, &.select {
+				&:after {
+					visibility: visible;
+				}
+			}
+			&.select {
+				&:after {
+					border: 3px solid red;
+				}
+			}
+			img {;
 				width: 85px;
 				height: 85px;
-				&:after {
-					position: absolute;
-					content: "";
-					height: 100%;
-					left: 0;
-					top: 0;
-					width: 100%;
-					border: 2px solid red;
-					visibility: hidden;
-					box-sizing: border-box;
-					cursor: pointer;
-				}
-				&:hover, &.select {
-					&:after {
-						visibility: visible;
-					}
-				}
-				&.select {
-					&:after {
-						border: 3px solid red;
-					}
-				}
-				img {;
-					width: 85px;
-					height: 85px;
-				}
-				span {
-					position: absolute;
-					width: 100%;
-					height: 20px;
-					line-height: 20px;
-					padding: 0 10px;
-					box-sizing: border-box;
-					text-overflow: ellipsis;
-					overflow: hidden;
-					bottom: 0;
-					left: 0;
-					background: rgba(0, 0, 0, .3);
-					color: white;
-					text-align: center;
-				}
+			}
+			span {
+				position: absolute;
+				width: 100%;
+				height: 20px;
+				line-height: 20px;
+				padding: 0 10px;
+				box-sizing: border-box;
+				text-overflow: ellipsis;
+				overflow: hidden;
+				bottom: 0;
+				left: 0;
+				background: rgba(0, 0, 0, .3);
+				color: white;
+				text-align: center;
 			}
 		}
 	}
 </style>
 <style lang="less">
 	.albumDialog {
-		width: 850px;
+		width: 828px;
 		.el-dialog__body {
 			height: 400px;
+			border-box: box-sizing;
+			padding: 10px;
 		}
 	}
 </style>

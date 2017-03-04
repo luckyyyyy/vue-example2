@@ -119,25 +119,29 @@
 			onChange () {
 				const input = this.$refs.fileInput;
 				const files = input.files;
-				this.length = files.length;
-				for (let file of files) {
-					const reader = new FileReader();
-					reader.onload = e => {
-						this.files.push({
-							body: e.target.result,
-							name: file.name,
-							type: this.type
-						});
-						this.$emit('queue', this.files, this.length);
-						if (this.files.length == this.length) {
-						  this.snedImages();
+				if (files.length > 20) {
+					this.$message.error('一次最多只能同时上传20张图片。');
+				} else {
+					this.length = files.length;
+					for (let file of files) {
+						const reader = new FileReader();
+						reader.onload = e => {
+							this.files.push({
+								body: e.target.result,
+								name: file.name,
+								type: this.type
+							});
+							this.$emit('queue', this.files, this.length);
+							if (this.files.length == this.length) {
+							  this.snedImages();
+							}
 						}
-					}
-					reader.onerror = e => {
-						this.clearQueue();
-					}
+						reader.onerror = e => {
+							this.clearQueue();
+						}
 
-					reader.readAsDataURL(file);
+						reader.readAsDataURL(file);
+					}
 				}
 			}
 		}
