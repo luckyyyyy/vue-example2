@@ -92,6 +92,7 @@
 				xhr.open(this.method, this.action, true);
 				xhr.setRequestHeader('Content-Type', 'application/json');
 				xhr.setRequestHeader('Authorization', this.$store.getters.auth);
+				xhr.setRequestHeader('ChannelID', this.$store.getters.channel);
 				xhr.upload.onprogress = e => {
 					if (e.total > 0) {
 						e.percent = e.loaded / e.total * 100;

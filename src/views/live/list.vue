@@ -75,14 +75,13 @@
 			custom-class="createDialog"
 			title="新建直播"
 			v-model="openDialog"
-			@close="closeDialog"
 			:close-on-click-modal="!lock"
 			:close-on-press-escape="!lock"
 			:show-close="!lock"
 		>
-			<el-form label-position="left" label-width="80px" :model="create" @submit.native.prevent>
-				<el-form-item label="直播标题">
-					<el-input :autofocus="true" v-model="create.name" placeholder="请输入直播标题" :maxlength="16" :minlength="1"></el-input>
+			<el-form ref="create" :rules="rules" label-position="left" label-width="85px" :model="create" @submit.native.prevent>
+				<el-form-item label="直播标题" prop="name">
+					<el-input :autofocus="true" v-model="create.name" placeholder="请输入直播标题"></el-input>
 				</el-form-item>
 				<div class="help">
 					<p>
@@ -101,8 +100,10 @@
 </template>
 
 <script>
+	import { mapState } from 'vuex'
 	import Affix from '../../components/item/affix'
 	import qrcodePopover from '../../components/item/qrcodePopover'
+	import { LIVE_CREATE_RULES } from '../../options/rules'
 	export default {
 		components: {
 			Affix, qrcodePopover
@@ -112,29 +113,26 @@
 				create: {
 					name: ''
 				},
-				createDialog: false,
+				rules: LIVE_CREATE_RULES,
+				openDialog: false,
 				createAgree: true,
 				select: 'a',
-				lock: false,
 			}
 		},
 		computed: {
-			openDialog () {
-				return this.lock || this.createDialog;
-			}
+			...mapState({
+				lock: state => state.live_create.lock,
+			})
 		},
 		methods: {
 			simulateClick (index) {
 				const el = this.$refs[`delete_${index}`][0];
 				el.click();
 			},
-			closeDialog () {
-				this.createDialog = false;
-			},
 			openCreateDialog () {
-				this.create.name  = '';
-				this.createAgree  = true;
-				this.createDialog = true;
+				this.openDialog  = true;
+				this.create.name = '';
+				this.createAgree = true;
 			},
 			handleConfirm(index, live) {
 				this.simulateClick(index);
@@ -143,12 +141,15 @@
 				}
 			},
 			onSubmit () {
-				// commit
-				this.lock = true;
-				setTimeout(() => {
-					this.lock = false;
-				}, 1000)
-				this.createDialog = false;
+				this.$refs.create.validate((valid) => {
+					if (valid) {
+						this.$store.dispatch('LIVE_CREATE_REQUEST', this.create).then(() => {
+							this.openDialog = false;
+						})
+					} else {
+						return false;
+					}
+				});
 			}
 		}
 	}

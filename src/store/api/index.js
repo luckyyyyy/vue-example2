@@ -2,7 +2,7 @@
 * @Author: William Chan
 * @Date:   2016-12-02 11:31:24
 * @Last Modified by:   William Chan
-* @Last Modified time: 2017-03-04 18:10:34
+* @Last Modified time: 2017-03-05 01:19:17
 */
 
 // axios.request(config)
@@ -50,6 +50,9 @@ export const onRequest = req => {
 		if (!req.headers.Authorization && store.state.token) {
 			req.headers.Authorization = store.getters.auth;
 		}
+		if (!req.headers.ChannelID && store.getters.channel) {
+			req.headers.ChannelID = store.getters.channel;
+		}
 	}
 	if (req.interceptors !== false) {
 		req.interceptors = true;
@@ -64,7 +67,7 @@ export const onRequestError = error => {
 export const onResponse = res => {
 	if (res.data.retCode !== 0) {
 		if (!res.config || res.config && res.config.interceptors === true) {
-			MessageBox.alert(res.data.retMsg, `错误 (${res.data.retCode})`, {
+			MessageBox.alert(res.data.retMsg, `操作失败 (${res.data.retCode})`, {
 				type: 'error'
 			})
 		}
@@ -87,7 +90,7 @@ export const onResponseError = error => {
 		}
 		// console.dir(error)
 		// TODO 500 必定显示 or 拦截器配置
-		MessageBox.alert(`${error.response.data.retMsg || '请求发生错误'}`, `操作失败 ${error.response.status}`, {
+		MessageBox.alert(`${error.response.data.retMsg || '请求发生错误'}`, `服务器错误 ${error.response.status}`, {
 			type: 'error'
 		})
 	}

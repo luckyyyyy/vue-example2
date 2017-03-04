@@ -2,13 +2,13 @@
 * @Author: Administrator
 * @Date:   2017-02-25 14:41:16
 * @Last Modified by:   William Chan
-* @Last Modified time: 2017-03-04 21:33:12
+* @Last Modified time: 2017-03-05 01:00:48
 */
 
 'use strict';
 
 // -----------------------------
-// user 用户接口
+// multimedia
 // -----------------------------
 
 import { http } from './'
