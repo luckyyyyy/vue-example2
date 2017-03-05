@@ -2,7 +2,7 @@
 * @Author: Administrator
 * @Date:   2017-01-06 02:29:39
 * @Last Modified by:   William Chan
-* @Last Modified time: 2017-03-01 18:10:10
+* @Last Modified time: 2017-03-05 22:26:28
 */
 
 'use strict';
@@ -39,7 +39,9 @@ export const SELECT_CHANNEL = (store, channel) => {
 				} else {
 					return router.push({ name: 'create_channel', params: { id: id } })
 				}
-			});
+			}).catch(() => {
+				store.commit('SET_CHANNEL');
+			})
 		}
 	} else {
 		return store.commit('SET_CHANNEL');

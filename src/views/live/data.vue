@@ -44,7 +44,6 @@ import cn_map from '../../options/cn-all.json'
 import translate_zn from '../../options/hignmap-map-zh.json'
 
 export default {
-	mounted() {},
 		data() {
 			return {
 				count_data: {
@@ -112,7 +111,7 @@ export default {
 					},
 					series: [{
 						animation: {
-							// duration: 100
+							duration: 1000
 						},
 						data: [
 							['cn-yn', 10],

@@ -49,12 +49,7 @@
 		<div class="right">
 			<div class="video">
 				<div class="video-view">
-					<div class="video-js">
-					<video class="video-js vjs-default-skin" controls preload="none" data-setup='{}'>
-						<source src="rtmp://cp67126.edgefcs.net/ondemand/&mp4:mediapm/ovp/content/test/video/spacealonehd_sounas_640_300.mp4" type='rtmp/mp4'>
-					</video>
-
-					</div>
+					<div id='video' class='prism-player'></div>
 					<div class="time">
 						<em>已经直播了 <span>00:51:23</span></em>
 						<el-button size="small" type="danger" @click="endLive()">结束直播</el-button>
@@ -66,7 +61,7 @@
 					<li>总评论数<span>1111万</span></li>
 				</ul>
 			</div>
-		<!-- 	<div class="chat">
+			<div class="chat">
 				<div class="head">
 					<div class="btn"><a class="active">评论用户</a></div>
 					<div class="btn"><a class="disabled">禁言用户</a></div>
@@ -80,7 +75,7 @@
 					<el-input v-model="input" placeholder="请输入内容"></el-input>
 					<el-button type="primary">发送</el-button>
 				</div>
-			</div> -->
+			</div>
 		</div>
 		<el-dialog title="公告" v-model="notice_dialog_visible" size="tiny">
 			<div class="notice-box">
@@ -154,7 +149,8 @@
 </template>
 <script>
 	import qrcodePopover from '../../components/item/qrcodePopover'
-	import 'video.js'
+	import '../../assets/prism/index-min.css'
+	import '../../assets/prism/prism-min.js'
 	export default {
 		components: {
 			qrcodePopover
@@ -178,6 +174,21 @@
 			}
 		},
 		computed: {},
+
+		mounted () {
+			const player = new prismplayer({
+				id       : 'video',
+				source   : 'rtmp://live.rainbowlive.shop/rainbowlive/rainbowlive?auth_key=1488738390-0-0-1b070fbf03486e920d678ff4ccadd2a7',
+				autoplay : true,
+				preload  : true,
+				isLive   : true,
+				width    : '100%',
+				height   : '340px',
+			});
+			player.liveStreamStop = () => {
+				console.log(123);
+			}
+		},
 		methods: {
 			endLive () {
 				this.$confirm('确定要结束直播吗？点击确定将彻底关闭直播。', '结束直播', {
