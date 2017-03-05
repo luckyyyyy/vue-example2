@@ -132,7 +132,8 @@
 					this.$message.error('一次最多只能同时上传20张图片。');
 				} else {
 					this.length = files.length;
-					for (let file of files) {
+					for (let i = 0; i < this.length; i++) {
+						const file = files.item(i);
 						const reader = new FileReader();
 						reader.onload = e => {
 							this.files.push({
@@ -149,7 +150,6 @@
 						reader.onerror = e => {
 							this.clearQueue();
 						}
-
 						reader.readAsDataURL(file);
 					}
 				}

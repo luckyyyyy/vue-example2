@@ -47,6 +47,9 @@
 				<li><a @click="logout" href="javascript:;">退出系统</a></li>
 			</ul>
 		</el-popover>
+		<div style="text-align: center;padding: 10px;">
+			<el-switch @change="enableDebug" :width="80" on-text="enable" off-text="debug" v-model="debug"></el-switch>
+		</div>
 		<footer>
 			<span v-popover:popover>{{ user.nickName || user.phone }}</span>
 		</footer>
@@ -59,6 +62,7 @@ export default {
 	data () {
 		return {
 			router: true,
+			debug: localStorage.getItem('debug')
 		}
 	},
 	computed: {
@@ -96,6 +100,14 @@ export default {
 			}).then(() => {
 				this.$store.commit('SET_CHANNEL');
 			})
+		},
+		enableDebug (val) {
+			if (val) {
+				localStorage.setItem('debug', true);
+			} else {
+				localStorage.removeItem('debug');
+			}
+			window.location.reload();
 		}
 	}
 }

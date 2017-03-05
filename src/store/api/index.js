@@ -1,8 +1,8 @@
 /*
 * @Author: William Chan
 * @Date:   2016-12-02 11:31:24
-* @Last Modified by:   Administrator
-* @Last Modified time: 2017-03-05 21:24:12
+* @Last Modified by:   William Chan
+* @Last Modified time: 2017-03-06 03:16:54
 */
 
 // axios.request(config)
@@ -25,27 +25,28 @@ export const API_HOST =
 	// 'http://localhost:3000/api/v1'  :
 	'/api/v1';
 
-window.onerror = (msg, url, lineNo, columnNo, error) => {
-	// const string = msg.toLowerCase();
-	// const substring = "script error";
-	// let message;
-	// if (string.indexOf(substring) > -1){
-	// 	message = 'Script Error: See Browser Console for Detail';
-	// } else {
-		// message = [
-		// 	'Message: ' + msg,
-		// 	'URL: ' + url,
-		// 	'Line: ' + lineNo,
-		// 	'Column: ' + columnNo,
-		// 	'Error object: ' + JSON.stringify(error)
-		// ].join(' \n ');
-	// }
-	MessageBox.alert(msg, 'JavaScript catch', {
-		type: 'error'
-	})
-	return false;
-};
-
+if (localStorage.getItem('debug')) {
+	window.onerror = (msg, url, lineNo, columnNo, error) => {
+		// const string = msg.toLowerCase();
+		// const substring = "script error";
+		// let message;
+		// if (string.indexOf(substring) > -1){
+		// 	message = 'Script Error: See Browser Console for Detail';
+		// } else {
+			// message = [
+			// 	'Message: ' + msg,
+			// 	'URL: ' + url,
+			// 	'Line: ' + lineNo,
+			// 	'Column: ' + columnNo,
+			// 	'Error object: ' + JSON.stringify(error)
+			// ].join(' \n ');
+		// }
+		MessageBox.alert(msg, 'JavaScript catch', {
+			type: 'error'
+		})
+		return false;
+	};
+}
 export const onRequest = req => {
 	if (req.url.indexOf(API_HOST) >= 0) { // self api auto add Authorization
 		if (!req.headers.Authorization && store.state.token) {

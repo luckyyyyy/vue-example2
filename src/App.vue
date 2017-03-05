@@ -20,10 +20,10 @@
 			</div>
 		</div>
 		<div class="developer" @click="hideDeveloper" v-show="!hide">
-			<p>build: 20170302</p>
+			<p>build: 20170306</p>
 			<ol>
-				<li>更新了频道绑定逻辑</li>
-				<li>拆构表单验证</li>
+				<li>增加了直播创建和列表逻辑</li>
+				<li>测试直播支持ipad和mac/PC</li>
 			</ol>
 		</div>
 	</div>
@@ -172,7 +172,10 @@ export default {
 			}
 			.footer {
 				position: absolute;
+				width: 100%;
+				text-align: center;
 				bottom: 30px;
+				left: 0;
 			}
 		}
 	}

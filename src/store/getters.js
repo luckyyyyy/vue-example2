@@ -2,7 +2,7 @@
 * @Author: Administrator
 * @Date:   2017-01-06 02:28:10
 * @Last Modified by:   William Chan
-* @Last Modified time: 2017-03-01 18:04:26
+* @Last Modified time: 2017-03-06 03:28:47
 */
 
 'use strict';
@@ -32,3 +32,11 @@ export const channel = state => {
 		return sessionStorage.getItem('channel');
 	}
 }
+
+
+
+
+
+
+
+
