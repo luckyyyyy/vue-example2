@@ -16,13 +16,21 @@
 					<p slot="tips">微信扫码观看直播</p>
 					<el-button slot="reference">观看地址</el-button>
 				</qrcodePopover>
-
-				<el-button type="primary" @click="notice_dialog_visible = true">发布公告</el-button>
-				<el-button type="primary" @click="screen_dialog_visible = true">宝贝上屏</el-button>
-				<el-button type="primary">抽奖</el-button>
-				<el-button type="primary" @click="product_dialog_visible = true">边看边买</el-button>
-				<el-button type="primary">红包</el-button>
-				<el-button type="danger" @click="endLive">结束直播</el-button>
+				<el-dropdown trigger="click">
+					<el-button type="primary">
+						直播功能<i class="el-icon-caret-bottom el-icon--right"></i>
+					</el-button>
+					<el-dropdown-menu slot="dropdown">
+						<el-dropdown-item>
+							<el-button type="primary" @click="notice_dialog_visible = true">发布公告</el-button>
+							<el-button type="primary" @click="screen_dialog_visible = true">宝贝上屏</el-button>
+							<el-button type="primary">抽奖</el-button>
+							<el-button type="primary" @click="product_dialog_visible = true">边看边买</el-button>
+							<el-button type="primary">红包</el-button>
+							<el-button type="danger" @click="endLive">结束直播</el-button>
+						</el-dropdown-item>
+					</el-dropdown-menu>
+				</el-dropdown>
 			</div>
 		</div>
 		<div class="body">
@@ -176,14 +184,14 @@
 		mounted () {
 			const player = new prismplayer({
 				id       : 'video',
-				// source   : 'rtmp://live.rainbowlive.shop/rainbowlive/rainbowlive?auth_key=1488738390-0-0-1b070fbf03486e920d678ff4ccadd2a7',
+				// source   : 'rtmp://live.rainbowlive.shop/rainbowlive/rainbowlive?auth_key=1488744307-0-0-71e15d8b356594cc3f435df77cacd3af',
 				// source   : 'http://live.rainbowlive.shop/rainbowlive/rainbowlive.flv?auth_key=1488740149-0-0-53bd4779beb04209d57a65617ce53ece',
-				source      : 'http://live.rainbowlive.shop/rainbowlive/rainbowlive.m3u8?auth_key=1488740396-0-0-fcb24b4a69eed3b26a21f8e6a96af279',
+				source      : 'http://live.rainbowlive.shop/rainbowlive/rainbowlive.m3u8?auth_key=1488744307-0-0-66fd0dd4a5e83348c20aba3e34fbc2b1',
 				autoplay : true,
 				preload  : true,
 				isLive   : true,
 				width    : '100%',
-				height   : '340px',
+				// height   : 'auto',
 			});
 			player.on('liveStreamStop', () => {
 				console.log(123);
