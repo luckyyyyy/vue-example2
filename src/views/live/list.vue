@@ -81,7 +81,7 @@
 			:show-close="!lock">
 			<el-form ref="create" :rules="rules" label-position="left" label-width="85px" :model="create" @submit.native.prevent>
 				<el-form-item label="直播标题" prop="name">
-					<el-input ref="input" :autofocus="true" v-model="create.name" placeholder="请输入直播标题"></el-input>
+					<el-input :autofocus="true" v-model="create.name" placeholder="请输入直播标题"></el-input>
 				</el-form-item>
 				<div class="help">
 					<p>
@@ -156,10 +156,6 @@
 			openCreateDialog () {
 				this.openDialog  = true;
 				this.createAgree = true;
-				this.$nextTick(() => {
-					// this.$refs.input
-					console.log(this.$refs.input)
-				})
 			},
 			handleConfirm(index, live) {
 				this.simulateClick(index);
@@ -173,7 +169,7 @@
 						this.$store.dispatch('LIVE_CREATE_REQUEST', this.create).then(() => {
 							this.create.name = '';
 							this.openDialog = false;
-							this.onStatusChange(0);
+							this.status = 0;
 						})
 					} else {
 						return false;
