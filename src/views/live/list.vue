@@ -54,12 +54,12 @@
 								<span>互动设置</span>
 							</router-link>
 
-							<router-link :to="{ name: 'live_control', params: { id: item.id } }">
+							<router-link :to="{ name: 'live_data', params: { id: item.id } }">
 								<i class="iconfont icon-rankfill"></i>
 								<span>直播数据</span>
 							</router-link>
 
-							<router-link :to="{ name: 'live_detail', params: { id: item.id } }">
+							<router-link :to="{ name: 'live_control', params: { id: item.id } }">
 								<i class="iconfont icon-k"></i>
 								<span>中控台</span>
 							</router-link>
@@ -139,7 +139,7 @@
 				}
 			},
 			onStatusChange (val) {
-				this.status = val;
+				// this.status = val;
 				this.getLiveList(true);
 				this.$router.push({ name: this.$route.name, params: { status: this.status } })
 			},
@@ -169,7 +169,7 @@
 						this.$store.dispatch('LIVE_CREATE_REQUEST', this.create).then(() => {
 							this.create.name = '';
 							this.openDialog = false;
-							this.status = 0;
+							this.status == 0 ? this.getLiveList(true) : this.status = 0;
 						})
 					} else {
 						return false;

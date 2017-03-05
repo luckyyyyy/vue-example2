@@ -32,19 +32,20 @@
 	</div>
 </template>
 <script>
-	import Vue from 'vue';
-	import VueHighcharts from 'vue-highcharts';
-	import Highcharts from 'highcharts/highstock'
-	import loadMap from 'highcharts/modules/map';
-	loadMap(Highcharts);
-	Vue.use(VueHighcharts, {
-		Highcharts: Highcharts
-	});
-	import cn_map from '../../options/cn-all.json'
-	import translate_zn from '../../options/hignmap-map-zh.json'
+import Vue from 'vue';
+import VueHighcharts from 'vue-highcharts';
+import Highcharts from 'highcharts/highstock'
+import loadMap from 'highcharts/modules/map';
+loadMap(Highcharts);
+Vue.use(VueHighcharts, {
+	Highcharts: Highcharts
+});
+import cn_map from '../../options/cn-all.json'
+import translate_zn from '../../options/hignmap-map-zh.json'
 
-	export default {
-		data () {
+export default {
+	mounted() {},
+		data() {
 			return {
 				count_data: {
 					title: {
@@ -98,7 +99,7 @@
 						x: 500
 					},
 					mapNavigation: {
-						// enabled: true
+						enabled: true
 					},
 					colorAxis: {
 						min: 1,
@@ -111,7 +112,7 @@
 					},
 					series: [{
 						animation: {
-							duration: 1000
+							// duration: 100
 						},
 						data: [
 							['cn-yn', 10],
@@ -156,30 +157,30 @@
 
 		},
 		methods: {}
-	}
+}
 </script>
 <style scoped lang="less">
-	.container {
-		padding: 30px;
-		h2 {
-			font-size: 12px;
-			color: #333;
-			background-color: #f7f8fa;
-			padding: 4px 16px;
-		}
-		.overview-wrapper {
-			padding: 0 16px;
-			display: flex;
-			justify-content: space-between;
-			p {
-				color: #666;
-			}
-		}
-		.online-box {
-			margin-top: 30px;
-		}
-		.territory-box {
-			margin-top: 30px;
+.container {
+	padding: 30px;
+	h2 {
+		font-size: 12px;
+		color: #333;
+		background-color: #f7f8fa;
+		padding: 4px 16px;
+	}
+	.overview-wrapper {
+		padding: 0 16px;
+		display: flex;
+		justify-content: space-between;
+		p {
+			color: #666;
 		}
 	}
+	.online-box {
+		margin-top: 30px;
+	}
+	.territory-box {
+		margin-top: 30px;
+	}
+}
 </style>
