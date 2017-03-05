@@ -19,6 +19,7 @@
     "moment": "^2.17.0",
     "nprogress": "^0.2.0",
     "qrcodejs2": "0.0.2",
+    "video.js": "^5.17.0",
     "vue": "2.2.1",
     "vue-clipboards": "^0.2.5",
     "vue-highcharts": "0.0.9",

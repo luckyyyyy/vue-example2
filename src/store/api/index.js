@@ -1,8 +1,8 @@
 /*
 * @Author: William Chan
 * @Date:   2016-12-02 11:31:24
-* @Last Modified by:   William Chan
-* @Last Modified time: 2017-03-05 01:19:17
+* @Last Modified by:   Administrator
+* @Last Modified time: 2017-03-05 21:24:12
 */
 
 // axios.request(config)
@@ -22,6 +22,7 @@ import axios from 'axios'
 export const API_HOST =
 	process.env.NODE_ENV !== 'production' ?
 	'http://101.37.17.152:8088/api/v1'  :
+	// 'http://localhost:3000/api/v1'  :
 	'/api/v1';
 
 window.onerror = (msg, url, lineNo, columnNo, error) => {

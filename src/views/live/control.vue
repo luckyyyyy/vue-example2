@@ -9,7 +9,7 @@
 				</el-popover>
 				<el-button v-popover:download-popover>下载直播工具</el-button>
 
-				<qrcodePopover text="rtmp://pub.mudu.tv/watch/f4aj52">
+				<qrcodePopover text="rtmp://video-center.alivecdn.com/rainbowlive/rainbowlive?vhost=live.rainbowlive.shop&auth_key=1788718603-0-0-2422e449c400af9c836c05a1ae3f2637">
 					<p slot="tips">扫码开启直播</p>
 					<el-button slot="reference">推流地址</el-button>
 				</qrcodePopover>
@@ -27,75 +27,7 @@
 				<el-button type="primary">红包</el-button>
 			</div>
 			<ul class="message">
-				<li>
-					<em>11:11:11</em>
-					<p><span>系统消息：</span>你没钱了忘记为今晚我饥饿哦我去见覅偶。</p>
-					<div class="item">
-						<img src="">
-						<div class="desc">
-							<div class="title">名字我怕我卡欧派我靠谱的恐怕</div>
-							<div class="info">
-								<div class="price">￥<span>233</span></div>
-								<div class="stock">库存：<span>3333</span></div>
-							</div>
-						</div>
-					</div>
-					<div class="btn">
-						<el-button type="primary">充值</el-button>
-					</div>
-				</li>
-				<li>
-					<em>11:11:11</em>
-					<p><span>系统消息：</span>你没钱了忘记为今晚我饥饿哦我去见覅偶。</p>
-					<div class="item">
-						<img src="">
-						<div class="desc">
-							<div class="title">名字我怕我卡欧派我靠谱的恐怕</div>
-							<div class="info">
-								<div class="price">￥<span>233</span></div>
-								<div class="stock">库存：<span>3333</span></div>
-							</div>
-						</div>
-					</div>
-					<div class="btn">
-						<el-button type="primary">充值</el-button>
-					</div>
-				</li>
-				<li>
-					<em>11:11:11</em>
-					<p><span>系统消息：</span>你没钱了忘记为今晚我饥饿哦我去见覅偶。</p>
-					<div class="item">
-						<img src="">
-						<div class="desc">
-							<div class="title">名字我怕我卡欧派我靠谱的恐怕</div>
-							<div class="info">
-								<div class="price">￥<span>233</span></div>
-								<div class="stock">库存：<span>3333</span></div>
-							</div>
-						</div>
-					</div>
-					<div class="btn">
-						<el-button type="primary">充值</el-button>
-					</div>
-				</li>
-				<li>
-					<em>11:11:11</em>
-					<p><span>系统消息：</span>你没钱了忘记为今晚我饥饿哦我去见覅偶。</p>
-					<div class="item">
-						<img src="">
-						<div class="desc">
-							<div class="title">名字我怕我卡欧派我靠谱的恐怕</div>
-							<div class="info">
-								<div class="price">￥<span>233</span></div>
-								<div class="stock">库存：<span>3333</span></div>
-							</div>
-						</div>
-					</div>
-					<div class="btn">
-						<el-button type="primary">充值</el-button>
-					</div>
-				</li>
-				<li>
+				<li v-for="n in 30">
 					<em>11:11:11</em>
 					<p><span>系统消息：</span>你没钱了忘记为今晚我饥饿哦我去见覅偶。</p>
 					<div class="item">
@@ -117,7 +49,12 @@
 		<div class="right">
 			<div class="video">
 				<div class="video-view">
-					<div class="video-js"></div>
+					<div class="video-js">
+					<video class="video-js vjs-default-skin" controls preload="none" data-setup='{}'>
+						<source src="rtmp://cp67126.edgefcs.net/ondemand/&mp4:mediapm/ovp/content/test/video/spacealonehd_sounas_640_300.mp4" type='rtmp/mp4'>
+					</video>
+
+					</div>
 					<div class="time">
 						<em>已经直播了 <span>00:51:23</span></em>
 						<el-button size="small" type="danger" @click="endLive()">结束直播</el-button>
@@ -129,7 +66,7 @@
 					<li>总评论数<span>1111万</span></li>
 				</ul>
 			</div>
-			<div class="chat">
+		<!-- 	<div class="chat">
 				<div class="head">
 					<div class="btn"><a class="active">评论用户</a></div>
 					<div class="btn"><a class="disabled">禁言用户</a></div>
@@ -143,7 +80,7 @@
 					<el-input v-model="input" placeholder="请输入内容"></el-input>
 					<el-button type="primary">发送</el-button>
 				</div>
-			</div>
+			</div> -->
 		</div>
 		<el-dialog title="公告" v-model="notice_dialog_visible" size="tiny">
 			<div class="notice-box">
@@ -217,6 +154,7 @@
 </template>
 <script>
 	import qrcodePopover from '../../components/item/qrcodePopover'
+	import 'video.js'
 	export default {
 		components: {
 			qrcodePopover

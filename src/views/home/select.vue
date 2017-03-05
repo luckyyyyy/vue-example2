@@ -76,7 +76,6 @@
 		methods: {
 			currentChange (currentPage) {
 				this.current = currentPage || parseInt(this.$route.params.id) || 1;
-				console.log(this.current)
 				this.$router.push({ name: this.$route.name, params: { id: this.current }, query: this.$route.query })
 				const page   = this.current;
 				const limits = this.limits;

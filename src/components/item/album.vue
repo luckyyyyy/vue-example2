@@ -7,7 +7,7 @@
 			:show-close="false"
 			custom-class="albumDialog"
 		>
-			<template slot="title">我的图库 {{ find.length ? `已选择${find.length}张图片` : '' }}</template>
+			<template slot="title">我的图库 {{ find.length ? `已选择${find.length}张图片` : '请选择图片' }}</template>
 			<div class="loading" v-loading="lock" element-loading-text="图片上传中">
 				<ul
 					ref="list"
@@ -213,7 +213,7 @@
 </style>
 <style lang="less">
 	.albumDialog {
-		width: 828px;
+		width: 848px;
 		.el-dialog__body {
 			height: 400px;
 			border-box: box-sizing;
