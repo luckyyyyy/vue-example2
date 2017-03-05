@@ -75,7 +75,8 @@
 		data () {
 			return {
 				files: [],
-				length: 0
+				length: 0,
+				size: 0
 			}
 		},
 		methods: {
@@ -85,9 +86,16 @@
 			clearQueue () {
 				this.$refs.fileInput.value = '';
 				this.length = 0;
+				this.size = 0;
 				this.files = [];
 			},
 			snedImages () {
+				if (this.size > 1024e3 * 20) {
+					this.$message.error('您一次性上传的图片总大小超过最大限制，请控制在15MB。');
+					console.log(this.size / 1024e3);
+					this.$emit('fail');
+					return this.clearQueue();
+				}
 				const xhr = new XMLHttpRequest();
 				xhr.open(this.method, this.action, true);
 				xhr.setRequestHeader('Content-Type', 'application/json');
@@ -130,8 +138,9 @@
 							this.files.push({
 								body: e.target.result,
 								name: file.name,
-								type: this.type
+								type: this.type,
 							});
+							this.size = this.size + e.target.result.length;
 							this.$emit('queue', this.files, this.length);
 							if (this.files.length == this.length) {
 							  this.snedImages();

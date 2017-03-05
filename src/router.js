@@ -2,7 +2,7 @@
 * @Author: William Chan
 * @Date:   2016-12-01 17:57:50
 * @Last Modified by:   William Chan
-* @Last Modified time: 2017-03-04 14:58:02
+* @Last Modified time: 2017-03-05 14:05:15
 */
 
 'use strict';
@@ -117,7 +117,7 @@ const routes = [
 		children: [
 			{
 				name: 'live_list',
-				path: 'list/:type?',
+				path: 'list/:status?',
 				meta: { requiresAuth: true, breadcrumb: [
 					{ route: 'live_list', name: '直播列表' }
 				] },

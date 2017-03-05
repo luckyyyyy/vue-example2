@@ -241,7 +241,7 @@
 		},
 		computed: {},
 		methods: {
-			endLive() {
+			endLive () {
 				this.$confirm('确定要结束直播吗？点击确定将彻底关闭直播。', '结束直播', {
 					confirmButtonText: '确定',
 					cancelButtonText: '取消',
