@@ -2,7 +2,7 @@
 * @Author: William Chan
 * @Date:   2016-12-01 17:57:50
 * @Last Modified by:   William Chan
-* @Last Modified time: 2017-03-06 23:16:28
+* @Last Modified time: 2017-03-06 23:17:33
 */
 
 'use strict';
@@ -38,13 +38,10 @@ const router = new VueRouter({
 })
 
 router.beforeEach((to, from, next) => {
-	console.log(1)
 	NProgress.remove();
 	NProgress.start();
 	const requiresAuth = to.matched.some(record => record.meta.requiresAuth);
-	console.log(to)
 	if (!store.getters.member.token) {
-		console.log(3)
 		if (to.name == '404' || to.fullPath == '/') {
 			return next({ name: 'login' });
 		} else if (requiresAuth) {
@@ -72,7 +69,6 @@ router.beforeEach((to, from, next) => {
 			}
 		}
 	}
-	console.log(2)
 	return next();
 })
 router.afterEach(route => {
