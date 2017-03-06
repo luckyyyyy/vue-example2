@@ -34,7 +34,7 @@
 					</div>
 					<div class="list">
 						<p v-for="n in 100">
-							<em>我我:</em><span>啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊</span>
+							<em>我我:</em><span>aaa</span>
 						</p>
 					</div>
 				</div>
@@ -287,7 +287,7 @@
 					display: flex;
 					.time {
 						color: white;
-						margin-right: 2		0px;
+						margin-right: 20px;
 					}
 				}
 			}
@@ -332,7 +332,7 @@
 			display: flex;
 			flex-direction: column;
 			.chat {
-				// width: 100%;
+				font-size: 12px;
 				box-sizing: border-box;
 				height: 0;
 				overflow: auto;
@@ -388,6 +388,7 @@
 				overflow: auto;
 				flex: 1;
 				background: #F7F8FA;
+				font-size: 12px;
 				li {
 					margin: 10px;
 					padding: 10px;

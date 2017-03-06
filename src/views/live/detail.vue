@@ -33,9 +33,17 @@
 
 <script>
 	import Affix from '../../components/item/affix.vue'
+	import store from '../../store'
 	export default {
 		components: {
 			Affix
+		},
+		beforeRouteEnter (to, from, next) {
+			store.dispatch('LIVE_QUERY_REQUEST', { id: to.params.id }).then(res => {
+				next();
+			}).catch(err => {
+				next({ path: from.fullPath, params: from.params, query: from.query });
+			})
 		},
 		computed: {
 			select: {
