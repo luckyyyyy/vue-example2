@@ -62,7 +62,7 @@ export default {
 	data () {
 		return {
 			router: true,
-			debug: localStorage.getItem('debug')
+			debug: localStorage.getItem('debug') ? true : false,
 		}
 	},
 	computed: {

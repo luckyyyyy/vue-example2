@@ -1,45 +1,8 @@
 <template>
 	<div class="control">
 		<div class="top">
-			<div class="button-action">
-				<el-popover ref="download-popover" placement="bottom-start" width="200" trigger="click">
-					<p>扫码下载手机直播工具</p>
-					<div class="qrcode"></div>
-					<p>支持Android、iOS 下载</p>
-				</el-popover>
-				<el-button v-popover:download-popover>下载直播工具</el-button>
-				<qrcodePopover text="rtmp://video-center.alivecdn.com/rainbowlive/rainbowlive?vhost=live.rainbowlive.shop&auth_key=1788718603-0-0-2422e449c400af9c836c05a1ae3f2637">
-					<p slot="tips">扫码开启直播</p>
-					<el-button slot="reference">推流地址</el-button>
-				</qrcodePopover>
-				<qrcodePopover text="rtmp://pub.mudu.tv/watch/f4aj52">
-					<p slot="tips">微信扫码观看直播</p>
-					<el-button slot="reference">观看地址</el-button>
-				</qrcodePopover>
-				<el-dropdown trigger="click">
-					<el-button type="primary">
-						直播功能<i class="el-icon-caret-bottom el-icon--right"></i>
-					</el-button>
-					<el-dropdown-menu slot="dropdown">
-						<el-dropdown-item>
-							<el-button type="primary" @click="notice_dialog_visible = true">发布公告</el-button>
-							<el-button type="primary" @click="screen_dialog_visible = true">宝贝上屏</el-button>
-							<el-button type="primary">抽奖</el-button>
-							<el-button type="primary" @click="product_dialog_visible = true">边看边买</el-button>
-							<el-button type="primary">红包</el-button>
-							<el-button type="danger" @click="endLive">结束直播</el-button>
-						</el-dropdown-item>
-					</el-dropdown-menu>
-				</el-dropdown>
-			</div>
-		</div>
-		<div class="body">
+
 			<div class="left">
-				<ul class="live-info">
-					<li>观看人数<span>12345</span></li>
-					<li>在线人数<span>12345</span></li>
-					<li>总评论数<span>1111万</span></li>
-				</ul>
 				<ul class="message">
 					<li v-for="n in 30">
 						<em>11:11:11</em>
@@ -60,12 +23,10 @@
 					</li>
 				</ul>
 			</div>
+			<div class="video" ref="video">
+				<div id='video' class='prism-player'></div>
+			</div>
 			<div class="right">
-				<div class="video">
-					<div class="video-view">
-						<div id='video' class='prism-player'></div>
-					</div>
-				</div>
 				<div class="chat">
 					<div class="head">
 						<div class="btn"><a class="active">评论用户</a></div>
@@ -76,13 +37,55 @@
 							<em>我我:</em><span>啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊</span>
 						</p>
 					</div>
-					<div class="chat-input">
-						<el-input v-model="input" placeholder="请输入内容"></el-input>
-						<el-button type="primary">发送</el-button>
+				</div>
+			</div>
+			<div class="action">
+				<div class="live-info">
+					<ul class="live-info-stat">
+						<li>观看人数<span>12345</span></li>
+						<li>在线人数<span>12345</span></li>
+						<li>总评论数<span>1111万</span></li>
+					</ul>
+					<div class="live-info-time">
+						<div class="time">已经直播xxxxx分钟</div>
+						<el-button size="small" type="danger" @click="endLive">结束直播</el-button>
 					</div>
+				</div>
+				<div class="chat-input">
+					<el-input size="small" v-model="input" placeholder="请输入内容"></el-input>
+					<el-button size="small" type="primary">发送</el-button>
 				</div>
 			</div>
 		</div>
+
+		<div class="body">
+			<div class="button-action">
+				<div class="line">
+					<el-popover ref="download-popover" placement="bottom-start" width="200" trigger="click">
+						<p>扫码下载手机直播工具</p>
+						<div class="qrcode"></div>
+						<p>支持Android、iOS 下载</p>
+					</el-popover>
+					<el-button v-popover:download-popover>下载直播工具</el-button>
+					<qrcodePopover text="rtmp://video-center.alivecdn.com/rainbowlive/rainbowlive?vhost=live.rainbowlive.shop&auth_key=1788718603-0-0-2422e449c400af9c836c05a1ae3f2637">
+						<p slot="tips">扫码开启直播</p>
+						<el-button slot="reference">推流地址</el-button>
+					</qrcodePopover>
+					<qrcodePopover text="rtmp://pub.mudu.tv/watch/f4aj52">
+						<p slot="tips">微信扫码观看直播</p>
+						<el-button slot="reference">观看地址</el-button>
+					</qrcodePopover>
+				</div>
+				<div class="line">
+					<el-button type="primary" @click="notice_dialog_visible = true">发布公告</el-button>
+					<el-button type="primary" @click="screen_dialog_visible = true">宝贝上屏</el-button>
+					<el-button type="primary">抽奖</el-button>
+					<el-button type="primary" @click="product_dialog_visible = true">边看边买</el-button>
+					<el-button type="primary">红包</el-button>
+				</div>
+			</div>
+		</div>
+
 		<el-dialog title="公告" v-model="notice_dialog_visible" size="tiny">
 			<div class="notice-box">
 				<span>公告内容：</span>
@@ -163,6 +166,7 @@
 		},
 		data() {
 			return {
+				player: {},
 				select: this.$route.name,
 				input: '',
 				notice_dialog_visible: false,
@@ -182,7 +186,7 @@
 		computed: {},
 
 		mounted () {
-			const player = new prismplayer({
+			this.player = new prismplayer({
 				id       : 'video',
 				// source   : 'rtmp://live.rainbowlive.shop/rainbowlive/rainbowlive?auth_key=1488744307-0-0-71e15d8b356594cc3f435df77cacd3af',
 				// source   : 'http://live.rainbowlive.shop/rainbowlive/rainbowlive.flv?auth_key=1488740149-0-0-53bd4779beb04209d57a65617ce53ece',
@@ -190,14 +194,24 @@
 				autoplay : true,
 				preload  : true,
 				isLive   : true,
+				showBarTime: '100',
 				width    : '100%',
-				// height   : 'auto',
+				skinLayout: []
 			});
-			player.on('liveStreamStop', () => {
+			this.player.on('liveStreamStop', () => {
 				console.log(123);
 			})
+			window.addEventListener('resize', this.autoSetPlayerSize, false);
+			this.autoSetPlayerSize();
+		},
+		beforeDestroy () {
+			window.removeEventListener('resize', this.autoSetPlayerSize, false);
 		},
 		methods: {
+			autoSetPlayerSize () {
+				const height = this.$refs.video.offsetHeight - 30;
+				this.player.setPlayerSize('100%', `${height}px`);
+			},
 			endLive () {
 				this.$confirm('确定要结束直播吗？点击确定将彻底关闭直播。', '结束直播', {
 					confirmButtonText: '确定',
@@ -221,61 +235,94 @@
 <style scoped lang="less">
 	.control {
 		display: flex;
-		padding: 10px 20px;
+		padding: 10px;
 		flex-direction: column;
 		.top {
 			display: flex;
-			justify-content: center;
-			.button-action {
-				margin: 5px 0;
-				.el-button {
-					width: 120px;
-					margin: 5px;
-				}
-			}
-		}
-		.body {
 			flex: 1;
 			height: 100%;
-			display: flex;
+			position: relative;
 		}
-		.right {
-			flex: 1;
+		.action {
+			position: absolute;
+			z-index: 1;
+			bottom: 0;
+			left: 0;
+			width: 100%;
+			height: 40px;
+			background: rgba(0, 0, 0, .5);
 			display: flex;
-			flex-direction: column;
-			padding: 10px;
-			padding-bottom: 0;
-			align-items: center;
-			// min-width: 600px;
-			.video {
-				// min-width: 600px;
-				// min-height: 400px;
-				// flex: 1;
-				width: 100%;
+			padding: 5px 0;
+			line-height: 30px;
+			box-sizing: border-box;
+			font-size: 12px;
+			.live-info {
+				width: 70%;
 				display: flex;
-				.video-view {
-					flex: 1;
-					background: #333;
+				justify-content: space-between;
+				padding: 0 10px;
+				box-sizing: border-box;
+				.live-info-stat {
 					display: flex;
-					flex-direction: column;
-					justify-content: space-between;
-					.time {
-						em {
-							font-style: normal;
-							font-size: 12px;
-							color: #FFFFFF;
+					color: white;
+					li {
+						margin-right: 20px;
+						span {
+							margin-left: 5px;
+							color: yellow;
 						}
-						display: flex;
-						justify-content: space-between;
-						background: rgba(0, 0, 0, .35);
-						height: 40px;
-						line-height: 40px;
-						padding: 10px;
+					}
+				}
+				.live-info-time {
+					display: flex;
+					.time {
+						color: white;
+						margin-right: 2		0px;
 					}
 				}
 			}
+			.chat-input {
+				width: 30%;
+				padding: 0 10px;
+				box-sizing: border-box;
+				display: flex;
+				.el-input {
+					flex: 1;
+				}
+				.el-button {
+					margin-left: 10px;
+				}
+			}
+		}
+		.button-action {
+			margin: 5px 0;
+			display: flex;
+			flex-direction: column;
+			.line {
+				text-align: center;
+			}
+			.el-button {
+				width: 120px;
+				margin: 10px;
+				margin-bottom: 0;
+			}
+		}
+		.body {
+			display: flex;
+			display: flex;
+			justify-content: center;
+		}
+		.video {
+			flex: 4;
+			width: 100%;
+			background: #333;
+		}
+		.right {
+			flex: 3;
+			display: flex;
+			flex-direction: column;
 			.chat {
-				width: 100%;
+				// width: 100%;
 				box-sizing: border-box;
 				height: 0;
 				overflow: auto;
@@ -283,6 +330,7 @@
 				background: #f7f8fa;
 				display: flex;
 				flex-direction: column;
+				margin-bottom: 40px;
 				.head {
 					display: flex;
 					border-bottom: 1px solid #EBECF0;
@@ -318,45 +366,20 @@
 						}
 					}
 				}
-				.chat-input {
-					box-sizing: border-box;
-					width: 100%;
-					display: flex;
-					padding: 10px;
-					.el-button {
-						margin-left: 10px;
-					}
-				}
 			}
-
 		}
 		.left {
-			.live-info {
-				background: #f7f8fa;
-				display: flex;
-				width: 100%;
-				padding: 10px;
-				box-sizing: border-box;
-				justify-content: space-between;
-				align-items: center;
-				li {
-					align-items: center;
-					display: flex;
-					flex-direction: column;
-					flex: 1;
-				}
-			}
-			// flex: 1;
-			width: 400px;
+			flex: 3;
 			display: flex;
 			flex-direction: column;
+			padding-bottom: 40px;
 			.message {
 				height: 0; // ?
 				overflow: auto;
 				flex: 1;
 				background: #F7F8FA;
 				li {
-					margin: 20px;
+					margin: 10px;
 					padding: 10px;
 					background: #eaebed;
 					display: flex;
