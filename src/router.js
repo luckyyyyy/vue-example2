@@ -2,7 +2,7 @@
 * @Author: William Chan
 * @Date:   2016-12-01 17:57:50
 * @Last Modified by:   William Chan
-* @Last Modified time: 2017-03-06 22:50:21
+* @Last Modified time: 2017-03-06 23:16:28
 */
 
 'use strict';
@@ -24,7 +24,8 @@ import userRoute    from './router/user'
 Vue.use(VueRouter);
 
 const routes = [].concat(
-	topRoute, liveRoute, homeRoute, accountRoute, storeRoute, userRoute
+	liveRoute, homeRoute, accountRoute, storeRoute, userRoute,
+	topRoute
 );
 
 const router = new VueRouter({
@@ -37,10 +38,13 @@ const router = new VueRouter({
 })
 
 router.beforeEach((to, from, next) => {
+	console.log(1)
 	NProgress.remove();
 	NProgress.start();
 	const requiresAuth = to.matched.some(record => record.meta.requiresAuth);
+	console.log(to)
 	if (!store.getters.member.token) {
+		console.log(3)
 		if (to.name == '404' || to.fullPath == '/') {
 			return next({ name: 'login' });
 		} else if (requiresAuth) {
@@ -68,6 +72,7 @@ router.beforeEach((to, from, next) => {
 			}
 		}
 	}
+	console.log(2)
 	return next();
 })
 router.afterEach(route => {
