@@ -2,7 +2,7 @@
 * @Author: William Chan
 * @Date:   2016-12-03 19:24:59
 * @Last Modified by:   William Chan
-* @Last Modified time: 2017-03-05 14:01:00
+* @Last Modified time: 2017-03-06 17:26:07
 */
 
 'use strict';
@@ -28,6 +28,7 @@ import multimedia_find from './modules/multimedia/find'
 
 import live_create from './modules/live/create'
 import live_find from './modules/live/find'
+import live_query from './modules/live/query'
 
 
 import weixin_auth_url from './modules/weixin/auth_url'
@@ -37,7 +38,7 @@ const modules = {
 	catalogs,
 	channel_create, channel_find, channel_delete, channel_query,
 	multimedia_find,
-	live_create, live_find,
+	live_create, live_find, live_query,
 	weixin_auth_url
 }
 

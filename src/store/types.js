@@ -2,7 +2,7 @@
 * @Author: William Chan
 * @Date:   2016-12-03 20:43:22
 * @Last Modified by:   William Chan
-* @Last Modified time: 2017-03-05 16:47:21
+* @Last Modified time: 2017-03-06 17:25:48
 */
 
 'use strict';
@@ -36,6 +36,7 @@ export const MULTIMEDIA_FIND    = export_var('MULTIMEDIA_FIND', 'INSERT');
 // live
 export const LIVE_CREATE        = export_var('LIVE_CREATE');
 export const LIVE_FIND          = export_var('LIVE_FIND');
+export const LIVE_QUERY         = export_var('LIVE_QUERY');
 
 // weixin
 export const WEXIN_AUTH_URL     = export_var('WEXIN_AUTH_URL');

@@ -2,7 +2,7 @@
 * @Author: William Chan
 * @Date:   2016-12-01 17:57:50
 * @Last Modified by:   William Chan
-* @Last Modified time: 2017-03-05 14:05:15
+* @Last Modified time: 2017-03-06 16:57:47
 */
 
 'use strict';
@@ -328,7 +328,6 @@ const router = new VueRouter({
 })
 
 router.beforeEach((to, from, next) => {
-	NProgress.done(true);
 	NProgress.remove();
 	NProgress.start();
 	const requiresAuth = to.matched.some(record => record.meta.requiresAuth);

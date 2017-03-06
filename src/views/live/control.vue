@@ -160,6 +160,7 @@
 	import qrcodePopover from '../../components/item/qrcodePopover'
 	import '../../assets/prism/index-min.css'
 	import '../../assets/prism/prism-min.js'
+	import store from '../../store'
 	export default {
 		components: {
 			qrcodePopover
@@ -184,13 +185,22 @@
 			}
 		},
 		computed: {},
-
+		beforeRouteEnter (to, from, next) {
+			store.dispatch('LIVE_QUERY_REQUEST', { id: to.params.id }).then(res => {
+				next();
+			}).catch(err => {
+				next({ path: from.fullPath, params: from.params, query: from.query });
+			})
+		},
 		mounted () {
+			const source = window.navigator.userAgent.indexOf('iPad') > -1 ?
+				'' :
+				'';
 			this.player = new prismplayer({
 				id       : 'video',
 				// source   : 'rtmp://live.rainbowlive.shop/rainbowlive/rainbowlive?auth_key=1488744307-0-0-71e15d8b356594cc3f435df77cacd3af',
 				// source   : 'http://live.rainbowlive.shop/rainbowlive/rainbowlive.flv?auth_key=1488740149-0-0-53bd4779beb04209d57a65617ce53ece',
-				source      : 'http://live.rainbowlive.shop/rainbowlive/rainbowlive.m3u8?auth_key=1488744307-0-0-66fd0dd4a5e83348c20aba3e34fbc2b1',
+				source      : 'http://live.rainbowlive.shop/rainbow/rainbow.m3u8?auth_key=1488787678-0-0-739137d009c2218206d8b8c345567f9a',
 				autoplay : true,
 				preload  : true,
 				isLive   : true,
