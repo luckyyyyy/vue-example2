@@ -1,7 +1,35 @@
 <template>
 	<div class="control">
-		<div class="top">
 
+
+		<div class="top">
+			<div class="button-action">
+				<div class="line">
+					<el-popover ref="download-popover" placement="bottom-start" width="200" trigger="click">
+						<p>扫码下载手机直播工具</p>
+						<div class="qrcode"></div>
+						<p>支持Android、iOS 下载</p>
+					</el-popover>
+					<el-button v-popover:download-popover>下载直播工具</el-button>
+					<qrcodePopover :text="live.liveStream.pushStreamUrl">
+						<p slot="tips">扫码开启直播</p>
+						<el-button slot="reference">推流地址</el-button>
+					</qrcodePopover>
+					<qrcodePopover text="假的">
+						<p slot="tips">微信扫码观看直播</p>
+						<el-button slot="reference">观看地址</el-button>
+					</qrcodePopover>
+				<!-- </div> -->
+				<!-- <div class="line"> -->
+					<el-button type="primary" @click="notice_dialog_visible = true">发布公告</el-button>
+					<el-button type="primary" @click="screen_dialog_visible = true">宝贝上屏</el-button>
+					<el-button type="primary">抽奖</el-button>
+					<el-button type="primary" @click="product_dialog_visible = true">边看边买</el-button>
+					<el-button type="primary">红包</el-button>
+				</div>
+			</div>
+		</div>
+		<div class="body">
 			<div class="left">
 				<ul class="message">
 					<li v-for="n in 30">
@@ -57,35 +85,6 @@
 				</div>
 			</div>
 		</div>
-
-		<div class="body">
-			<div class="button-action">
-				<div class="line">
-					<el-popover ref="download-popover" placement="bottom-start" width="200" trigger="click">
-						<p>扫码下载手机直播工具</p>
-						<div class="qrcode"></div>
-						<p>支持Android、iOS 下载</p>
-					</el-popover>
-					<el-button v-popover:download-popover>下载直播工具</el-button>
-					<qrcodePopover text="rtmp://video-center.alivecdn.com/rainbowlive/rainbowlive?vhost=live.rainbowlive.shop&auth_key=1788718603-0-0-2422e449c400af9c836c05a1ae3f2637">
-						<p slot="tips">扫码开启直播</p>
-						<el-button slot="reference">推流地址</el-button>
-					</qrcodePopover>
-					<qrcodePopover text="rtmp://pub.mudu.tv/watch/f4aj52">
-						<p slot="tips">微信扫码观看直播</p>
-						<el-button slot="reference">观看地址</el-button>
-					</qrcodePopover>
-				</div>
-				<div class="line">
-					<el-button type="primary" @click="notice_dialog_visible = true">发布公告</el-button>
-					<el-button type="primary" @click="screen_dialog_visible = true">宝贝上屏</el-button>
-					<el-button type="primary">抽奖</el-button>
-					<el-button type="primary" @click="product_dialog_visible = true">边看边买</el-button>
-					<el-button type="primary">红包</el-button>
-				</div>
-			</div>
-		</div>
-
 		<el-dialog title="公告" v-model="notice_dialog_visible" size="tiny">
 			<div class="notice-box">
 				<span>公告内容：</span>
@@ -161,6 +160,7 @@
 	import '../../assets/prism/index-min.css'
 	import '../../assets/prism/prism-min.js'
 	import store from '../../store'
+	import { mapState } from 'vuex'
 	export default {
 		components: {
 			qrcodePopover
@@ -184,7 +184,11 @@
 				}]
 			}
 		},
-		computed: {},
+		computed: {
+			...mapState ({
+				live: state => state.live_query.data
+			})
+		},
 		beforeRouteEnter (to, from, next) {
 			store.dispatch('LIVE_QUERY_REQUEST', { id: to.params.id }).then(res => {
 				next();
@@ -194,13 +198,11 @@
 		},
 		mounted () {
 			const source = window.navigator.userAgent.indexOf('iPad') > -1 ?
-				'' :
-				'';
+				this.live.liveStream.playOriginM3uUrl :
+				this.live.liveStream.playOriginFlvUrl;
 			this.player = new prismplayer({
 				id       : 'video',
-				// source   : 'rtmp://live.rainbowlive.shop/rainbowlive/rainbowlive?auth_key=1488744307-0-0-71e15d8b356594cc3f435df77cacd3af',
-				// source   : 'http://live.rainbowlive.shop/rainbowlive/rainbowlive.flv?auth_key=1488740149-0-0-53bd4779beb04209d57a65617ce53ece',
-				source      : 'http://live.rainbowlive.shop/rainbow/rainbow.m3u8?auth_key=1488787678-0-0-739137d009c2218206d8b8c345567f9a',
+				source   : source,
 				autoplay : true,
 				preload  : true,
 				isLive   : true,
@@ -247,7 +249,7 @@
 		display: flex;
 		padding: 10px;
 		flex-direction: column;
-		.top {
+		.body {
 			display: flex;
 			flex: 1;
 			height: 100%;
@@ -305,7 +307,7 @@
 			}
 		}
 		.button-action {
-			margin: 5px 0;
+			margin-bottom: 10px;
 			display: flex;
 			flex-direction: column;
 			.line {
@@ -317,7 +319,7 @@
 				margin-bottom: 0;
 			}
 		}
-		.body {
+		.top {
 			display: flex;
 			display: flex;
 			justify-content: center;
