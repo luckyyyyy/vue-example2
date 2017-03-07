@@ -87,7 +87,6 @@ export default {
 		top: 0;
 		left: 0;
 		width: 135px;
-		box-shadow: 2px 0 5px 0 #eee;
 		height: 100%;
 		background: #fff;
 		display: flex;
@@ -130,6 +129,10 @@ export default {
 				line-height: 45px;
 				color: #ccc;
 				// padding-left: 15px !important;
+			}
+
+			.el-submenu .el-menu {
+				background: darken(#373d41, 5%);
 			}
 			.el-submenu__title:hover, .el-menu-item:hover, .el-menu-item.is-active {
 				background: lighten(#373d41, 10%);

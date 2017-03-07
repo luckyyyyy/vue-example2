@@ -16,7 +16,7 @@
 						<p v-show="user.nickName">{{ user.nickName }}</p>
 						<p>{{ user.phone }}</p>
 					</div>
-					<ul class="popper__meun">
+					<ul class="popper__menu">
 						<li><router-link :to="{ name: 'profile', query: { redirect: $route.fullPath } }">账号设置</router-link></li>
 						<li><a @click="switchShop" href="javascript:;">切换频道</a></li>
 						<li><a @click="logout" href="javascript:;">退出系统</a></li>
@@ -117,7 +117,7 @@
 				.popper__account {
 					text-align: center;
 				}
-				.popper__meun {
+				.popper__menu {
 					li {
 						transition: background .3s ease-in-out;
 						text-align: center;
