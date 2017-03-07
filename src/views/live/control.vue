@@ -189,7 +189,7 @@
 			store.dispatch('LIVE_QUERY_REQUEST', { id: to.params.id }).then(res => {
 				next();
 			}).catch(err => {
-				next({ path: from.fullPath, params: from.params, query: from.query });
+				next({ name: 'index' });
 			})
 		},
 		mounted () {

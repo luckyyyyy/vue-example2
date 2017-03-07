@@ -44,7 +44,14 @@ import cn_map from '../../options/cn-all.json'
 import translate_zn from '../../options/hignmap-map-zh.json'
 
 export default {
-		data() {
+		beforeRouteEnter (to, from, next) {
+			store.dispatch('LIVE_QUERY_REQUEST', { id: to.params.id }).then(res => {
+				next();
+			}).catch(err => {
+				next({ name: 'index' });
+			})
+		},
+		data () {
 			return {
 				count_data: {
 					title: {
