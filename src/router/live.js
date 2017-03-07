@@ -2,7 +2,7 @@
 * @Author: William Chan
 * @Date:   2017-03-06 22:29:46
 * @Last Modified by:   William Chan
-* @Last Modified time: 2017-03-06 22:41:21
+* @Last Modified time: 2017-03-07 23:50:31
 */
 
 'use strict';
@@ -14,6 +14,7 @@ export default [
 		redirect: { name: 'live_list' },
 		components: {
 			sidebar: resolve => require(['../components/sidebar.vue'], resolve),
+			topbar:  resolve => require(['../components/topbar.vue'], resolve),
 			main: resolve    => require(['../components/breadcrumb.vue'], resolve)
 		},
 		children: [

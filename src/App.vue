@@ -1,10 +1,9 @@
 <template>
 	<div class="wrap" v-loading.fullscreen.lock="lock" element-loading-text="拼命加载中">
 		<div v-if="token" class="main">
+			<router-view name="topbar"></router-view>
 			<router-view name="sidebar"></router-view>
-			<!-- <transition name="fade"> -->
-				<router-view name="main" class="router-view"></router-view>
-			<!-- </transition> -->
+			<router-view name="main" class="router-view"></router-view>
 			<router-view name="select"></router-view>
 			<router-view name="user"></router-view>
 		</div>
@@ -19,13 +18,13 @@
 				</div>
 			</div>
 		</div>
-		<div class="developer" @click="hideDeveloper" v-show="!hide">
+<!-- 		<div class="developer" @click="hideDeveloper" v-show="!hide">
 			<p>build: 20170306</p>
 			<ol>
 				<li>增加了直播创建和列表逻辑</li>
 				<li>测试直播支持ipad和mac/PC</li>
 			</ol>
-		</div>
+		</div> -->
 	</div>
 </template>
 <script>
@@ -78,12 +77,14 @@ export default {
 		height: 100%;
 		position: relative;
 		.router-view {
-			padding: 15px;
+			padding-top: 50px;
+			box-sizing: border-box;
+			display: flex;
+			flex-direction: column;
 			right: 0;
 			top: 0;
 			width: 100%;
-			padding-left: 15 + 135px;
-			background: #f2f3f7;
+			padding-left: 135px;
 			position: absolute;
 			min-height: 100%;
 			height: auto;
@@ -100,7 +101,6 @@ export default {
 		height: 100%;
 		padding: 10px;
 		box-sizing: border-box;
-
 		.box {
 			display: flex;
 			align-items: center;

@@ -35,24 +35,9 @@
 			</el-submenu>
 			<el-menu-item index="/todo1"><i class="iconfont icon-circle"></i>营销</el-menu-item>
 		</el-menu>
-
-		<el-popover ref="popover" placement="top-end" width="149" trigger="click" popper-class="account-popper">
-			<div class="account">
-				<p v-show="user.nickName">{{ user.nickName }}</p>
-				<p>{{ user.phone }}</p>
-			</div>
-			<ul class="meun">
-				<li><router-link :to="{ name: 'profile', query: { redirect: $route.fullPath } }">账号设置</router-link></li>
-				<li><a @click="switchShop" href="javascript:;">切换频道</a></li>
-				<li><a @click="logout" href="javascript:;">退出系统</a></li>
-			</ul>
-		</el-popover>
 		<div style="text-align: center;padding: 10px;">
 			<el-switch @change="enableDebug" :width="80" on-text="enable" off-text="debug" v-model="debug"></el-switch>
 		</div>
-		<footer>
-			<span v-popover:popover>{{ user.nickName || user.phone }}</span>
-		</footer>
 	</div>
 </template>
 
@@ -83,24 +68,6 @@ export default {
 
 	},
 	methods: {
-		logout () {
-			this.$confirm('确定退出系统么?', '提示', {
-				confirmButtonText: '确定',
-				cancelButtonText: '取消',
-				type: 'warning'
-			}).then(() => {
-				this.$store.dispatch('LOGOUT_REQUEST');
-			})
-		},
-		switchShop () {
-			this.$confirm('确定切换频道么?', '提示', {
-				confirmButtonText: '确定',
-				cancelButtonText: '取消',
-				type: 'warning'
-			}).then(() => {
-				this.$store.commit('SET_CHANNEL');
-			})
-		},
 		enableDebug (val) {
 			if (val) {
 				localStorage.setItem('debug', true);
@@ -126,6 +93,9 @@ export default {
 		display: flex;
 		flex-direction: column;
 		flex: 1;
+		padding-top: 50px;
+		box-sizing: border-box;
+		background: #373d41;
 		.logo {
 			text-align: center;
 			margin: 30px;
@@ -134,7 +104,7 @@ export default {
 			// }
 		}
 		.el-menu {
-			background: #fff;
+			background: #373d41;
 			// &::-webkit-scrollbar {
 			// 	display: none;
 			// 	width: 10px;
@@ -158,63 +128,22 @@ export default {
 			.el-menu-item, .el-submenu__title {
 				height: 45px;
 				line-height: 45px;
+				color: #ccc;
 				// padding-left: 15px !important;
 			}
-			.el-menu-item:hover, .el-menu-item.is-active {
-				background: rgba(16, 144, 191, 0.20);
+			.el-submenu__title:hover, .el-menu-item:hover, .el-menu-item.is-active {
+				background: lighten(#373d41, 10%);
 			}
+
+
 			.el-menu-item.is-active {
-				border-right: 3px solid #1190BF;
-				color: #1190BF;
+				border-right: 3px solid #00C1DE;
+				color: #fff;
 			}
 		}
 		& > .el-menu {
 			overflow-y: auto;
 			flex: 1;
-		}
-	}
-
-	footer {
-		z-index: 1;
-		box-shadow: 0 -2px 5px 0 #eee;
-		height: 45px;
-		line-height: 45px;
-		text-align: center;
-		span {
-			width: 100%;
-			display: inline-block;
-			cursor: pointer;
-		}
-	}
-
-	.account-popper {
-		padding: 0;
-		margin-left: 10px;
-		display: flex;
-		flex-direction: column;
-		.account {
-			margin-bottom: 10px;
-			padding: 8px 10px;
-			background: #ebecf0;
-			p {
-				margin: 5px;
-			}
-		}
-		.meun {
-			margin-bottom: 10px;
-			 a {
-			 	box-sizing: border-box;
-			 	width: 100%;
-			 	display: inline-block;
-				padding-left: 10px;
-				height: 40px;
-				line-height: 40px;
-				color: #666;
-				&:hover {
-					background: rgba(16, 144, 191, 0.2) !important;
-    				color: #1190BF !important;
-				}
-			}
 		}
 	}
 </style>

@@ -1,5 +1,5 @@
 <template>
-	<div class="commoon-page">
+	<div>
 		<div class="breadcrumb">
 			<el-breadcrumb separator="/">
 				<el-breadcrumb-item
@@ -36,6 +36,17 @@
 
 <style scoped lang="less">
 	.breadcrumb {
-
+		padding: 15px 0;
+		padding-left: 30px;
+		background: #fff;
+		border-bottom: 1px solid #EBECF0;
+		// box-sizing: border-box;
+	}
+	.commoon-router-view {
+		flex: 1;
+		background: #fff;
+		// height: 100%;
+		// margin-bottom: 15px;
+		// box-sizing: border-box;
 	}
 </style>

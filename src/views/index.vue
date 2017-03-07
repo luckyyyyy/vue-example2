@@ -1,5 +1,5 @@
 <template>
-	<div class="fixed-page">
+	<div>
 		<div class="info-page">
 			<div class="head">
 				<span class="title">美女聊点</span>
@@ -131,9 +131,6 @@
 		font-size: 12px;
 		color: #108EE9;
 		letter-spacing: 0;
-	}
-	.fixed-page {
-		background: #fff;
 	}
 	.info-page {
 		color: #666;

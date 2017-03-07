@@ -2,7 +2,7 @@
 * @Author: William Chan
 * @Date:   2017-03-06 22:28:39
 * @Last Modified by:   William Chan
-* @Last Modified time: 2017-03-06 22:41:06
+* @Last Modified time: 2017-03-07 23:50:37
 */
 
 'use strict';
@@ -14,6 +14,7 @@ export default [
 		redirect: { name: 'account_overview' },
 		components: {
 			sidebar: resolve => require(['../components/sidebar.vue'], resolve),
+			topbar:  resolve => require(['../components/topbar.vue'], resolve),
 			main: resolve    => require(['../components/breadcrumb.vue'], resolve)
 		},
 		children: [

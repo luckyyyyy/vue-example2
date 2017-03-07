@@ -42,7 +42,7 @@ Vue.use(VueHighcharts, {
 });
 import cn_map from '../../options/cn-all.json'
 import translate_zn from '../../options/hignmap-map-zh.json'
-
+import store from '../../store'
 export default {
 		beforeRouteEnter (to, from, next) {
 			store.dispatch('LIVE_QUERY_REQUEST', { id: to.params.id }).then(res => {
