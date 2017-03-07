@@ -7,7 +7,10 @@
 		<div class="user">
 			<menu class="menu">
 				<img :src="user.avatar" class="avatar">
-				<span class="name">{{ user.nickName || user.phone }}</span>
+				<span class="name">
+					{{ user.nickName || user.phone }}
+					<i class="el-icon-caret-bottom"></i>
+				</span>
 				<div class="popper">
 					<div class="popper__account">
 						<p v-show="user.nickName">{{ user.nickName }}</p>
@@ -87,6 +90,7 @@
 				background: darken(#373d41, 10%);
 				.popper {
 					visibility: visible;
+					opacity: 1;
 				}
 			}
 			.avatar {
@@ -102,12 +106,14 @@
 			}
 			.popper {
 				visibility: hidden;
+				opacity: 0;
 				cursor: default;
 				position: absolute;
 				right: 0;
 				top: 50px;
 				background: darken(#373d41, 10%);;
 				width: 100%;
+				transition: visibility .3s, opacity .3s;
 				.popper__account {
 					text-align: center;
 				}

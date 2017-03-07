@@ -20,7 +20,6 @@
     "nprogress": "^0.2.0",
     "qrcodejs2": "0.0.2",
     "vue": "2.2.1",
-    "vue-clipboards": "^0.2.5",
     "vue-highcharts": "0.0.9",
     "vue-quill-editor": "^1.1.1",
     "vue-router": "2.3.0",

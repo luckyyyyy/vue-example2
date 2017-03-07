@@ -19,10 +19,10 @@
 		</div>
 		<div @scroll="onScroll" class="commoon-view">
 			<ul class="list" >
-				<li v-for="item in data" :key="data.id" class="item">
+				<li v-for="item in data" :key="item.id" class="item">
 					<div class="body">
 						<div class="btn">
-							<qrcodePopover :text="123">
+							<qrcodePopover :text="item.liveId">
 								<p slot="tips">微信扫一扫查看</p>
 								<em slot="reference">二维码</em>
 							</qrcodePopover>
@@ -100,12 +100,11 @@
 
 <script>
 	import { mapState } from 'vuex'
-	import Affix from '../../components/item/affix'
 	import qrcodePopover from '../../components/item/qrcodePopover'
 	import { LIVE_CREATE_RULES } from '../../options/rules'
 	export default {
 		components: {
-			Affix, qrcodePopover
+			qrcodePopover
 		},
 		data () {
 			return {

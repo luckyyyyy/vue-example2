@@ -14,7 +14,6 @@ import FastClick from 'fastclick'
 sync(store, router) // done.
 Vue.use(ElementUI); // 饿了么组件库 插件形式安装
 
-
 // create app
 new Vue({
 	router,

@@ -5,7 +5,7 @@
 			<div ref="qrcode" class="qr"></div>
 			<div class="clipboard">
 				<el-input :value="text" :disabled="true" size="small"></el-input>
-				<el-button @click="handleSuccess" size="small" v-clipboard="text">复制</el-button>
+				<el-button @error="handleError" @success="handleSuccess" size="small" v-clipboard="text">复制</el-button>
 			</div>
 		</div>
 		<template slot="reference"><slot name="reference"></slot></template>
@@ -14,20 +14,39 @@
 
 <script>
 	import qrcodejs from 'qrcodejs2'
-	import VueClipboards from 'vue-clipboards'
 	import Vue from 'vue'
-	Vue.use(VueClipboards);
-
+	import Clipboard from 'clipboard';
+	Vue.directive(
+		'clipboard',
+		{
+			bind(el, binding, vnode, oldVnode) {
+				const clipboard = new Clipboard(el, {
+					text: () => binding.value
+				});
+				clipboard.on('success', function(e) {
+					vnode.child.$emit('success', e);
+				});
+				clipboard.on('error', function(e) {
+					vnode.child.$emit('error', e);
+				});
+			}
+		}
+	);
 	export default {
 		props: {
-			text: '',
+			text: String,
 		},
 		methods: {
-			// bug VueClipboards 0.2.5
-			handleSuccess () {
+			handleSuccess (e) {
 				this.$message({
 					 message: '复制成功',
 					 type: 'success'
+				})
+			},
+			handleError (e) {
+				this.$message({
+					 message: '复制失败，您的浏览器不支持，请手动复制。',
+					 type: 'error'
 				})
 			},
 			onShow () {
