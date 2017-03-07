@@ -19,6 +19,10 @@
 						<p slot="tips">微信扫码观看直播</p>
 						<el-button slot="reference">观看地址</el-button>
 					</qrcodePopover>
+					<qrcodePopover :text="live.liveStream.playOriginM3uUrl">
+						<p slot="tips">微信扫码观看直播</p>
+						<el-button slot="reference">m3u8</el-button>
+					</qrcodePopover>
 				<!-- </div> -->
 				<!-- <div class="line"> -->
 					<el-button type="primary" @click="notice_dialog_visible = true">发布公告</el-button>
@@ -197,7 +201,8 @@
 			})
 		},
 		mounted () {
-			const source = window.navigator.userAgent.indexOf('iPad') > -1 ?
+			const source =
+				window.navigator.userAgent.indexOf('iPad') > -1 ?
 				this.live.liveStream.playOriginM3uUrl :
 				this.live.liveStream.playOriginFlvUrl;
 			this.player = new prismplayer({
@@ -210,6 +215,11 @@
 				width    : '100%',
 				skinLayout: []
 			});
+			if (process.env.NODE_ENV !== 'production') {
+				this.player.on('play', () => {
+					this.$message(`DEBUG: 播放视频${source}`)
+				})
+			}
 			this.player.on('liveStreamStop', () => {
 				console.log(123);
 			})
