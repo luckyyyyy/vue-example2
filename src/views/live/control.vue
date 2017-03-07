@@ -165,11 +165,12 @@
 	import '../../assets/prism/prism-min.js'
 	import store from '../../store'
 	import { mapState } from 'vuex'
+	import { NIM, Chatroom } from '../../assets/NIM_Web_SDK/js/NIM_Web_SDK_v3.4.0.js'
 	export default {
 		components: {
 			qrcodePopover
 		},
-		data() {
+		data () {
 			return {
 				player: {},
 				select: this.$route.name,
@@ -201,6 +202,7 @@
 			})
 		},
 		mounted () {
+			// console.log(NIM.support.db)
 			const source =
 				window.navigator.userAgent.indexOf('iPad') > -1 ?
 				this.live.liveStream.playOriginM3uUrl :
