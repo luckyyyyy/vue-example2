@@ -200,7 +200,6 @@
 	}
 	.view {
 		display: flex;
-		width: 100%;
 		.right {
 			margin-left: 30px;
 			.iPhone-view {

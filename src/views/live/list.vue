@@ -1,26 +1,24 @@
 <template>
-	<div class="commoon-menu-view">
-		<Affix>
-			<div class="commoon-menu">
-				<div class="box">
-					<el-radio-group v-model="status" @change="onStatusChange">
-						<div class="title">
-							<i class="iconfont icon-video"></i>直播状态
-						</div>
-						<el-radio-button :label="0">未发布</el-radio-button>
-						<el-radio-button :label="1">发布中</el-radio-button>
-						<el-radio-button :label="2">已结束</el-radio-button>
-						<div class="line"></div>
-						<el-radio-button :label="3">回收站</el-radio-button>
-					</el-radio-group>
-					<div class="button">
-    					<el-button @click="openCreateDialog" type="primary">新建直播</el-button>
+	<div class="commoon-menu-view" v-loading.lock="loading" element-loading-text="拼命加载中">
+		<div class="commoon-menu">
+			<div class="box">
+				<el-radio-group v-model="status" @change="onStatusChange">
+					<div class="title">
+						<i class="iconfont icon-video"></i>直播状态
 					</div>
+					<el-radio-button :label="0">未发布</el-radio-button>
+					<el-radio-button :label="1">发布中</el-radio-button>
+					<el-radio-button :label="2">已结束</el-radio-button>
+					<div class="line"></div>
+					<el-radio-button :label="3">回收站</el-radio-button>
+				</el-radio-group>
+				<div class="button">
+    				<el-button @click="openCreateDialog" type="primary">新建直播</el-button>
 				</div>
 			</div>
-		</Affix>
-		<div class="commoon-view" v-loading="loading" element-loading-text="拼命加载中">
-			<ul class="list" @scroll="onScroll">
+		</div>
+		<div @scroll="onScroll" class="commoon-view">
+			<ul class="list" >
 				<li v-for="item in data" :key="data.id" class="item">
 					<div class="body">
 						<div class="btn">
@@ -67,7 +65,7 @@
 					</div>
 				</li>
 			</ul>
-			<div class="tips">
+			<div class="tips" >
 				{{ loading ? '正在获取列表' : lock_find ? '所有直播加载完毕' : '下拉可刷新' }}
 			</div>
 		</div>
@@ -182,141 +180,136 @@
 
 
 <style lang="less" scoped>
-	.commoon-view {
-		width: 100%;
-		display: flex;
-		flex-direction: column;
-		margin: 0;
-		.tips {
-			text-align: center;
-			padding: 10px;
-			color: green;
+	.tips {
+		text-align: center;
+		padding: 10px;
+		color: green;
+	}
+	.load {
+		position: relative;
+		height: 100%;
+		left: 0;
+		top: 0;
+	}
+	.list {
+		overflow: auto;
+		.item:nth-child(1) {
+			.body {
+				background-image: linear-gradient(241deg, #1190bf, #e85471);
+			}
 		}
-		.list {
-			// display: flex;
-			// flex-wrap: wrap;
-			height: 0;
-			overflow: auto;
-			flex: 1;
-			margin-top: 25px;
-			.item:nth-child(1) {
-				.body {
-					background-image: linear-gradient(241deg, #1190bf, #e85471);
+		> .item {
+			width: 240px;
+			height: 207px;
+			border-radius: 5px;
+			margin-right: 25px;
+			margin-bottom: 25px;
+			margin-top: 0;
+			box-shadow: 0 1px 7px 0 rgba(0,43,59,0.20);
+			display: inline-block;
+			.create {
+				display: inline-block;
+			}
+			&:hover {
+				box-shadow: 0 1px 20px 0 rgba(0,43,59,0.20);
+			}
+			.body {
+				height: 135px;
+				box-sizing: border-box;
+				border-radius: 5px 5px 0 0;
+				background: #1190BF;
+				padding: 10px 5px;
+				display: flex;
+				flex-direction: column;
+				justify-content: space-between;
+				color: white;
+				position: relative;
+				z-index: 1;
+				&.first {
+					background-image: linear-gradient(-225deg, #1190BF 0%, #E85471 100%);
+				}
+				&:after {
+					content: "";
+					display: block;
+					position: absolute;
+					left: 0;
+					bottom: 0;
+					width: 100%;
+					height: 32px;
+					z-index: -1;
+					background-image: linear-gradient(-180deg, rgba(0,0,0,0.00) 0%, rgba(0,0,0,0.35) 100%);
+				}
+				.btn {
+					text-align: right;
+					em {
+						cursor: pointer;
+						font-style: normal;
+						margin-left: 10px;
+						padding: 5px 10px;
+						font-size: 12px;
+						background: rgba(0, 0, 0, .3);
+						border-radius: 100px;
+						position: relative;
+						z-index: 9999;
+					}
+				}
+				.title {
+					line-height: 14px;
+					align-self: center;
+					span {
+						display: inline-block;
+						width: 150px;
+						overflow: hidden;
+						text-overflow: ellipsis;
+						white-space: nowrap;
+						vertical-align: middle;
+						text-align: center;
+					}
 				}
 			}
-			> .item {
-				width: 240px;
-				height: 207px;
-				border-radius: 5px;
-				margin-left: 25px;
-				margin-bottom: 25px;
-				margin-top: 0;
-				box-shadow: 0 1px 7px 0 rgba(0,43,59,0.20);
-				display: inline-block;
-				.create {
-					display: inline-block;
+			.buttom {
+				height: 72px;
+				border-radius: 0 0 5px 5px;
+				background: #F7F8FA;
+				display: flex;
+				flex-direction: column;
+				.time {
+					align-self: center;
+					margin: 10px;
+					font-size: 12px;
+					color: #999999;
 				}
-				&:hover {
-					box-shadow: 0 1px 20px 0 rgba(0,43,59,0.20);
-				}
-				.body {
-					height: 135px;
-					box-sizing: border-box;
-					border-radius: 5px 5px 0 0;
-					background: #1190BF;
-					padding: 10px 5px;
+				.button {
 					display: flex;
-					flex-direction: column;
-					justify-content: space-between;
-					color: white;
-					position: relative;
-					z-index: 1;
-					&.first {
-						background-image: linear-gradient(-225deg, #1190BF 0%, #E85471 100%);
-					}
-					&:after {
-						content: "";
-						display: block;
-						position: absolute;
-						left: 0;
-						bottom: 0;
-						width: 100%;
-						height: 32px;
-						z-index: -1;
-						background-image: linear-gradient(-180deg, rgba(0,0,0,0.00) 0%, rgba(0,0,0,0.35) 100%);
-					}
-					.btn {
-						text-align: right;
-						em {
-							cursor: pointer;
-							font-style: normal;
-							margin-left: 10px;
-							padding: 5px 10px;
-							font-size: 12px;
-							background: rgba(0, 0, 0, .3);
-							border-radius: 100px;
-							position: relative;
-							z-index: 9999;
-						}
-					}
-					.title {
-						line-height: 14px;
-						align-self: center;
-						span {
-							display: inline-block;
-							width: 150px;
-							overflow: hidden;
-							text-overflow: ellipsis;
-							white-space: nowrap;
-							vertical-align: middle;
-							text-align: center;
-						}
-					}
-				}
-				.buttom {
-					height: 72px;
-					border-radius: 0 0 5px 5px;
-					background: #F7F8FA;
-					display: flex;
-					flex-direction: column;
-					.time {
-						align-self: center;
-						margin: 10px;
-						font-size: 12px;
-						color: #999999;
-					}
-					.button {
+					justify-content: space-around;
+					margin-bottom: 8px;
+					a {
+						border-right: 1px solid #EBECF0;
+						flex: 1;
+						cursor: pointer;
 						display: flex;
-						justify-content: space-around;
-						margin-bottom: 8px;
-						a {
-							border-right: 1px solid #EBECF0;
-							flex: 1;
-							cursor: pointer;
-							display: flex;
-							justify-content: center;
-							align-items: center;
-							&:last-child {
-								border: none;
-							}
+						justify-content: center;
+						align-items: center;
+						&:last-child {
+							border: none;
+						}
+						span {
+							display: none;
+							font-size: 12px;
+						}
+						i {
+							vertical-align: middle;
+							font-size: 24px;
+							color: #999;
+							margin-bottom: 5px;
+						}
+						&:hover {
 							span {
-								display: none;
-								font-size: 12px;
+								display: inline-block;
+								color: #1190BF;
 							}
 							i {
-								vertical-align: middle;
-								font-size: 24px;
-								color: #999;
-								margin-bottom: 5px;
-							}
-							&:hover {
-								span {
-									display: inline-block;
-									color: #1190BF;
-								}
-								i {
-									display: none;
-								}
+								display: none;
 							}
 						}
 					}

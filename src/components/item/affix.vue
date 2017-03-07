@@ -8,7 +8,7 @@
 
 <script>
 	const prefixCls = 'r-affix';
-
+	const fixedTop = 50;
 	function getScroll(target, top) {
 		const prop = top ? 'pageYOffset' : 'pageXOffset';
 		const method = top ? 'scrollTop' : 'scrollLeft';
@@ -88,7 +88,7 @@
 				const elHeight = this.$el.getElementsByTagName('div')[0].offsetHeight;
 
 				// Fixed Top
-				if ((elOffset.top - this.offsetTop) < scrollTop && this.offsetType == 'top' && !affix) {
+				if ((elOffset.top - this.offsetTop) < scrollTop + fixedTop && this.offsetType == 'top' && !affix) {
 					this.affix = true;
 					this.styles = {
 						top: `${this.offsetTop}px`,
@@ -97,7 +97,7 @@
 					};
 
 					this.$emit('on-change', true);
-				} else if ((elOffset.top - this.offsetTop) > scrollTop && this.offsetType == 'top' && affix) {
+				} else if ((elOffset.top - this.offsetTop) > scrollTop + fixedTop && this.offsetType == 'top' && affix) {
 					this.affix = false;
 					this.styles = null;
 

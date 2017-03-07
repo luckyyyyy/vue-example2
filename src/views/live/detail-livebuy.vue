@@ -153,8 +153,8 @@
 			position: fixed;
 			bottom: 0;
 			width: auto;
-			left: 150px;
-			right: 15px;
+			left: 270px; //待定
+			right: 0;
 			background: #dbeef5;
 			padding: 10px 0;
 			text-align: center;
@@ -200,7 +200,6 @@
 	}
 	.view {
 		display: flex;
-		width: 100%;
 		.right {
 			margin-left: 30px;
 			.iPhone-view {

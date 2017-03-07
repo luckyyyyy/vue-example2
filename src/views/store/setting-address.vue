@@ -1,5 +1,5 @@
 <template>
-    <div class="container">
+    <div>
         <el-button type="primary" @click="creat_dialog_visible = true">新建地址库</el-button>
         <el-table :data="addresses" style="width: 100%">
             <el-table-column label="联系人">
@@ -146,17 +146,12 @@ export default {
 
             },
             handleDelete() {
-                
+
             }
         }
 }
 </script>
 <style scoped lang='less'>
-.container {
-    /*padding: 10px;*/
-    width: 100%;
-}
-
 .el-table {
     margin-top: 20px;
 }

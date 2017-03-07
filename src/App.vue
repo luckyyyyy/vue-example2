@@ -74,21 +74,18 @@ export default {
 		height: 100%;
 	}
 	.main {
-		height: 100%;
-		position: relative;
+		z-index: 99;
 		.router-view {
-			padding-top: 50px;
 			box-sizing: border-box;
 			display: flex;
 			flex-direction: column;
-			right: 0;
-			top: 0;
-			width: 100%;
 			padding-left: 135px;
-			position: absolute;
-			min-height: 100%;
-			height: auto;
 			box-sizing: border-box;
+		    position: absolute;
+		    width: 100%;
+		    top: 50px;
+		    bottom: 0px;
+		    background-color: #000;
 		}
 	}
 	@color-red: #C1272D;

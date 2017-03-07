@@ -1,16 +1,14 @@
 <template>
 	<div class="commoon-menu-view">
-		<Affix>
-			<div class="commoon-menu">
-				<div class="box">
-					<el-radio-group v-model="select">
-						<el-radio-button label="a">出售中</el-radio-button>
-						<el-radio-button label="已售罄"></el-radio-button>
-						<el-radio-button label="仓库中"></el-radio-button>
-					</el-radio-group>
-				</div>
+		<div class="commoon-menu">
+			<div class="box">
+				<el-radio-group v-model="select">
+					<el-radio-button label="a">出售中</el-radio-button>
+					<el-radio-button label="已售罄"></el-radio-button>
+					<el-radio-button label="仓库中"></el-radio-button>
+				</el-radio-group>
 			</div>
-		</Affix>
+		</div>
 		<div class="commoon-view">
 			<div class="button">
 				<div class="left">
@@ -67,35 +65,75 @@
 		data () {
 			return {
 				select: 'a',
-        tableData3: [{
-          date: '2016-05-03',
-          name: '王小虎',
-          address: '上海市普陀区金沙江路 1518 弄'
-        }, {
-          date: '2016-05-02',
-          name: '王小虎',
-          address: '上海市普陀区金沙江路 1518 弄'
-        }, {
-          date: '2016-05-04',
-          name: '王小虎',
-          address: '上海市普陀区金沙江路 1518 弄'
-        }, {
-          date: '2016-05-01',
-          name: '王小虎',
-          address: '上海市普陀区金沙江路 1518 弄'
-        }, {
-          date: '2016-05-08',
-          name: '王小虎',
-          address: '上海市普陀区金沙江路 1518 弄'
-        }, {
-          date: '2016-05-06',
-          name: '王小虎',
-          address: '上海市普陀区金沙江路 1518 弄'
-        }, {
-          date: '2016-05-07',
-          name: '王小虎',
-          address: '上海市普陀区金沙江路 1518 弄'
-        }],
+		        tableData3: [{
+		          date: '2016-05-03',
+		          name: '王小虎',
+		          address: '上海市普陀区金沙江路 1518 弄'
+		        }, {
+		          date: '2016-05-02',
+		          name: '王小虎',
+		          address: '上海市普陀区金沙江路 1518 弄'
+		        }, {
+		          date: '2016-05-04',
+		          name: '王小虎',
+		          address: '上海市普陀区金沙江路 1518 弄'
+		        }, {
+		          date: '2016-05-01',
+		          name: '王小虎',
+		          address: '上海市普陀区金沙江路 1518 弄'
+		        }, {
+		          date: '2016-05-08',
+		          name: '王小虎',
+		          address: '上海市普陀区金沙江路 1518 弄'
+		        }, {
+		          date: '2016-05-06',
+		          name: '王小虎',
+		          address: '上海市普陀区金沙江路 1518 弄'
+		        }, {
+		          date: '2016-05-02',
+		          name: '王小虎',
+		          address: '上海市普陀区金沙江路 1518 弄'
+		        }, {
+		          date: '2016-05-04',
+		          name: '王小虎',
+		          address: '上海市普陀区金沙江路 1518 弄'
+		        }, {
+		          date: '2016-05-01',
+		          name: '王小虎',
+		          address: '上海市普陀区金沙江路 1518 弄'
+		        }, {
+		          date: '2016-05-08',
+		          name: '王小虎',
+		          address: '上海市普陀区金沙江路 1518 弄'
+		        }, {
+		          date: '2016-05-06',
+		          name: '王小虎',
+		          address: '上海市普陀区金沙江路 1518 弄'
+		        }, {
+		          date: '2016-05-02',
+		          name: '王小虎',
+		          address: '上海市普陀区金沙江路 1518 弄'
+		        }, {
+		          date: '2016-05-04',
+		          name: '王小虎',
+		          address: '上海市普陀区金沙江路 1518 弄'
+		        }, {
+		          date: '2016-05-01',
+		          name: '王小虎',
+		          address: '上海市普陀区金沙江路 1518 弄'
+		        }, {
+		          date: '2016-05-08',
+		          name: '王小虎',
+		          address: '上海市普陀区金沙江路 1518 弄'
+		        }, {
+		          date: '2016-05-06',
+		          name: '王小虎',
+		          address: '上海市普陀区金沙江路 1518 弄'
+		        }, {
+		          date: '2016-05-07',
+		          name: '王小虎',
+		          address: '上海市普陀区金沙江路 1518 弄'
+		        }],
 			}
 		},
 		methods: {
@@ -109,7 +147,6 @@
 
 <style scoped lang="less">
 	.commoon-view {
-		width: 100%;
 		.button {
 			margin: 10px 0;
 			justify-content: space-between;

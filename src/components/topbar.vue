@@ -2,7 +2,7 @@
 	<div class="topbar">
 		<div class="logo">
 			<img src="../assets/logo2.png" height="28" width="39">
-			<span>彩虹云直播</span>
+			<span>彩虹云直播商户后台 Build 20170308</span>
 		</div>
 		<div class="user">
 			<menu class="menu">

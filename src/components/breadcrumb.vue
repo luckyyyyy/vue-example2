@@ -38,7 +38,7 @@
 	.breadcrumb {
 		padding: 15px 0;
 		padding-left: 30px;
-		background: #fff;
+		background: #eaedf1;
 		border-bottom: 1px solid #EBECF0;
 		// box-sizing: border-box;
 	}
