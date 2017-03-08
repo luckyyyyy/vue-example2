@@ -2,7 +2,7 @@
 * @Author: William Chan
 * @Date:   2017-03-09 00:34:27
 * @Last Modified by:   William Chan
-* @Last Modified time: 2017-03-09 04:41:22
+* @Last Modified time: 2017-03-09 05:26:47
 */
 // TODO 性能研究 这里是个坑 concat和push
 'use strict';
@@ -89,8 +89,10 @@ const actions = {
 
 const mutations = {
 	[CHATROOM_INIT.REQUEST] (state) {
-		state.init = false
-		state.lock = false;
+		state.init    = false
+		state.lock    = false;
+		state.data    = [];
+		state.history = [];
 	},
 	[CHATROOM_INIT.SUCCESS] (state, nim) {
 		state.init = true;

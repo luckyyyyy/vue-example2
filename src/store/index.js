@@ -2,7 +2,7 @@
 * @Author: William Chan
 * @Date:   2016-12-03 19:24:59
 * @Last Modified by:   William Chan
-* @Last Modified time: 2017-03-09 00:50:01
+* @Last Modified time: 2017-03-09 05:24:10
 */
 
 'use strict';
@@ -42,7 +42,7 @@ const modules = {
 	multimedia_find,
 	live_create, live_find, live_query,
 	weixin_auth_url,
-	im, chatroom
+	// im, chatroom
 }
 
 // globle and common
@@ -55,8 +55,7 @@ const state = {
 	user: {},
 	token: null,
 }
-
-export default new Vuex.Store({
+const store = new Vuex.Store({
 	strict: process.env.NODE_ENV !== 'production',
 	state,
 	getters,
@@ -64,3 +63,9 @@ export default new Vuex.Store({
 	mutations,
 	modules
 })
+
+
+export default store
+
+
+

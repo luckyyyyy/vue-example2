@@ -14,7 +14,7 @@
 				</template>
 			</template>
 		</p>
-		<p v-show="history" class="history"></p>
+		<p v-show="history && data.length" class="history"></p>
 	</div>
 </template>
 <script>

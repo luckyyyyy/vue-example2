@@ -20,6 +20,10 @@
 <script>
 	import { mapState } from 'vuex'
 	import chatroomList from './item/chatroomList'
+	import store from '../../store/'
+	import chatroom from '../../store/modules/netease/chatroom'
+	store.registerModule('chatroom', chatroom);
+
 	export default {
 		components: {
 			chatroomList
