@@ -24,9 +24,6 @@
 
 	import { mapState } from 'vuex';
 	import { RESET_PASSWORD_RULES } from '../../options/rules'
-	import reset_password from '../../store/modules/user/reset_password'
-	import store from '../../store'
-	store.registerModule('reset_password', reset_password);
 	export default {
 		data () {
 			return {

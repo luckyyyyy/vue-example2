@@ -49,9 +49,6 @@
 	import { USER_AVATAR } from '../../store/api'
 	import upload from '../../components/item/upload'
 	import { PROFILE_UPDATE_RULES } from '../../options/rules'
-	import update_user from '../../store/modules/user/update_user'
-	import store from '../../store'
-	store.registerModule('update_user', update_user);
 
 	export default {
 		components: {

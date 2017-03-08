@@ -18,43 +18,30 @@
 				</div>
 			</div>
 		</div>
-<!-- 		<div class="developer" @click="hideDeveloper" v-show="!hide">
-			<p>build: 20170306</p>
-			<ol>
-				<li>增加了直播创建和列表逻辑</li>
-				<li>测试直播支持ipad和mac/PC</li>
-			</ol>
-		</div> -->
 	</div>
 </template>
 <script>
-
-export default {
-	computed: {
-		lock () {
-			return
-			this.$store.state.logout.lock ||
-			this.$store.state.channel_query.lock
+	import store from './store'
+	import logout from './store/modules/user/logout'
+	import channel_query from './store/modules/channel/query'
+	store.registerModule('channel_query', channel_query);
+	store.registerModule('logout', logout);
+	export default {
+		computed: {
+			lock () {
+				return
+					this.$store.state.logout.lock ||
+					this.$store.state.channel_query.lock
+			},
+			token () {
+				return this.$store.state.token;
+			},
 		},
-		token () {
-			return this.$store.state.token;
+		beforeCreate () {
+			this.$store.dispatch('LOGIN_CHECK');
+			this.$store.dispatch('SELECT_CHANNEL');
 		},
-	},
-	data () {
-		return {
-			hide: false
-		}
-	},
-	beforeCreate () {
-		this.$store.dispatch('LOGIN_CHECK');
-		this.$store.dispatch('SELECT_CHANNEL');
-	},
-	methods: {
-		hideDeveloper () {
-			this.hide = true;
-		}
 	}
-}
 </script>
 
 <style lang="less">

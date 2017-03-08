@@ -2,23 +2,13 @@
 * @Author: William Chan
 * @Date:   2016-12-03 19:24:59
 * @Last Modified by:   William Chan
-* @Last Modified time: 2017-03-09 05:45:22
+* @Last Modified time: 2017-03-09 06:30:02
 */
 
 'use strict';
 import Vue from 'vue'
 import Vuex from 'vuex'
 Vue.use(Vuex)
-
-import logout from './modules/user/logout'
-import channel_query from './modules/channel/query'
-import live_query from './modules/live/query'
-
-const modules = {
-	logout,
-	channel_query,
-	live_query,
-}
 
 // globle and common
 import * as getters   from './getters'
@@ -35,8 +25,7 @@ const store = new Vuex.Store({
 	state,
 	getters,
 	actions,
-	mutations,
-	modules
+	mutations
 })
 
 export default store

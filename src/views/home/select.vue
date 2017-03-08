@@ -51,11 +51,6 @@
 </template>
 <script>
 	import { mapState } from 'vuex';
-	import channel_find from '../../store/modules/channel/find'
-	import channel_delete from '../../store/modules/channel/delete'
-	import store from '../../store'
-	store.registerModule('channel_find', channel_find);
-	store.registerModule('channel_delete', channel_delete);
 	export default {
 		data () {
 			return {

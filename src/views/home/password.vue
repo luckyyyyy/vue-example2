@@ -22,10 +22,6 @@
 <script>
 	import { mapState } from 'vuex';
 	import { UPDATE_PASSWORD_RULES } from '../../options/rules'
-	import password from '../../store/modules/user/password'
-	import store from '../../store'
-	store.registerModule('password', password);
-
 
 	export default {
 		data () {

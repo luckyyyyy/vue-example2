@@ -23,9 +23,6 @@
 
 	import { mapState } from 'vuex';
 	import { LOGIN_RULES } from '../../options/rules'
-	import login from '../../store/modules/user/login'
-	import store from '../../store'
-	store.registerModule('login', login);
 	export default {
 		data () {
 			return {

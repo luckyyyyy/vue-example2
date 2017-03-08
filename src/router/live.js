@@ -2,10 +2,11 @@
 * @Author: William Chan
 * @Date:   2017-03-06 22:29:46
 * @Last Modified by:   William Chan
-* @Last Modified time: 2017-03-08 15:36:34
+* @Last Modified time: 2017-03-09 06:26:17
 */
 
 'use strict';
+import store from '../store'
 
 export default [
 	{
@@ -15,7 +16,16 @@ export default [
 		components: {
 			sidebar: resolve => require(['../components/sidebar.vue'], resolve),
 			topbar:  resolve => require(['../components/topbar.vue'], resolve),
-			main: resolve    => require(['../components/main.vue'], resolve)
+			main:    resolve => require([
+				'../components/main.vue',
+				'../store/modules/live/query',
+			], (
+				MainComponent,
+				LiveQueryModule
+			) => {
+				store.registerModule('live_query', LiveQueryModule.default);
+				resolve(MainComponent)
+			})
 		},
 		children: [
 			{
@@ -24,7 +34,19 @@ export default [
 				meta: { requiresAuth: true, breadcrumb: [
 					{ route: 'live_list', name: '直播列表' }
 				] },
-				component: resolve => require(['../views/live/list.vue'], resolve)
+				component: resolve => require([
+					'../views/live/list.vue',
+					'../store/modules/live/find',
+					'../store/modules/live/create',
+				], (
+					LiveListComponent,
+					LiveFindModule,
+					LiveCreateModule
+				) => {
+					store.registerModule('live_find', LiveFindModule.default);
+					store.registerModule('live_create', LiveCreateModule.default);
+					resolve(LiveListComponent);
+				})
 			},
 			{
 				name: 'live_template',
@@ -40,8 +62,18 @@ export default [
 					{ route: 'live_detail', name: '直播装修' },
 					{ name: '中控台' },
 				] },
-				component: resolve => require(['../views/live/control.vue'], resolve)
+				component: resolve => require([
+					'../views/live/control.vue',
+					'../store/modules/netease/chatroom'
+				], (
+					LiveControlComponent,
+					ChatroomModule
+				) => {
+					store.registerModule('chatroom', ChatroomModule.default);
+					resolve(LiveControlComponent);
+				})
 			},
+
 			{
 				name: 'live_data',
 				path: 'data/:id',

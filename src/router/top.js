@@ -2,10 +2,12 @@
 * @Author: William Chan
 * @Date:   2017-03-06 22:25:04
 * @Last Modified by:   William Chan
-* @Last Modified time: 2017-03-08 15:39:39
+* @Last Modified time: 2017-03-09 06:08:21
 */
 
 'use strict';
+
+import store from '../store'
 
 export default [
 	{
@@ -22,14 +24,32 @@ export default [
 		path: '/login',
 		name: 'login',
 		components: {
-			first: resolve => require(['../views/user/login.vue'], resolve)
+			first: resolve => require([
+				'../views/user/login.vue',
+				'../store/modules/user/login'
+			], (
+				LoginComponent,
+				LoginModule,
+			) => {
+				store.registerModule('login', LoginModule.default);
+				resolve(LoginComponent);
+			})
 		}
 	},
 	{
 		path: '/register',
 		name: 'register',
 		components: {
-			first: resolve => require(['../views/user/register.vue'], resolve)
+			first: resolve => require([
+				'../views/user/register.vue',
+				'../store/modules/user/register'
+			], (
+				RegisterComponent,
+				RegisterModule,
+			) => {
+				store.registerModule('register', RegisterModule.default);
+				resolve(RegisterComponent);
+			})
 		},
 	},
 	{
@@ -43,7 +63,18 @@ export default [
 		path: '/resetpwd',
 		name: 'resetpwd',
 		components: {
-			first: resolve => require(['../views/user/reset_password.vue'], resolve)
+			first: resolve => require([
+				'../views/user/reset_password.vue',
+				'../store/modules/user/reset_password'
+			], (
+				ResetPasswordComponent,
+				ResetPasswordModule,
+			) => {
+				store.registerModule('reset_password', ResetPasswordModule.default);
+				resolve(ResetPasswordComponent);
+			})
+
+
 		}
 	},
 	{

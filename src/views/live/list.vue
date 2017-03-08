@@ -105,10 +105,6 @@
 	import live_create from '../../store/modules/live/create'
 	import live_find from '../../store/modules/live/find'
 
-	import store from '../../store'
-	store.registerModule('live_create', live_create);
-	store.registerModule('live_find', live_find);
-
 	export default {
 		components: {
 			qrcodePopover

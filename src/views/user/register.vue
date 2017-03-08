@@ -30,9 +30,6 @@
 <script>
 	import { mapState } from 'vuex';
 	import { REGISTER_RULES } from '../../options/rules'
-	import register from '../../store/modules/user/register'
-	import store from '../../store'
-	store.registerModule('register', register);
 	export default {
 		data () {
 			return {

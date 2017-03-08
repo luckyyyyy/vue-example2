@@ -73,13 +73,6 @@
 	import { mapState, mapGetters } from 'vuex';
 	import area from '../../options/area.json'
 	import { CHANNEL_CREATE_RULES } from '../../options/rules'
-	import channel_create from '../../store/modules/channel/create'
-	import weixin_auth_url from '../../store/modules/weixin/auth_url'
-	import catalogs from '../../store/modules/commodity/catalogs'
-	import store from '../../store'
-	store.registerModule('channel_create', channel_create);
-	store.registerModule('weixin_auth_url', weixin_auth_url);
-	store.registerModule('catalogs', catalogs);
 
 	export default {
 		data () {
