@@ -21,32 +21,35 @@
 
 <script>
 
-import { mapState } from 'vuex';
-import { LOGIN_RULES } from '../../options/rules'
-export default {
-	data () {
-		return {
-			login: {},
-			rules: LOGIN_RULES
-		}
-	},
-	computed: {
-		...mapState({
-			lock: state => state.login.lock
-		})
-	},
-	methods: {
-		submit_login () {
-			this.$refs.login.validate((valid) => {
-				if (valid) {
-					this.$store.dispatch('LOGIN_REQUEST', this.login)
-				} else {
-					return false;
-				}
-			});
+	import { mapState } from 'vuex';
+	import { LOGIN_RULES } from '../../options/rules'
+	import login from '../../store/modules/user/login'
+	import store from '../../store'
+	store.registerModule('login', login);
+	export default {
+		data () {
+			return {
+				login: {},
+				rules: LOGIN_RULES
+			}
+		},
+		computed: {
+			...mapState({
+				lock: state => state.login.lock
+			})
+		},
+		methods: {
+			submit_login () {
+				this.$refs.login.validate((valid) => {
+					if (valid) {
+						this.$store.dispatch('LOGIN_REQUEST', this.login)
+					} else {
+						return false;
+					}
+				});
+			}
 		}
 	}
-}
 </script>
 
 

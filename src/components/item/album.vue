@@ -49,6 +49,10 @@
 	import { mapState } from 'vuex';
 	import upload from './upload'
 	import { MULTIMEDIA_UPLOAD } from '../../store/api'
+	import multimedia_find from '../../store/modules/multimedia/find'
+	import store from '../../store'
+	store.registerModule('multimedia_find', multimedia_find);
+
 	export default {
 		components: {
 			upload

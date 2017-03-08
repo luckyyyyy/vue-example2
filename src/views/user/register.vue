@@ -28,63 +28,65 @@
 	</div>
 </template>
 <script>
-import { mapState } from 'vuex';
-import { REGISTER_RULES } from '../../options/rules'
-
-export default {
-	data () {
-		return {
-			register: {},
-			rules: REGISTER_RULES
-		}
-	},
-	computed: {
-		...mapState({
-			interval:  state => state.register.interval,
-			countdown: state => state.register.countdown,
-			lock:      state => state.register.lock,
-		})
-	},
-	// 13028914409
-	methods: {
-		register_captcha () {
-			this.$refs.register.validateField('phone', errors => {
-				if (!errors) {
-					const phone = this.register.phone;
-					this.$store.dispatch('REGISTER_CAPTCHA_REQUEST', { phone }).catch(err =>{
-						if (err.data) {
-							if (err.data.retCode == -197) {
-								this.$confirm('该用户已注册，是否立即登录？', '提示', {
-									confirmButtonText: '登录',
-									cancelButtonText: '取消',
-									type: 'warning'
-								}).then(() => {
-									this.$router.push({ name: 'login' })
-								})
-							} else {
-								this.$alert(err.data.retMsg, '错误', {
-									type: 'error'
-								})
-							}
-						}
-					});
-				} else {
-					return false;
-				}
-			});
+	import { mapState } from 'vuex';
+	import { REGISTER_RULES } from '../../options/rules'
+	import register from '../../store/modules/user/register'
+	import store from '../../store'
+	store.registerModule('register', register);
+	export default {
+		data () {
+			return {
+				register: {},
+				rules: REGISTER_RULES
+			}
 		},
-		submit_register () {
-			this.$refs.register.validate(valid => {
-				if (valid) {
-					this.$store.dispatch('REGISTER_REQUEST', this.register).then(() => {
-						this.$router.push({ name: 'register_seccuss' });
-					})
-				} else {
-					return false;
-				}
+		computed: {
+			...mapState({
+				interval:  state => state.register.interval,
+				countdown: state => state.register.countdown,
+				lock:      state => state.register.lock,
 			})
 		},
+		// 13028914409
+		methods: {
+			register_captcha () {
+				this.$refs.register.validateField('phone', errors => {
+					if (!errors) {
+						const phone = this.register.phone;
+						this.$store.dispatch('REGISTER_CAPTCHA_REQUEST', { phone }).catch(err =>{
+							if (err.data) {
+								if (err.data.retCode == -197) {
+									this.$confirm('该用户已注册，是否立即登录？', '提示', {
+										confirmButtonText: '登录',
+										cancelButtonText: '取消',
+										type: 'warning'
+									}).then(() => {
+										this.$router.push({ name: 'login' })
+									})
+								} else {
+									this.$alert(err.data.retMsg, '错误', {
+										type: 'error'
+									})
+								}
+							}
+						});
+					} else {
+						return false;
+					}
+				});
+			},
+			submit_register () {
+				this.$refs.register.validate(valid => {
+					if (valid) {
+						this.$store.dispatch('REGISTER_REQUEST', this.register).then(() => {
+							this.$router.push({ name: 'register_seccuss' });
+						})
+					} else {
+						return false;
+					}
+				})
+			},
+		}
 	}
-}
 </script>
 

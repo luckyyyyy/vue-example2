@@ -22,56 +22,58 @@
 
 <script>
 
-import { mapState } from 'vuex';
-import { RESET_PASSWORD_RULES } from '../../options/rules'
-
-export default {
-	data () {
-		return {
-			reset_password: {},
-			rules: RESET_PASSWORD_RULES
-		}
-	},
-	computed: {
-		...mapState({
-			interval:  state => state.reset_password.interval,
-			countdown: state => state.reset_password.countdown,
-			lock:      state => state.reset_password.lock,
-		})
-	},
-
-
-	methods: {
-		reset_password_captcha () {
-			this.$refs.reset_password.validateField('phone', errors => {
-				if (!errors) {
-					const phone = this.reset_password.phone;
-					this.$store.dispatch('RESETPWD_CAPTCHA_REQUEST', { phone })
-				} else {
-					return false;
-				}
-			});
+	import { mapState } from 'vuex';
+	import { RESET_PASSWORD_RULES } from '../../options/rules'
+	import reset_password from '../../store/modules/user/reset_password'
+	import store from '../../store'
+	store.registerModule('reset_password', reset_password);
+	export default {
+		data () {
+			return {
+				reset_password: {},
+				rules: RESET_PASSWORD_RULES
+			}
 		},
-		to_login () {
-			this.$router.push({ name: 'login' });
+		computed: {
+			...mapState({
+				interval:  state => state.reset_password.interval,
+				countdown: state => state.reset_password.countdown,
+				lock:      state => state.reset_password.lock,
+			})
 		},
-		submit_reset_password () {
-			this.$refs.reset_password.validate((valid) => {
-				if (valid) {
-					this.$store.dispatch('RESETPWD_REQUEST', this.reset_password).then(() => {
-						this.$alert('密码重置成功', '提示', {
-							type: 'success',
-							confirmButtonText: '登录',
-							callback: action => {
-								this.$router.push({ name: 'login' })
-							}
+
+
+		methods: {
+			reset_password_captcha () {
+				this.$refs.reset_password.validateField('phone', errors => {
+					if (!errors) {
+						const phone = this.reset_password.phone;
+						this.$store.dispatch('RESETPWD_CAPTCHA_REQUEST', { phone })
+					} else {
+						return false;
+					}
+				});
+			},
+			to_login () {
+				this.$router.push({ name: 'login' });
+			},
+			submit_reset_password () {
+				this.$refs.reset_password.validate((valid) => {
+					if (valid) {
+						this.$store.dispatch('RESETPWD_REQUEST', this.reset_password).then(() => {
+							this.$alert('密码重置成功', '提示', {
+								type: 'success',
+								confirmButtonText: '登录',
+								callback: action => {
+									this.$router.push({ name: 'login' })
+								}
+							})
 						})
-					})
-				} else {
-					return false;
-				}
-			});
+					} else {
+						return false;
+					}
+				});
+			}
 		}
 	}
-}
 </script>
