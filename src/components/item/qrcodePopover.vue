@@ -55,10 +55,10 @@
 				} else {
 					this.qrcode = new qrcodejs(this.$refs.qrcode, {
 						text: this.text,
-						width: 120,
-						height: 120,
-						colorDark : "#000000",
-						colorLight : "#ffffff",
+						width: 240,
+						height: 240,
+						// colorDark : "#000000",
+						// colorLight : "#ffffff",
 					});
 				}
 			}
@@ -84,6 +84,10 @@
 				width: 120px;
 				height: 120px;
 				margin: 5px;
+				img {
+					width: 120px;
+					height: 120px;
+				}
 			}
 			.clipboard {
 				width: 100%;

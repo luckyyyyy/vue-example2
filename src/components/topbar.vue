@@ -1,21 +1,31 @@
 <template>
 	<div class="topbar">
 		<div class="logo">
-			<img src="../assets/logo2.png" height="28" width="39">
-			<span>彩虹云直播商户后台 Build 20170308</span>
+			<img src="../assets/toplogo.png" height="20" width="98" alt="彩虹云直播">
+			<div class="breadcrumb">
+				<el-breadcrumb separator="/">
+					<el-breadcrumb-item
+						v-for="item of breadcrumb"
+						:key="item.name"
+						:to="{ name: item.route, params: $route.params }">
+						{{ item.name }}
+					</el-breadcrumb-item>
+				</el-breadcrumb>
+			</div>
+			<!-- <span>彩虹云直播商户后台 Build 20170308</span> -->
 		</div>
 		<div class="user">
 			<menu class="menu">
 				<img :src="user.avatar" class="avatar">
 				<span class="name">
 					{{ user.nickName || user.phone }}
-					<i class="el-icon-caret-bottom"></i>
+					<!-- <i class="el-icon-caret-bottom"></i> -->
 				</span>
 				<div class="popper">
-					<div class="popper__account">
+				<!-- 	<div class="popper__account">
 						<p v-show="user.nickName">{{ user.nickName }}</p>
 						<p>{{ user.phone }}</p>
-					</div>
+					</div> -->
 					<ul class="popper__menu">
 						<li><router-link :to="{ name: 'profile', query: { redirect: $route.fullPath } }">账号设置</router-link></li>
 						<li><a @click="switchShop" href="javascript:;">切换频道</a></li>
@@ -32,7 +42,20 @@
 		computed: {
 			...mapState({
 				user: state => state.user
-			})
+			}),
+			breadcrumb () {
+				let breadcrumb = [
+					{ route: this.$route.name, name: '测试面包' },
+					{ route: this.$route.name, name: '测试面包' },
+					{ route: this.$route.name, name: '测试面包' },
+					{ route: this.$route.name, name: '测试面包' },
+					{ route: this.$route.name, name: '测试面包' },
+				];
+				if (this.$route.meta.breadcrumb) {
+					breadcrumb = this.$route.meta.breadcrumb;
+				}
+				return breadcrumb
+			}
 		},
 		methods: {
 			logout () {
@@ -77,29 +100,30 @@
 		}
 		.menu {
 			margin: 0;
-			padding: 0 20px;
+			padding: 0;
 			height: 50px;
 			z-index: 1;
 			cursor: pointer;
 			display: flex;
 			align-items: center;
 			position: relative;
-			width: 150px;
 			transition: all .3s ease-in-out;
 			&:hover {
-				background: darken(#373d41, 10%);
+				background: #00C1DE;
 				.popper {
 					visibility: visible;
 					opacity: 1;
 				}
 			}
 			.avatar {
+				text-align: left;
 				height: 30px;
 				width: 30px;
+				padding: 0 10px;
 				border-radius: 50%;
 			}
 			.name {
-				padding-left: 20px;
+				width: 150px;
 				display: inline-block;
 				text-align: center;
 				flex: 1;
@@ -112,7 +136,8 @@
 				right: 0;
 				top: 50px;
 				background: darken(#373d41, 10%);;
-				width: 100%;
+				// width: 100%;
+				width: 150px;
 				transition: visibility .3s, opacity .3s;
 				.popper__account {
 					text-align: center;
@@ -121,6 +146,8 @@
 					li {
 						transition: background .3s ease-in-out;
 						text-align: center;
+						// padding-left: 50px;
+						box-sizing: border-box;
 						a {
 							display: inline-block;
 							width: 100%;
@@ -128,7 +155,7 @@
 							color: white;
 						}
 						&:hover {
-							background: #373d41;
+							background: #00C1DE;
 						}
 					}
 				}
@@ -137,7 +164,16 @@
 	}
 </style>
 
-
+<style lang="less">
+	.breadcrumb {
+		.el-breadcrumb__item .el-breadcrumb__item__inner {
+			color: darken(white, 30%);
+		}
+		.el-breadcrumb__item:last-child .el-breadcrumb__item__inner {
+			color: darken(white, 10%);
+		}
+	}
+</style>
 
 
 

@@ -140,7 +140,7 @@ export default {
 
 
 			.el-menu-item.is-active {
-				border-right: 3px solid #00C1DE;
+				border-left: 5px solid #00C1DE;
 				color: #fff;
 			}
 		}

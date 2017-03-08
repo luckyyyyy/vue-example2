@@ -1,7 +1,5 @@
 <template>
 	<div class="control">
-
-
 		<div class="top">
 			<div class="button-action">
 				<div class="line">
@@ -58,19 +56,9 @@
 			<div class="video" ref="video">
 				<div id='video' class='prism-player'></div>
 			</div>
-			<div class="right">
-				<div class="chat">
-					<div class="head">
-						<div class="btn"><a class="active">评论用户</a></div>
-						<div class="btn"><a class="disabled">禁言用户</a></div>
-					</div>
-					<div class="list">
-						<p v-for="n in 100">
-							<em>我我:</em><span>aaa</span>
-						</p>
-					</div>
-				</div>
-			</div>
+			<chatroom>
+
+			</chatroom>
 			<div class="action">
 				<div class="live-info">
 					<ul class="live-info-stat">
@@ -83,10 +71,10 @@
 						<el-button size="small" type="danger" @click="endLive">结束直播</el-button>
 					</div>
 				</div>
-				<div class="chat-input">
-					<el-input size="small" v-model="input" placeholder="请输入内容"></el-input>
-					<el-button size="small" type="primary">发送</el-button>
-				</div>
+				<el-form class="chat-input" @submit.native.prevent :model="chatroom">
+					<el-input size="small" v-model="chatroom.text" placeholder="请输入内容"></el-input>
+					<el-button :disabled="chatroom_lock || !chatroom_init" :loading="chatroom_send" @click="chatroomSend" size="small" native-type="submit" type="primary">发送</el-button>
+				</el-form>
 			</div>
 		</div>
 		<el-dialog title="公告" v-model="notice_dialog_visible" size="tiny">
@@ -161,17 +149,21 @@
 </template>
 <script>
 	import qrcodePopover from '../../components/item/qrcodePopover'
+	import chatroom from '../../components/live/chatroom'
 	import '../../assets/prism/index-min.css'
 	import '../../assets/prism/prism-min.js'
 	import store from '../../store'
 	import { mapState } from 'vuex'
-	import { NIM, Chatroom } from '../../assets/NIM_Web_SDK/js/NIM_Web_SDK_v3.4.0.js'
+	import { trim } from '../../utils/util'
 	export default {
 		components: {
-			qrcodePopover
+			qrcodePopover, chatroom
 		},
 		data () {
 			return {
+				chatroom: {
+					text: ''
+				},
 				player: {},
 				select: this.$route.name,
 				input: '',
@@ -191,7 +183,10 @@
 		},
 		computed: {
 			...mapState ({
-				live: state => state.live_query.data
+				live: state => state.live_query.data,
+				chatroom_send: state => state.chatroom.send,
+				chatroom_lock: state => state.chatroom.send,
+				chatroom_init: state => state.chatroom.init,
 			})
 		},
 		beforeRouteEnter (to, from, next) {
@@ -202,7 +197,6 @@
 			})
 		},
 		mounted () {
-			// console.log(NIM.support.db)
 			const source =
 				window.navigator.userAgent.indexOf('iPad') > -1 ?
 				this.live.liveStream.playOriginM3uUrl :
@@ -223,7 +217,7 @@
 				})
 			}
 			this.player.on('liveStreamStop', () => {
-				console.log(123);
+				console.log('直播断开');
 			})
 			window.addEventListener('resize', this.autoSetPlayerSize, false);
 			this.autoSetPlayerSize();
@@ -232,6 +226,13 @@
 			window.removeEventListener('resize', this.autoSetPlayerSize, false);
 		},
 		methods: {
+			chatroomSend () {
+				this.$store.dispatch('CHATROOM_MSG_REQUEST', trim(this.chatroom.text)).then(() => {
+					this.chatroom.text = '';
+				}).catch(() => {
+
+				})
+			},
 			autoSetPlayerSize () {
 				const height = this.$refs.video.offsetHeight - 30;
 				this.player.setPlayerSize('100%', `${height}px`);
@@ -341,57 +342,7 @@
 			width: 100%;
 			background: #333;
 		}
-		.right {
-			flex: 3;
-			display: flex;
-			flex-direction: column;
-			.chat {
-				font-size: 12px;
-				box-sizing: border-box;
-				height: 0;
-				overflow: auto;
-				flex: 1;
-				background: #f7f8fa;
-				display: flex;
-				flex-direction: column;
-				margin-bottom: 40px;
-				.head {
-					display: flex;
-					border-bottom: 1px solid #EBECF0;
-					text-align: center;
-					.btn {
-						flex: 1;
-						a {
-							display: inline-block;
-							padding: 10px 20px;
-							color: #1190BF;
-							&.active {
-								border-bottom: 2px solid #1190BF;
-							}
-							&.disabled {
-								color: #ccc;
-								cursor: not-allowed;
-							}
-						}
-					}
-				}
-				.list {
-					padding: 0 20px;
-					margin-top: 10px;
-					overflow: auto;
-					box-sizing: border-box;
-					flex: 1;
-					p {
-						padding: 5px 0;
-						margin: 0;
-						em {
-							color: #0076FF;
-							font-style: normal;
-						}
-					}
-				}
-			}
-		}
+
 		.left {
 			flex: 3;
 			display: flex;

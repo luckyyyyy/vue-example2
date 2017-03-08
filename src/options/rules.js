@@ -2,7 +2,7 @@
 * @Author: William Chan
 * @Date:   2017-03-02 14:29:37
 * @Last Modified by:   William Chan
-* @Last Modified time: 2017-03-05 01:22:26
+* @Last Modified time: 2017-03-09 01:12:44
 */
 
 'use strict';
@@ -89,9 +89,6 @@ export const LIVE_CREATE_RULES = {
 		{ max: 20, message: '直播请名称小于20个字符' }
 	],
 }
-
-
-
 
 
 

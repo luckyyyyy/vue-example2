@@ -2,7 +2,7 @@
 * @Author: William Chan
 * @Date:   2016-12-03 19:24:59
 * @Last Modified by:   William Chan
-* @Last Modified time: 2017-03-06 17:26:07
+* @Last Modified time: 2017-03-09 00:50:01
 */
 
 'use strict';
@@ -30,8 +30,10 @@ import live_create from './modules/live/create'
 import live_find from './modules/live/find'
 import live_query from './modules/live/query'
 
-
 import weixin_auth_url from './modules/weixin/auth_url'
+import im from './modules/netease/im'
+import chatroom from './modules/netease/chatroom'
+
 
 const modules = {
 	login, register, reset_password, logout, update_user, password,
@@ -39,7 +41,8 @@ const modules = {
 	channel_create, channel_find, channel_delete, channel_query,
 	multimedia_find,
 	live_create, live_find, live_query,
-	weixin_auth_url
+	weixin_auth_url,
+	im, chatroom
 }
 
 // globle and common

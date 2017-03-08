@@ -2,7 +2,7 @@
 * @Author: William Chan
 * @Date:   2017-03-06 22:25:04
 * @Last Modified by:   William Chan
-* @Last Modified time: 2017-03-07 23:15:29
+* @Last Modified time: 2017-03-08 15:39:39
 */
 
 'use strict';
@@ -15,7 +15,7 @@ export default [
 		components: {
 			sidebar: resolve => require(['../components/sidebar.vue'], resolve),
 			topbar:  resolve => require(['../components/topbar.vue'], resolve),
-			main: resolve    => require(['../views/index.vue'], resolve)
+			main:    resolve => require(['../views/index.vue'], resolve)
 		},
 	},
 	{

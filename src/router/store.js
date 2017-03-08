@@ -2,7 +2,7 @@
 * @Author: William Chan
 * @Date:   2017-03-06 22:30:36
 * @Last Modified by:   William Chan
-* @Last Modified time: 2017-03-07 23:50:27
+* @Last Modified time: 2017-03-08 15:39:53
 */
 
 'use strict';
@@ -15,7 +15,7 @@ export default [
 		components: {
 			sidebar: resolve => require(['../components/sidebar.vue'], resolve),
 			topbar:  resolve => require(['../components/topbar.vue'], resolve),
-			main: resolve    => require(['../components/breadcrumb.vue'], resolve)
+			main:    resolve => require(['../components/main.vue'], resolve)
 		},
 		children: [
 			{ // 保证在前面 先后顺序匹配
