@@ -2,11 +2,11 @@
 * @Author: William Chan
 * @Date:   2017-03-08 23:18:57
 * @Last Modified by:   William Chan
-* @Last Modified time: 2017-03-09 02:42:23
+* @Last Modified time: 2017-03-09 04:34:02
 */
 
 'use strict';
-import { NIM } from '../../assets/NIM_Web_SDK/js/NIM_Web_SDK_v3.4.0'
+import { NIM } from '../../assets/NIM_Web_SDK/js/NIM_Web_NIM_v3.4.0'
 
 const IM_APP_KEY = '29b61d49c94875017bd9855f082a7ec9';
 let nim;

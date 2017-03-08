@@ -2,7 +2,7 @@
 * @Author: William Chan
 * @Date:   2017-03-09 00:34:27
 * @Last Modified by:   William Chan
-* @Last Modified time: 2017-03-09 03:56:28
+* @Last Modified time: 2017-03-09 04:41:22
 */
 // TODO 性能研究 这里是个坑 concat和push
 'use strict';
@@ -28,6 +28,7 @@ const actions = {
 		}
 		init.onwillreconnect = error => {
 			commit(CHATROOM_INIT.LOCK);
+			console.log(error)
 			if (error) {
 				let msg = error.message;
 				if (!msg) {
@@ -48,9 +49,11 @@ const actions = {
 							break;
 					}
 				}
-				MessageBox.alert(msg, '聊天室', {
-					type: 'error',
-				})
+				if (error.code != 'logout') {
+					MessageBox.alert(msg, '聊天室', {
+						type: 'error',
+					})
+				}
 			}
 		}
 		commit(CHATROOM_INIT.REQUEST);
@@ -114,7 +117,7 @@ const mutations = {
 	},
 	[CHATROOM_MSG.GET] (state, msg) {
 		state.data = state.data.concat(msg);
-		console.log(state.data);
+		console.log('新消息', state.data);
 	},
 	[CHATROOM_MSG.HISTORY] (state, msg) {
 		state.history = msg.reverse();

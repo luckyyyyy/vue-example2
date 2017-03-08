@@ -1,6 +1,6 @@
 <template>
 	<div>
-		<p v-for="item in data" :class="item.type">
+		<p v-for="item in data" :class="item.type" :title="item.time | date">
 			<!-- http://dev.netease.im/docs?doc=web&#聊天室消息 -->
 			<template v-if="item.type == 'text'">
 				<em :class="item.flow">{{ item.fromNick }}：</em><span>{{ item.text }}</span>
@@ -18,6 +18,7 @@
 	</div>
 </template>
 <script>
+	import { date } from '../../../utils/util'
 	export default {
 		props: {
 			data: Array,
@@ -25,6 +26,9 @@
 				type: Boolean,
 				default: false,
 			},
+		},
+		filters: {
+			date
 		}
 	}
 </script>
