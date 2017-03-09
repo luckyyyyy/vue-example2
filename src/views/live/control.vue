@@ -17,10 +17,6 @@
 						<p slot="tips">微信扫码观看直播</p>
 						<el-button slot="reference">观看地址</el-button>
 					</qrcodePopover>
-					<qrcodePopover :text="live.liveStream.playOriginM3uUrl">
-						<p slot="tips">微信扫码观看直播</p>
-						<el-button slot="reference">m3u8</el-button>
-					</qrcodePopover>
 				<!-- </div> -->
 				<!-- <div class="line"> -->
 					<el-button type="primary" @click="notice_dialog_visible = true">发布公告</el-button>
@@ -55,6 +51,10 @@
 			</div>
 			<div class="video" ref="video">
 				<div id='video' class='prism-player'></div>
+				<div class="lock" v-show="showTryButton">
+					<p>主播还未开始直播或断开连接，尝试刷新</p>
+					<el-button type="primary" @click="onTryPlay">刷新</el-button>
+				</div>
 			</div>
 			<chatroom>
 
@@ -151,10 +151,10 @@
 	import qrcodePopover from '../../components/item/qrcodePopover'
 	import chatroom from '../../components/live/chatroom'
 	import '../../assets/prism/index-min.css'
-	import '../../assets/prism/prism-min.js'
+	import prism from '../../assets/prism/prism-min.js'
 	import store from '../../store'
 	import { mapState } from 'vuex'
-	import { trim } from '../../utils/util'
+	import { trim, isiPad } from '../../utils/util'
 	export default {
 		components: {
 			qrcodePopover, chatroom
@@ -164,6 +164,7 @@
 				chatroom: {
 					text: ''
 				},
+				lockStream: false,
 				player: {},
 				select: this.$route.name,
 				input: '',
@@ -182,10 +183,13 @@
 			}
 		},
 		computed: {
+			showTryButton () {
+				return isiPad() && this.lockStream;
+			},
 			...mapState ({
 				live: state => state.live_query.data,
 				chatroom_send: state => state.chatroom.send,
-				chatroom_lock: state => state.chatroom.send,
+				chatroom_lock: state => state.chatroom.lock,
 				chatroom_init: state => state.chatroom.init,
 			})
 		},
@@ -197,11 +201,8 @@
 			})
 		},
 		mounted () {
-			const source =
-				window.navigator.userAgent.indexOf('iPad') > -1 ?
-				this.live.liveStream.playOriginM3uUrl :
-				this.live.liveStream.playOriginFlvUrl;
-			this.player = new prismplayer({
+			const source = isiPad() ? this.live.liveStream.playOriginM3uUrl : this.live.liveStream.playOriginFlvUrl;
+			this.player = new prism({
 				id       : 'video',
 				source   : source,
 				autoplay : true,
@@ -217,8 +218,25 @@
 				})
 			}
 			this.player.on('liveStreamStop', () => {
+				// alert('liveStreamStop')
+				this.lockStream = true;
 				console.log('直播断开');
 			})
+			this.player.on('m3u8Retry', () => {
+				// alert('m3u8Retry')
+				this.lockStream = true;
+				console.log('直播断开');
+			})
+			this.player.on('play', () => {
+				// alert('play')
+			})
+			// setInterval(() => {
+
+			// 	this.player.pause();
+			// 	this.player.play();
+			// }, 1000)
+
+
 			window.addEventListener('resize', this.autoSetPlayerSize, false);
 			this.autoSetPlayerSize();
 		},
@@ -227,14 +245,17 @@
 		},
 		methods: {
 			chatroomSend () {
-				this.$store.dispatch('CHATROOM_MSG_REQUEST', trim(this.chatroom.text)).then(() => {
-					this.chatroom.text = '';
-				}).catch(() => {
-
-				})
+				const text = trim(this.chatroom.text);
+				if (text) {
+					this.$store.dispatch('CHATROOM_MSG_REQUEST', text).then(() => {
+						this.chatroom.text = '';
+					}).catch(error => {
+						this.$message.error(error.message);
+					})
+				}
 			},
 			autoSetPlayerSize () {
-				const height = this.$refs.video.offsetHeight - 30;
+				const height = this.$refs.video.offsetHeight - 40;
 				this.player.setPlayerSize('100%', `${height}px`);
 			},
 			endLive () {
@@ -253,6 +274,10 @@
 						message: '已取消删除'
 					});
 				});
+			},
+			onTryPlay () {
+				this.lockStream = false;
+				this.player.play();
 			}
 		}
 	}
@@ -341,6 +366,23 @@
 			flex: 4;
 			width: 100%;
 			background: #333;
+			position: relative;
+			.lock {
+				position: absolute;
+				width: 100%;
+				height: 100%;
+				left: 0;
+				top: 0;
+				background: #333;
+				color: white;
+				display: flex;
+				flex-direction: column;
+				align-items: center;
+				justify-content: center;
+				p {
+					padding: 10px 0;
+				}
+			}
 		}
 
 		.left {

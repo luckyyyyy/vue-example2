@@ -12,7 +12,6 @@
 					</el-breadcrumb-item>
 				</el-breadcrumb>
 			</div>
-			<!-- <span>彩虹云直播商户后台 Build 20170308</span> -->
 		</div>
 		<div class="user">
 			<menu class="menu">

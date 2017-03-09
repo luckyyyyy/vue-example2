@@ -3,25 +3,29 @@
 		<p v-for="item in data" :class="item.type" :title="item.time | date">
 			<!-- http://dev.netease.im/docs?doc=web&#聊天室消息 -->
 			<template v-if="item.type == 'text'">
-				<em :class="item.flow">{{ item.fromNick }}：</em><span>{{ item.text }}</span>
+				<chatroomTag :account="item.from" :members="members"></chatroomTag>
+				<chatroomName :account="item.from" :nickname="item.fromNick" :me="item.flow == 'out'" :members="members">：</chatroomName>
+				<span>{{ item.text }}</span>
 			</template>
 			<template v-if="item.type == 'notification'">
-				<template v-if="item.attach.type == 'memberEnter'">
-					<span :class="item.attach.type">💡 欢迎 <em>{{ item.attach.fromNick }}</em> 进入了聊天室。</span>
-				</template>
-				<template v-if="item.attach.type == 'memberExit'">
-					<span :class="item.attach.type"><em>👌 {{ item.attach.fromNick }}</em> 离开了聊天室。</span>
-				</template>
+				<chatroomNotification :item="item" :members="members"></chatroomNotification>
 			</template>
 		</p>
-		<p v-show="history && data.length" class="history"></p>
+		<div v-show="history && data.length" class="history"></div>
 	</div>
 </template>
 <script>
 	import { date } from '../../../utils/util'
+	import chatroomName from './chatroomName'
+	import chatroomTag from './chatroomTag'
+	import chatroomNotification from './chatroomNotification'
 	export default {
+		components: {
+			chatroomName, chatroomTag, chatroomNotification
+		},
 		props: {
 			data: Array,
+			members: Object,
 			history: {
 				type: Boolean,
 				default: false,
@@ -29,7 +33,7 @@
 		},
 		filters: {
 			date
-		}
+		},
 	}
 </script>
 <style lang="less" scoped>
@@ -38,7 +42,7 @@
 		color: #ccc;
 		position: relative;
 		border-top: 1px solid #eee;
-		margin: 20px;
+		margin: 20px 0;
 		&:after {
 			content: "以上是历史信息";
 			position: absolute;
@@ -46,23 +50,17 @@
 			margin-left: -50px;
 			left: 50%;
 			top: -10px;
-			background: #f7f8fa
+			background: #f7f8fa;
 		}
 	}
 	p {
 		padding: 2px 0;
 		margin: 0;
-		overflow: hidden;
 		word-break: break-all;
 		word-wrap: break-word;
-		em {
-			font-style: normal;
-			&.in {
-				color: #0076FF;
-			}
-			&.out {
-				color: red;
-			}
+		font-size: 0; // 去空格
+		span {
+			font-size: 12px;
 		}
 	}
 </style>

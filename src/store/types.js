@@ -2,7 +2,7 @@
 * @Author: William Chan
 * @Date:   2016-12-03 20:43:22
 * @Last Modified by:   William Chan
-* @Last Modified time: 2017-03-09 03:56:07
+* @Last Modified time: 2017-03-10 00:58:46
 */
 
 'use strict';
@@ -45,11 +45,10 @@ export const WEXIN_AUTH_URL      = export_var('WEXIN_AUTH_URL');
 export const IM_INIT             = export_var('IM_INIT');
 export const IM_DISCONNECT       = export_var('IM_DISCONNECT');
 // 聊天室
+export const CHATROOM            = export_var('CHATROOM', 'MEMBERS', 'GAG', 'COMMON', 'MANAGER');
 export const CHATROOM_INIT       = export_var('CHATROOM_INIT', 'LOCK');
 export const CHATROOM_DISCONNECT = export_var('CHATROOM_DISCONNECT');
 export const CHATROOM_MSG        = export_var('CHATROOM_MSG', 'GET', 'HISTORY');
-
-
 
 
 

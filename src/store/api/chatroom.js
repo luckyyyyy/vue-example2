@@ -2,7 +2,7 @@
 * @Author: William Chan
 * @Date:   2017-03-08 23:18:57
 * @Last Modified by:   William Chan
-* @Last Modified time: 2017-03-09 05:14:13
+* @Last Modified time: 2017-03-10 00:57:47
 */
 
 'use strict';
@@ -70,10 +70,65 @@ export const chatroom_getHistory = () => {
 	})
 }
 
+export const chatroom_getMembers = guest => {
+	return new Promise((resolve, reject) => {
+		if (chatroom) {
+			chatroom.getChatroomMembers({
+				limit: 1000,
+				guest,
+				done: (error, obj) => {
+					error ? reject(error) : resolve(obj);
+				}
+			});
+		} else {
+			reject('not connect');
+		}
+	})
+}
 
+export const chatroom_setGag = ({ account, isAdd }) => {
+	return new Promise((resolve, reject) => {
+		if (chatroom) {
+			chatroom.markChatroomGaglist({
+				account, isAdd,
+				done: (error, obj) => {
+					error ? reject(error) : resolve(obj);
+				}
+			});
+		} else {
+			reject('not connect');
+		}
+	})
+}
 
+export const chatroom_setCommonMember = ({ account, level, isAdd }) => {
+	return new Promise((resolve, reject) => {
+		if (chatroom) {
+			chatroom.markChatroomCommonMember({
+				account, level, isAdd,
+				done: (error, obj) => {
+					error ? reject(error) : resolve(obj);
+				}
+			});
+		} else {
+			reject('not connect');
+		}
+	})
+}
 
-
-
+export const chatroom_setManager = ({ account, isAdd }) => {
+	return new Promise((resolve, reject) => {
+		if (chatroom) {
+			chatroom.markChatroomManager({
+				account, isAdd,
+				done: (error, obj) => {
+					error ? reject(error) : resolve(obj);
+				}
+			});
+		} else {
+			reject('not connect');
+		}
+	})
+}
 
 

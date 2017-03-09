@@ -2,33 +2,67 @@
 * @Author: William Chan
 * @Date:   2017-03-09 00:34:27
 * @Last Modified by:   William Chan
-* @Last Modified time: 2017-03-09 05:26:47
+* @Last Modified time: 2017-03-10 02:21:40
 */
 // TODO 性能研究 这里是个坑 concat和push
 'use strict';
 
-import { chatroom_init, chatroom_disconnect, chatroom_send, chatroom_getHistory } from '../../api/chatroom'
-import { CHATROOM_INIT, CHATROOM_DISCONNECT, CHATROOM_MSG } from '../../types'
+import {
+	chatroom_init, chatroom_disconnect, chatroom_send, chatroom_getHistory, chatroom_getMembers,
+	chatroom_setGag, chatroom_setCommonMember, chatroom_setManager
+} from '../../api/chatroom'
+import { CHATROOM, CHATROOM_INIT, CHATROOM_DISCONNECT, CHATROOM_MSG } from '../../types'
 import { MessageBox } from 'element-ui'
+
+const refreshMemberType = [
+	'addManager',
+	'removeManager',
+	'addCommon',
+	'removeCommon',
+	'blackMember',
+	'unblackMember',
+	'gagMember',
+	'ungagMember',
+	'kickMember',
+	'updateChatroom',
+	'updateMemberInfo',
+	'addTempMute',
+	'removeTempMute',
+]
 
 const state = {
 	lock: false,
 	init: false,
 	sned: false,
+	user: [],
 	data: [],
 	history: [],
 }
 
-const getters = {}
+const getters = {
+	chatroom_members: state => {
+		const members = {};
+		for (let member of state.user) {
+			members[member.account.toString()] = member;
+		}
+		return members;
+	}
+}
 
 const actions = {
-	async [CHATROOM_INIT.REQUEST] ({ commit, dispath }, init) {
+	async [CHATROOM_INIT.REQUEST] ({ commit, dispatch }, init) {
 		init.onmsgs = msg => {
 			commit(CHATROOM_MSG.GET, msg);
+			for (let ret of msg) {
+				if (ret.type == 'notification' && refreshMemberType.includes(ret.attach.type)) {
+					dispatch(CHATROOM.MEMBERS);
+					break;
+				}
+			}
 		}
 		init.onwillreconnect = error => {
 			commit(CHATROOM_INIT.LOCK);
-			console.log(error)
+			console.log('IM错误', error)
 			if (error) {
 				let msg = error.message;
 				if (!msg) {
@@ -50,7 +84,7 @@ const actions = {
 					}
 				}
 				if (error.code != 'logout') {
-					MessageBox.alert(msg, '聊天室', {
+					MessageBox.alert(msg || '聊天连接丢失，请尝试重新连接。', '聊天室', {
 						type: 'error',
 					})
 				}
@@ -64,10 +98,19 @@ const actions = {
 		})
 		chatroom_getHistory().then(obj => {
 			commit(CHATROOM_MSG.HISTORY, obj.msgs);
-		}).catch(() => {
+		}).catch(err => {
 
 		})
+		dispatch(CHATROOM.MEMBERS);
 	},
+	[CHATROOM.MEMBERS] ({ commit }, guest) {
+		chatroom_getMembers(guest || false).then(obj => {
+			commit(CHATROOM.MEMBERS, obj.members);
+		}).catch(err => {
+			console.log(err)
+		})
+	},
+
 	[CHATROOM_DISCONNECT.REQUEST] ({ commit }) {
 		chatroom_disconnect();
 		commit(CHATROOM_DISCONNECT.SUCCESS);
@@ -78,13 +121,43 @@ const actions = {
 		return new Promise((resolve, reject) => {
 			chatroom_send(text).then(msg => {
 				commit(CHATROOM_MSG.SUCCESS, msg);
-				resolve();
-			}).catch(() => {
+				resolve(msg);
+			}).catch(error => {
 				commit(CHATROOM_MSG.FAILURE);
-				reject();
+				reject(error);
 			})
 		})
-	}
+	},
+	[CHATROOM.GAG] ({ commit, dispatch }, ...agrs) {
+		return new Promise((resolve, reject) => {
+			chatroom_setGag(...agrs).then(msg => {
+				resolve(msg);
+			}).catch(error => {
+				console.log(error)
+				reject(error);
+			})
+		})
+	},
+	[CHATROOM.COMMON] ({ commit, dispatch }, ...agrs) {
+		return new Promise((resolve, reject) => {
+			chatroom_setCommonMember(...agrs).then(msg => {
+				resolve(msg);
+			}).catch(error => {
+				console.log(error)
+				reject(error);
+			})
+		})
+	},
+	[CHATROOM.MANAGER] ({ commit, dispatch }, ...agrs) {
+		return new Promise((resolve, reject) => {
+			chatroom_setManager(...agrs).then(msg => {
+				resolve(msg);
+			}).catch(error => {
+				console.log(error)
+				reject(error);
+			})
+		})
+	},
 }
 
 const mutations = {
@@ -104,6 +177,9 @@ const mutations = {
 		state.lock = true;
 		state.data = [];
 	},
+	[CHATROOM.MEMBERS] (state, members) {
+		state.user = members;
+	},
 	[CHATROOM_DISCONNECT.SUCCESS] (state) {
 		state.data = [];
 	},
@@ -119,7 +195,10 @@ const mutations = {
 	},
 	[CHATROOM_MSG.GET] (state, msg) {
 		state.data = state.data.concat(msg);
-		console.log('新消息', state.data);
+		if (state.data.length > 500) {
+			state.data.splice(0, 200);
+		}
+		// console.log('新消息', state.data);
 	},
 	[CHATROOM_MSG.HISTORY] (state, msg) {
 		state.history = msg.reverse();
