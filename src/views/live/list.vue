@@ -74,7 +74,7 @@
 			custom-class="createDialog"
 			title="新建直播"
 			v-model="openDialog"
-			:close-on-click-modal="!lock"
+			:close-on-click-modal="false"
 			:close-on-press-escape="!lock"
 			:show-close="!lock">
 			<el-form ref="create" :rules="rules" label-position="left" label-width="85px" :model="create" @submit.native.prevent>
