@@ -1,11 +1,12 @@
 <template>
 	<el-dropdown
 		v-if="
-			!members[account] ||
-			members[account] &&
-			members[account].type != 'owner' &&
-			account != user.accid &&
-			getAuth(2)
+			(!members[account] ||
+				members[account] &&
+				members[account].type != 'owner' &&
+				account != user.accid
+			)
+			&& getAuth(2)
 			"
 		trigger="click"
 		style="cursor: pointer"
@@ -72,6 +73,7 @@
 							break;
 					}
 				}
+				return false;
 			},
 			setUser (command, isAdd) {
 				const account = this.account;
