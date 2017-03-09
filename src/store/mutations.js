@@ -2,7 +2,7 @@
 * @Author: Administrator
 * @Date:   2017-01-06 02:42:21
 * @Last Modified by:   William Chan
-* @Last Modified time: 2017-03-02 17:09:52
+* @Last Modified time: 2017-03-10 03:29:18
 */
 
 'use strict';
@@ -46,7 +46,7 @@ export const LOGIN_FAILURE = (state, err) => {
 }
 
 export const UPDATE_USER_SUCCESS = (state, data) => {
-	state.user = data.user;
+	state.user = Object.assign(state.user, data.user);
 	setSession(state);
 }
 

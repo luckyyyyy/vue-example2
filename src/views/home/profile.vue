@@ -98,7 +98,12 @@
 			submit () {
 				this.$refs.user.validate(valid => {
 					if (valid) {
-						this.$store.dispatch('UPDATE_USER_REQUEST', this.user);
+						this.$store.dispatch('UPDATE_USER_REQUEST', this.user).then(() => {
+							this.$message({
+								message: '修改成功',
+								type: 'success'
+							})
+						})
 					} else {
 						return false;
 					}
