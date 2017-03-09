@@ -52,6 +52,9 @@
 	p {
 		padding: 2px 0;
 		margin: 0;
+		overflow: hidden;
+		word-break: break-all;
+		word-wrap: break-word;
 		em {
 			font-style: normal;
 			&.in {
