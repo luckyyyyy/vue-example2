@@ -17,13 +17,7 @@
 						<p slot="tips">微信扫码观看直播</p>
 						<el-button slot="reference">观看地址</el-button>
 					</qrcodePopover>
-				<!-- </div> -->
-				<!-- <div class="line"> -->
-					<el-button type="primary" @click="notice_dialog_visible = true">发布公告</el-button>
-					<el-button type="primary" @click="screen_dialog_visible = true">宝贝上屏</el-button>
-					<el-button type="primary">抽奖</el-button>
-					<el-button type="primary" @click="product_dialog_visible = true">边看边买</el-button>
-					<el-button type="primary">红包</el-button>
+					<el-button type="primary" @click="openNotice">发布公告</el-button>
 				</div>
 			</div>
 		</div>
@@ -49,13 +43,7 @@
 					</li>
 				</ul>
 			</div>
-			<div class="video" ref="video">
-				<div id='video' class='prism-player'></div>
-				<div class="lock" v-show="showTryButton">
-					<p>主播还未开始直播或断开连接，尝试刷新</p>
-					<el-button type="primary" @click="onTryPlay">刷新</el-button>
-				</div>
-			</div>
+			<prismVideo :play="play" :stream="live.liveStream"></prismVideo>
 			<chatroom @connect="onJoinChatroom"></chatroom>
 			<div class="action">
 				<div class="live-info">
@@ -75,115 +63,52 @@
 				</el-form>
 			</div>
 		</div>
-		<el-dialog title="公告" v-model="notice_dialog_visible" size="tiny">
-			<div class="notice-box">
-				<span>公告内容：</span>
-				<el-input v-model="input" placeholder="请输入内容"></el-input>
-			</div>
-			<span slot="footer" class="dialog-footer">
-				<el-button @click="notice_dialog_visible = false">取 消</el-button>
-				<el-button type="primary" @click="notice_dialog_visible = false">发 送</el-button>
-			</span>
-		</el-dialog>
-		<el-dialog title="宝贝上屏" v-model="screen_dialog_visible" size="tiny">
-			<el-table :data="product_data" style="width: 100%">
-				<el-table-column label="商品">
-					<template scope="scope">
-						<span style="margin-left: 10px">苹果🍎</span>
-					</template>
-				</el-table-column>
-				<el-table-column label="价格（元）">
-					<template scope="scope">
-						<span style="margin-left: 10px">61.5</span>
-					</template>
-				</el-table-column>
-				<el-table-column label="数量/库存">
-					<template scope="scope">
-						<span style="margin-left: 10px">120/2345</span>
-					</template>
-				</el-table-column>
-				<el-table-column label="编号">
-					<template scope="scope">
-						<span style="margin-left: 10px">01</span>
-					</template>
-				</el-table-column>
-				<el-table-column label="操作">
-					<template scope="scope">
-						<el-button type="primary" size="small" @click="handleEdit()">发 送</el-button>
-					</template>
-				</el-table-column>
-			</el-table>
-		</el-dialog>
-		<el-dialog title="边看边买" v-model="product_dialog_visible" size="tiny">
-			<el-table :data="product_data" style="width: 100%">
-				<el-table-column label="商品">
-					<template scope="scope">
-						<span style="margin-left: 10px">苹果🍎</span>
-					</template>
-				</el-table-column>
-				<el-table-column label="价格（元）">
-					<template scope="scope">
-						<span style="margin-left: 10px">61.5</span>
-					</template>
-				</el-table-column>
-				<el-table-column label="数量/库存">
-					<template scope="scope">
-						<span style="margin-left: 10px">120/2345</span>
-					</template>
-				</el-table-column>
-				<el-table-column label="编号">
-					<template scope="scope">
-						<span style="margin-left: 10px">01</span>
-					</template>
-				</el-table-column>
-				<el-table-column label="操作">
-					<template scope="scope">
-						<el-button type="text" size="small" @click="handleEdit()">删 除</el-button>
-					</template>
-				</el-table-column>
-			</el-table>
+		<el-dialog
+			custom-class="noticeDialog"
+			title="公告"
+			v-model="noticeDialog"
+			:close-on-click-modal="false"
+			:close-on-press-escape="!lock"
+			:show-close="!lock">
+			<el-form ref="notice" :rules="rules" label-position="left" label-width="85px" :model="notice" @submit.native.prevent>
+				<el-form-item label="公告内容" prop="text">
+					<el-input :autofocus="true" v-model="notice.text" placeholder="请输入公告内容"></el-input>
+				</el-form-item>
+				<div class="footer">
+					<el-button @click="onNoticeSubmit" :loading="lock" native-type="submit" type="primary">发 送</el-button>
+				</div>
+			</el-form>
 		</el-dialog>
 	</div>
 </template>
 <script>
 	import qrcodePopover from '../../components/item/qrcodePopover'
 	import chatroom from '../../components/live/chatroom'
-	import '../../assets/prism/index-min.css'
-	import prism from '../../assets/prism/prism-min.js'
+	import prismVideo from '../../components/live/video'
 	import store from '../../store'
 	import { mapState } from 'vuex'
-	import { trim, isiPad } from '../../utils/util'
+	import { trim } from '../../utils/util'
+	import { LIVE_NOTICE_RULES } from '../../options/rules'
+
 	export default {
 		components: {
-			qrcodePopover, chatroom
+			qrcodePopover, chatroom, prismVideo
 		},
 		data () {
 			return {
 				chatroom: {
 					text: ''
 				},
-				lockStream: false,
-				player: {},
-				select: this.$route.name,
-				input: '',
-				notice_dialog_visible: false,
-				product_dialog_visible: false,
-				screen_dialog_visible: false,
-				product_data: [{
-
-				}, {
-
-				}, {
-
-				}, {
-
-				}]
+				notice: {
+					text: ''
+				},
+				play: false, // im更新
+				noticeDialog: false,
+				rules: LIVE_NOTICE_RULES,
+				lock: false,
 			}
 		},
 		computed: {
-			showTryButton () {
-				return isiPad() && this.lockStream;
-			},
 			...mapState ({
 				live: state => state.live_query.data,
 				chatroom_send: state => state.im.send,
@@ -199,51 +124,20 @@
 			})
 		},
 		mounted () {
-			const source = isiPad() ? this.live.liveStream.playOriginM3uUrl : this.live.liveStream.playOriginFlvUrl;
-			this.player = new prism({
-				id       : 'video',
-				source   : source,
-				autoplay : true,
-				preload  : true,
-				isLive   : true,
-				showBarTime: '100',
-				width    : '100%',
-				skinLayout: []
-			});
-			if (process.env.NODE_ENV !== 'production') {
-				this.player.on('play', () => {
-					this.$message(`DEBUG: 播放视频${source}`)
-				})
-			}
-			this.player.on('liveStreamStop', () => {
-				// alert('liveStreamStop')
-				this.lockStream = true;
-				console.log('直播断开');
-			})
-			this.player.on('m3u8Retry', () => {
-				// alert('m3u8Retry')
-				this.lockStream = true;
-				console.log('直播断开');
-			})
-			this.player.on('play', () => {
-				// alert('play')
-			})
-			window.addEventListener('resize', this.autoSetPlayerSize, false);
-			this.autoSetPlayerSize();
 			this.onJoinChatroom();
-			// const chatroomId = 1; // 暂时
-			// this.$store.dispatch('IM_INIT_REQUEST', 1);
-
 		},
 		beforeDestroy () {
-			window.removeEventListener('resize', this.autoSetPlayerSize, false);
 			this.$store.dispatch('IM_DISCONNECT');
-
 		},
 		methods: {
 			onJoinChatroom () {
 				const chatroomId = 7703671; // 暂时
-				this.$store.dispatch('IM_INIT_REQUEST', chatroomId);
+				// const chatroomId = this.live.liveChatRoomWithAddr.roomid;
+				const oncustomsysmsg = this.onCustomSysMsg;
+				this.$store.dispatch('IM_INIT_REQUEST', { chatroomId, oncustomsysmsg });
+			},
+			onCustomSysMsg (msg) { // im callback
+
 			},
 			chatroomSend () {
 				const text = trim(this.chatroom.text);
@@ -255,9 +149,9 @@
 					})
 				}
 			},
-			autoSetPlayerSize () {
-				const height = this.$refs.video.offsetHeight - 40;
-				this.player.setPlayerSize('100%', `${height}px`);
+			openNotice () {
+				this.noticeDialog = true
+				this.notice.text = '';
 			},
 			endLive () {
 				this.$confirm('确定要结束直播吗？点击确定将彻底关闭直播。', '结束直播', {
@@ -265,20 +159,22 @@
 					cancelButtonText: '取消',
 					type: 'warning'
 				}).then(() => {
-					this.$message({
-						type: 'success',
-						message: '删除成功!'
-					});
+
 				}).catch(() => {
-					this.$message({
-						type: 'info',
-						message: '已取消删除'
-					});
+
 				});
 			},
-			onTryPlay () {
-				this.lockStream = false;
-				this.player.play();
+			onNoticeSubmit () {
+				this.$refs.notice.validate((valid) => {
+					if (valid) {
+						// this.$store.dispatch('LIVE_CREATE_REQUEST', this.create).then(() => {
+						// 	this.create.name = '';
+						// 	this.openDialog = false;
+						// })
+					} else {
+						return false;
+					}
+				});
 			}
 		}
 	}
@@ -363,29 +259,6 @@
 			display: flex;
 			justify-content: center;
 		}
-		.video {
-			flex: 4;
-			width: 100%;
-			background: #333;
-			position: relative;
-			.lock {
-				position: absolute;
-				width: 100%;
-				height: 100%;
-				left: 0;
-				top: 0;
-				background: #333;
-				color: white;
-				display: flex;
-				flex-direction: column;
-				align-items: center;
-				justify-content: center;
-				p {
-					padding: 10px 0;
-				}
-			}
-		}
-
 		.left {
 			flex: 3;
 			display: flex;
@@ -433,16 +306,13 @@
 			}
 		}
 	}
+</style>
 
-	.el-dialog {
-		.notice-box {
-			display: flex;
-			align-items: center;
-			padding-left: 20px;
-			.el-input {
-				width: 250px;
-				margin-left: 15px;
-			}
+<style lang="less">
+	.noticeDialog {
+		width: 550px;
+		.footer {
+			text-align: right;
 		}
 	}
 </style>

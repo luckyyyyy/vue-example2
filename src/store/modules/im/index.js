@@ -2,7 +2,7 @@
 * @Author: William Chan
 * @Date:   2017-03-10 16:42:39
 * @Last Modified by:   William Chan
-* @Last Modified time: 2017-03-10 18:48:05
+* @Last Modified time: 2017-03-11 02:17:21
 */
 
 'use strict';
@@ -58,13 +58,12 @@ const getters = {
 
 
 const actions = {
-	async [IM_INIT.REQUEST] ({ commit, dispatch, rootState }, chatroomId) {
+	async [IM_INIT.REQUEST] ({ commit, dispatch, rootState }, { chatroomId, oncustomsysmsg }) {
 		const init = {}
-		const im = rootState.user.userImInfo;
-		init.account = im.accid;
-		init.token   = im.token;
-		console.log(im)
-		// console.log(init)
+		const im            = rootState.user.userImInfo;
+		init.account        = im.accid;
+		init.token          = im.token;
+		init.oncustomsysmsg = oncustomsysmsg;
 		console.log('IM_INIT');
 		commit(IM_INIT.REQUEST);
 		await im_init(init).then(() => {

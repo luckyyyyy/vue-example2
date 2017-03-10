@@ -2,7 +2,7 @@
 * @Author: William Chan
 * @Date:   2017-03-02 14:29:37
 * @Last Modified by:   William Chan
-* @Last Modified time: 2017-03-09 01:12:44
+* @Last Modified time: 2017-03-11 01:07:12
 */
 
 'use strict';
@@ -85,11 +85,17 @@ export const UPDATE_PASSWORD_RULES = {
 // 创建直播
 export const LIVE_CREATE_RULES = {
 	name: [
-		{ required: true, message: '请填写正确的直播名称' },
+		{ required: true, message: '请填写直播名称' },
 		{ max: 20, message: '直播请名称小于20个字符' }
 	],
 }
 
-
+// 直播公告
+export const LIVE_NOTICE_RULES = {
+	text: [
+		{ required: true, message: '请填写公告' },
+		{ max: 50, message: '公告小于50个字符' }
+	],
+}
 
 
