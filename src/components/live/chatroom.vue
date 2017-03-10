@@ -1,5 +1,5 @@
 <template>
-	<div :class="{ lock: lock }" class="chatroom" v-loading="!init" element-loading-text="正在进入聊天室">
+	<div :class="{ lock: lock }" class="chatroom" v-loading="!init && !lock" element-loading-text="正在进入聊天室">
 		<div class="lock__btn" v-if="lock">
 			  <el-button @click="onJoinChatroom" type="text">重新连接聊天室</el-button>
 		</div>
@@ -39,22 +39,27 @@
 				this.$nextTick(() => {
 					this.onToBottom();
 				})
-				return this.$store.state.chatroom.history;
+				return this.$store.state.im.history;
 			},
 			data () {
 				this.$nextTick(() => {
-					const $el = this.$refs.list;
-					if (($el.scrollHeight - $el.scrollTop) < $el.offsetHeight + 100) {
-						this.onToBottom();
-					} else {
+					if(this.active == 2) {
 						this.notify = true;
+					} else {
+						const $el = this.$refs.list;
+						if (($el.scrollHeight - $el.scrollTop) < $el.offsetHeight + 100) {
+							this.onToBottom();
+						} else {
+							this.notify = true;
+						}
 					}
+
 				})
-				return this.$store.state.chatroom.data;
+				return this.$store.state.im.data;
 			},
 			...mapState({
-				init: state => state.chatroom.init,
-				lock: state => state.chatroom.lock,
+				init: state => state.im.init,
+				lock: state => state.im.lock,
 				user: state => state.user,
 				live: state => state.live_query.data
 			}),
@@ -66,7 +71,8 @@
 			this.onJoinChatroom();
 		},
 		beforeDestroy () {
-			this.$store.dispatch('CHATROOM_DISCONNECT_REQUEST');
+			// IM和chatroom分开
+			this.$store.dispatch('IM_CHATROOM_DISCONNECT');
 		},
 		methods: {
 			onScroll () {
@@ -77,25 +83,18 @@
 			},
 			onToBottom (force) {
 				if (force) this.active = 1;
-				const $el = this.$refs.list;
-				$el.scrollTop = $el.scrollHeight + $el.offsetHeight;
+				this.$nextTick(() => {
+					const $el = this.$refs.list;
+					$el.scrollTop = $el.scrollHeight + $el.offsetHeight;
+				})
+
 			},
 			onSwitchPage (active) {
 				this.active = active;
 			},
 			onJoinChatroom () {
-				const im = this.user.userImInfo;
-				const init = {
-					account: im.accid,
-					token: im.token,
-					chatroomId: 7703671, // 暂时
-					// chatroomId: this.live.liveChatRoomWithAddr.roomid,
-					chatroomAddresses: this.live.liveChatRoomWithAddr.addr
-
-				}
-				// chatroomAddresses: [ 'wlnimsc6.netease.im:8080' ],
-				// liveChatRoomWithAddr
-				this.$store.dispatch('CHATROOM_INIT_REQUEST', init);
+				const chatroomId = 7703671; // 暂时
+				this.$store.dispatch('IM_INIT_REQUEST', chatroomId);
 			}
 		}
 	}

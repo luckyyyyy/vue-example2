@@ -79,13 +79,13 @@
 				const account = this.account;
 				switch (command) {
 					case 'manager':
-						this.$store.dispatch('CHATROOM_MANAGER', { account, isAdd })
+						this.$store.dispatch('IM_CHATROOM_MANAGER', { account, isAdd })
 						break;
 					case 'common':
-						this.$store.dispatch('CHATROOM_COMMON', { account, isAdd, level: 1 })
+						this.$store.dispatch('IM_CHATROOM_COMMON', { account, isAdd, level: 1 })
 						break;
 					case 'gag':
-						this.$store.dispatch('CHATROOM_GAG', { account, isAdd })
+						this.$store.dispatch('IM_CHATROOM_GAG', { account, isAdd })
 						break;
 					default:
 						// statements_def

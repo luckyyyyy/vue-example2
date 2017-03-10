@@ -2,7 +2,7 @@
 * @Author: William Chan
 * @Date:   2017-03-06 22:29:46
 * @Last Modified by:   William Chan
-* @Last Modified time: 2017-03-09 06:26:17
+* @Last Modified time: 2017-03-10 16:57:41
 */
 
 'use strict';
@@ -64,12 +64,12 @@ export default [
 				] },
 				component: resolve => require([
 					'../views/live/control.vue',
-					'../store/modules/netease/chatroom'
+					'../store/modules/im'
 				], (
 					LiveControlComponent,
-					ChatroomModule
+					IMModule,
 				) => {
-					store.registerModule('chatroom', ChatroomModule.default);
+					store.registerModule('im', IMModule.default);
 					resolve(LiveControlComponent);
 				})
 			},

@@ -188,9 +188,9 @@
 			},
 			...mapState ({
 				live: state => state.live_query.data,
-				chatroom_send: state => state.chatroom.send,
-				chatroom_lock: state => state.chatroom.lock,
-				chatroom_init: state => state.chatroom.init,
+				chatroom_send: state => state.im.send,
+				chatroom_lock: state => state.im.lock,
+				chatroom_init: state => state.im.init,
 			})
 		},
 		beforeRouteEnter (to, from, next) {
@@ -230,15 +230,11 @@
 			this.player.on('play', () => {
 				// alert('play')
 			})
-			// setInterval(() => {
-
-			// 	this.player.pause();
-			// 	this.player.play();
-			// }, 1000)
-
-
 			window.addEventListener('resize', this.autoSetPlayerSize, false);
 			this.autoSetPlayerSize();
+			// const chatroomId = 1; // 暂时
+			// this.$store.dispatch('IM_INIT_REQUEST', 1);
+
 		},
 		beforeDestroy () {
 			window.removeEventListener('resize', this.autoSetPlayerSize, false);
@@ -247,7 +243,7 @@
 			chatroomSend () {
 				const text = trim(this.chatroom.text);
 				if (text) {
-					this.$store.dispatch('CHATROOM_MSG_REQUEST', text).then(() => {
+					this.$store.dispatch('IM_CHATROOM_MSG_REQUEST', text).then(() => {
 						this.chatroom.text = '';
 					}).catch(error => {
 						this.$message.error(error.message);
