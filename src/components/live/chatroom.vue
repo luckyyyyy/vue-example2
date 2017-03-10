@@ -67,13 +67,6 @@
 				return this.$store.getters.chatroom_members;
 			}
 		},
-		mounted () {
-			this.onJoinChatroom();
-		},
-		beforeDestroy () {
-			// IM和chatroom分开
-			this.$store.dispatch('IM_CHATROOM_DISCONNECT');
-		},
 		methods: {
 			onScroll () {
 				const $el = this.$refs.list;
@@ -93,8 +86,7 @@
 				this.active = active;
 			},
 			onJoinChatroom () {
-				const chatroomId = 7703671; // 暂时
-				this.$store.dispatch('IM_INIT_REQUEST', chatroomId);
+				this.$emit('connect');
 			}
 		}
 	}

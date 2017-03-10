@@ -56,9 +56,7 @@
 					<el-button type="primary" @click="onTryPlay">刷新</el-button>
 				</div>
 			</div>
-			<chatroom>
-
-			</chatroom>
+			<chatroom @connect="onJoinChatroom"></chatroom>
 			<div class="action">
 				<div class="live-info">
 					<ul class="live-info-stat">
@@ -232,14 +230,21 @@
 			})
 			window.addEventListener('resize', this.autoSetPlayerSize, false);
 			this.autoSetPlayerSize();
+			this.onJoinChatroom();
 			// const chatroomId = 1; // 暂时
 			// this.$store.dispatch('IM_INIT_REQUEST', 1);
 
 		},
 		beforeDestroy () {
 			window.removeEventListener('resize', this.autoSetPlayerSize, false);
+			this.$store.dispatch('IM_DISCONNECT');
+
 		},
 		methods: {
+			onJoinChatroom () {
+				const chatroomId = 7703671; // 暂时
+				this.$store.dispatch('IM_INIT_REQUEST', chatroomId);
+			},
 			chatroomSend () {
 				const text = trim(this.chatroom.text);
 				if (text) {

@@ -2,7 +2,7 @@
 * @Author: William Chan
 * @Date:   2017-03-10 16:42:39
 * @Last Modified by:   William Chan
-* @Last Modified time: 2017-03-10 18:21:24
+* @Last Modified time: 2017-03-10 18:48:05
 */
 
 'use strict';
@@ -63,6 +63,7 @@ const actions = {
 		const im = rootState.user.userImInfo;
 		init.account = im.accid;
 		init.token   = im.token;
+		console.log(im)
 		// console.log(init)
 		console.log('IM_INIT');
 		commit(IM_INIT.REQUEST);
@@ -146,17 +147,14 @@ const actions = {
 			console.log(err)
 		})
 	},
-	[IM.DISCONNECT] ({ commit }) {
+	[IM.DISCONNECT] ({ commit, dispatch }) {
+		dispatch(IM_CHATROOM.DISCONNECT);
 		im_disconnect();
-		// im_chatroom
-		// commit(IM.DISCONNECT);
-		commit(IM.DISCONNECT);
+		commit(IM_INIT.FAILURE);
 	},
 	[IM_CHATROOM.DISCONNECT] ({ commit }) {
-		im_chatroom_disconnect();
-		// im_chatroom
-		// commit(IM_DISCONNECT.SUCCESS);
-		commit(IM_CHATROOM.DISCONNECT);
+		im_disconnect();
+		commit(IM_CHATROOM_INIT.FAILURE);
 	},
 	[IM_CHATROOM_MSG.REQUEST] ({ commit }, text) {
 		commit(IM_CHATROOM_MSG.REQUEST);
