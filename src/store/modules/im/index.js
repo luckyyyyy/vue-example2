@@ -2,7 +2,7 @@
 * @Author: William Chan
 * @Date:   2017-03-10 16:42:39
 * @Last Modified by:   William Chan
-* @Last Modified time: 2017-03-10 17:47:33
+* @Last Modified time: 2017-03-10 18:21:24
 */
 
 'use strict';
@@ -63,35 +63,18 @@ const actions = {
 		const im = rootState.user.userImInfo;
 		init.account = im.accid;
 		init.token   = im.token;
+		// console.log(init)
 		console.log('IM_INIT');
 		commit(IM_INIT.REQUEST);
 		await im_init(init).then(() => {
 			commit(IM_INIT.SUCCESS);
-			console.log('IM_INIT_SUCCESS');
+			console.log('%cIM_INIT_SUCCESS', 'color:green');
 		}).catch(error => {
 			commit(IM_INIT.FAILURE);
 		})
 		if (chatroomId) {
 			init.chatroomId = chatroomId;
-			await im_chatroom_address(chatroomId).then(address => {
-				commit(IM.ADDRESS, address);
-				console.log('IM_CHATROOM_ADDRESS_SUCCESS');
-			}).catch(error => {
-			})
-
-			init.chatroomAddresses = rootState.im.address;
-			console.log('IM_CHATROOM_INIT');
-			commit(IM_CHATROOM_INIT.REQUEST);
-			init.onmsgs = msg => {
-				commit(IM_CHATROOM_MSG.GET, msg);
-				for (let ret of msg) {
-					if (ret.type == 'notification' && refreshMemberType.includes(ret.attach.type)) {
-						dispatch(IM_CHATROOM.MEMBERS);
-						break;
-					}
-				}
-			}
-			init.onwillreconnect = error => {
+			init.ondisconnect = error => {
 				if (error) {
 					commit(IM_CHATROOM_INIT.LOCK);
 					let msg = error.message;
@@ -120,8 +103,28 @@ const actions = {
 					}
 				}
 			}
+			console.log('IM_CHATROOM_ADDRESS');
+			await im_chatroom_address(chatroomId).then(address => {
+				commit(IM.ADDRESS, address);
+				console.log('%cIM_CHATROOM_ADDRESS_SUCCESS', 'color:green');
+			}).catch(error => {
+			})
+
+			init.chatroomAddresses = rootState.im.address;
+			console.log('IM_CHATROOM_INIT');
+			commit(IM_CHATROOM_INIT.REQUEST);
+			init.onmsgs = msg => {
+				commit(IM_CHATROOM_MSG.GET, msg);
+				for (let ret of msg) {
+					if (ret.type == 'notification' && refreshMemberType.includes(ret.attach.type)) {
+						dispatch(IM_CHATROOM.MEMBERS);
+						break;
+					}
+				}
+			}
+
 			await im_chatroom_init(init).then(() => {
-				console.log('IM_CHATROOM_INIT_SUCCESS');
+				console.log('%cIM_CHATROOM_INIT_SUCCESS', 'color:green');
 				commit(IM_CHATROOM_INIT.SUCCESS);
 			}).catch(error => {
 				commit(IM_CHATROOM_INIT.FAILURE);

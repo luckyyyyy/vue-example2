@@ -2,7 +2,7 @@
 * @Author: William Chan
 * @Date:   2017-03-08 23:18:57
 * @Last Modified by:   William Chan
-* @Last Modified time: 2017-03-10 17:42:26
+* @Last Modified time: 2017-03-10 18:22:12
 */
 
 'use strict';
@@ -14,23 +14,19 @@ let chatroom;
 
 export const im_init = init => {
 	return new Promise((resolve, reject) => {
+		init.appKey = IM_APP_KEY;
+		init.onconnect = obj => {
+			resolve(obj);
+		};
+		init.onerror = error => {
+			reject(error);
+		};
 		if (nim) {
-			resolve();
+			nim.disconnect();
+			nim.setOptions(init);
+			nim.connect();
 		} else {
-			nim = NIM.getInstance({
-				appKey: IM_APP_KEY,
-				account: init.account,
-				token: init.token,
-				onconnect: obj => {
-					resolve(obj);
-				},
-				onwillreconnect: init.onwillreconnect,
-				ondisconnect: init.onwillreconnect,
-				onerror: error => {
-					reject(error);
-				},
-				onmsgs: init.onmsgs
-			});
+			nim = NIM.getInstance(init);
 		}
 	})
 }
@@ -60,25 +56,19 @@ export const im_chatroom_address = chatroomId => {
 // chatroom
 export const im_chatroom_init = init => {
 	return new Promise((resolve, reject) => {
+		init.appKey = IM_APP_KEY;
+		init.onconnect = obj => {
+			resolve(obj);
+		};
+		init.onerror = error => {
+			reject(error);
+		};
 		if (chatroom) {
-			resolve();
+			chatroom.disconnect();
+			chatroom.setOptions(init);
+			chatroom.connect();
 		} else {
-			chatroom = Chatroom.getInstance({
-				appKey: IM_APP_KEY,
-				account: init.account,
-				token: init.token,
-				chatroomId: init.chatroomId,
-				chatroomAddresses: init.chatroomAddresses,
-				onconnect: obj => {
-					resolve(obj);
-				},
-				onwillreconnect: init.onwillreconnect,
-				ondisconnect: init.onwillreconnect,
-				onerror: error => {
-					reject(error);
-				},
-				onmsgs: init.onmsgs
-			});
+			chatroom = Chatroom.getInstance(init);
 		}
 	})
 }
