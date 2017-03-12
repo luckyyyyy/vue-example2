@@ -6,18 +6,20 @@
 
 <script>
 	import store from '../store'
-	export default {
-		beforeRouteEnter (to, from, next) {
-			if (to.params.liveid) {
-				store.dispatch('LIVE_QUERY_REQUEST', { id: to.params.liveid }).then(res => {
-					next();
-				}).catch(err => {
-					next({ name: 'index' });
-				})
-			} else {
+	const verifyRoute = (to, from, next) => {
+		if (to.params.liveid) {
+			store.dispatch('LIVE_QUERY_REQUEST', { id: to.params.liveid }).then(res => {
 				next();
-			}
-		},
+			}).catch(err => {
+				next({ name: 'index' });
+			})
+		} else {
+			next();
+		}
+	}
+	export default {
+		beforeRouteEnter: verifyRoute,
+		beforeRouteUpdate: verifyRoute
 	}
 </script>
 <style scoped lang="less">

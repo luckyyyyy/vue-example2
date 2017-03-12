@@ -105,7 +105,7 @@
 		methods: {
 			onJoinChatroom () {
 				const chatroomId = 7703671; // 暂时
-				// const chatroomId = this.live.liveChatRoomWithAddr.roomid;
+				// const chatroomId = this.live.liveChatRoom.roomid;
 				const oncustomsysmsg = this.onCustomSysMsg;
 				this.$store.dispatch('IM_INIT_REQUEST', { chatroomId, oncustomsysmsg });
 			},
