@@ -2,7 +2,7 @@
 * @Author: William Chan
 * @Date:   2017-03-06 22:29:46
 * @Last Modified by:   William Chan
-* @Last Modified time: 2017-03-10 16:57:41
+* @Last Modified time: 2017-03-12 20:04:21
 */
 
 'use strict';
@@ -56,7 +56,7 @@ export default [
 			},
 			{
 				name: 'live_control',
-				path: 'control/:id',
+				path: 'control/:liveid',
 				meta: { requiresAuth: true, parent: 'live_list', breadcrumb: [
 					{ route: 'live_list', name: '直播列表' },
 					{ route: 'live_detail', name: '直播装修' },
@@ -76,13 +76,13 @@ export default [
 
 			{
 				name: 'live_data',
-				path: 'data/:id',
+				path: 'data/:liveid',
 				meta: { requiresAuth: true, parent: 'live_list' },
 				component: resolve => require(['../views/live/data.vue'], resolve)
 			},
 			{
 				name: 'live_detail',
-				path: 'detail/:id',
+				path: 'detail/:liveid',
 				meta: { requiresAuth: true, parent: 'live_list' },
 				redirect: { name: 'live_detail_countdown' },
 				component: resolve => require(['../views/live/detail.vue'], resolve),

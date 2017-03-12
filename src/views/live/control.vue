@@ -22,27 +22,7 @@
 			</div>
 		</div>
 		<div class="body">
-			<div class="left">
-				<ul class="message">
-					<li v-for="n in 30">
-						<em>11:11:11</em>
-						<p><span>系统消息：</span>你没钱了忘记为今晚我饥饿哦我去见覅偶。</p>
-						<div class="item">
-							<img src="">
-							<div class="desc">
-								<div class="title">名字我怕我卡欧派我靠谱的恐怕</div>
-								<div class="info">
-									<div class="price">￥<span>233</span></div>
-									<div class="stock">库存：<span>3333</span></div>
-								</div>
-							</div>
-						</div>
-						<div class="btn">
-							<el-button type="primary">充值</el-button>
-						</div>
-					</li>
-				</ul>
-			</div>
+			<message></message>
 			<prismVideo :play="play" :stream="live.liveStream"></prismVideo>
 			<chatroom @connect="onJoinChatroom"></chatroom>
 			<div class="action">
@@ -85,14 +65,14 @@
 	import qrcodePopover from '../../components/item/qrcodePopover'
 	import chatroom from '../../components/live/chatroom'
 	import prismVideo from '../../components/live/video'
-	import store from '../../store'
+	import message from '../../components/live/message'
 	import { mapState } from 'vuex'
 	import { trim } from '../../utils/util'
 	import { LIVE_NOTICE_RULES } from '../../options/rules'
 
 	export default {
 		components: {
-			qrcodePopover, chatroom, prismVideo
+			qrcodePopover, chatroom, prismVideo, message
 		},
 		data () {
 			return {
@@ -116,13 +96,6 @@
 				chatroom_init: state => state.im.init,
 			})
 		},
-		beforeRouteEnter (to, from, next) {
-			store.dispatch('LIVE_QUERY_REQUEST', { id: to.params.id }).then(res => {
-				next();
-			}).catch(err => {
-				next({ name: 'index' });
-			})
-		},
 		mounted () {
 			this.onJoinChatroom();
 		},
@@ -137,7 +110,7 @@
 				this.$store.dispatch('IM_INIT_REQUEST', { chatroomId, oncustomsysmsg });
 			},
 			onCustomSysMsg (msg) { // im callback
-
+				console.log(msg)
 			},
 			chatroomSend () {
 				const text = trim(this.chatroom.text);
@@ -258,52 +231,6 @@
 			display: flex;
 			display: flex;
 			justify-content: center;
-		}
-		.left {
-			flex: 3;
-			display: flex;
-			flex-direction: column;
-			padding-bottom: 40px;
-			.message {
-				height: 0; // ?
-				overflow: auto;
-				flex: 1;
-				background: #F7F8FA;
-				font-size: 12px;
-				li {
-					margin: 10px;
-					padding: 10px;
-					background: #eaebed;
-					display: flex;
-					flex-direction: column;
-					em {
-						font-style: normal;
-						font-family: HelveticaNeue;
-					}
-					p {
-						color: #333;
-						span {
-							color: #666;
-						}
-					}
-					.item {
-						display: flex;
-						// display: none;
-						.info {
-							display: flex;
-							.price {
-								margin-right: 20px;
-							}
-							.stock {
-								color: #999;
-							}
-						}
-					}
-					.btn {
-						align-self: flex-end;
-					}
-				}
-			}
 		}
 	}
 </style>

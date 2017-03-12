@@ -51,12 +51,14 @@
 			item: Object,
 			account: String,
 			nickname: String,
-			members: Object,
 			me: Boolean,
 		},
 		computed: {
 			user () {
 				return this.$store.state.user.userImInfo;
+			},
+			members () {
+				return this.$store.getters.chatroom_members;
 			}
 		},
 		methods: {

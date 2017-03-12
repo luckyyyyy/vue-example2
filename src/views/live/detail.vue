@@ -30,19 +30,7 @@
 </template>
 
 <script>
-	import Affix from '../../components/item/affix.vue'
-	import store from '../../store'
 	export default {
-		components: {
-			Affix
-		},
-		beforeRouteEnter (to, from, next) {
-			store.dispatch('LIVE_QUERY_REQUEST', { id: to.params.id }).then(res => {
-				next();
-			}).catch(err => {
-				next({ name: 'index' });
-			})
-		},
 		computed: {
 			select: {
 				get () {
@@ -55,11 +43,12 @@
 		},
 		methods: {
 			toControl () {
-				const uri = `/live/control/${this.$route.params.id}`
+				const uri = `/live/control/${this.$route.params.liveid}`
 				window.open(uri)
 			},
-			goData() {
-				this.$router.push({name: 'live_data', params: this.$route.params})
+			goData () {
+				const uri = `/live/data/${this.$route.params.liveid}`
+				window.open(uri)
 			}
 		}
 	}

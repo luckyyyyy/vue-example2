@@ -3,12 +3,12 @@
 		<p v-for="item in data" :class="item.type" :title="item.time | date">
 			<!-- http://dev.netease.im/docs?doc=web&#聊天室消息 -->
 			<template v-if="item.type == 'text'">
-				<chatroomTag :account="item.from" :members="members"></chatroomTag>
-				<chatroomName :account="item.from" :nickname="item.fromNick" :me="item.flow == 'out'" :members="members">：</chatroomName>
+				<chatroomTag :account="item.from"></chatroomTag>
+				<chatroomName :account="item.from" :nickname="item.fromNick" :me="item.flow == 'out'">：</chatroomName>
 				<span>{{ item.text }}</span>
 			</template>
 			<template v-if="item.type == 'notification'">
-				<chatroomNotification :item="item" :members="members"></chatroomNotification>
+				<chatroomNotification :item="item"></chatroomNotification>
 			</template>
 		</p>
 		<div v-show="history && data.length" class="history"></div>
@@ -25,11 +25,15 @@
 		},
 		props: {
 			data: Array,
-			members: Object,
 			history: {
 				type: Boolean,
 				default: false,
 			},
+		},
+		computed: {
+			members () {
+				return this.$store.getters.chatroom_members;
+			}
 		},
 		filters: {
 			date

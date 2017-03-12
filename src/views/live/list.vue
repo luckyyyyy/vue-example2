@@ -42,22 +42,22 @@
 					<div class="buttom">
 						<div class="time">直播开始时间：<span>未设置</span></div>
 						<div class="button">
-							<router-link :to="{ name: 'live_detail', params: { id: item.id } }">
+							<router-link :to="{ name: 'live_detail', params: { liveid: item.id } }">
 								<i class="iconfont icon-paintfill"></i>
 								<span>直播装修</span>
 							</router-link>
 
-							<router-link :to="{ name: 'live_detail_image', params: { id: item.id } }">
+							<router-link :to="{ name: 'live_detail_image', params: { liveid: item.id } }">
 								<i class="iconfont icon-wefill"></i>
 								<span>互动设置</span>
 							</router-link>
 
-							<router-link :to="{ name: 'live_data', params: { id: item.id } }">
+							<router-link :to="{ name: 'live_data', params: { liveid: item.id } }">
 								<i class="iconfont icon-rankfill"></i>
 								<span>直播数据</span>
 							</router-link>
 
-							<router-link :to="{ name: 'live_control', params: { id: item.id } }">
+							<router-link :to="{ name: 'live_control', params: { liveid: item.id } }">
 								<i class="iconfont icon-k"></i>
 								<span>中控台</span>
 							</router-link>

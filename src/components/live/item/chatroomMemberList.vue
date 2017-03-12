@@ -1,8 +1,8 @@
 <template>
 	<ul>
 		<li v-for="item in members">
-			<chatroomTag :account="item.account" :members="members"></chatroomTag>
-			<chatroomName :account="item.account" :nickname="item.nick" :me="false" :members="members"></chatroomName>
+			<chatroomTag :account="item.account"></chatroomTag>
+			<chatroomName :account="item.account" :nickname="item.nick" :me="false"></chatroomName>
 		</li>
 	</ul>
 </template>
@@ -13,6 +13,11 @@
 	export default {
 		components: {
 			chatroomName, chatroomTag
+		},
+		computed: {
+			members () {
+				return this.$store.getters.chatroom_members;
+			}
 		},
 		props: {
 			members: Object,

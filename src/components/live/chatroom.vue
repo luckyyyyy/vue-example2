@@ -9,11 +9,11 @@
 				<div class="btn" @click="onSwitchPage(2)"><span :class="{ active: active == 2 }">用户管理</span></div>
 			</div>
 			<div class="list" ref="list" @scroll="onScroll" v-show="active == 1">
-				<chatroomList :members="members" :history="true" :data="history"></chatroomList>
-				<chatroomList :members="members" :data="data"></chatroomList>
+				<chatroomList :history="true" :data="history"></chatroomList>
+				<chatroomList :data="data"></chatroomList>
 			</div>
 			<div class="member" v-show="active == 2">
-				<chatroomMemberList :members="members"></chatroomMemberList>
+				<chatroomMemberList></chatroomMemberList>
 			</div>
 			<div v-show="notify" class="tips" @click="onToBottom(true)">😯 有新消息 点击查看</div>
 		</div>
@@ -62,10 +62,7 @@
 				lock: state => state.im.lock,
 				user: state => state.user,
 				live: state => state.live_query.data
-			}),
-			members () {
-				return this.$store.getters.chatroom_members;
-			}
+			})
 		},
 		methods: {
 			onScroll () {

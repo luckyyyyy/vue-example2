@@ -25,7 +25,11 @@
 	export default {
 		props: {
 			item: Object,
-			members: Object,
+		},
+		computed: {
+			members () {
+				return this.$store.getters.chatroom_members;
+			}
 		},
 	}
 </script>
