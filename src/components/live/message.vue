@@ -1,7 +1,7 @@
 <template>
 	<div class="message">
-		<ul class="list">
-			<li v-for="item of message" ref="list">
+		<ul class="list" ref="list">
+			<li v-for="item of message">
 				<div class="head">
 					<span>{{ item.head || '调试信息' }}</span>
 					<em>{{ item.date | date('HH:mm:ss') }}</em>
@@ -17,7 +17,6 @@
 </template>
 <script>
 	import { date } from '../../utils/util'
-
 	export default {
 		computed: {
 			message () {
