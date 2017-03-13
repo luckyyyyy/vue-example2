@@ -30,7 +30,6 @@
 					<ul class="live-info-stat">
 						<li>观看人数<span>12345</span></li>
 						<li>在线人数<span>12345</span></li>
-						<li>总评论数<span>1111万</span></li>
 					</ul>
 					<div class="live-info-time">
 						<div class="time">已经直播xxxxx分钟</div>
@@ -104,9 +103,9 @@
 		},
 		methods: {
 			onJoinChatroom () {
-				const chatroomId = 7703671; // 暂时
-				// const chatroomId = this.live.liveChatRoom.roomid;
-				const oncustomsysmsg = this.onCustomSysMsg;
+				const chatroomId         = 7703671; // 暂时
+				// const chatroomId      = this.live.liveChatRoom.roomid;
+				const oncustomsysmsg     = this.onCustomSysMsg;
 				const onCustomServiceMsg = this.onCustomServiceMsg;
 				this.$store.dispatch('IM_INIT_REQUEST', { chatroomId, oncustomsysmsg, onCustomServiceMsg });
 			},
@@ -132,7 +131,7 @@
 				this.notice.text = '';
 			},
 			endLive () {
-				this.$confirm('确定要结束直播吗？点击确定将彻底关闭直播。', '结束直播', {
+				this.$confirm('确定要结束直播吗？点击确定将彻底关闭直播，变更为回放状态。', '结束直播', {
 					confirmButtonText: '确定',
 					cancelButtonText: '取消',
 					type: 'warning'

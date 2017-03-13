@@ -1,8 +1,8 @@
 /*
 * @Author: William Chan
 * @Date:   2017-03-10 16:42:39
-* @Last Modified by:   William Chan
-* @Last Modified time: 2017-03-13 16:20:25
+* @Last Modified by:   Administrator
+* @Last Modified time: 2017-03-13 22:17:27
 */
 
 'use strict';
@@ -208,6 +208,8 @@ const mutations = {
 	[IM_INIT.REQUEST] (state) {
 		state.im_init = false;
 		state.lock    = false;
+		state.init    = false;
+		state.service = [];
 	},
 	[IM_INIT.SUCCESS] (state, nim) {
 		state.im_init = true;
@@ -218,6 +220,7 @@ const mutations = {
 		state.lock    = false;
 		state.data    = [];
 		state.history = [];
+		state.service = [];
 	},
 	[IM.ADDRESS] (state, address) {
 		state.address = address;
