@@ -107,7 +107,12 @@
 				const chatroomId = 7703671; // 暂时
 				// const chatroomId = this.live.liveChatRoom.roomid;
 				const oncustomsysmsg = this.onCustomSysMsg;
-				this.$store.dispatch('IM_INIT_REQUEST', { chatroomId, oncustomsysmsg });
+				const onCustomServiceMsg = this.onCustomServiceMsg;
+				this.$store.dispatch('IM_INIT_REQUEST', { chatroomId, oncustomsysmsg, onCustomServiceMsg });
+			},
+			onCustomServiceMsg (msg) {
+				// onCustomServiceMsg
+				console.log(msg)
 			},
 			onCustomSysMsg (msg) { // im callback
 				console.log(msg)

@@ -2,7 +2,7 @@
 * @Author: William Chan
 * @Date:   2017-03-10 16:42:39
 * @Last Modified by:   William Chan
-* @Last Modified time: 2017-03-11 02:17:21
+* @Last Modified time: 2017-03-13 16:20:25
 */
 
 'use strict';
@@ -44,6 +44,7 @@ const state = {
 	data: [],
 	history: [],
 	address: [],
+	service: [],
 }
 
 const getters = {
@@ -58,17 +59,17 @@ const getters = {
 
 
 const actions = {
-	async [IM_INIT.REQUEST] ({ commit, dispatch, rootState }, { chatroomId, oncustomsysmsg }) {
+	async [IM_INIT.REQUEST] ({ commit, dispatch, rootState }, { chatroomId, oncustomsysmsg, onCustomServiceMsg }) {
 		const init = {}
 		const im            = rootState.user.userImInfo;
 		init.account        = im.accid;
 		init.token          = im.token;
 		init.oncustomsysmsg = oncustomsysmsg;
-		console.log('IM_INIT');
+		commit(IM_CHATROOM_MSG.SERVICE, 'IM_INIT');
 		commit(IM_INIT.REQUEST);
 		await im_init(init).then(() => {
 			commit(IM_INIT.SUCCESS);
-			console.log('%cIM_INIT_SUCCESS', 'color:green');
+			commit(IM_CHATROOM_MSG.SERVICE, 'IM_INIT_SUCCESS');
 		}).catch(error => {
 			commit(IM_INIT.FAILURE);
 		})
@@ -103,18 +104,21 @@ const actions = {
 					}
 				}
 			}
-			console.log('IM_CHATROOM_ADDRESS');
+			commit(IM_CHATROOM_MSG.SERVICE, 'IM_CHATROOM_ADDRESS');
 			await im_chatroom_address(chatroomId).then(address => {
 				commit(IM.ADDRESS, address);
-				console.log('%cIM_CHATROOM_ADDRESS_SUCCESS', 'color:green');
+				commit(IM_CHATROOM_MSG.SERVICE, 'IM_CHATROOM_ADDRESS_SUCCESS');
 			}).catch(error => {
 			})
 
 			init.chatroomAddresses = rootState.im.address;
-			console.log('IM_CHATROOM_INIT');
+			commit(IM_CHATROOM_MSG.SERVICE, 'IM_CHATROOM_INIT');
 			commit(IM_CHATROOM_INIT.REQUEST);
 			init.onmsgs = msg => {
 				commit(IM_CHATROOM_MSG.GET, msg);
+				// if RODO
+				onCustomServiceMsg(msg);
+				commit(IM_CHATROOM_MSG.SERVICE, msg);
 				for (let ret of msg) {
 					if (ret.type == 'notification' && refreshMemberType.includes(ret.attach.type)) {
 						dispatch(IM_CHATROOM.MEMBERS);
@@ -124,18 +128,18 @@ const actions = {
 			}
 
 			await im_chatroom_init(init).then(() => {
-				console.log('%cIM_CHATROOM_INIT_SUCCESS', 'color:green');
+				commit(IM_CHATROOM_MSG.SERVICE, 'IM_CHATROOM_INIT_SUCCESS');
 				commit(IM_CHATROOM_INIT.SUCCESS);
 			}).catch(error => {
 				commit(IM_CHATROOM_INIT.FAILURE);
 			})
-			console.log('CHATROOM_GET_HISTORY');
+			commit(IM_CHATROOM_MSG.SERVICE, 'CHATROOM_GET_HISTORY');
 			im_chatroom_getHistory().then(obj => {
 				commit(IM_CHATROOM_MSG.HISTORY, obj.msgs);
 			}).catch(err => {
 
 			})
-			console.log('CHATROOM_GET_MEMBERS');
+			commit(IM_CHATROOM_MSG.SERVICE, 'CHATROOM_GET_MEMBERS');
 			dispatch(IM_CHATROOM.MEMBERS);
 		}
 	},
@@ -259,6 +263,19 @@ const mutations = {
 	},
 	[IM_CHATROOM_MSG.HISTORY] (state, msg) {
 		state.history = msg.reverse();
+	},
+	[IM_CHATROOM_MSG.SERVICE] (state, msg) {
+		const dat = {
+			date: new Date()
+		}
+		if (typeof msg == 'string') {
+			dat.type = 'text';
+			dat.text = msg;
+		} else {
+			// TODO
+		}
+		console.log(state.service)
+		state.service = state.service.concat(dat);
 	}
 }
 export default {
