@@ -34,7 +34,7 @@
 					</upload>
 				</el-form-item>
 				<el-form-item label="个性签名：" prop="description">
-					<el-input type="textarea" v-model="user.description"></el-input>
+					<el-input type="textarea" v-model="user.description" resize="none"></el-input>
 				</el-form-item>
 				<el-form-item>
 					<el-button :loading="lock" native-type="submit" type="primary" @click="submit">确认修改</el-button>

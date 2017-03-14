@@ -1,6 +1,6 @@
 <template>
 	<div class="clipboard">
-		<el-input :value="text" :disabled="true" size="small"></el-input>
+		<el-input :value="text" :readonly="true" size="small"></el-input>
 		<el-button @error="handleError" @success="handleSuccess" size="small" v-clipboard="text"><slot>复制</slot></el-button>
 	</div>
 </template>
@@ -9,8 +9,7 @@
 	import Vue from 'vue'
 	import Clipboard from 'clipboard';
 	Vue.directive(
-		'clipboard',
-		{
+		'clipboard', {
 			bind(el, binding, vnode, oldVnode) {
 				const clipboard = new Clipboard(el, {
 					text: () => binding.value
@@ -37,7 +36,7 @@
 			},
 			handleError (e) {
 				this.$message({
-					 message: '复制失败，您的浏览器不支持，请手动复制。',
+					 message: '您的浏览器不支持自动复制，请连续点击三下左边的输入框按ctrl+c手动复制。',
 					 type: 'error'
 				})
 			}

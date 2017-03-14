@@ -26,9 +26,9 @@
 						<p>{{ user.phone }}</p>
 					</div> -->
 					<ul class="popper__menu">
-						<li><router-link :to="{ name: 'profile', query: { redirect: $route.fullPath } }">账号设置</router-link></li>
-						<li><a @click="switchShop" href="javascript:;">切换频道</a></li>
-						<li><a @click="logout" href="javascript:;">退出系统</a></li>
+						<li><router-link :to="{ name: 'profile', query: { redirect: $route.fullPath } }"><i class="iconfont icon-video"></i>账号设置</router-link></li>
+						<li><a @click="switchShop" href="javascript:;"><i class="iconfont icon-video"></i>切换频道</a></li>
+						<li><a @click="logout" href="javascript:;"><i class="iconfont icon-video"></i>退出系统</a></li>
 					</ul>
 				</div>
 			</menu>
@@ -136,7 +136,7 @@
 				top: 50px;
 				background: darken(#373d41, 10%);;
 				// width: 100%;
-				width: 150px;
+				width: 200px;
 				transition: visibility .3s, opacity .3s;
 				.popper__account {
 					text-align: center;
@@ -148,10 +148,15 @@
 						// padding-left: 50px;
 						box-sizing: border-box;
 						a {
-							display: inline-block;
-							width: 100%;
+							display: flex;
+							align-items: center;
+							justify-content: center;
 							padding: 10px 0;
 							color: white;
+							i {
+								width: 50px;
+								display: inline-block;
+							}
 						}
 						&:hover {
 							background: #00C1DE;
