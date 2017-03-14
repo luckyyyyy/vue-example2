@@ -141,10 +141,10 @@
 			},
 			onCustomServiceMsg (msg) {
 				// onCustomServiceMsg
-				console.log(msg)
+				// console.log(msg)
 			},
 			onCustomSysMsg (msg) { // im callback
-				console.log(msg)
+				// console.log(msg)
 			},
 			chatroomSend () {
 				const text = trim(this.chatroom.text);

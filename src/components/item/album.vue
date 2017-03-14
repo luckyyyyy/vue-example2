@@ -8,7 +8,7 @@
 			custom-class="albumDialog"
 		>
 			<template slot="title">我的图库 {{ find.length ? `已选择${find.length}张图片` : '请选择图片' }}</template>
-			<div class="loading" v-loading="lock" element-loading-text="图片上传中">
+			<div class="loading" v-loading="lock" :element-loading-text="lock">
 				<ul
 					ref="list"
 					@scroll="onScroll"
@@ -32,7 +32,7 @@
 						@fail="fail"
 						@progress="progress"
 					>
-						<el-button :loading="lock ? true : false" type="primary">{{ lock ? lock : '上传图片' }}</el-button>
+						<el-button :loading="lock ? true : false" type="primary">上传图片</el-button>
 					</upload>
 				</div>
 				<div class="right">
@@ -101,6 +101,7 @@
 			success (data) {
 				this.$store.commit('MULTIMEDIA_FIND_INSERT', data);
 				this.lock = false;
+				this.$refs.list.scrollTop = 0;
 			},
 			fail () {
 				this.lock = false;

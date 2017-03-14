@@ -44,20 +44,24 @@
 			});
 			if (process.env.NODE_ENV !== 'production') {
 				this.player.on('play', () => {
-					this.$message(`DEBUG: 播放视频${source}`)
+					this.$message(`DEBUG: source ${source}`)
 				})
 			}
 			this.player.on('play', () => {
 				this.pause = false;
+				console.log('play')
 			})
 			this.player.on('pause', () => {
 				this.pause = true;
+				console.log('pause')
 			})
 			this.player.on('liveStreamStop', () => {
 				this.pause = true;
+				console.log('liveStreamStop')
 			})
 			this.player.on('m3u8Retry', () => {
 				this.pause = true;
+				console.log('m3u8Retry')
 			})
 			window.addEventListener('resize', this.autoSetPlayerSize, false);
 			this.autoSetPlayerSize();
@@ -71,8 +75,7 @@
 				this.player.setPlayerSize('100%', `${height}px`);
 			},
 			onTryPlay () {
-				// this.lockStream = false;
-				this.player.pause();
+				// this.pause = false;
 				this.player.play();
 			}
 		}

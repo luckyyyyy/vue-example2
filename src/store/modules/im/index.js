@@ -1,8 +1,8 @@
 /*
 * @Author: William Chan
 * @Date:   2017-03-10 16:42:39
-* @Last Modified by:   Administrator
-* @Last Modified time: 2017-03-13 22:17:27
+* @Last Modified by:   William Chan
+* @Last Modified time: 2017-03-15 01:22:13
 */
 
 'use strict';
@@ -277,7 +277,7 @@ const mutations = {
 		} else {
 			// TODO
 		}
-		console.log(state.service)
+		// console.log(state.service)
 		state.service = state.service.concat(dat);
 	}
 }
