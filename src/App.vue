@@ -65,7 +65,6 @@
 		.router-view {
 			box-sizing: border-box;
 			display: flex;
-			flex-direction: column;
 			padding-left: 135px;
 			box-sizing: border-box;
 		    position: absolute;

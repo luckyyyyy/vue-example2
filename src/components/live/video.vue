@@ -31,12 +31,12 @@
 			}
 		},
 		mounted () {
-			const source = isiPad() ? this.stream.playOriginM3uUrl : this.stream.playOriginFlvUrl;
+			const source = isiPad() ? this.stream.playOriginM3u8Url : this.stream.playOriginFlvUrl;
 			this.player = new prism({
 				id       : 'video',
 				source   : source,
 				autoplay : false,
-				preload  : true,
+				preload  : false,
 				isLive   : true,
 				showBarTime: '100',
 				width    : '100%',
@@ -53,7 +53,6 @@
 			this.player.on('pause', () => {
 				this.pause = true;
 			})
-
 			this.player.on('liveStreamStop', () => {
 				this.pause = true;
 			})

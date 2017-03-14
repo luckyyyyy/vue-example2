@@ -136,6 +136,7 @@
 		color: #666;
 		background: #fff;
 		padding: 15px 20px;
+		flex: 1;
 	}
 	.head {
 		margin-bottom: 30px;

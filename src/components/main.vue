@@ -1,6 +1,9 @@
 <template>
 	<div>
-		<router-view class="commoon-router-view"></router-view>
+		<router-view class="commoon"></router-view>
+		<div class="help">
+			<!-- 测试 -->
+		</div>
 	</div>
 </template>
 
@@ -23,8 +26,14 @@
 	}
 </script>
 <style scoped lang="less">
-	.commoon-router-view {
+	.commoon {
 		flex: 1;
 		background: #fff;
+	}
+	@media (max-width: 1600px) {
+		.help {
+			background: #fff;
+			display: none;
+		}
 	}
 </style>
