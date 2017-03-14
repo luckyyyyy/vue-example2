@@ -3,16 +3,30 @@
 		<div class="top">
 			<div class="button-action">
 				<div class="line">
-					<el-popover ref="download-popover" placement="bottom-start" width="200" trigger="click">
+					<el-popover placement="bottom-start" width="200" trigger="click">
 						<p>扫码下载手机直播工具</p>
 						<div class="qrcode"></div>
 						<p>支持Android、iOS 下载</p>
+						<el-button slot="reference">下载直播工具</el-button>
 					</el-popover>
-					<el-button v-popover:download-popover>下载直播工具</el-button>
-					<qrcodePopover :text="live.liveStream.pushStreamUrl">
+					<el-popover placement="top" width="200" trigger="click"  popper-class="stream-url-popper" :width="240">
+						<div class="tips">
+							<h3>方式一：使用APP扫码推流</h3>
+							<div class="qrcode" ref="qrcode"></div>
+						</div>
+						<div class="tips">
+							<h3>方式二：使用OBS等软件推流</h3>
+							<div class="stream">
+								<clipboardInput :text="live.liveStream.pushStreamUrl">复制地址</clipboardInput>
+								<clipboardInput :text="live.liveStream.pushStreamUrl">复制秘钥</clipboardInput>
+							</div>
+						</div>
+						<el-button slot="reference">推流地址</el-button>
+					</el-popover>
+		<!-- 			<qrcodePopover :text="live.liveStream.pushStreamUrl">
 						<p slot="tips">扫码开启直播</p>
 						<el-button slot="reference">推流地址</el-button>
-					</qrcodePopover>
+					</qrcodePopover> -->
 					<qrcodePopover text="假的">
 						<p slot="tips">微信扫码观看直播</p>
 						<el-button slot="reference">观看地址</el-button>
@@ -65,12 +79,15 @@
 	import chatroom from '../../components/live/chatroom'
 	import prismVideo from '../../components/live/video'
 	import message from '../../components/live/message'
+	import clipboardInput from '../../components/item/clipboardInput'
+	import qrcodejs from 'qrcodejs2'
 	import { mapState } from 'vuex'
 	import { trim } from '../../utils/util'
 	import { LIVE_NOTICE_RULES } from '../../options/rules'
 
 	export default {
 		components: {
+			clipboardInput,
 			qrcodePopover, chatroom, prismVideo, message
 		},
 		data () {
@@ -97,6 +114,19 @@
 		},
 		mounted () {
 			this.onJoinChatroom();
+			if (this.qrcode) {
+				this.qrcode.makeCode(this.text);
+			} else {
+				this.qrcode = new qrcodejs(this.$refs.qrcode, {
+					text: this.live.liveStream.pushStreamUrl,
+					width: 240,
+					height: 240,
+					// colorDark : "#000000",
+					// colorLight : "#ffffff",
+				});
+			}
+
+
 		},
 		beforeDestroy () {
 			this.$store.dispatch('IM_DISCONNECT');
@@ -246,4 +276,54 @@
 			text-align: right;
 		}
 	}
+	.stream-url-popper {
+		.tips {
+			padding: 5px;
+			h3 {
+				text-align: center;
+				font-size: 14px;
+				// background: #eee;
+			}
+			.qrcode {
+				display: flex;
+				justify-content: center;
+				padding: 5px;
+				img {
+					width: 120px;
+					height: 120px;
+				}
+			}
+		}
+		// .head, .body {
+		// 	background: #eee;
+		// 	display: flex;
+		// 	align-items: center;
+		// 	padding: 5px;
+		// 	justify-content: space-around;
+		// }
+		// .body {
+		// 	background: #fff;
+		// 	.qrcode {
+		// 		width: 120px;
+		// 		height: 120px;
+		// 		img {
+		// 			width: 120px;
+		// 			height: 120px;
+		// 		}
+		// 	}
+		// }
+	}
 </style>
+
+
+
+
+
+
+
+
+
+
+
+
+

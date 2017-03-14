@@ -3,10 +3,7 @@
 		<div class="qrcode-box">
 			<slot name="tips"></slot>
 			<div ref="qrcode" class="qr"></div>
-			<div class="clipboard">
-				<el-input :value="text" :disabled="true" size="small"></el-input>
-				<el-button @error="handleError" @success="handleSuccess" size="small" v-clipboard="text">复制</el-button>
-			</div>
+			<clipboardInput :text="text"></clipboardInput>
 		</div>
 		<template slot="reference"><slot name="reference"></slot></template>
 	</el-popover>
@@ -15,40 +12,15 @@
 <script>
 	import qrcodejs from 'qrcodejs2'
 	import Vue from 'vue'
-	import Clipboard from 'clipboard';
-	Vue.directive(
-		'clipboard',
-		{
-			bind(el, binding, vnode, oldVnode) {
-				const clipboard = new Clipboard(el, {
-					text: () => binding.value
-				});
-				clipboard.on('success', function(e) {
-					vnode.child.$emit('success', e);
-				});
-				clipboard.on('error', function(e) {
-					vnode.child.$emit('error', e);
-				});
-			}
-		}
-	);
+	import clipboardInput from './clipboardInput'
 	export default {
+		components: {
+			clipboardInput
+		},
 		props: {
 			text: String,
 		},
 		methods: {
-			handleSuccess (e) {
-				this.$message({
-					 message: '复制成功',
-					 type: 'success'
-				})
-			},
-			handleError (e) {
-				this.$message({
-					 message: '复制失败，您的浏览器不支持，请手动复制。',
-					 type: 'error'
-				})
-			},
 			onShow () {
 				if (this.qrcode) {
 					this.qrcode.makeCode(this.text);
@@ -87,14 +59,6 @@
 				img {
 					width: 120px;
 					height: 120px;
-				}
-			}
-			.clipboard {
-				width: 100%;
-				display: flex;
-				margin: 5px;
-				.el-button {
-					margin-left: 5px;
 				}
 			}
 		}
