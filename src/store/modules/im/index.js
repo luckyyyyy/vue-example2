@@ -2,7 +2,7 @@
 * @Author: William Chan
 * @Date:   2017-03-10 16:42:39
 * @Last Modified by:   Administrator
-* @Last Modified time: 2017-03-16 00:45:55
+* @Last Modified time: 2017-03-16 03:03:36
 */
 
 'use strict';
@@ -65,11 +65,11 @@ const actions = {
 		init.account        = im.accid;
 		init.token          = im.token;
 		init.oncustomsysmsg = oncustomsysmsg;
-		commit(IM_CHATROOM_MSG.SERVICE, 'IM_INIT');
 		commit(IM_INIT.REQUEST);
+		dispatch(IM_CHATROOM_MSG.SERVICE, 'IM_INIT');
 		await im_init(init).then(() => {
 			commit(IM_INIT.SUCCESS);
-			commit(IM_CHATROOM_MSG.SERVICE, 'IM_INIT_SUCCESS');
+			dispatch(IM_CHATROOM_MSG.SERVICE, 'IM_INIT_SUCCESS');
 		}).catch(error => {
 			commit(IM_INIT.FAILURE);
 		})
@@ -104,16 +104,16 @@ const actions = {
 					}
 				}
 			}
-			commit(IM_CHATROOM_MSG.SERVICE, 'IM_CHATROOM_ADDRESS');
+			dispatch(IM_CHATROOM_MSG.SERVICE, 'IM_CHATROOM_ADDRESS');
 			await im_chatroom_address(chatroomId).then(address => {
 				commit(IM.ADDRESS, address);
-				commit(IM_CHATROOM_MSG.SERVICE, 'IM_CHATROOM_ADDRESS_SUCCESS');
+				dispatch(IM_CHATROOM_MSG.SERVICE, 'IM_CHATROOM_ADDRESS_SUCCESS');
 			}).catch(error => {
 			})
 
 			init.chatroomAddresses = rootState.im.address;
-			commit(IM_CHATROOM_MSG.SERVICE, 'IM_CHATROOM_INIT');
 			commit(IM_CHATROOM_INIT.REQUEST);
+			dispatch(IM_CHATROOM_MSG.SERVICE, 'IM_CHATROOM_INIT');
 			init.onmsgs = msg => {
 				for (let ret of msg) {
 					if (ret.type == 'custom' && ret.fromClientType == 'Server') {
@@ -130,22 +130,25 @@ const actions = {
 				}
 			}
 			await im_chatroom_init(init).then(() => {
-				commit(IM_CHATROOM_MSG.SERVICE, 'IM_CHATROOM_INIT_SUCCESS');
 				commit(IM_CHATROOM_INIT.SUCCESS);
+				dispatch(IM_CHATROOM_MSG.SERVICE, 'IM_CHATROOM_INIT_SUCCESS');
+				dispatch(IM_CHATROOM_MSG.HISTORY);
+				dispatch(IM_CHATROOM.MEMBERS);
+				dispatch(IM_CHATROOM_MSG.SERVICE, { type: 'SYSTEM_TIPS', content: '通知系统初始化完成' });
 			}).catch(error => {
 				commit(IM_CHATROOM_INIT.FAILURE);
 			})
-			commit(IM_CHATROOM_MSG.SERVICE, 'CHATROOM_GET_HISTORY');
-			im_chatroom_getHistory().then(obj => {
-				commit(IM_CHATROOM_MSG.HISTORY, obj.msgs);
-			}).catch(err => {
-
-			})
-			commit(IM_CHATROOM_MSG.SERVICE, 'CHATROOM_GET_MEMBERS');
-			dispatch(IM_CHATROOM.MEMBERS);
 		}
 	},
-	[IM_CHATROOM.MEMBERS] ({ commit }, guest) {
+	[IM_CHATROOM_MSG.HISTORY]  ({ commit, dispatch }, guest) {
+		dispatch(IM_CHATROOM_MSG.SERVICE, 'CHATROOM_GET_HISTORY');
+		im_chatroom_getHistory().then(obj => {
+			commit(IM_CHATROOM_MSG.HISTORY, obj.msgs);
+		}).catch(err => {
+		})
+	},
+	[IM_CHATROOM.MEMBERS] ({ commit, dispatch }, guest) {
+		dispatch(IM_CHATROOM_MSG.SERVICE, 'CHATROOM_GET_MEMBERS');
 		im_chatroom_getMembers(guest || false).then(obj => {
 			commit(IM_CHATROOM.MEMBERS, obj.members);
 		}).catch(err => {
@@ -204,6 +207,19 @@ const actions = {
 			})
 		})
 	},
+	[IM_CHATROOM_MSG.SERVICE] ({ commit, dispatch }, obj) {
+		let dat = {}
+		if (typeof obj == 'string') {
+			dat.type    = 'DEBUG';
+			dat.content = obj;
+		} else {
+			dat = obj;
+		}
+		dat.date = new Date();
+		if (process.env.NODE_ENV !== 'production' || dat.type != 'DEBUG') {
+			commit(IM_CHATROOM_MSG.SERVICE, dat);
+		}
+	}
 }
 
 const mutations = {
@@ -267,20 +283,16 @@ const mutations = {
 		// console.log('新消息', state.data);
 	},
 	[IM_CHATROOM_MSG.HISTORY] (state, msg) {
-		state.history = msg.reverse();
+		const data = [];
+		for (let ret of msg) {
+			if (ret.fromClientType != 'Server') {
+				data.push(ret);
+			}
+		}
+		state.history = data.reverse();
 	},
 	[IM_CHATROOM_MSG.SERVICE] (state, msg) {
-		const dat = {
-			date: new Date()
-		}
-		if (typeof msg == 'string') {
-			dat.type = 'text';
-			dat.text = msg;
-		} else {
-			// TODO
-		}
-		// console.log(state.service)
-		state.service = state.service.concat(dat);
+		state.service.push(msg);
 	}
 }
 export default {

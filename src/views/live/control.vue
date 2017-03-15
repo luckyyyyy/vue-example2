@@ -125,8 +125,6 @@
 					// colorLight : "#ffffff",
 				});
 			}
-
-
 		},
 		beforeDestroy () {
 			this.$store.dispatch('IM_DISCONNECT');
@@ -148,6 +146,7 @@
 			},
 			onCustomServiceMsg (data) { // chatroom callback
 				data.content = JSON.parse(data.content);
+				this.$store.dispatch('IM_CHATROOM_MSG_SERVICE', data);
 				switch (data.type) {
 					case 'LIVE_STREAM_STATUS':
 						this.onSwitchLiveAction(data.content.action);

@@ -3,12 +3,18 @@
 		<ul class="list" ref="list">
 			<li v-for="item of message">
 				<div class="head">
-					<span>{{ item.head || '调试信息' }}</span>
+					<span>{{ item.type | L }}</span>
 					<em>{{ item.date | date('HH:mm:ss') }}</em>
 				</div>
 				<div class="body">
-					<template v-if="item.type == 'text'">
-						<p>{{ item.text }}</p>
+					<template v-if="item.type == 'DEBUG'">
+						<p>{{ item.content }}</p>
+					</template>
+					<template v-if="item.type == 'LIVE_STREAM_STATUS'">
+						<p>{{ item.content.desc }}：{{ item.content.action | L }}</p>
+					</template>
+					<template v-if="item.type == 'SYSTEM_TIPS'">
+						<p>{{ item.content }}</p>
 					</template>
 				</div>
 			</li>
@@ -16,6 +22,7 @@
 	</div>
 </template>
 <script>
+	import _L from '../../options/live/message'
 	import { date } from '../../utils/util'
 	export default {
 		computed: {
@@ -28,7 +35,10 @@
 			}
 		},
 		filters: {
-			date
+			date,
+			L (txt) {
+				return _L[txt] || txt;
+			}
 		},
 	}
 </script>
