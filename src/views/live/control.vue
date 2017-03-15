@@ -17,8 +17,8 @@
 						<div class="tips">
 							<h3>方式二：使用OBS等软件推流</h3>
 							<div class="stream">
-								<clipboardInput :text="live.liveStream.pushStreamUrl">复制地址</clipboardInput>
-								<clipboardInput :text="live.liveStream.pushStreamUrl">复制秘钥</clipboardInput>
+								<clipboardInput :text="live.liveStream.url">复制地址</clipboardInput>
+								<clipboardInput :text="live.liveStream.streamKey">复制秘钥</clipboardInput>
 							</div>
 						</div>
 						<el-button slot="reference">推流地址</el-button>
