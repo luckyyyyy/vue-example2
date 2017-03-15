@@ -4,16 +4,12 @@
 			<div class="box">
 				<el-radio-group v-model="status" @change="onStatusChange">
 					<div class="title">
-						<i class="iconfont icon-video"></i>直播状态
+						<i class="iconfont icon-video"></i>回放列表
 					</div>
-					<el-radio-button :label="0">未发布</el-radio-button>
-					<el-radio-button :label="1">发布中</el-radio-button>
+					<el-radio-button :label="2">回放列表</el-radio-button>
 					<div class="line"></div>
 					<el-radio-button :label="3">回收站</el-radio-button>
 				</el-radio-group>
-				<div class="button">
-    				<el-button @click="openCreateDialog" type="primary">新建直播</el-button>
-				</div>
 			</div>
 		</div>
 		<div @scroll="onScroll" class="commoon-view">
@@ -68,42 +64,12 @@
 				{{ loading ? '正在获取列表' : lock_find ? '所有直播加载完毕' : '下拉可刷新' }}
 			</div>
 		</div>
-
-		<el-dialog
-			custom-class="createDialog"
-			title="新建直播"
-			v-model="openDialog"
-			:close-on-click-modal="false"
-			:close-on-press-escape="!lock"
-			:show-close="!lock">
-			<el-form ref="create" :rules="rules" label-position="left" label-width="85px" :model="create" @submit.native.prevent>
-				<el-form-item label="直播标题" prop="name">
-					<el-input :autofocus="true" v-model="create.name" placeholder="请输入直播标题"></el-input>
-				</el-form-item>
-				<div class="help">
-					<p>
-						说明：彩虹云直播严禁上传包括反动、暴力、色情、违法及侵权内容的文件。
-						平台有义务配合有关部门将上传违规文件的用户信息保存，并保留因配合调
-						查及冻结账号的权利。
-					</p>
-					<el-checkbox v-model="createAgree">我已阅读</el-checkbox>
-				</div>
-				<div class="footer">
-					<el-button @click="onSubmit" :loading="lock" native-type="submit" :disabled="!createAgree" type="primary">创 建</el-button>
-				</div>
-			</el-form>
-		</el-dialog>
-
 	</div>
 </template>
 
 <script>
 	import { mapState } from 'vuex'
 	import qrcodePopover from '../../components/item/qrcodePopover'
-	import { LIVE_CREATE_RULES } from '../../options/rules'
-	import live_create from '../../store/modules/live/create'
-	import live_find from '../../store/modules/live/find'
-
 	export default {
 		components: {
 			qrcodePopover
@@ -113,10 +79,7 @@
 				create: {
 					name: ''
 				},
-				rules: LIVE_CREATE_RULES,
-				openDialog: false,
-				createAgree: true,
-				status: parseInt(this.$route.params.status) || 0,
+				status: parseInt(this.$route.params.status) || 2,
 			}
 		},
 		computed: {

@@ -2,7 +2,7 @@
 * @Author: William Chan
 * @Date:   2016-12-01 17:57:50
 * @Last Modified by:   William Chan
-* @Last Modified time: 2017-03-06 23:23:14
+* @Last Modified time: 2017-03-15 13:22:38
 */
 
 'use strict';
@@ -16,6 +16,7 @@ import 'nprogress/nprogress.css'
 
 import topRoute     from './top'
 import liveRoute    from './live'
+import VideoRoute   from './Video'
 import homeRoute    from './home'
 import accountRoute from './account'
 import storeRoute   from './store'
@@ -24,7 +25,7 @@ import userRoute    from './user'
 Vue.use(VueRouter);
 
 const routes = [].concat(
-	liveRoute, homeRoute, accountRoute, storeRoute, userRoute,
+	liveRoute, VideoRoute, homeRoute, accountRoute, storeRoute, userRoute,
 	topRoute
 );
 

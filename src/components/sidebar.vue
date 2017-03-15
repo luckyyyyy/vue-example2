@@ -18,6 +18,7 @@
 				<template slot="title"><i class="iconfont icon-video"></i>直播</template>
 				<el-menu-item :route="{ name: 'live_list' }" index="live_list">直播列表</el-menu-item>
 				<el-menu-item :route="{ name: 'live_template' }" index="live_template">直播间模板</el-menu-item>
+				<el-menu-item :route="{ name: 'video_list' }" index="video_list">回放列表</el-menu-item>
 			</el-submenu>
 			<el-submenu index="2">
 				<template slot="title"><i class="iconfont icon-shop"></i>电商</template>
