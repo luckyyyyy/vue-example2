@@ -2,7 +2,7 @@
 * @Author: William Chan
 * @Date:   2017-03-10 16:42:39
 * @Last Modified by:   Administrator
-* @Last Modified time: 2017-03-16 00:06:36
+* @Last Modified time: 2017-03-16 00:45:55
 */
 
 'use strict';
@@ -115,7 +115,6 @@ const actions = {
 			commit(IM_CHATROOM_MSG.SERVICE, 'IM_CHATROOM_INIT');
 			commit(IM_CHATROOM_INIT.REQUEST);
 			init.onmsgs = msg => {
-
 				for (let ret of msg) {
 					if (ret.type == 'custom' && ret.fromClientType == 'Server') {
 						const data = JSON.parse(ret.custom);

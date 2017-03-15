@@ -1,10 +1,10 @@
 <template>
 	<div class="video" ref="video">
 		<div id='video' class='prism-player'></div>
-		<div class="lock" v-show="pause">
+		<div class="lock" v-show="!start">
 			<img src="../../assets/toplogo.png" height="40" width="196">
-			<p>主播还未开始直播或断开连接，尝试刷新</p>
-			<el-button type="primary" @click="onTryPlay">刷新</el-button>
+			<p>{{ lock ? `正在请求直播状态` : '主播还未开始直播或断开连接，请尝试刷新' }}</p>
+			<el-button type="primary" :loading="lock" @click="checkStatus">刷新</el-button>
 		</div>
 	</div>
 </template>
@@ -18,16 +18,15 @@
 			stream: Object,
 			play: Boolean
 		},
-		data () {
-			return {
-				pause: true,
-				player: {},
-			}
-		},
 		computed: {
 			start () {
-				this.play ? this.palyer.play() : this.palyer.pause();
+				if (this.player) {
+					this.play ? this.player.play() : this.player.pause();
+				}
 				return this.play;
+			},
+			lock () {
+				return this.$store.state.live_query_stream.lock;
 			}
 		},
 		mounted () {
@@ -47,24 +46,24 @@
 					this.$message(`DEBUG: source ${source}`)
 				})
 			}
-			this.player.on('play', () => {
-				this.pause = false;
-				console.log('play')
-			})
-			this.player.on('pause', () => {
-				this.pause = true;
-				console.log('pause')
-			})
+			// this.player.on('play', () => {
+			// 	console.log('play')
+			// })
+			// this.player.on('pause', () => {
+			// 	console.log('pause')
+			// })
 			this.player.on('liveStreamStop', () => {
-				this.pause = true;
-				console.log('liveStreamStop')
+				this.checkStatus();
 			})
 			this.player.on('m3u8Retry', () => {
-				this.pause = true;
-				console.log('m3u8Retry')
+				this.checkStatus();
 			})
 			window.addEventListener('resize', this.autoSetPlayerSize, false);
-			this.autoSetPlayerSize();
+			this.player.on('ready', () => {
+				// TODO 初始化状态
+				this.autoSetPlayerSize();
+				this.checkStatus();
+			})
 		},
 		beforeDestroy () {
 			window.removeEventListener('resize', this.autoSetPlayerSize, false);
@@ -74,9 +73,13 @@
 				const height = this.$refs.video.offsetHeight - 40;
 				this.player.setPlayerSize('100%', `${height}px`);
 			},
-			onTryPlay () {
-				// this.pause = false;
-				this.player.play();
+			checkStatus () {
+				const id = this.$store.state.live_query.data.id;
+				this.$store.dispatch('LIVE_QUERY_STREAM_REQUEST', { id }).then(data => {
+					this.$emit('play', data.status == 0 ? 'publish_done' : 'publish');
+				}).catch(() => {
+					console.log('获取直播状态')
+				})
 			}
 		}
 	}

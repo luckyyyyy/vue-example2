@@ -37,7 +37,7 @@
 		</div>
 		<div class="body">
 			<message></message>
-			<prismVideo :play="play" :stream="live.liveStream"></prismVideo>
+			<prismVideo @play="onSwitchLiveAction" :play="play" :stream="live.liveStream"></prismVideo>
 			<chatroom @connect="onJoinChatroom"></chatroom>
 			<div class="action">
 				<div class="live-info">
@@ -139,8 +139,23 @@
 				const onCustomServiceMsg = this.onCustomServiceMsg;
 				this.$store.dispatch('IM_INIT_REQUEST', { chatroomId, oncustomsysmsg, onCustomServiceMsg });
 			},
+			onSwitchLiveAction (action) {
+				if (action == 'publish') {
+					this.play = true;
+				} else if (action == 'publish_done') {
+					this.play = false;
+				}
+			},
 			onCustomServiceMsg (data) { // chatroom callback
-				console.log(data)
+				data.content = JSON.parse(data.content);
+				switch (data.type) {
+					case 'LIVE_STREAM_STATUS':
+						this.onSwitchLiveAction(data.content.status);
+						break;
+					default:
+						// statements_def
+						break;
+				}
 			},
 			onCustomSysMsg (msg) { // im callback
 				// console.log(msg)

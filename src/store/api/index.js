@@ -1,8 +1,8 @@
 /*
 * @Author: William Chan
 * @Date:   2016-12-02 11:31:24
-* @Last Modified by:   William Chan
-* @Last Modified time: 2017-03-06 03:16:54
+* @Last Modified by:   Administrator
+* @Last Modified time: 2017-03-16 01:35:53
 */
 
 // axios.request(config)
@@ -69,7 +69,7 @@ export const onRequestError = error => {
 export const onResponse = res => {
 	if (res.data.retCode !== 0) {
 		if (!res.config || res.config && res.config.interceptors === true) {
-			MessageBox.alert(res.data.retMsg, `操作失败 (${res.data.retCode})`, {
+			MessageBox.alert(res.data.retMsg || '数据格式异常', res.data.retCode && `操作失败 (${res.data.retCode})` || '错误', {
 				type: 'error'
 			})
 		}
