@@ -1,8 +1,8 @@
 /*
 * @Author: William Chan
 * @Date:   2017-03-10 16:42:39
-* @Last Modified by:   William Chan
-* @Last Modified time: 2017-03-15 01:22:13
+* @Last Modified by:   Administrator
+* @Last Modified time: 2017-03-16 00:06:36
 */
 
 'use strict';
@@ -115,18 +115,21 @@ const actions = {
 			commit(IM_CHATROOM_MSG.SERVICE, 'IM_CHATROOM_INIT');
 			commit(IM_CHATROOM_INIT.REQUEST);
 			init.onmsgs = msg => {
-				commit(IM_CHATROOM_MSG.GET, msg);
-				// if RODO
-				onCustomServiceMsg(msg);
-				commit(IM_CHATROOM_MSG.SERVICE, msg);
+
 				for (let ret of msg) {
-					if (ret.type == 'notification' && refreshMemberType.includes(ret.attach.type)) {
-						dispatch(IM_CHATROOM.MEMBERS);
-						break;
+					if (ret.type == 'custom' && ret.fromClientType == 'Server') {
+						const data = JSON.parse(ret.custom);
+						// TODO
+						// commit(IM_CHATROOM_MSG.SERVICE, msg);
+						onCustomServiceMsg(data);
+					} else {
+						commit(IM_CHATROOM_MSG.GET, ret);
+						if (ret.type == 'notification' && refreshMemberType.includes(ret.attach.type)) {
+							dispatch(IM_CHATROOM.MEMBERS);
+						}
 					}
 				}
 			}
-
 			await im_chatroom_init(init).then(() => {
 				commit(IM_CHATROOM_MSG.SERVICE, 'IM_CHATROOM_INIT_SUCCESS');
 				commit(IM_CHATROOM_INIT.SUCCESS);
@@ -163,7 +166,8 @@ const actions = {
 		commit(IM_CHATROOM_MSG.REQUEST);
 		return new Promise((resolve, reject) => {
 			im_chatroom_send(text).then(msg => {
-				commit(IM_CHATROOM_MSG.SUCCESS, msg);
+				commit(IM_CHATROOM_MSG.SUCCESS);
+				commit(IM_CHATROOM_MSG.GET, msg);
 				resolve(msg);
 			}).catch(error => {
 				commit(IM_CHATROOM_MSG.FAILURE);
@@ -252,13 +256,12 @@ const mutations = {
 	},
 	[IM_CHATROOM_MSG.SUCCESS] (state, msg) {
 		state.send = false;
-		state.data.push(msg);
 	},
-	[IM_CHATROOM_MSG.FAILURE] (state, msg) {
+	[IM_CHATROOM_MSG.FAILURE] (state) {
 		state.send = false;
 	},
 	[IM_CHATROOM_MSG.GET] (state, msg) {
-		state.data = state.data.concat(msg);
+		state.data.push(msg);
 		if (state.data.length > 500) {
 			state.data.splice(0, 200);
 		}
