@@ -150,7 +150,7 @@
 				data.content = JSON.parse(data.content);
 				switch (data.type) {
 					case 'LIVE_STREAM_STATUS':
-						this.onSwitchLiveAction(data.content.status);
+						this.onSwitchLiveAction(data.content.action);
 						break;
 					default:
 						// statements_def
