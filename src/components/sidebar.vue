@@ -20,12 +20,12 @@
 				<el-menu-item :route="{ name: 'live_template' }" index="live_template">直播间模板</el-menu-item>
 				<el-menu-item :route="{ name: 'video_list' }" index="video_list">回放列表</el-menu-item>
 			</el-submenu>
-			<el-submenu index="2">
+	<!-- 		<el-submenu index="2">
 				<template slot="title"><i class="iconfont icon-shop"></i>电商</template>
 				<el-menu-item :route="{ name: 'store_shop_list' }" index="store_shop_list">商品</el-menu-item>
 				<el-menu-item :route="{ name: 'store_order_list' }" index="store_order_list">订单</el-menu-item>
 				<el-menu-item :route="{ name: 'store_setting_pay' }" index="store_setting">设置</el-menu-item>
-			</el-submenu>
+			</el-submenu> -->
 			<el-submenu index="3">
 				<template slot="title"><i class="iconfont icon-recharge"></i>账户</template>
 				<el-menu-item :route="{ name: 'account_overview' }" index="account_overview">账户总览</el-menu-item>
@@ -34,7 +34,7 @@
 				<el-menu-item :route="{ name: 'account_recharge' }" index="account_recharge">立即充值</el-menu-item>
 				<el-menu-item :route="{ name: 'account_income' }" index="account_income">我的收入</el-menu-item>
 			</el-submenu>
-			<el-menu-item index="/todo1"><i class="iconfont icon-circle"></i>营销</el-menu-item>
+			<!-- <el-menu-item index="/todo1"><i class="iconfont icon-circle"></i>营销</el-menu-item> -->
 		</el-menu>
 		<div style="text-align: center;padding: 10px;">
 			<el-switch @change="enableDebug" :width="80" on-text="enable" off-text="debug" v-model="debug"></el-switch>

@@ -2,7 +2,7 @@
 * @Author: William Chan
 * @Date:   2016-12-01 17:57:50
 * @Last Modified by:   William Chan
-* @Last Modified time: 2017-03-15 13:22:38
+* @Last Modified time: 2017-03-15 14:08:01
 */
 
 'use strict';
@@ -16,7 +16,7 @@ import 'nprogress/nprogress.css'
 
 import topRoute     from './top'
 import liveRoute    from './live'
-import VideoRoute   from './Video'
+import VideoRoute   from './video'
 import homeRoute    from './home'
 import accountRoute from './account'
 import storeRoute   from './store'
