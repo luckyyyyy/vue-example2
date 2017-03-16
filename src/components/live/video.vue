@@ -1,7 +1,7 @@
 <template>
 	<div class="video" ref="video">
 		<div id='video' class='prism-player'></div>
-		<div class="lock" v-show="!start">
+		<div class="lock" v-show="!play">
 			<img src="../../assets/toplogo.png" height="40" width="196">
 			<p>{{ lock ? `正在刷新直播状态` : '主播还未开始直播或断开连接，请尝试刷新' }}</p>
 			<el-button type="primary" :loading="lock" @click="checkStatus">刷新</el-button>
@@ -16,21 +16,16 @@
 	import { mapState } from 'vuex'
 	export default {
 		props: {
-			play: Boolean,
+			value: Boolean,
 			im: Boolean,
 			live: Object
 		},
+		data() {
+			return {
+				play: this.value
+			}
+		},
 		computed: {
-			start () {
-				if (this.player) {
-					if (this.play) {
-						this.player.loadByUrl(this.getSource());
-					} else {
-						this.player.liveStreamStop();
-					}
-				}
-				return this.play;
-			},
 			// check () {
 			// 	const init = this.$store.state.im.init;
 			// 	if (init) {
@@ -104,10 +99,23 @@
 			checkStatus () {
 				const id = this.live.id;
 				this.$store.dispatch('LIVE_QUERY_STREAM_REQUEST', { id }).then(data => {
-					this.$emit('play', data.status != 0);
+					this.play = data.status != 0;
+					this.$emit('input', this.play);
 				}).catch(() => {
 					console.log('获取直播状态')
 				})
+			}
+		},
+		watch: {
+			value (val) {
+				this.play = val;
+				if (this.player) {
+					if (this.play) {
+						this.player.loadByUrl(this.getSource());
+					} else {
+						this.player.liveStreamStop();
+					}
+				}
 			}
 		}
 	}

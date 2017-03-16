@@ -4,7 +4,7 @@
 			直播引导图：<el-switch @change="switchChange" v-model="enable" on-text="开" off-text="关" on-color="#87D068"></el-switch>
 			<template v-if="enable">
 				<p class="tips">此图片显示在进入直播页面之前，用于展示直播相关介绍内容。</p>
-				<Album @close="closeAlbum" class="upload" @submit="selectAlbum" :openAlbum="album">
+				<Album class="upload" @submit="selectAlbum" v-model="album">
 					<el-button @click="openAlbum">点击上传图片</el-button>
 					<p><i class="el-icon-warning"></i> 因手机机型众多，为保证图片正常展示，请严格按照 1080*1740 像素上传图片。图片大小4M以内支持扩展名：.png .jpg .jpeg</p>
 				</Album>

@@ -37,7 +37,7 @@
 		</div>
 		<div class="body">
 			<message></message>
-			<prismVideo @play="onSwitchLiveAction" :play="play" :live="live"></prismVideo>
+			<prismVideo v-model="play" :live="live"></prismVideo>
 			<chatroom @connect="onJoinChatroom"></chatroom>
 			<div class="action">
 				<div class="live-info">

@@ -1,7 +1,7 @@
 <template>
 	<div>
 		<el-dialog
-			v-model="openDialog"
+			v-model="visible"
 			:close-on-click-modal="false"
 			:close-on-press-escape="false"
 			:show-close="false"
@@ -36,7 +36,7 @@
 					</upload>
 				</div>
 				<div class="right">
-					<el-button @click="pushClose">取 消</el-button>
+					<el-button @click="close">取 消</el-button>
 					<el-button :disabled="find.length == 0" type="primary" @click="onSubmit">确 定</el-button>
 				</div>
 			</span>
@@ -62,7 +62,7 @@
 				type: Number,
 				default: 3,
 			},
-			openAlbum: {
+			value: {
 				type: Boolean,
 				default: false,
 			},
@@ -73,19 +73,13 @@
 		},
 		data () {
 			return {
+				visible: this.value,
 				option: MULTIMEDIA_UPLOAD,
 				find: [],
 				lock: false,
 			}
 		},
 		computed : {
-			openDialog () {
-				if (this.openAlbum) {
-					this.getImages();
-					this.find = [];
-				}
-				return this.openAlbum;
-			},
 			...mapState ({
 				data: state => state.multimedia_find.data,
 			}),
@@ -115,7 +109,7 @@
 			},
 			onSubmit () {
 				this.$emit('submit', this.find);
-				this.$emit('close');
+				this.close();
 			},
 			onSelect (id, selected) {
 				if (selected) {
@@ -145,8 +139,18 @@
 			getImages () {
 				this.$store.dispatch('MULTIMEDIA_FIND_REQUEST');
 			},
-			pushClose () {
-				this.$emit('close');
+			close () {
+				this.visible = false;
+				this.$emit('input', false);
+			}
+		},
+		watch: {
+			value (val) {
+				if (val) {
+					this.getImages();
+					this.find = [];
+				}
+				this.visible = val;
 			}
 		}
     }
