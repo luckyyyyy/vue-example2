@@ -2,7 +2,7 @@
 * @Author: William Chan
 * @Date:   2017-03-10 16:42:39
 * @Last Modified by:   Administrator
-* @Last Modified time: 2017-03-16 11:37:49
+* @Last Modified time: 2017-03-16 12:53:18
 */
 
 'use strict';
@@ -121,7 +121,8 @@ const actions = {
 					if (ret.type == 'custom' && ret.fromClientType == 'Server') {
 						const data = JSON.parse(ret.custom);
 						// TODO
-						// commit(IM_CHATROOM_MSG.SERVICE, msg);
+						data.content = JSON.parse(data.content);
+						dispatch(IM_CHATROOM_MSG.SERVICE, data);
 						onCustomServiceMsg(data);
 					} else {
 						commit(IM_CHATROOM_MSG.GET, ret);
