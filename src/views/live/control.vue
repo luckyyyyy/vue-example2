@@ -37,7 +37,7 @@
 		</div>
 		<div class="body">
 			<message></message>
-			<prismVideo @play="onSwitchLiveAction" :play="play" :stream="live.liveStream"></prismVideo>
+			<prismVideo @play="onSwitchLiveAction" :play="play" :live="live"></prismVideo>
 			<chatroom @connect="onJoinChatroom"></chatroom>
 			<div class="action">
 				<div class="live-info">
@@ -135,21 +135,24 @@
 				const chatroomId         = this.live.liveChatRoom.roomid;
 				const oncustomsysmsg     = this.onCustomSysMsg;
 				const onCustomServiceMsg = this.onCustomServiceMsg;
-				this.$store.dispatch('IM_INIT_REQUEST', { chatroomId, oncustomsysmsg, onCustomServiceMsg });
+				this.$store.dispatch('IM_INIT_REQUEST', { chatroomId, oncustomsysmsg, onCustomServiceMsg }).then(() => {
+					// join success
+					console.log(1)
+				}).catch(() => {
+					this.$alert('初始化聊天室失败，请尝试重新加入，初始化失败将会影响中控台部分功能的使用。', '聊天室', {
+						type: 'error'
+					})
+				})
 			},
 			onSwitchLiveAction (action) {
-				if (action == 'publish') {
-					this.play = true;
-				} else if (action == 'publish_done') {
-					this.play = false;
-				}
+				this.play = action;
 			},
 			onCustomServiceMsg (data) { // chatroom callback
 				data.content = JSON.parse(data.content);
 				this.$store.dispatch('IM_CHATROOM_MSG_SERVICE', data);
 				switch (data.type) {
 					case 'LIVE_STREAM_STATUS':
-						this.onSwitchLiveAction(data.content.action);
+						this.onSwitchLiveAction(data.content.action == 'publish');
 						break;
 					default:
 						// statements_def

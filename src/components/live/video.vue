@@ -3,7 +3,7 @@
 		<div id='video' class='prism-player'></div>
 		<div class="lock" v-show="!start">
 			<img src="../../assets/toplogo.png" height="40" width="196">
-			<p>{{ lock ? `正在请求直播状态` : '主播还未开始直播或断开连接，请尝试刷新' }}</p>
+			<p>{{ lock ? `正在刷新直播状态` : '主播还未开始直播或断开连接，请尝试刷新' }}</p>
 			<el-button type="primary" :loading="lock" @click="checkStatus">刷新</el-button>
 		</div>
 	</div>
@@ -13,24 +13,37 @@
 	import '../../assets/prism/index-min.css'
 	import prism from '../../assets/prism/prism-min.js'
 	import { isiPad } from '../../utils/util'
+	import { mapState } from 'vuex'
 	export default {
 		props: {
-			stream: Object,
-			play: Boolean
+			play: Boolean,
+			im: Boolean,
+			live: Object
 		},
 		computed: {
 			start () {
 				if (this.player) {
-					this.play ? this.player.play() : this.player.pause();
+					if (this.play) {
+						this.player.loadByUrl(this.getSource());
+					} else {
+						this.player.liveStreamStop();
+					}
 				}
 				return this.play;
 			},
-			lock () {
-				return this.$store.state.live_query_stream.lock;
-			}
+			// check () {
+			// 	const init = this.$store.state.im.init;
+			// 	if (init) {
+			// 		this.clearInterval();
+			// 	}
+			// 	return init;
+			// },
+			...mapState({
+				lock: state => state.live_query_stream.lock
+			})
 		},
 		mounted () {
-			const source = isiPad() ? this.stream.playOriginM3u8Url : this.stream.playOriginFlvUrl;
+			const source = this.getSource();
 			this.player = new prism({
 				id       : 'video',
 				source   : source,
@@ -63,20 +76,35 @@
 				// TODO 初始化状态
 				this.autoSetPlayerSize();
 				this.checkStatus();
+				// if (!this.check) {
+				// 	this.interval = setInterval(() => {
+				// 		this.checkStatus();
+				// 	}, 1000);
+				// }
 			})
 		},
 		beforeDestroy () {
 			window.removeEventListener('resize', this.autoSetPlayerSize, false);
+			// this.clearInterval();
 		},
 		methods: {
+			getSource () {
+				return isiPad() ? this.live.liveStream.playOriginM3u8Url : this.live.liveStream.playOriginFlvUrl;
+			},
 			autoSetPlayerSize () {
 				const height = this.$refs.video.offsetHeight - 40;
 				this.player.setPlayerSize('100%', `${height}px`);
 			},
+			// clearInterval () {
+			// 	if (this.interval) {
+			// 		clearInterval(this.interval);
+			// 		this.interval = undefined;
+			// 	}
+			// },
 			checkStatus () {
-				const id = this.$store.state.live_query.data.id;
+				const id = this.live.id;
 				this.$store.dispatch('LIVE_QUERY_STREAM_REQUEST', { id }).then(data => {
-					this.$emit('play', data.status == 0 ? 'publish_done' : 'publish');
+					this.$emit('play', data.status != 0);
 				}).catch(() => {
 					console.log('获取直播状态')
 				})
@@ -92,6 +120,7 @@
 		background: #333;
 		position: relative;
 		.lock {
+			// opacity: .2; // DEBUG
 			position: absolute;
 			width: 100%;
 			height: 100%;

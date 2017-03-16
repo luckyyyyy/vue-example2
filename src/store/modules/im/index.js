@@ -2,7 +2,7 @@
 * @Author: William Chan
 * @Date:   2017-03-10 16:42:39
 * @Last Modified by:   Administrator
-* @Last Modified time: 2017-03-16 03:03:36
+* @Last Modified time: 2017-03-16 11:37:49
 */
 
 'use strict';
@@ -60,20 +60,21 @@ const getters = {
 
 const actions = {
 	async [IM_INIT.REQUEST] ({ commit, dispatch, rootState }, { chatroomId, oncustomsysmsg, onCustomServiceMsg }) {
-		const init = {}
-		const im            = rootState.user.userImInfo;
-		init.account        = im.accid;
-		init.token          = im.token;
-		init.oncustomsysmsg = oncustomsysmsg;
-		commit(IM_INIT.REQUEST);
-		dispatch(IM_CHATROOM_MSG.SERVICE, 'IM_INIT');
-		await im_init(init).then(() => {
-			commit(IM_INIT.SUCCESS);
-			dispatch(IM_CHATROOM_MSG.SERVICE, 'IM_INIT_SUCCESS');
-		}).catch(error => {
-			commit(IM_INIT.FAILURE);
-		})
-		if (chatroomId) {
+		return new Promise(async (resolve, reject) => {
+			const init = {}
+			const im            = rootState.user.userImInfo;
+			init.account        = im.accid;
+			init.token          = im.token;
+			init.oncustomsysmsg = oncustomsysmsg;
+			commit(IM_INIT.REQUEST);
+			dispatch(IM_CHATROOM_MSG.SERVICE, 'IM_INIT');
+			await im_init(init).then(() => {
+				commit(IM_INIT.SUCCESS);
+				dispatch(IM_CHATROOM_MSG.SERVICE, 'IM_INIT_SUCCESS');
+			}).catch(error => {
+				commit(IM_INIT.FAILURE);
+				reject();
+			})
 			init.chatroomId = chatroomId;
 			init.ondisconnect = error => {
 				if (error) {
@@ -109,6 +110,7 @@ const actions = {
 				commit(IM.ADDRESS, address);
 				dispatch(IM_CHATROOM_MSG.SERVICE, 'IM_CHATROOM_ADDRESS_SUCCESS');
 			}).catch(error => {
+				reject();
 			})
 
 			init.chatroomAddresses = rootState.im.address;
@@ -135,10 +137,12 @@ const actions = {
 				dispatch(IM_CHATROOM_MSG.HISTORY);
 				dispatch(IM_CHATROOM.MEMBERS);
 				dispatch(IM_CHATROOM_MSG.SERVICE, { type: 'SYSTEM_TIPS', content: '通知系统初始化完成' });
+				resolve();
 			}).catch(error => {
 				commit(IM_CHATROOM_INIT.FAILURE);
+				reject();
 			})
-		}
+		})
 	},
 	[IM_CHATROOM_MSG.HISTORY]  ({ commit, dispatch }, guest) {
 		dispatch(IM_CHATROOM_MSG.SERVICE, 'CHATROOM_GET_HISTORY');
