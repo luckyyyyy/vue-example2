@@ -2,12 +2,12 @@
 * @Author: William Chan
 * @Date:   2017-03-06 22:25:04
 * @Last Modified by:   William Chan
-* @Last Modified time: 2017-03-09 06:08:21
+* @Last Modified time: 2017-03-17 21:59:50
 */
 
 'use strict';
 
-import store from '../store'
+import { registerModule } from './'
 
 export default [
 	{
@@ -31,7 +31,7 @@ export default [
 				LoginComponent,
 				LoginModule,
 			) => {
-				store.registerModule('login', LoginModule.default);
+				registerModule('login', LoginModule.default);
 				resolve(LoginComponent);
 			})
 		}
@@ -47,7 +47,7 @@ export default [
 				RegisterComponent,
 				RegisterModule,
 			) => {
-				store.registerModule('register', RegisterModule.default);
+				registerModule('register', RegisterModule.default);
 				resolve(RegisterComponent);
 			})
 		},
@@ -70,7 +70,7 @@ export default [
 				ResetPasswordComponent,
 				ResetPasswordModule,
 			) => {
-				store.registerModule('reset_password', ResetPasswordModule.default);
+				registerModule('reset_password', ResetPasswordModule.default);
 				resolve(ResetPasswordComponent);
 			})
 

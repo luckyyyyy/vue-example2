@@ -1,12 +1,12 @@
 /*
 * @Author: William Chan
 * @Date:   2017-03-06 22:29:46
-* @Last Modified by:   Administrator
-* @Last Modified time: 2017-03-16 01:27:57
+* @Last Modified by:   William Chan
+* @Last Modified time: 2017-03-17 22:06:45
 */
 
 'use strict';
-import store from '../store'
+import { registerModule } from './'
 
 export default [
 	{
@@ -23,7 +23,7 @@ export default [
 				MainComponent,
 				LiveQueryModule
 			) => {
-				store.registerModule('live_query', LiveQueryModule.default);
+				registerModule('live_query', LiveQueryModule.default);
 				resolve(MainComponent)
 			})
 		},
@@ -43,8 +43,8 @@ export default [
 					LiveFindModule,
 					LiveCreateModule
 				) => {
-					store.registerModule('live_find', LiveFindModule.default);
-					store.registerModule('live_create', LiveCreateModule.default);
+					registerModule('live_find', LiveFindModule.default);
+					registerModule('live_create', LiveCreateModule.default);
 					resolve(LiveListComponent);
 				})
 			},
@@ -71,8 +71,8 @@ export default [
 					IMModule,
 					LiveStreamModule
 				) => {
-					store.registerModule('im', IMModule.default);
-					store.registerModule('live_query_stream', LiveStreamModule.default);
+					registerModule('im', IMModule.default);
+					registerModule('live_query_stream', LiveStreamModule.default);
 					resolve(LiveControlComponent);
 				})
 			},
@@ -108,24 +108,24 @@ export default [
 						meta: { requiresAuth: true },
 						component: resolve => require(['../views/live/detail-share.vue'], resolve)
 					},
-					{
-						name: 'live_detail_livebuy',
-						path: 'livebuy',
-						meta: { requiresAuth: true },
-						component: resolve => require(['../views/live/detail-livebuy.vue'], resolve)
-					},
-					{
-						name: 'live_detail_liveshop',
-						path: 'liveshop',
-						meta: { requiresAuth: true },
-						component: resolve => require(['../views/live/detail-liveshop.vue'], resolve)
-					},
-					{
-						name: 'live_detail_luckydraw',
-						path: 'luckydraw',
-						meta: { requiresAuth: true },
-						component: resolve => require(['../views/live/detail-luckydraw.vue'], resolve)
-					},
+					// {
+					// 	name: 'live_detail_livebuy',
+					// 	path: 'livebuy',
+					// 	meta: { requiresAuth: true },
+					// 	component: resolve => require(['../views/live/detail-livebuy.vue'], resolve)
+					// },
+					// {
+					// 	name: 'live_detail_liveshop',
+					// 	path: 'liveshop',
+					// 	meta: { requiresAuth: true },
+					// 	component: resolve => require(['../views/live/detail-liveshop.vue'], resolve)
+					// },
+					// {
+					// 	name: 'live_detail_luckydraw',
+					// 	path: 'luckydraw',
+					// 	meta: { requiresAuth: true },
+					// 	component: resolve => require(['../views/live/detail-luckydraw.vue'], resolve)
+					// },
 					{
 						name: 'live_detail_follow',
 						path: 'follow',

@@ -2,13 +2,12 @@
 * @Author: William Chan
 * @Date:   2017-03-15 13:20:01
 * @Last Modified by:   William Chan
-* @Last Modified time: 2017-03-15 13:23:13
+* @Last Modified time: 2017-03-17 21:59:06
 */
 
 'use strict';
 
-'use strict';
-import store from '../store'
+import { registerModule } from './'
 
 export default [
 	{
@@ -20,12 +19,9 @@ export default [
 			topbar:  resolve => require(['../components/topbar.vue'], resolve),
 			main:    resolve => require([
 				'../components/main.vue',
-				'../store/modules/live/query',
 			], (
 				MainComponent,
-				LiveQueryModule
 			) => {
-				store.registerModule('live_query', LiveQueryModule.default);
 				resolve(MainComponent)
 			})
 		},
@@ -38,15 +34,12 @@ export default [
 				] },
 				component: resolve => require([
 					'../views/video/list.vue',
-					'../store/modules/live/find',
-					'../store/modules/live/create',
+					'../store/modules/live/find'
 				], (
 					VideoListComponent,
 					LiveFindModule,
-					LiveCreateModule
 				) => {
-					store.registerModule('live_find', LiveFindModule.default);
-					store.registerModule('live_create', LiveCreateModule.default);
+					registerModule('live_find', LiveFindModule.default);
 					resolve(VideoListComponent);
 				})
 			},

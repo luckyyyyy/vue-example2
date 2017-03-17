@@ -1,19 +1,20 @@
 <template>
-	<div class="commoon-menu-view" v-loading.lock="loading" element-loading-text="拼命加载中">
+	<div class="commoon-menu-view">
 		<div class="commoon-menu">
 			<div class="box">
-				<el-radio-group v-model="status" @change="onStatusChange">
-					<div class="title">
+				<Menu :activeName="status" @on-select="onStatusChange" width="135px">
+					<li class="title">
 						<i class="iconfont icon-video"></i>回放列表
-					</div>
-					<el-radio-button :label="2">回放列表</el-radio-button>
-					<div class="line"></div>
-					<el-radio-button :label="3">回收站</el-radio-button>
-				</el-radio-group>
+					</li>
+					<MenuItem :name="3">回放列表</MenuItem>
+					<li class="title"></li>
+					<MenuItem :name="4">回收站</MenuItem>
+				</Menu>
 			</div>
 		</div>
 		<div @scroll="onScroll" class="commoon-view">
-			<ul class="list" >
+			<Spin fix v-if="loading"></Spin>
+			<ul class="list">
 				<li v-for="item in data" :key="item.id" class="item">
 					<div class="body">
 						<div class="btn">
@@ -21,14 +22,11 @@
 								<p slot="tips">微信扫一扫查看</p>
 								<em slot="reference">二维码</em>
 							</qrcodePopover>
-							<el-popover popper-class="delete_popper" placement="top" width="160">
-								<p>删除后将无法恢复，确定删除吗？</p>
-								<div class="deletee_btn">
-									<el-button size="mini" type="text" @click="handleConfirm(item.id)">取消</el-button>
-							    	<el-button type="primary" size="mini" @click="handleConfirm(item.id, item)">确定</el-button>
-								</div>
-								<em :ref="`delete_${item.id}`" slot="reference">删除</em>
-							</el-popover>
+							<confirmPopover
+								@ok="onDelete(item.id)">
+								<p slot="tips">您确认删除这条内容吗？</p>
+								<em slot="reference">删除</em>
+							</confirmPopover>
 						</div>
 						<div class="title">
 							<span>{{ item.name }}</span>
@@ -60,9 +58,9 @@
 					</div>
 				</li>
 			</ul>
-			<div class="tips" >
+<!-- 			<div class="tips" >
 				{{ loading ? '正在获取列表' : lock_find ? '所有直播加载完毕' : '下拉可刷新' }}
-			</div>
+			</div> -->
 		</div>
 	</div>
 </template>
@@ -70,16 +68,22 @@
 <script>
 	import { mapState } from 'vuex'
 	import qrcodePopover from '../../components/item/qrcodePopover'
+	import confirmPopover from '../../components/item/confirmPopover'
+	import { LIVE_CREATE_RULES } from '../../options/rules'
+
 	export default {
 		components: {
-			qrcodePopover
+			qrcodePopover, confirmPopover
 		},
 		data () {
 			return {
 				create: {
 					name: ''
 				},
-				status: parseInt(this.$route.params.status) || 2,
+				rules: LIVE_CREATE_RULES,
+				openDialog: false,
+				createAgree: true,
+				status: parseInt(this.$route.params.status) || 3,
 			}
 		},
 		computed: {
@@ -96,34 +100,29 @@
 		methods: {
 			onScroll (e) {
 				const el = e.target;
-				if (el.scrollHeight - el.scrollTop - el.offsetHeight < 200) {
+				if (el.scrollHeight - el.scrollTop - el.offsetHeight < 200 && !this.lock_find) {
 					this.getLiveList();
 				}
 			},
 			onStatusChange (val) {
-				// this.status = val;
+				this.status = val;
 				this.getLiveList(true);
 				this.$router.push({ name: this.$route.name, params: { status: this.status } })
 			},
 			getLiveList (reload) {
+				const msg = this.$Message.loading('正在加载中...', 0);
 				this.$store.dispatch('LIVE_FIND_REQUEST', {
 					reload,
 					status: this.status
-				});
-			},
-			simulateClick (index) {
-				const el = this.$refs[`delete_${index}`][0];
-				el.click();
+				}).then(msg);
 			},
 			openCreateDialog () {
 				this.openDialog  = true;
 				this.createAgree = true;
 			},
-			handleConfirm(index, live) {
-				this.simulateClick(index);
-				if (live) {
-					// commit
-				}
+			onDelete(id) {
+				// TODO
+				console.log(id)
 			},
 			onSubmit () {
 				this.$refs.create.validate((valid) => {
@@ -171,6 +170,8 @@
 			margin-top: 0;
 			box-shadow: 0 1px 7px 0 rgba(0,43,59,0.20);
 			display: inline-block;
+			// position: relative;
+			z-index: 0;
 			.create {
 				display: inline-block;
 			}
@@ -179,29 +180,17 @@
 			}
 			.body {
 				height: 135px;
-				box-sizing: border-box;
 				border-radius: 5px 5px 0 0;
-				background: #1190BF;
 				padding: 10px 5px;
 				display: flex;
 				flex-direction: column;
 				justify-content: space-between;
 				color: white;
-				position: relative;
 				z-index: 1;
+				background: #1190BF;
+				background-image: linear-gradient(-180deg, rgba(0,0,0,0.00) 0%, rgba(0,0,0,0.35) 100%);
 				&.first {
 					background-image: linear-gradient(-225deg, #1190BF 0%, #E85471 100%);
-				}
-				&:after {
-					content: "";
-					display: block;
-					position: absolute;
-					left: 0;
-					bottom: 0;
-					width: 100%;
-					height: 32px;
-					z-index: -1;
-					background-image: linear-gradient(-180deg, rgba(0,0,0,0.00) 0%, rgba(0,0,0,0.35) 100%);
 				}
 				.btn {
 					text-align: right;
@@ -213,7 +202,6 @@
 						font-size: 12px;
 						background: rgba(0, 0, 0, .3);
 						border-radius: 100px;
-						position: relative;
 						z-index: 9999;
 					}
 				}
@@ -281,21 +269,19 @@
 			}
 		}
 	}
-	.delete_popper {
-		.deletee_btn {
-			text-align: right;
-		}
-	}
 </style>
 <style lang="less">
 	.createDialog {
-		width: 550px;
 		.help {
+			padding: 10px 20px;
+			padding-bottom: 0;
 			font-size: 12px;
 			text-align: justify;
 		}
 		.footer {
-			text-align: right;
+			display: flex;
+			justify-content: space-between;
+			align-items: center;
 		}
 	}
 </style>

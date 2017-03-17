@@ -13,7 +13,6 @@
 
 <script>
 	import qrcodejs from 'qrcodejs2'
-	import Vue from 'vue'
 	import clipboardInput from './clipboardInput'
 	export default {
 		components: {

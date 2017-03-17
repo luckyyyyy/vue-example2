@@ -2,11 +2,11 @@
 * @Author: William Chan
 * @Date:   2017-03-06 22:26:46
 * @Last Modified by:   William Chan
-* @Last Modified time: 2017-03-09 06:17:58
+* @Last Modified time: 2017-03-17 21:59:21
 */
 
 'use strict';
-import store from '../store'
+import { registerModule } from './'
 
 export default [
 	{
@@ -29,7 +29,7 @@ export default [
 					UpdateUserModule,
 				) => {
 					console.log(123)
-					store.registerModule('update_user', UpdateUserModule.default);
+					registerModule('update_user', UpdateUserModule.default);
 					resolve(ProfileComponent);
 				})
 			},
@@ -45,7 +45,7 @@ export default [
 					PasswordModule,
 				) => {
 					console.log(123)
-					store.registerModule('password', PasswordModule.default);
+					registerModule('password', PasswordModule.default);
 					resolve(PasswordComponent);
 				})
 			},

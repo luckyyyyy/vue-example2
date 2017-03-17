@@ -2,26 +2,25 @@
 	<div class="commoon-menu-view">
 		<div class="commoon-menu">
 			<div class="box">
-				<el-radio-group v-model="select">
-					<div class="title">
+				<Menu :activeName="select" @on-select="onSelect" width="135px">
+					<li class="title">
 						<i class="iconfont icon-video"></i>直播装修
-					</div>
-					<el-radio-button label="live_detail_countdown">直播倒计时</el-radio-button>
-					<el-radio-button label="live_detail_image">直播引导图</el-radio-button>
-					<el-radio-button label="live_detail_share">分享设置</el-radio-button>
-					<div class="line"></div>
-					<div class="title">
+					</li>
+					<MenuItem name="live_detail_countdown">直播倒计时</MenuItem>
+					<MenuItem name="live_detail_image">直播引导图</MenuItem>
+					<MenuItem name="live_detail_share">分享设置</MenuItem>
+					<li class="title">
 						<i class="iconfont icon-video"></i>互动设置
-					</div>
-					<!-- <el-radio-button label="live_detail_livebuy">边看边买</el-radio-button> -->
-					<!-- <el-radio-button label="live_detail_liveshop">宝贝上屏</el-radio-button> -->
-					<!-- <el-radio-button label="live_detail_luckydraw">抽奖</el-radio-button> -->
-					<el-radio-button label="live_detail_follow">关注观看</el-radio-button>
-					<el-radio-button label="live_detail_authorize">授权观看</el-radio-button>
-				</el-radio-group>
+					</li>
+<!-- 					<MenuItem name="live_detail_livebuy">边看边买</MenuItem>
+					<MenuItem name="live_detail_liveshop">宝贝上屏</MenuItem>
+					<MenuItem name="live_detail_luckydraw">抽奖</MenuItem> -->
+					<MenuItem name="live_detail_follow">关注观看</MenuItem>
+					<MenuItem name="live_detail_authorize">授权观看</MenuItem>
+				</Menu>
 				<div class="button">
-					<el-button @click="goData">直播数据</el-button>
-					<el-button @click="toControl">中控台</el-button>
+    				<iButton @click="goData" type="primary">直播数据</iButton>
+    				<iButton @click="goControl" type="primary">中控台</iButton>
 				</div>
 			</div>
 		</div>
@@ -32,17 +31,15 @@
 <script>
 	export default {
 		computed: {
-			select: {
-				get () {
-					return this.$route.name;
-				},
-				set (val) {
-					this.$router.push({ name: val, params: this.$route.params })
-				}
+			select () {
+				return this.$route.name;
 			}
 		},
 		methods: {
-			toControl () {
+			onSelect (val) {
+				this.$router.push({ name: val, params: this.$route.params })
+			},
+			goControl () {
 				const uri = `/live/control/${this.$route.params.liveid}`
 				window.open(uri)
 			},

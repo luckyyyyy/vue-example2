@@ -2,7 +2,7 @@
 * @Author: William Chan
 * @Date:   2016-12-01 17:57:50
 * @Last Modified by:   William Chan
-* @Last Modified time: 2017-03-17 16:39:03
+* @Last Modified time: 2017-03-17 21:58:13
 */
 
 'use strict';
@@ -24,6 +24,14 @@ import homeRoute    from './home'
 import userRoute    from './user'
 
 Vue.use(VueRouter);
+
+const module = {};
+export const registerModule = (path, module) => {
+	if (!module[path]) {
+		store.registerModule(path, module);
+		module[path] = true;
+	}
+}
 
 const routes = [].concat(
 	// accountRoute, storeRoute,

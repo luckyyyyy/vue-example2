@@ -2,12 +2,12 @@
 * @Author: William Chan
 * @Date:   2017-03-06 22:27:42
 * @Last Modified by:   William Chan
-* @Last Modified time: 2017-03-17 14:19:21
+* @Last Modified time: 2017-03-17 21:59:59
 */
 
 'use strict';
 
-import store from '../store'
+import { registerModule } from './'
 
 export default [
 	{
@@ -37,8 +37,8 @@ export default [
 					ChannelFindModule,
 					ChannelDeleteModule,
 				) => {
-					store.registerModule('channel_find', ChannelFindModule.default);
-					store.registerModule('channel_delete', ChannelDeleteModule.default);
+					registerModule('channel_find', ChannelFindModule.default);
+					registerModule('channel_delete', ChannelDeleteModule.default);
 					resolve(SelectComponent);
 				})
 			},
@@ -57,9 +57,9 @@ export default [
 					WeixinAuthurlModule,
 					CommodityCatalogsModule,
 				) => {
-					store.registerModule('channel_create', ChannelCreateModule.default);
-					store.registerModule('weixin_auth_url', WeixinAuthurlModule.default);
-					store.registerModule('catalogs', CommodityCatalogsModule.default);
+					registerModule('channel_create', ChannelCreateModule.default);
+					registerModule('weixin_auth_url', WeixinAuthurlModule.default);
+					registerModule('catalogs', CommodityCatalogsModule.default);
 					resolve(CreateComponent);
 				})
 			},

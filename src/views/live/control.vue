@@ -61,7 +61,6 @@
 			:width="550"
 			title="公告"
 			v-model="noticeDialog"
-			:loading="lock"
 			:maskClosable="false"
 		>
 			<iForm ref="notice" :rules="rules" label-position="left" :label-width="85" :model="notice" @submit.native.prevent>
@@ -72,9 +71,9 @@
 					<iButton @click="onNoticeSubmit" :loading="lock" htmlType="submit" type="primary">发 送</iButton>
 				</div>
 			</iForm>
-				<div slot="footer">
-					<iButton @click="onNoticeSubmit" :loading="lock" type="primary">发 送</iButton>
-				</div>
+			<div slot="footer">
+				<iButton @click="onNoticeSubmit" :loading="lock" type="primary">发 送</iButton>
+			</div>
 		</Modal>
 	</div>
 </template>
