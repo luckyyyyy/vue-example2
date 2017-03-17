@@ -167,7 +167,7 @@ async-each@^1.0.0:
   version "1.0.1"
   resolved "http://registry.npm.taobao.org/async-each/download/async-each-1.0.1.tgz#19d386a1d9edc6e7c1c85d388aedbcc56d33602d"
 
-async-validator@^1.6.6:
+async-validator@^1.6.7:
   version "1.6.8"
   resolved "http://registry.npm.taobao.org/async-validator/download/async-validator-1.6.8.tgz#fbaaa9002b41066fdf3ba21d8a4ca8b1179ad36b"
 
@@ -361,10 +361,6 @@ babel-helper-replace-supers@^6.22.0, babel-helper-replace-supers@^6.23.0:
     babel-template "^6.23.0"
     babel-traverse "^6.23.0"
     babel-types "^6.23.0"
-
-babel-helper-vue-jsx-merge-props@^2.0.0:
-  version "2.0.2"
-  resolved "http://registry.npm.taobao.org/babel-helper-vue-jsx-merge-props/download/babel-helper-vue-jsx-merge-props-2.0.2.tgz#aceb1c373588279e2755ea1cfd35c22394fd33f8"
 
 babel-helpers@^6.23.0:
   version "6.23.0"
@@ -1213,7 +1209,7 @@ copy-webpack-plugin@^4.0.1:
     minimatch "^3.0.0"
     node-dir "^0.1.10"
 
-core-js@^2.4.0:
+core-js@^2.4.0, core-js@^2.4.1:
   version "2.4.1"
   resolved "http://registry.npm.taobao.org/core-js/download/core-js-2.4.1.tgz#4de911e667b0eae9124e34254b53aea6fc618d3e"
 
@@ -1422,7 +1418,7 @@ deep-extend@~0.4.0:
   version "0.4.1"
   resolved "http://registry.npm.taobao.org/deep-extend/download/deep-extend-0.4.1.tgz#efe4113d08085f4e6f9687759810f807469e2253"
 
-deepmerge@^1.2.0:
+deepmerge@^1.3.1:
   version "1.3.2"
   resolved "http://registry.npm.taobao.org/deepmerge/download/deepmerge-1.3.2.tgz#1663691629d4dbfe364fa12a2a4f0aa86aa3a050"
 
@@ -1567,15 +1563,6 @@ ejs@^2.5.5:
 electron-to-chromium@^1.1.0, electron-to-chromium@^1.2.5:
   version "1.2.6"
   resolved "http://registry.npm.taobao.org/electron-to-chromium/download/electron-to-chromium-1.2.6.tgz#f38ad51d1919b06bc07275c62629db803ddca05a"
-
-element-ui@1.2.4:
-  version "1.2.4"
-  resolved "http://registry.npm.taobao.org/element-ui/download/element-ui-1.2.4.tgz#f7502193b0575e40dddbc4c3407e98e5fb346027"
-  dependencies:
-    async-validator "^1.6.6"
-    babel-helper-vue-jsx-merge-props "^2.0.0"
-    deepmerge "^1.2.0"
-    throttle-debounce "^1.0.1"
 
 elliptic@^6.0.0:
   version "6.4.0"
@@ -2566,6 +2553,15 @@ isstream@~0.1.2:
   version "0.1.2"
   resolved "http://registry.npm.taobao.org/isstream/download/isstream-0.1.2.tgz#47e63f7af55afa6f92e1500e690eb8b8529c099a"
 
+iview@^2.0.0-rc.5:
+  version "2.0.0-rc.5"
+  resolved "http://registry.npm.taobao.org/iview/download/iview-2.0.0-rc.5.tgz#b072ccf4030881ebe71efa2a1124cd809c8f2fd5"
+  dependencies:
+    async-validator "^1.6.7"
+    core-js "^2.4.1"
+    deepmerge "^1.3.1"
+    popper.js "^0.6.4"
+
 jodid25519@^1.0.0:
   version "1.0.2"
   resolved "http://registry.npm.taobao.org/jodid25519/download/jodid25519-1.0.2.tgz#06d4912255093419477d425633606e0e90782967"
@@ -3424,6 +3420,10 @@ pkg-dir@^1.0.0:
 pomelo-protobuf@^0.4.0:
   version "0.4.0"
   resolved "http://registry.npm.taobao.org/pomelo-protobuf/download/pomelo-protobuf-0.4.0.tgz#e45e9a0a446eb18667e0c6e13eeb53d47addbda8"
+
+popper.js@^0.6.4:
+  version "0.6.4"
+  resolved "http://registry.npm.taobao.org/popper.js/download/popper.js-0.6.4.tgz#1837c4760af54d2bb20b66f9c09b92993d84c629"
 
 postcss-calc@^5.2.0:
   version "5.3.1"
@@ -4371,10 +4371,6 @@ tar@~2.2.1:
     block-stream "*"
     fstream "^1.0.2"
     inherits "2"
-
-throttle-debounce@^1.0.1:
-  version "1.0.1"
-  resolved "http://registry.npm.taobao.org/throttle-debounce/download/throttle-debounce-1.0.1.tgz#dad0fe130f9daf3719fdea33dc36a8e6ba7f30b5"
 
 through2@^0.6.1:
   version "0.6.5"
