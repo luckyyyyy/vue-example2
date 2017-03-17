@@ -2,7 +2,7 @@
 * @Author: William Chan
 * @Date:   2017-03-06 22:27:42
 * @Last Modified by:   William Chan
-* @Last Modified time: 2017-03-09 06:11:59
+* @Last Modified time: 2017-03-17 14:19:21
 */
 
 'use strict';
@@ -15,7 +15,13 @@ export default [
 		meta: { requiresAuth: true },
 		redirect: { name: 'select_channel' },
 		components: {
-			select: resolve => require(['../views/home/page.vue'], resolve)
+			select: resolve => require([
+				'../views/home/page.vue',
+			], (
+				HomeComponent,
+			) => {
+				resolve(HomeComponent);
+			})
 		},
 		children: [
 			{

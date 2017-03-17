@@ -1,22 +1,22 @@
 <template>
 	<div>
 		<div class="body">
-			<el-form @submit.native.prevent :rules="rules" label-width="100px" ref="user" :model="user">
-				<el-form-item label="账号：">
+			<iForm @submit.native.prevent :rules="rules" :label-width="100" ref="user" :model="user">
+				<FormItem label="账号：">
 					<span>{{ info.phone }} <router-link :to="{ name: 'password', query: { redirect: $route.query.redirect } }">修改密码</router-link></span>
-				</el-form-item>
-				<el-form-item label="昵称：" prop="nickName">
-					<el-input placeholder="请输入昵称" v-model="user.nickName"></el-input>
-				</el-form-item>
-				<el-form-item label="邮箱：" prop="email">
-					<el-input placeholder="请输入邮箱" v-model="user.email"></el-input>
-				</el-form-item>
-				<el-form-item label="性别：" prop="sex">
-					<el-radio-group v-model="user.sex">
-						<el-radio v-for="item in sex" :key="item.label" :label="item.label">{{ item.name }}</el-radio>
-					</el-radio-group>
-				</el-form-item>
-				<el-form-item label="头像：">
+				</FormItem>
+				<FormItem label="昵称：" prop="nickName">
+					<iInput placeholder="请输入昵称" v-model="user.nickName"></iInput>
+				</FormItem>
+				<FormItem label="邮箱：" prop="email">
+					<iInput placeholder="请输入邮箱" v-model="user.email"></iInput>
+				</FormItem>
+				<FormItem label="性别：" prop="sex">
+					<RadioGroup v-model="user.sex">
+						<Radio v-for="item in sex" :key="item.label" :label="item.label">{{ item.name }}</Radio>
+					</RadioGroup>
+				</FormItem>
+				<FormItem label="头像：">
 					<upload
 						class="avatar"
 						:method="option.method"
@@ -32,15 +32,15 @@
 						</div>
 						<img class="avatar__img" ref="avatar" :src="info.avatar" height="80" width="80">
 					</upload>
-				</el-form-item>
-				<el-form-item label="个性签名：" prop="description">
-					<el-input type="textarea" v-model="user.description" resize="none"></el-input>
-				</el-form-item>
-				<el-form-item>
-					<el-button :loading="lock" native-type="submit" type="primary" @click="submit">确认修改</el-button>
-					<el-button @click="backConsole">返回控制台</el-button>
-				</el-form-item>
-			</el-form>
+				</FormItem>
+				<FormItem label="个性签名：" prop="description">
+					<iInput type="textarea" v-model="user.description" resize="none"></iInput>
+				</FormItem>
+				<FormItem>
+					<iButton :loading="lock" htmlType="submit" type="primary" @click="submit">确认修改</iButton>
+					<iButton type="ghost" @click="backConsole">返回控制台</iButton>
+				</FormItem>
+			</iForm>
 		</div>
 	</div>
 </template>
@@ -99,10 +99,7 @@
 				this.$refs.user.validate(valid => {
 					if (valid) {
 						this.$store.dispatch('UPDATE_USER_REQUEST', this.user).then(() => {
-							this.$message({
-								message: '修改成功',
-								type: 'success'
-							})
+							this.$Message.success('个人资料更新成功');
 						})
 					} else {
 						return false;
@@ -126,13 +123,11 @@
 		justify-content: center;
 		align-items: center;
 		height: 100%;
-		.el-input {
+		.ivu-input-wrapper {
 			width: 240px;
 		}
-		.progress {
-			height: 40px;
-			display: flex;
-			align-items: center;
+		.ivu-btn {
+			width: 100px;
 		}
 		.avatar {
 			cursor: pointer;

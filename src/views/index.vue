@@ -3,9 +3,9 @@
 		<div class="info-page">
 			<div class="head">
 				<span class="title">美女聊点</span>
-				<el-tag type="danger">标签六</el-tag>
-				<el-tag type="danger">标签六</el-tag>
-				<el-tag type="danger">标签六</el-tag>
+				<Tag type="border" color="red">标签三</Tag>
+				<Tag type="border" color="red">标签三</Tag>
+				<Tag type="border" color="red">标签三</Tag>
 			</div>
 			<div class="body">
 				<div class="account">
@@ -17,14 +17,14 @@
 							<li>当前流量套餐：<span>无</span><a class="link">购买</a></li>
 						</ul>
 						<ul class="progress">
-							<li>
+							<li class="item">
 								<div class="desc d1">剩余充值流量(元)：<span>0.00</span></div>
-								<el-progress :text-inside="true" :stroke-width="18" :percentage="70"></el-progress>
+								<Progress :hide-info="true" :stroke-width="18" :percent="70"></Progress>
 								<div class="right"><span>0.00</span> <a class="link">充值</a></div>
 							</li>
-							<li>
+							<li class="item">
 								<div class="desc d2">剩余储存空间(GB)：<span>50.00</span></div>
-								<el-progress :text-inside="true" :stroke-width="18" :percentage="70"></el-progress>
+								<Progress :hide-info="true" :stroke-width="18" :percent="70"></Progress>
 								<div class="right"><span>200.00</span></div>
 							</li>
 						</ul>
@@ -174,11 +174,13 @@
 			.progress {
 				padding: 25px 15px;
 				padding-top: 0;
-				li {
+				.item {
 					margin-top: 15px;
+					display: flex;
 				}
-				.desc, .el-progress--line, .right {
-					display: inline-block
+				.ivu-progress {
+					width: 400px;
+					margin-right: 10px;
 				}
 				.desc {
 					width: 180px;
@@ -188,12 +190,6 @@
 					&.d2 {
 						letter-spacing: 0;
 					}
-				}
-				.el-progress--line {
-					width: 350px;
-				}
-				.right {
-					margin-left: 15px;
 				}
 			}
 		}
@@ -206,8 +202,9 @@
 					align-items: center;
 					justify-content: space-around;
 					height: 50px;
-					padding: 10px;
 					flex: 1;
+					box-sizing: content-box;
+					padding: 10px;
 					p {
 						font-size: 26px;
 						line-height: 20px;

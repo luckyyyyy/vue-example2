@@ -1,7 +1,7 @@
 <template>
 	<div class="clipboard">
-		<el-input :value="text" :readonly="true" size="small"></el-input>
-		<el-button @error="handleError" @success="handleSuccess" size="small" v-clipboard="text"><slot>复制</slot></el-button>
+		<iInput :value="text" :readonly="true" size="small"></iInput>
+		<iButton @error="handleError" @success="handleSuccess" size="small" v-clipboard="text"><slot>复制</slot></iButton>
 	</div>
 </template>
 
@@ -50,7 +50,7 @@
 		margin: 5px;
 		justify-content: space-between;
 		align-items: center;
-		.el-button {
+		.ivu-btn {
 			margin-left: 5px;
 		}
 	}

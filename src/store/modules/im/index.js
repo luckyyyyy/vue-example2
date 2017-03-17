@@ -1,8 +1,8 @@
 /*
 * @Author: William Chan
 * @Date:   2017-03-10 16:42:39
-* @Last Modified by:   Administrator
-* @Last Modified time: 2017-03-16 12:53:18
+* @Last Modified by:   William Chan
+* @Last Modified time: 2017-03-17 19:09:07
 */
 
 'use strict';
@@ -17,7 +17,6 @@ import {
 	IM, IM_INIT,
 	IM_CHATROOM, IM_CHATROOM_INIT, IM_CHATROOM_MSG
 } from '../../types'
-import { MessageBox } from 'element-ui'
 
 const refreshMemberType = [
 	'addManager',
@@ -59,7 +58,7 @@ const getters = {
 
 
 const actions = {
-	async [IM_INIT.REQUEST] ({ commit, dispatch, rootState }, { chatroomId, oncustomsysmsg, onCustomServiceMsg }) {
+	async [IM_INIT.REQUEST] ({ commit, dispatch, rootState }, { chatroomId, oncustomsysmsg, onCustomServiceMsg, ondisconnect }) {
 		return new Promise(async (resolve, reject) => {
 			const init = {}
 			const im            = rootState.user.userImInfo;
@@ -76,35 +75,7 @@ const actions = {
 				reject();
 			})
 			init.chatroomId = chatroomId;
-			init.ondisconnect = error => {
-				if (error) {
-					commit(IM_CHATROOM_INIT.LOCK);
-					let msg = error.message;
-					if (!msg) {
-						switch (error.code) {
-							// 账号或者密码错误, 请跳转到登录页面并提示错误
-							case 302:
-								msg = '账号或者密码错误。';
-								break;
-							// 重复登录, 已经在其它端登录了, 请跳转到登录页面并提示错误
-							case 417:
-								msg = '您的账号已在其他终端登录。';
-								break;
-							// 被踢, 请提示错误后跳转到登录页面
-							case 'kicked':
-								msg = '您的账号被系统强制下线。';
-								break;
-							default:
-								break;
-						}
-					}
-					if (error.code != 'logout') {
-						MessageBox.alert(msg || '聊天连接丢失，请尝试重新连接。', '聊天室', {
-							type: 'error',
-						})
-					}
-				}
-			}
+			init.ondisconnect = ondisconnect;
 			dispatch(IM_CHATROOM_MSG.SERVICE, 'IM_CHATROOM_ADDRESS');
 			await im_chatroom_address(chatroomId).then(address => {
 				commit(IM.ADDRESS, address);

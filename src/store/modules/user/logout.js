@@ -1,8 +1,8 @@
 /*
 * @Author: Administrator
 * @Date:   2017-01-06 02:33:52
-* @Last Modified by:   Administrator
-* @Last Modified time: 2017-03-02 20:45:55
+* @Last Modified by:   William Chan
+* @Last Modified time: 2017-03-17 14:31:25
 */
 
 'use strict';
@@ -19,11 +19,15 @@ const getters = {}
 const actions = {
 	[LOGOUT.REQUEST] ({ commit, dispatch }, ...args) {
 		commit(LOGOUT.REQUEST);
-		logout().then(() => {
-			commit(LOGOUT.SUCCESS);
-			commit(LOGIN.FAILURE);
-		}).catch(() => {
-			commit(LOGOUT.FAILURE);
+		return new Promise((resolve, reject) => {
+			logout().then(() => {
+				commit(LOGOUT.SUCCESS);
+				commit(LOGIN.FAILURE);
+				resolve();
+			}).catch(() => {
+				commit(LOGOUT.FAILURE);
+				reject();
+			})
 		})
 	}
 }

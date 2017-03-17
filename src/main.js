@@ -1,5 +1,7 @@
 import Vue from 'vue'
 import ElementUI from 'element-ui'
+import iView from 'iview'
+import 'iview/dist/styles/iview.css'
 
 import 'element-ui/lib/theme-default/reset.css'
 import 'element-ui/lib/theme-default/index.css'
@@ -13,7 +15,7 @@ import { sync } from 'vuex-router-sync'
 import FastClick from 'fastclick'
 sync(store, router) // done.
 Vue.use(ElementUI); // 饿了么组件库 插件形式安装
-
+Vue.use(iView);
 // create app
 new Vue({
 	router,

@@ -1,30 +1,36 @@
 <template>
 	<div class="form">
 		<div class="title">注册</div>
-		<el-form @submit.native.prevent :rules="rules" ref="register" label-width="100px" :model="register">
-			<el-form-item label="手机号码" prop="phone">
-				<el-input v-model="register.phone" placeholder="请输手机号码"></el-input>
-			</el-form-item>
-			<el-form-item class="smscode" label="短信验证码" prop="captcha">
-				<el-input v-model="register.captcha" placeholder="请输入短信验证码"></el-input>
-				<el-button :disabled="countdown && true" @click="register_captcha">{{ interval ? countdown : '获取验证码' }}</el-button>
-			</el-form-item>
-			<el-form-item label="设置密码" prop="password">
-				<el-input type="password" v-model="register.password" placeholder="密码"></el-input>
-			</el-form-item>
-			<el-form-item label="邮箱" prop="email">
-				<el-input v-model="register.email" placeholder="邮箱"></el-input>
-			</el-form-item>
-			<el-form-item label="个人昵称" prop="nickName">
-				<el-input v-model="register.nickName" placeholder="输入个人昵称"></el-input>
-			</el-form-item>
-			<div class="bottom-center">
-				<el-button :loading="lock" native-type="submit" type="primary" @click="submit_register">注册</el-button>
+		<iForm
+			:model="register"
+			@submit.native.prevent
+			:rules="rules"
+			:label-width="100"
+			ref="register"
+		>
+			<FormItem label="手机号码" prop="phone">
+				<iInput v-model="register.phone" placeholder="请输手机号码"></iInput>
+			</FormItem>
+			<FormItem label="短信验证码" prop="captcha">
+				<div class="smscode">
+					<iInput v-model="register.captcha" placeholder="请输入短信验证码"></iInput>
+					<iButton type="ghost" :disabled="countdown && true" @click="register_captcha">{{ interval ? countdown : '获取验证码' }}</iButton>
+				</div>
+			</FormItem>
+			<FormItem label="设置密码" prop="password">
+				<iInput type="password" v-model="register.password" placeholder="密码"></iInput>
+			</FormItem>
+			<FormItem label="邮箱" prop="email">
+				<iInput v-model="register.email" placeholder="邮箱"></iInput>
+			</FormItem>
+			<FormItem label="个人昵称" prop="nickName">
+				<iInput v-model="register.nickName" placeholder="输入个人昵称"></iInput>
+			</FormItem>
+			<div class="button">
+				<iButton :loading="lock" htmlType="submit" type="primary" long @click="submit_register">注册</iButton>
+				<router-link class="login" :to="{ name: 'login' }"><iButton type="dashed" long>登录</iButton></router-link>
 			</div>
-			<div class="bottom-center">
-				<router-link class="login" :to="{ name: 'login' }">登录</router-link>
-			</div>
-		</el-form>
+		</iForm>
 	</div>
 </template>
 <script>
@@ -53,16 +59,20 @@
 						this.$store.dispatch('REGISTER_CAPTCHA_REQUEST', { phone }).catch(err =>{
 							if (err.data) {
 								if (err.data.retCode == -197) {
-									this.$confirm('该用户已注册，是否立即登录？', '提示', {
-										confirmButtonText: '登录',
-										cancelButtonText: '取消',
-										type: 'warning'
-									}).then(() => {
-										this.$router.push({ name: 'login' })
+									this.$Modal.confirm({
+										title: '提示',
+										content: '该用户已注册，是否立即登录？',
+										okText: '登录',
+										cancelText: '取消',
+										type: 'warning',
+										onOk: () => {
+											this.$router.push({ name: 'login' })
+										}
 									})
 								} else {
-									this.$alert(err.data.retMsg, '错误', {
-										type: 'error'
+									this.$Modal.error({
+										content: err.data.retMsg,
+										title: '错误'
 									})
 								}
 							}

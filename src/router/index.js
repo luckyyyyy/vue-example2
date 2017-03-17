@@ -2,7 +2,7 @@
 * @Author: William Chan
 * @Date:   2016-12-01 17:57:50
 * @Last Modified by:   William Chan
-* @Last Modified time: 2017-03-15 14:08:01
+* @Last Modified time: 2017-03-17 16:39:03
 */
 
 'use strict';
@@ -13,19 +13,21 @@ import store     from '../store'
 
 import NProgress from 'nprogress'
 import 'nprogress/nprogress.css'
+// import { LoadingBar } from 'iview' // 暂时不用
 
 import topRoute     from './top'
 import liveRoute    from './live'
 import VideoRoute   from './video'
 import homeRoute    from './home'
-import accountRoute from './account'
-import storeRoute   from './store'
+// import accountRoute from './account'
+// import storeRoute   from './store'
 import userRoute    from './user'
 
 Vue.use(VueRouter);
 
 const routes = [].concat(
-	liveRoute, VideoRoute, homeRoute, accountRoute, storeRoute, userRoute,
+	// accountRoute, storeRoute,
+	liveRoute, VideoRoute, homeRoute, userRoute,
 	topRoute
 );
 

@@ -3,14 +3,14 @@
 		<div class="logo">
 			<img src="../assets/toplogo.png" height="20" width="98" alt="彩虹云直播">
 			<div class="breadcrumb">
-				<el-breadcrumb separator="/">
+<!-- 				<el-breadcrumb separator="/">
 					<el-breadcrumb-item
 						v-for="item of breadcrumb"
 						:key="item.name"
 						:to="{ name: item.route, params: $route.params }">
 						{{ item.name }}
 					</el-breadcrumb-item>
-				</el-breadcrumb>
+				</el-breadcrumb> -->
 			</div>
 		</div>
 		<div class="user">
@@ -58,21 +58,24 @@
 		},
 		methods: {
 			logout () {
-				this.$confirm('确定退出系统么?', '提示', {
-					confirmButtonText: '确定',
-					cancelButtonText: '取消',
-					type: 'warning'
-				}).then(() => {
-					this.$store.dispatch('LOGOUT_REQUEST');
+				this.$Modal.confirm({
+					title: '提示',
+					content: '确定退出系统么？',
+					loading: true,
+					onOk: () => {
+						this.$store.dispatch('LOGOUT_REQUEST').then(() => {
+							this.$Modal.remove();
+						})
+					}
 				})
 			},
 			switchShop () {
-				this.$confirm('确定切换频道么?', '提示', {
-					confirmButtonText: '确定',
-					cancelButtonText: '取消',
-					type: 'warning'
-				}).then(() => {
-					this.$store.commit('SET_CHANNEL');
+				this.$Modal.confirm({
+					title: '提示',
+					content: '确定切换频道么？',
+					onOk: () => {
+						this.$store.commit('SET_CHANNEL');
+					}
 				})
 			},
 		}
@@ -93,9 +96,7 @@
 		.logo {
 			display: flex;
 			align-items: center;
-			img {
-				padding: 0 20px;
-			}
+			padding: 0 20px;
 		}
 		.menu {
 			margin: 0;
@@ -118,7 +119,7 @@
 				text-align: left;
 				height: 30px;
 				width: 30px;
-				padding: 0 10px;
+				margin: 0 10px;
 				border-radius: 50%;
 			}
 			.name {
@@ -169,14 +170,14 @@
 </style>
 
 <style lang="less">
-	.breadcrumb {
-		.el-breadcrumb__item .el-breadcrumb__item__inner {
-			color: darken(white, 30%);
-		}
-		.el-breadcrumb__item:last-child .el-breadcrumb__item__inner {
-			color: darken(white, 10%);
-		}
-	}
+	// .breadcrumb {
+	// 	.el-breadcrumb__item .el-breadcrumb__item__inner {
+	// 		color: darken(white, 30%);
+	// 	}
+	// 	.el-breadcrumb__item:last-child .el-breadcrumb__item__inner {
+	// 		color: darken(white, 10%);
+	// 	}
+	// }
 </style>
 
 

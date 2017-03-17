@@ -16,6 +16,7 @@
     "element-ui": "1.2.4",
     "fastclick": "^1.0.6",
     "highcharts": "^5.0.7",
+    "iview": "^2.0.0-rc.5",
     "moment": "^2.17.0",
     "nprogress": "^0.2.0",
     "qrcodejs2": "0.0.2",

@@ -2,7 +2,7 @@
 * @Author: Administrator
 * @Date:   2017-01-06 02:33:52
 * @Last Modified by:   William Chan
-* @Last Modified time: 2017-03-01 11:34:07
+* @Last Modified time: 2017-03-17 16:34:16
 */
 
 'use strict';
@@ -24,6 +24,7 @@ const actions = {
 		return new Promise((resolve, reject) => {
 			channel_find(...args).then(res => {
 				commit(CHANNEL_FIND.SUCCESS, res);
+				resolve(res.data);
 			}).catch(err => {
 				commit(CHANNEL_FIND.FAILURE, err);
 				reject();

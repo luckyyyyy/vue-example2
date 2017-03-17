@@ -9,7 +9,6 @@
 			</div>
 			<div class="bottom half-box">
 				<div class="full-circle bottom-circle">
-
 				</div>
 			</div>
 			<img src="../../../src/assets/account/pointer.png" :style="{ transform: 'translate(-80%, -50%) rotate(' + ((current_value / max_value) * 180) + 'deg)' }">

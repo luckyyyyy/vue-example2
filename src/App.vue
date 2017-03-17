@@ -1,5 +1,5 @@
 <template>
-	<div class="wrap" v-loading.fullscreen.lock="lock" element-loading-text="拼命加载中">
+	<div class="wrap">
 		<div v-if="token" class="main">
 			<router-view name="topbar"></router-view>
 			<router-view name="sidebar"></router-view>
@@ -28,11 +28,6 @@
 	store.registerModule('logout', logout);
 	export default {
 		computed: {
-			lock () {
-				return
-					this.$store.state.logout.lock ||
-					this.$store.state.channel_query.lock
-			},
 			token () {
 				return this.$store.state.token;
 			},
@@ -116,19 +111,20 @@
 					line-height: 26px;
 					margin-bottom: 20px;
 				}
-				.el-button {
-					text-align: center;
-				}
 				.smscode {
-					.el-input {
-						width: 270px;
-					}
-					button {
-						float: right;
+					display: flex;
+					align-items: center;
+					.ivu-btn {
+						margin-left: 10px;
 						width: 100px;
 					}
 				}
-				.bottom, .bottom-center {
+				.button {
+					.ivu-btn {
+						margin: 5px 0;
+					}
+				}
+				.bottom {
 					margin-top: 15px;
 					display: flex;
 					justify-content: space-between;
@@ -147,10 +143,6 @@
 							color: darken(@color-red, 10%);
 						}
 					}
-				}
-				.bottom-center {
-					text-align: center;
-					display: block;
 				}
 			}
 			.footer {

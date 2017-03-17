@@ -12,7 +12,11 @@
 	const verifyRoute = (to, from, next) => {
 		if (to.params.liveid) {
 			store.dispatch('LIVE_QUERY_REQUEST', { id: to.params.liveid }).then(res => {
-				next();
+				if (res.retCode == 0) {
+					next();
+				} else {
+					next(false);
+				}
 			}).catch(err => {
 				next({ name: 'index' });
 			})

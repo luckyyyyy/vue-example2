@@ -2,7 +2,7 @@
 * @Author: William Chan
 * @Date:   2017-03-02 14:29:37
 * @Last Modified by:   William Chan
-* @Last Modified time: 2017-03-11 01:07:12
+* @Last Modified time: 2017-03-17 14:58:45
 */
 
 'use strict';
@@ -51,7 +51,7 @@ export const CHANNEL_CREATE_RULES = {
 		{ required: true, max: 12, message: '频道名称小于12个字符' }
 	],
 	area: [
-		{ required: true, message: '请选择联系地址' }
+		// { required: true, message: '请选择联系地址' }
 	],
 	commodityCatalog: [
 		{ required: true, type: 'number', message: '请选择正确的分类' }

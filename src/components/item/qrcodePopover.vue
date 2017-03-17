@@ -1,12 +1,14 @@
 <template>
-	<el-popover @show="onShow" popper-class="qrcode-wrapper" placement="top" width="240">
-		<div class="qrcode-box">
-			<slot name="tips"></slot>
-			<div ref="qrcode" class="qr"></div>
-			<clipboardInput :text="text"></clipboardInput>
-		</div>
-		<template slot="reference"><slot name="reference"></slot></template>
-	</el-popover>
+	<Poptip class="qrcode-wrapper" placement="bottom" width="240">
+		<template slot="content">
+			<div class="qrcode-box">
+				<slot name="tips"></slot>
+				<div ref="qrcode" class="qr"></div>
+				<clipboardInput :text="text"></clipboardInput>
+			</div>
+		</template>
+		<slot name="reference"></slot>
+	</Poptip>
 </template>
 
 <script>
@@ -20,19 +22,17 @@
 		props: {
 			text: String,
 		},
-		methods: {
-			onShow () {
-				if (this.qrcode) {
-					this.qrcode.makeCode(this.text);
-				} else {
-					this.qrcode = new qrcodejs(this.$refs.qrcode, {
-						text: this.text,
-						width: 240,
-						height: 240,
-						// colorDark : "#000000",
-						// colorLight : "#ffffff",
-					});
-				}
+		mounted () {
+			if (this.qrcode) {
+				this.qrcode.makeCode(this.text);
+			} else {
+				this.qrcode = new qrcodejs(this.$refs.qrcode, {
+					text: this.text,
+					width: 240,
+					height: 240,
+					// colorDark : "#000000",
+					// colorLight : "#ffffff",
+				});
 			}
 		}
 	}
@@ -42,6 +42,7 @@
 	.qrcode-wrapper {
 		margin: 0;
 		// padding: 20px;
+		z-index: 999;
 		.qrcode-box {
 			display: flex;
 			flex-direction: column;

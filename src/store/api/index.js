@@ -1,8 +1,8 @@
 /*
 * @Author: William Chan
 * @Date:   2016-12-02 11:31:24
-* @Last Modified by:   Administrator
-* @Last Modified time: 2017-03-16 01:35:53
+* @Last Modified by:   William Chan
+* @Last Modified time: 2017-03-17 14:24:39
 */
 
 // axios.request(config)
@@ -17,7 +17,7 @@
 'use strict';
 
 import store from '../'
-import { MessageBox } from 'element-ui'
+import { Modal } from 'iview'
 import axios from 'axios'
 export const API_HOST =
 	process.env.NODE_ENV !== 'production' ?
@@ -41,8 +41,9 @@ if (localStorage.getItem('debug')) {
 			// 	'Error object: ' + JSON.stringify(error)
 			// ].join(' \n ');
 		// }
-		MessageBox.alert(msg, 'JavaScript catch', {
-			type: 'error'
+		Modal.error({
+			content: msg,
+			title: 'JavaScript catch'
 		})
 		return false;
 	};
@@ -69,8 +70,9 @@ export const onRequestError = error => {
 export const onResponse = res => {
 	if (res.data.retCode !== 0) {
 		if (!res.config || res.config && res.config.interceptors === true) {
-			MessageBox.alert(res.data.retMsg || '数据格式异常', res.data.retCode && `操作失败 (${res.data.retCode})` || '错误', {
-				type: 'error'
+			Modal.error({
+				title: res.data.retCode && `操作失败 (${res.data.retCode})` || '错误',
+				content: res.data.retMsg || '数据格式异常'
 			})
 		}
 		return Promise.reject(res);
@@ -81,8 +83,9 @@ export const onResponse = res => {
 
 export const onResponseError = error => {
 	if (!error.response) {
-		MessageBox.alert(`${error.stack}`, error.message, {
-			type: 'error'
+		Modal.error({
+			title: error.message,
+			content: error.stack
 		})
 	} else {
 		if (error.response.status === 401) {
@@ -92,8 +95,9 @@ export const onResponseError = error => {
 		}
 		// console.dir(error)
 		// TODO 500 必定显示 or 拦截器配置
-		MessageBox.alert(`${error.response.data.retMsg || '请求发生错误'}`, `服务器错误 ${error.response.status}`, {
-			type: 'error'
+		Modal.error({
+			title: `服务器错误 ${error.response.status}`,
+			content: `${error.response.data.retMsg || '请求发生错误'}`
 		})
 	}
 

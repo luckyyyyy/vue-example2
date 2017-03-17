@@ -1,21 +1,21 @@
 <template>
 	<div>
 		<div class="body">
-			<el-form @submit.native.prevent :rules="rules" label-width="120px" ref="password" :model="password">
-				<el-form-item label="原密码：" prop="oldPassword">
-					<el-input placeholder="请输入原密码" type="password" v-model="password.oldPassword"></el-input>
-				</el-form-item>
-				<el-form-item label="新密码：" prop="newPassword">
-					<el-input placeholder="请输入新密码" type="password" v-model="password.newPassword"></el-input>
-				</el-form-item>
-				<el-form-item label="确认新密码：" prop="newPassword_confirm">
-					<el-input placeholder="确认新密码" type="password" v-model="password.newPassword_confirm"></el-input>
-				</el-form-item>
-				<el-form-item>
-					<el-button :loading="lock" native-type="submit" type="primary" @click="submit">确认修改</el-button>
-					<el-button @click="backConsole">返回控制台</el-button>
-				</el-form-item>
-			</el-form>
+			<iForm @submit.native.prevent :rules="rules" ref="password" :model="password" :label-width="120">
+				<FormItem label="原密码：" prop="oldPassword">
+					<iInput placeholder="请输入原密码" type="password" v-model="password.oldPassword"></iInput>
+				</FormItem>
+				<FormItem label="新密码：" prop="newPassword">
+					<iInput placeholder="请输入新密码" type="password" v-model="password.newPassword"></iInput>
+				</FormItem>
+				<FormItem label="确认新密码：" prop="newPassword_confirm">
+					<iInput placeholder="确认新密码" type="password" v-model="password.newPassword_confirm"></iInput>
+				</FormItem>
+				<FormItem>
+					<iButton :loading="lock" htmlType="submit" type="primary" @click="submit">确认修改</iButton>
+					<iButton type="ghost" @click="backConsole">返回控制台</iButton>
+				</FormItem>
+			</iForm>
 		</div>
 	</div>
 </template>
@@ -53,10 +53,7 @@
 				this.$refs.password.validate((valid) => {
 					if (valid) {
 						this.$store.dispatch('PASSWORD_REQUEST', this.password).then(() => {
-							this.$message({
-								type: 'success',
-								message: '用户密码修改成功'
-							})
+							this.$Message.success('用户密码修改成功');
 						})
 					} else {
 						return false;
@@ -80,8 +77,11 @@
 		justify-content: center;
 		align-items: center;
 		height: 100%;
-		.el-input {
+		.ivu-input-wrapper {
 			width: 240px;
+		}
+		.ivu-btn {
+			width: 100px;
 		}
 	}
 </style>

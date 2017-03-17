@@ -2,7 +2,7 @@
 * @Author: Administrator
 * @Date:   2017-01-06 02:33:52
 * @Last Modified by:   William Chan
-* @Last Modified time: 2017-03-06 17:36:57
+* @Last Modified time: 2017-03-17 16:54:52
 */
 
 'use strict';
@@ -23,7 +23,7 @@ const actions = {
 		return new Promise((resolve, reject) => {
 			live_query(params).then(res => {
 				commit(LIVE_QUERY.SUCCESS, res);
-				resolve(res);
+				resolve(res.data);
 			}).catch(err => {
 				commit(LIVE_QUERY.FAILURE, err);
 				reject();

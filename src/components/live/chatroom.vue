@@ -1,7 +1,8 @@
 <template>
-	<div :class="{ lock: lock }" class="chatroom" v-loading="!init && !lock" element-loading-text="正在进入聊天室">
+	<div :class="{ lock: lock }" class="chatroom">
+	 <Spin fix v-if="!init && !lock"></Spin>
 		<div class="lock__btn" v-if="lock">
-			  <el-button @click="onJoinChatroom" type="text">重新连接聊天室</el-button>
+			  <iButton @click="onJoinChatroom" type="text">重新连接聊天室</iButton>
 		</div>
 		<div class="chat">
 			<div class="head">
@@ -94,6 +95,7 @@
 		flex: 3;
 		display: flex;
 		flex-direction: column;
+		position: relative;
 		&.lock {
 			position: relative;
 		}

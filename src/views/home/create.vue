@@ -7,42 +7,42 @@
 		</div>
 		<div class="body">
 			<template v-if="active == 1">
-				<el-form class="form" @submit.native.prevent :rules="rules" label-width="100px" ref="create" :model="create">
-					<el-form-item label="频道名称：" prop="name">
-						<el-input placeholder="请输入名称" v-model="create.name"></el-input>
-					</el-form-item>
-					<el-form-item label="直播商品：" prop="commodityCatalog">
-						<el-select :disabled="lock_catalogs" placeholder="请选择" v-model="create.commodityCatalog">
-							<el-option
+				<iForm class="form" @submit.native.prevent :rules="rules" :label-width="100" ref="create" :model="create">
+					<FormItem label="频道名称：" prop="name">
+						<iInput placeholder="请输入名称" v-model="create.name"></iInput>
+					</FormItem>
+					<FormItem label="直播商品：" prop="commodityCatalog">
+						<iSelect :disabled="lock_catalogs" placeholder="请选择" v-model="create.commodityCatalog">
+							<iOption
 								v-for="item in catalogs"
 								:key="item.label"
 								:label="item.label"
 								:value="item.value">
-							</el-option>
-						</el-select>
-					</el-form-item>
-					<el-form-item label="联系地址：" prop="area">
-						<el-cascader
+							</iOption>
+						</iSelect>
+					</FormItem>
+					<FormItem label="联系地址：" prop="area">
+						<Cascader
 							class="cascader"
-							:options="area"
+							:data="area"
 							filterable
 							size="large"
 							v-model="create.area">
-						</el-cascader>
-					</el-form-item>
-					<el-form-item>
-						<el-input class="address" placeholder="请填写具体地址" v-model="create.address"></el-input>
-					</el-form-item>
-					<el-form-item label="公司名称：">
-						<el-input placeholder="请输入营业执照上的公司全名" v-model="create.companyName"></el-input>
-					</el-form-item>
-					<el-form-item>
-						<el-checkbox v-model="create.agree">我已阅读并同意 <a>彩虹云直播用户协议</a></el-checkbox>
-					</el-form-item>
-					<el-form-item>
-						<el-button :disabled="!create.agree" :loading="lock" native-type="submit" type="primary" @click="submit">创建频道</el-button>
-					</el-form-item>
-				</el-form>
+						</Cascader>
+					</FormItem>
+					<FormItem>
+						<iInput class="address" placeholder="请填写具体地址" v-model="create.address"></iInput>
+					</FormItem>
+					<FormItem label="公司名称：">
+						<iInput placeholder="请输入营业执照上的公司全名" v-model="create.companyName"></iInput>
+					</FormItem>
+					<FormItem>
+						<Checkbox v-model="create.agree">我已阅读并同意 <a>彩虹云直播用户协议</a></Checkbox>
+					</FormItem>
+					<FormItem>
+						<iButton :disabled="!create.agree" :loading="lock" htmlType="submit" type="primary" @click="submit">创建频道</iButton>
+					</FormItem>
+				</iForm>
 			</template>
 			<template v-if="active == 2">
 				<div class="logo">
@@ -51,7 +51,7 @@
 					<span>基于微信公众号直播 + 电商的全场景化应用解决方案</span>
 				</div>
 				<div class="button">
-					<el-button :disabled="lock_open_button" type="primary" size="large" @click="openWxUrl">{{ lock_open_button ? '正在获取微信授权' : '绑定微信公众号' }}</el-button>
+					<iButton :disabled="lock_open_button" type="primary" size="large" @click="openWxUrl">{{ lock_open_button ? '正在获取微信授权' : '绑定微信公众号' }}</iButton>
 					<a class="wx" target="_blank" href="https://www.baidu.com">还没有公众号？去申请吧 ></a>
 				</div>
 				<div class="tips">
@@ -62,8 +62,9 @@
 			</template>
 			<template v-if="active == 3">
 				<div class="success">
-					恭喜，您的频道已创建成功！
-					<el-button @click="onSelect" type="primary" size="large">进入店铺管理后台</el-button>
+					<Icon type="checkmark-circled"></Icon>
+					<p>恭喜，您的频道已创建成功！</p>
+					<iButton @click="onSelect" type="success" size="large">进入店铺管理后台</iButton>
 				</div>
 			</template>
 		</div>
@@ -98,12 +99,13 @@
 							} else if (err.data.retCode == -101) {
 								this.$router.push({ name: 'create_channel' })
 							} else {
-								this.$confirm(`${err.data.retMsg}`, '错误', {
-									confirmButtonText: '重新获取',
-									type: 'error'
-								}).then(() => {
-									window.location.reload();
-								});
+								this.$Modal.error({
+									okText: '重新获取',
+									content: err.data.retMsg,
+									onOk: () => {
+										window.location.reload();
+									}
+								})
 							}
 						}
 					});
@@ -141,24 +143,28 @@
 			},
 			openWxUrl () {
 				window.open(this.url);
-				this.$confirm('请在弹出的页面中完成公众号绑定，如果未弹出请检查浏览器设置。', '提示', {
-					confirmButtonText: '已成功绑定',
-					cancelButtonText: '绑定失败',
-					closeOnPressEscape: false,
-					closeOnClickModal: false,
-					type: 'warning'
-				}).then(() => {
-					this.$store.dispatch('CHANNEL_QUERY_REQUEST', this.id).then((data) => {
-						if (data.channel.status == 2) {
-							this.success = true;
-						} else {
-							this.$alert('绑定未成功，请尝试重新打开连接绑定，或询问我们的客服。', '提示', {
-								type: 'error'
-							})
-						}
-					});
-				}).catch(() => {
-					this.$message('请尝试重新打开连接绑定，或询问我们的客服。');
+				this.$Modal.confirm({
+					title: '提示',
+					content: '请在弹出的页面中完成公众号绑定，如果未弹出请检查浏览器设置。',
+					okText: '已成功绑定',
+					cancelText: '绑定失败',
+					closable: false,
+					onOk: () => {
+						this.$store.dispatch('CHANNEL_QUERY_REQUEST', this.id).then((data) => {
+							if (data.channel.status == 2) {
+								this.success = true;
+							} else {
+								this.$Message.error('绑定未成功，请尝试重新打开连接绑定，或询问我们的客服。', 5);
+								// this.$Modal.error({
+								// 	title: '提示',
+								// 	content: '绑定未成功，请尝试重新打开连接绑定，或询问我们的客服。',
+								// })
+							}
+						});
+					},
+					onCancel: () => {
+						this.$Message.info('请尝试重新打开连接绑定，或询问我们的客服。', 5);
+					}
 				});
 			},
 			onSelect () {
@@ -188,7 +194,7 @@
 				border-right: 0;
 			}
 			&.active {
-				background: #1190BF;
+				background: #3399ff;
 				color: white;
 			}
 
@@ -203,13 +209,7 @@
 		flex-direction: column;
 		align-items: center;
 		.form {
-			.el-input {
-				width: 300px;
-			}
-			.el-select {
-				width: 300px;
-			}
-			.address, .el-cascader {
+			.address {
 				width: 300px;
 			}
 		}
@@ -219,6 +219,7 @@
 			flex-direction: column;
 			img {
 				background: #f2f2f2;
+				box-sizing: initial;
 				padding: 15px 10px;
 				border-radius: 50%;
 			}
@@ -227,7 +228,7 @@
 			}
 		}
 		.button {
-			margin: 60px 0;
+			margin: 40px 0;
 			display: flex;
 			flex-direction: column;
 			.wx {
@@ -243,8 +244,15 @@
 			display: flex;
 			flex-direction: column;
 			align-items: center;
-			.el-button {
-				margin: 20px 0;
+			i {
+				font-size: 80px;
+				color: #00cc66;
+			}
+			p {
+				margin: 20px;
+			}
+			button {
+				margin-bottom: 120px;
 			}
 		}
 	}

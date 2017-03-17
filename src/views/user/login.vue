@@ -1,21 +1,27 @@
 <template>
 	<div class="form">
 		<div class="title">登录</div>
-		<el-form @submit.native.prevent :rules="rules" ref="login" label-position="top" :model="login">
-			<el-form-item label="账号登录" prop="phone">
-				<el-input v-model="login.phone" placeholder="请输手机号码"></el-input>
-			</el-form-item>
-			<el-form-item label="登录密码" prop="password">
-				<el-input type="password" v-model="login.password" placeholder="请输入您的账户密码"></el-input>
-			</el-form-item>
+		<iForm
+			:model="login"
+			label-position="top"
+			@submit.native.prevent
+			:rules="rules"
+			ref="login"
+		>
+			<FormItem label="账号登录" prop="phone">
+				<iInput v-model="login.phone" placeholder="请输手机号码"></iInput>
+			</FormItem>
+			<FormItem label="登录密码" prop="password">
+				<iInput type="password" v-model="login.password" placeholder="请输入您的账户密码"></iInput>
+			</FormItem>
 			<div class="bottom">
 				<router-link class="resetpwd" :to="{ name: 'resetpwd' }">忘记密码?</router-link>
 				<router-link class="register" :to="{ name: 'register' }">立即注册?</router-link>
 			</div>
-			<div class="bottom-center">
-				<el-button :loading="lock" native-type="submit" type="primary" @click="submit_login">登录</el-button>
+			<div class="button">
+				<iButton :loading="lock" htmlType="submit" type="success" long @click="submit_login">登录</iButton>
 			</div>
-		</el-form>
+		</iForm>
 	</div>
 </template>
 

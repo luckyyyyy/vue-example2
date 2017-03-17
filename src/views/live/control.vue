@@ -3,35 +3,35 @@
 		<div class="top">
 			<div class="button-action">
 				<div class="line">
-					<el-popover placement="bottom-start" width="200" trigger="click">
-						<p>扫码下载手机直播工具</p>
-						<div class="qrcode"></div>
-						<p>支持Android、iOS 下载</p>
-						<el-button slot="reference">下载直播工具</el-button>
-					</el-popover>
-					<el-popover placement="top" width="200" trigger="click"  popper-class="stream-url-popper" :width="240">
-						<div class="tips">
-							<h3>方式一：使用APP扫码推流</h3>
-							<div class="qrcode" ref="qrcode"></div>
-						</div>
-						<div class="tips">
-							<h3>方式二：使用OBS等软件推流</h3>
-							<div class="stream">
-								<clipboardInput :text="live.liveStream.url">复制地址</clipboardInput>
-								<clipboardInput :text="live.liveStream.streamKey">复制秘钥</clipboardInput>
+					<Poptip placement="bottom" :width="200" trigger="click">
+						<template slot="content">
+							<p>扫码下载手机直播工具</p>
+							<div class="qrcode"></div>
+							<p>支持Android、iOS 下载</p>
+						</template>
+						<iButton type="ghost">下载直播工具</iButton>
+					</Poptip>
+					<Poptip placement="bottom" width="200" trigger="click"  class="stream-url-popper" :width="240">
+						<template slot="content">
+							<div class="tips">
+								<h3>方式一：使用APP扫码推流</h3>
+								<div class="qrcode" ref="qrcode"></div>
 							</div>
-						</div>
-						<el-button slot="reference">推流地址</el-button>
-					</el-popover>
-		<!-- 			<qrcodePopover :text="live.liveStream.pushStreamUrl">
-						<p slot="tips">扫码开启直播</p>
-						<el-button slot="reference">推流地址</el-button>
-					</qrcodePopover> -->
+							<div class="tips">
+								<h3>方式二：使用OBS等软件推流</h3>
+								<div class="stream">
+									<clipboardInput :text="live.liveStream.url">复制地址</clipboardInput>
+									<clipboardInput :text="live.liveStream.streamKey">复制秘钥</clipboardInput>
+								</div>
+							</div>
+						</template>
+						<iButton type="ghost">推流地址</iButton>
+					</Poptip>
 					<qrcodePopover text="假的">
 						<p slot="tips">微信扫码观看直播</p>
-						<el-button slot="reference">观看地址</el-button>
+						<iButton type="ghost" slot="reference">观看地址</iButton>
 					</qrcodePopover>
-					<el-button type="primary" @click="openNotice">发布公告</el-button>
+					<iButton type="primary" @click="openNotice">发布公告</iButton>
 				</div>
 			</div>
 		</div>
@@ -47,31 +47,35 @@
 					</ul>
 					<div class="live-info-time">
 						<div class="time">已经直播xxxxx分钟</div>
-						<el-button size="small" type="danger" @click="endLive">结束直播</el-button>
+						<iButton size="small" type="error" @click="endLive">结束直播</iButton>
 					</div>
 				</div>
-				<el-form class="chat-input" @submit.native.prevent :model="chatroom">
-					<el-input size="small" v-model="chatroom.text" placeholder="请输入内容"></el-input>
-					<el-button :disabled="chatroom_lock || !chatroom_init" :loading="chatroom_send" @click="chatroomSend" size="small" native-type="submit" type="primary">发送</el-button>
-				</el-form>
+				<iForm class="chat-input" @submit.native.prevent :model="chatroom">
+					<iInput size="small"  v-model="chatroom.text" placeholder="请输入内容"></iInput>
+					<iButton :disabled="chatroom_lock || !chatroom_init" :loading="chatroom_send" @click="chatroomSend" size="small" htmlType="submit" type="primary">发送</iButton>
+				</iForm>
 			</div>
 		</div>
-		<el-dialog
-			custom-class="noticeDialog"
+
+		<Modal
+			:width="550"
 			title="公告"
 			v-model="noticeDialog"
-			:close-on-click-modal="false"
-			:close-on-press-escape="!lock"
-			:show-close="!lock">
-			<el-form ref="notice" :rules="rules" label-position="left" label-width="85px" :model="notice" @submit.native.prevent>
-				<el-form-item label="公告内容" prop="text">
-					<el-input :autofocus="true" v-model="notice.text" placeholder="请输入公告内容"></el-input>
-				</el-form-item>
-				<div class="footer">
-					<el-button @click="onNoticeSubmit" :loading="lock" native-type="submit" type="primary">发 送</el-button>
+			:loading="lock"
+			:maskClosable="false"
+		>
+			<iForm ref="notice" :rules="rules" label-position="left" :label-width="85" :model="notice" @submit.native.prevent>
+				<FormItem label="公告内容" prop="text">
+					<iInput :autofocus="true" v-model="notice.text" placeholder="请输入公告内容"></iInput>
+				</FormItem>
+				<div style="display: none;">
+					<iButton @click="onNoticeSubmit" :loading="lock" htmlType="submit" type="primary">发 送</iButton>
 				</div>
-			</el-form>
-		</el-dialog>
+			</iForm>
+				<div slot="footer">
+					<iButton @click="onNoticeSubmit" :loading="lock" type="primary">发 送</iButton>
+				</div>
+		</Modal>
 	</div>
 </template>
 <script>
@@ -135,6 +139,7 @@
 				const chatroomId         = this.live.liveChatRoom.roomid;
 				const oncustomsysmsg     = this.onCustomSysMsg;
 				const onCustomServiceMsg = this.onCustomServiceMsg;
+				const ondisconnect       = this.onDisconnect;
 				this.$store.dispatch('IM_INIT_REQUEST', { chatroomId, oncustomsysmsg, onCustomServiceMsg }).then(() => {
 					// join success
 					// console.log(1)
@@ -143,6 +148,36 @@
 						type: 'error'
 					})
 				})
+			},
+			onDisconnect (error) {
+				if (error) {
+					this.$store.commit('IM_CHATROOM_INIT_LOCK');
+					let msg = error.message;
+					if (!msg) {
+						switch (error.code) {
+							// 账号或者密码错误, 请跳转到登录页面并提示错误
+							case 302:
+								msg = '账号或者密码错误。';
+								break;
+							// 重复登录, 已经在其它端登录了, 请跳转到登录页面并提示错误
+							case 417:
+								msg = '您的账号已在其他终端登录。';
+								break;
+							// 被踢, 请提示错误后跳转到登录页面
+							case 'kicked':
+								msg = '您的账号被系统强制下线。';
+								break;
+							default:
+								break;
+						}
+					}
+					if (error.code != 'logout') {
+						this.$Modal.error({
+							title: '聊天室',
+							content: msg || '聊天连接丢失，请尝试重新连接。'
+						})
+					}
+				}
 			},
 			onSwitchLiveAction (action) {
 				this.play = action;
@@ -166,7 +201,7 @@
 					this.$store.dispatch('IM_CHATROOM_MSG_REQUEST', text).then(() => {
 						this.chatroom.text = '';
 					}).catch(error => {
-						this.$message.error(error.message);
+						this.$Message.error(error.message);
 					})
 				}
 			},
@@ -175,15 +210,10 @@
 				this.notice.text = '';
 			},
 			endLive () {
-				this.$confirm('确定要结束直播吗？点击确定将彻底关闭直播，变更为回放状态。', '结束直播', {
-					confirmButtonText: '确定',
-					cancelButtonText: '取消',
-					type: 'warning'
-				}).then(() => {
-
-				}).catch(() => {
-
-				});
+				this.$Modal.confirm({
+					title: '确定要结束直播吗？',
+					content: '点击确定将彻底关闭直播，变更为回放状态。'
+				})
 			},
 			onNoticeSubmit () {
 				this.$refs.notice.validate((valid) => {
@@ -254,10 +284,11 @@
 				padding: 0 10px;
 				box-sizing: border-box;
 				display: flex;
-				.el-input {
+				align-items: center;
+				.ivu-input-wrapper {
 					flex: 1;
 				}
-				.el-button {
+				.ivu-btn {
 					margin-left: 10px;
 				}
 			}
@@ -269,10 +300,9 @@
 			.line {
 				text-align: center;
 			}
-			.el-button {
+			.ivu-btn {
 				width: 120px;
-				margin: 10px;
-				margin-bottom: 0;
+				margin: 0 10px;
 			}
 		}
 		.top {
@@ -284,12 +314,12 @@
 </style>
 
 <style lang="less">
-	.noticeDialog {
-		width: 550px;
-		.footer {
-			text-align: right;
-		}
-	}
+	// .noticeDialog {
+	// 	width: 550px;
+	// 	.footer {
+	// 		text-align: right;
+	// 	}
+	// }
 	.stream-url-popper {
 		.tips {
 			padding: 5px;
@@ -308,24 +338,6 @@
 				}
 			}
 		}
-		// .head, .body {
-		// 	background: #eee;
-		// 	display: flex;
-		// 	align-items: center;
-		// 	padding: 5px;
-		// 	justify-content: space-around;
-		// }
-		// .body {
-		// 	background: #fff;
-		// 	.qrcode {
-		// 		width: 120px;
-		// 		height: 120px;
-		// 		img {
-		// 			width: 120px;
-		// 			height: 120px;
-		// 		}
-		// 	}
-		// }
 	}
 </style>
 

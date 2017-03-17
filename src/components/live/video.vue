@@ -4,7 +4,7 @@
 		<div class="lock" v-show="!play">
 			<img src="../../assets/toplogo.png" height="40" width="196">
 			<p>{{ lock ? `正在刷新直播状态` : '主播还未开始直播或断开连接，请尝试刷新' }}</p>
-			<el-button type="primary" :loading="lock" @click="checkStatus">刷新</el-button>
+			<iButton size="large" type="primary" :loading="lock" @click="checkStatus">刷新</iButton>
 		</div>
 	</div>
 </template>

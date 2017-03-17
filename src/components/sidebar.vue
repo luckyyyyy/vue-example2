@@ -2,42 +2,24 @@
 	<div class="sidebar">
 		<div class="logo">
 			<!-- 待定 -->
-			<svg width="56px" height="44px" viewBox="39 80 56 44" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-			    <!-- Generator: Sketch 41 (35326) - http://www.bohemiancoding.com/sketch -->
-			    <desc>Created with Sketch.</desc>
-			    <defs></defs>
-			    <g id="电视" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" transform="translate(39.000000, 80.000000)">
-			        <path d="M13.3111049,15.415049 L18.1876364,15.415049 L16.0179021,27.6171189 L21.521007,27.6171189 L23.6441958,15.415049 L28.5672727,15.415049 L29.3299021,11.0505175 L14.0737343,11.0505175 L13.3111049,15.415049 L13.3111049,15.415049 Z M37.0313846,22.0567273 L36.0825734,11.0505175 L30.557986,11.0505175 L33.3328112,27.6171189 L38.8359161,27.6171189 L47.5506573,11.0505175 L42.0475524,11.0505175 L37.0313846,22.0567273 L37.0313846,22.0567273 Z M36.9633566,40.3455105 L19.3118881,40.3455105 C18.4525874,40.3455105 17.7544056,41.0401119 17.7544056,41.8958322 C17.7544056,42.7515524 18.4525874,43.4461538 19.3118881,43.4461538 L36.9633566,43.4461538 C37.8226573,43.4461538 38.5208392,42.7515524 38.5208392,41.8958322 C38.5208392,41.0401119 37.8262378,40.3455105 36.9633566,40.3455105 Z M54.1457902,0.0192447552 L1.87166434,0.0192447552 C0.72593007,0.0192447552 0.0384895105,0.703104895 0.0384895105,1.84883916 L0.0384895105,35.2147692 C0.0384895105,36.3569231 1.18422378,37.0443636 2.32995804,37.0443636 L54.1457902,37.0443636 C55.2915245,37.0443636 55.978965,36.3605035 55.978965,35.2147692 L55.978965,1.84883916 C55.9825455,0.706685315 55.2951049,0.0192447552 54.1457902,0.0192447552 Z M53.2292028,33.3851748 C53.2292028,33.958042 52.8854825,34.2981818 52.3126154,34.2981818 L3.70483916,34.2981818 C3.13197203,34.2981818 2.78825175,33.9544615 2.78825175,33.3851748 L2.78825175,3.67485315 C2.78825175,3.10198601 3.13197203,2.76184615 3.70483916,2.76184615 L52.3126154,2.76184615 C52.8854825,2.76184615 53.2292028,3.10556643 53.2292028,3.67485315 L53.2292028,33.3851748 Z" id="Shape" fill="#DCDEE3"></path>
-			    </g>
-			</svg>
+			<img src="../assets/qrcode.png">
 		</div>
-		<el-menu :default-active="active" class="el-menu-vertical-demo" router="router">
-			<el-menu-item :route="{ name: 'index' }" index="index"><i class="iconfont icon-rank"></i>概况</el-menu-item>
-			<el-menu-item index="/todo1"><i class="iconfont icon-list"></i>频道</el-menu-item>
-			<el-submenu index="1">
-				<template slot="title"><i class="iconfont icon-video"></i>直播</template>
-				<el-menu-item :route="{ name: 'live_list' }" index="live_list">直播列表</el-menu-item>
-				<el-menu-item :route="{ name: 'live_template' }" index="live_template">直播间模板</el-menu-item>
-				<el-menu-item :route="{ name: 'video_list' }" index="video_list">回放列表</el-menu-item>
-			</el-submenu>
-	<!-- 		<el-submenu index="2">
-				<template slot="title"><i class="iconfont icon-shop"></i>电商</template>
-				<el-menu-item :route="{ name: 'store_shop_list' }" index="store_shop_list">商品</el-menu-item>
-				<el-menu-item :route="{ name: 'store_order_list' }" index="store_order_list">订单</el-menu-item>
-				<el-menu-item :route="{ name: 'store_setting_pay' }" index="store_setting">设置</el-menu-item>
-			</el-submenu> -->
-			<el-submenu index="3">
-				<template slot="title"><i class="iconfont icon-recharge"></i>账户</template>
-				<el-menu-item :route="{ name: 'account_overview' }" index="account_overview">账户总览</el-menu-item>
-				<el-menu-item :route="{ name: 'account_upgrade' }" index="account_upgrade">账户升级</el-menu-item>
-				<el-menu-item :route="{ name: 'account_flow' }" index="account_flow">流量管理</el-menu-item>
-				<el-menu-item :route="{ name: 'account_recharge' }" index="account_recharge">立即充值</el-menu-item>
-				<el-menu-item :route="{ name: 'account_income' }" index="account_income">我的收入</el-menu-item>
-			</el-submenu>
-			<!-- <el-menu-item index="/todo1"><i class="iconfont icon-circle"></i>营销</el-menu-item> -->
-		</el-menu>
+		<Menu @on-select="onSelect" theme="dark" :activeName="active" mode="vertical" width="135px" :openNames="openNames">
+			<template v-for="item of sidebar">
+				<template v-if="item.sub">
+					<Submenu :name="item.name">
+						<span slot="title" v-html="item.item"></span>
+						<MenuItem :key="sub.name" v-for="sub of item.sub" :name="sub.name" v-html="sub.item"></MenuItem>
+					</Submenu>
+				</template>
+				<MenuItem v-else :name="item.name" v-html="item.item"></MenuItem>
+			</template>
+		</Menu>
 		<div style="text-align: center;padding: 10px;">
-			<el-switch @change="enableDebug" :width="80" on-text="enable" off-text="debug" v-model="debug"></el-switch>
+			<iSwitch @on-change="enableDebug" v-model="debug">
+				<span slot="open">on</span>
+				<span slot="close">off</span>
+			</iSwitch>
 		</div>
 	</div>
 </template>
@@ -47,8 +29,29 @@ import { mapState } from 'vuex';
 export default {
 	data () {
 		return {
-			router: true,
 			debug: localStorage.getItem('debug') ? true : false,
+			sidebar: [
+				{ item: '<i class="iconfont icon-rank"></i>概况', name: 'index' },
+				{ item: '<i class="iconfont icon-list"></i>频道', name: 'index' },
+				{ item: '<i class="iconfont icon-video"></i>直播', name: 'live', sub: [
+					{ item: '直播列表', name: 'live_list' },
+					{ item: '直播间模板', name: 'live_template' },
+					{ item: '回放列表', name: 'video_list' },
+				] },
+				{ item: '<i class="iconfont icon-shop"></i>电商', name: 'shop', sub: [
+					{ item: '商品', name: 'store_shop_list' },
+					{ item: '订单', name: 'store_order_list' },
+					{ item: '设置', name: 'store_setting' },
+				] },
+				{ item: '<i class="iconfont icon-recharge"></i>账户', name: 'account', sub: [
+					{ item: '账户总览', name: 'account_overview' },
+					{ item: '账户升级', name: 'account_upgrade' },
+					{ item: '流量管理', name: 'account_flow' },
+					{ item: '立即充值', name: 'account_recharge' },
+					{ item: '我的收入', name: 'account_income' },
+				] },
+				{ item: '<i class="iconfont icon-circle"></i>营销', name: 'index2' },
+			],
 		}
 	},
 	computed: {
@@ -61,12 +64,24 @@ export default {
 			})
 			return active;
 		},
+		openNames () {
+			let openNames = [];
+			for (let item of this.sidebar) {
+				for (let sub of item.sub || []) {
+					if (sub.name == this.active) {
+						openNames.push(item.name);
+						break;
+					}
+				}
+			}
+			return openNames;
+		},
 		...mapState({
-			user: state => state.user
+			user: state => state.user,
 		})
 	},
 	mounted () {
-
+		// console.log(this.info)
 	},
 	methods: {
 		enableDebug (val) {
@@ -76,6 +91,9 @@ export default {
 				localStorage.removeItem('debug');
 			}
 			window.location.reload();
+		},
+		onSelect (name) {
+			this.$router.push({ name })
 		}
 	}
 }
@@ -98,56 +116,29 @@ export default {
 		background: #373d41;
 		.logo {
 			text-align: center;
-			margin: 30px;
-			// img {
-			// 	width: 100%;
-			// }
+			margin: 30px 0;
+			img {
+				width: 80px;
+				height: 80px;
+				border-radius: 50%;
+			}
 		}
-		.el-menu {
+		.ivu-menu {
 			background: #373d41;
-			// &::-webkit-scrollbar {
-			// 	display: none;
-			// 	width: 10px;
-			// 	border-radius: 0;
-			// 	background: transparent;
-			// }
-			// &:hover::-webkit-scrollbar {
-			// 	display: block;
-			// }
-			// &:hover::-webkit-scrollbar-thumb {
-			// 	border-radius: 10px;
-			// 	width: 10px;
-			// 	background-color: rgb(128, 128, 128);
-			// }
-			// &::-webkit-scrollbar-thumb:hover {
-			// 	background-color: rgb(156, 156, 156);
-			// }
+			overflow-y: auto;
+			flex: 1;
+			.ivu-menu-item, .ivu-menu-submenu-title {
+				padding: 10px 24px;
+			}
+			.ivu-menu-submenu .ivu-menu {
+				background: darken(#373d41, 5%);
+			}
+			.ivu-menu-submenu .ivu-menu-item {
+				padding-left: 30px;
+			}
 			.iconfont {
 				margin-right: 10px;
 			}
-			.el-menu-item, .el-submenu__title {
-				height: 45px;
-				line-height: 45px;
-				color: #ccc;
-				// padding-left: 15px !important;
-			}
-
-			.el-submenu .el-menu {
-				background: darken(#373d41, 5%);
-			}
-			.el-submenu__title:hover, .el-menu-item:hover, .el-menu-item.is-active {
-				background: lighten(#373d41, 10%);
-			}
-
-
-			.el-menu-item.is-active {
-				border-left: 5px solid #00C1DE;
-				color: #fff;
-			}
-		}
-		& > .el-menu {
-			overflow-y: auto;
-			flex: 1;
 		}
 	}
 </style>

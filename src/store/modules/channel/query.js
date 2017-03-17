@@ -2,7 +2,7 @@
 * @Author: Administrator
 * @Date:   2017-01-06 02:33:52
 * @Last Modified by:   William Chan
-* @Last Modified time: 2017-03-01 17:57:05
+* @Last Modified time: 2017-03-17 16:46:23
 */
 
 'use strict';
@@ -11,7 +11,8 @@ import { channel_query } from '../../api/channel'
 import { CHANNEL_QUERY } from '../../types'
 
 const state = {
-	lock: false
+	lock: false,
+	data: {}
 }
 
 const getters = {}
@@ -34,12 +35,15 @@ const actions = {
 const mutations = {
 	[CHANNEL_QUERY.REQUEST] (state) {
 		state.lock = true
+		state.data = {};
 	},
-	[CHANNEL_QUERY.SUCCESS] (state, { data }) {
+	[CHANNEL_QUERY.SUCCESS] (state, { channel }) {
 		state.lock = false;
+		state.data = channel
 	},
 	[CHANNEL_QUERY.FAILURE] (state, err) {
 		state.lock = false;
+		state.data = {};
 	},
 }
 export default {
