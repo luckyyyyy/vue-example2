@@ -11,7 +11,7 @@ all:
 
 master-check:
 	git pull
-	git status | grep "On branch master" > /dev/null 2>&1
+	git status | grep "On branch" > /dev/null 2>&1
 
 build: master-check
 	npm run build
