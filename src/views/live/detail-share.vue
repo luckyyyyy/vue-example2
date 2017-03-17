@@ -1,5 +1,5 @@
 <template>
-	<div class="view">
+<!-- 	<div class="view">
 		<div class="left">
 			分享设置：<el-switch @change="switchChange" v-model="enable" on-text="开" off-text="关" on-color="#87D068"></el-switch>
 			<template v-if="enable">
@@ -14,7 +14,6 @@
 					<div class="upload">
 						<el-upload :show-upload-list="false">
 							<svg width="100px" height="100px" viewBox="382 348 100 100" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-								<!-- Generator: Sketch 41 (35326) - http://www.bohemiancoding.com/sketch -->
 								<desc>Created with Sketch.</desc>
 								<defs>
 									<rect id="path-1" x="382" y="348" width="100" height="100" rx="4"></rect>
@@ -47,7 +46,7 @@
 				</div>
 			</template>
 		</div>
-	</div>
+	</div> -->
 </template>
 
 <script>

@@ -1,5 +1,5 @@
 <template>
-	<div class="view">
+<!-- 	<div class="view">
 		<div class="left">
 			关注观看：<el-switch @change="switchChange" v-model="enable" on-text="开" off-text="关" on-color="#87D068"></el-switch>
 			<template v-if="enable">
@@ -49,7 +49,7 @@
 				</div>
 			</template>
 		</div>
-	</div>
+	</div> -->
 </template>
 
 <script>
