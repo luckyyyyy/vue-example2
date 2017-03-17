@@ -2,7 +2,7 @@
 * @Author: William Chan
 * @Date:   2017-03-06 22:29:46
 * @Last Modified by:   William Chan
-* @Last Modified time: 2017-03-17 22:06:45
+* @Last Modified time: 2017-03-18 01:47:31
 */
 
 'use strict';
@@ -38,13 +38,16 @@ export default [
 					'../views/live/list.vue',
 					'../store/modules/live/find',
 					'../store/modules/live/create',
+					'../store/modules/live/delete',
 				], (
 					LiveListComponent,
 					LiveFindModule,
-					LiveCreateModule
+					LiveCreateModule,
+					LiveDeleteModule
 				) => {
 					registerModule('live_find', LiveFindModule.default);
 					registerModule('live_create', LiveCreateModule.default);
+					registerModule('live_delete', LiveDeleteModule.default);
 					resolve(LiveListComponent);
 				})
 			},

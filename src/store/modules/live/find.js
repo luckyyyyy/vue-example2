@@ -2,7 +2,7 @@
 * @Author: Administrator
 * @Date:   2017-01-06 02:33:52
 * @Last Modified by:   William Chan
-* @Last Modified time: 2017-03-17 22:52:33
+* @Last Modified time: 2017-03-18 01:19:00
 */
 
 'use strict';
@@ -23,7 +23,6 @@ const getters = {}
 
 const actions = {
 	[LIVE_FIND.REQUEST] ({ commit, state, dispatch }, params) {
-		console.log(params)
 		if (!state.lock || params.reload || state.status != params.status) {
 			commit(LIVE_FIND.REQUEST, params);
 			live_find(state).then(res => {

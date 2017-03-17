@@ -47,6 +47,9 @@
 					padding: 10px;
 				}
 			}
+			.button {
+				text-align: right;
+			}
 		}
 	}
 </style>

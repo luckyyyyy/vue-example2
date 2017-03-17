@@ -17,20 +17,40 @@
 			</div>
 		</div>
 		<div @scroll="onScroll" class="commoon-view">
-			<Spin fix v-if="loading"></Spin>
+			<Spin fix v-if="loading || lock_delete"></Spin>
 			<ul class="list">
 				<li v-for="item in data" :key="item.id" class="item">
 					<div class="body">
-						<div class="btn">
-							<qrcodePopover :text="item.liveId">
-								<p slot="tips">微信扫一扫查看</p>
-								<em slot="reference">二维码</em>
-							</qrcodePopover>
-							<confirmPopover
-								@ok="onDelete(item.id)">
-								<p slot="tips">您确认删除这条内容吗？</p>
-								<em slot="reference">删除</em>
-							</confirmPopover>
+						<div class="top">
+							<div class="status">
+								<em class="publish">推流中</em>
+							</div>
+							<div class="active">
+								<template v-if="trashStatus">
+									<confirmPopover
+										@ok="onDelete(item.id)">
+										<p slot="tips">您确定要删除直播么？</p>
+										<em slot="reference">恢复</em>
+									</confirmPopover>
+									<confirmPopover
+										@ok="onDelete(item.id)">
+										<p slot="tips">您确定要删除直播么？</p>
+										<em slot="reference">彻底删除</em>
+									</confirmPopover>
+								</template>
+								<template v-else>
+									<qrcodePopover :text="item.liveId">
+										<p slot="tips">微信扫一扫查看</p>
+										<em slot="reference">二维码</em>
+									</qrcodePopover>
+									<confirmPopover
+										@ok="onDelete(item.id)">
+										<p slot="tips">您确定要删除直播么？</p>
+										<em slot="reference">删除</em>
+									</confirmPopover>
+								</template>
+
+							</div>
 						</div>
 						<div class="title">
 							<span>{{ item.name }}</span>
@@ -122,6 +142,7 @@
 				data: state => state.live_find.data,
 				loading: state => state.live_find.request,
 				lock: state => state.live_create.lock,
+				lock_delete: state => state.live_delete.lock,
 				lock_find: state => state.live_find.lock,
 			}),
 		},
@@ -152,8 +173,9 @@
 				this.createAgree = true;
 			},
 			onDelete(id) {
-				// TODO
-				console.log(id)
+				this.$store.dispatch('LIVE_DELETE_REQUEST', id).then(() => {
+					this.getLiveList();
+				})
 			},
 			onSubmit () {
 				this.$refs.create.validate((valid) => {
@@ -187,11 +209,11 @@
 	}
 	.list {
 		overflow: auto;
-		.item:nth-child(1) {
-			.body {
-				background-image: linear-gradient(241deg, #1190bf, #e85471);
-			}
-		}
+		// .item:nth-child(1) {
+		// 	.body {
+		// 		background-image: linear-gradient(241deg, #1190bf, #e85471);
+		// 	}
+		// }
 		> .item {
 			width: 240px;
 			height: 207px;
@@ -201,8 +223,7 @@
 			margin-top: 0;
 			box-shadow: 0 1px 7px 0 rgba(0,43,59,0.20);
 			display: inline-block;
-			// position: relative;
-			z-index: 0;
+			z-index: 1;
 			.create {
 				display: inline-block;
 			}
@@ -223,17 +244,24 @@
 				&.first {
 					background-image: linear-gradient(-225deg, #1190BF 0%, #E85471 100%);
 				}
-				.btn {
-					text-align: right;
+				.top {
+					display: flex;
+					justify-content: space-between;
 					em {
 						cursor: pointer;
 						font-style: normal;
-						margin-left: 10px;
 						padding: 5px 10px;
 						font-size: 12px;
 						background: rgba(0, 0, 0, .3);
 						border-radius: 100px;
-						z-index: 9999;
+					}
+					.status {
+						em.publish {
+							background: #0c6;
+						}
+						em.publish_down {
+							background: #f50;
+						}
 					}
 				}
 				.title {
