@@ -2,7 +2,7 @@
 * @Author: Administrator
 * @Date:   2017-02-25 14:58:36
 * @Last Modified by:   William Chan
-* @Last Modified time: 2017-03-18 01:37:10
+* @Last Modified time: 2017-03-18 15:44:30
 */
 
 'use strict';
@@ -29,7 +29,40 @@ export const live_query = ({ id }) => {
 export const live_query_stream = ({ id }) => {
 	return http.get(`live/query/stream`, { params: { id } })
 }
-// DELETE /api/v1/live/trash
-export const live_delete = ({ id }) => {
-	return http.delete(`live/trash`, { id })
+// PUT /api/v1/live/trash
+export const live_trash = ({ id }) => {
+	return http.put(`live/trash`, { id })
 }
+// DELETE /api/v1/live
+export const live_delete = ({ id }) => {
+	return http.delete(`live`, { id })
+}
+// PUT /api/v1/live/finish
+export const live_finish = ({ id }) => {
+	return http.put(`live/finish`, { id })
+}
+// PUT /api/v1/live/publish
+export const live_publish = ({ id }) => {
+	return http.put(`live/publish`, { id })
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

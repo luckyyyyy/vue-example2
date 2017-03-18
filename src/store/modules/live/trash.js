@@ -2,13 +2,13 @@
 * @Author: Administrator
 * @Date:   2017-01-06 02:33:52
 * @Last Modified by:   William Chan
-* @Last Modified time: 2017-03-18 01:44:06
+* @Last Modified time: 2017-03-18 15:58:50
 */
 
 'use strict';
 
-import { live_delete } from '../../api/live'
-import { LIVE_DELETE } from '../../types'
+import { live_trash } from '../../api/live'
+import { LIVE_TRASH } from '../../types'
 
 const state = {
 	lock: false
@@ -17,14 +17,14 @@ const state = {
 const getters = {}
 
 const actions = {
-	[LIVE_DELETE.REQUEST] ({ commit }, ...args) {
-		commit(LIVE_DELETE.REQUEST);
+	[LIVE_TRASH.REQUEST] ({ commit }, ...args) {
+		commit(LIVE_TRASH.REQUEST);
 		return new Promise((resolve, reject) => {
-			live_delete(...args).then(res => {
-				commit(LIVE_DELETE.SUCCESS, res.data);
+			live_trash(...args).then(res => {
+				commit(LIVE_TRASH.SUCCESS, res.data);
 				resolve();
 			}).catch(err => {
-				commit(LIVE_DELETE.FAILURE, err);
+				commit(LIVE_TRASH.FAILURE, err);
 				reject();
 			})
 		})
@@ -32,13 +32,13 @@ const actions = {
 }
 
 const mutations = {
-	[LIVE_DELETE.REQUEST] (state) {
+	[LIVE_TRASH.REQUEST] (state) {
 		state.lock = true
 	},
-	[LIVE_DELETE.SUCCESS] (state, { data }) {
+	[LIVE_TRASH.SUCCESS] (state, { data }) {
 		state.lock = false;
 	},
-	[LIVE_DELETE.FAILURE] (state, err) {
+	[LIVE_TRASH.FAILURE] (state, err) {
 		state.lock = false;
 	},
 }
