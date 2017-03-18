@@ -6,6 +6,7 @@
 					<li class="title">
 						<i class="iconfont icon-video"></i>直播状态
 					</li>
+					<!-- TODO BUG 0 !== null -->
 					<MenuItem :name="0">未发布</MenuItem>
 					<MenuItem :name="1">发布中</MenuItem>
 					<li class="title"></li>
@@ -18,7 +19,7 @@
 		</div>
 		<div @scroll="onScroll" class="commoon-view">
 			<Spin fix v-if="loading || lock_delete"></Spin>
-			<ul class="list">
+			<ul class="list" v-if="data.length">
 				<li v-for="item in data" :key="item.id" class="item">
 					<div class="body">
 						<div class="top">
@@ -26,7 +27,7 @@
 								<em class="publish">推流中</em>
 							</div>
 							<div class="active">
-								<template v-if="trashStatus">
+								<template v-if="item.trashStatus">
 									<confirmPopover
 										@ok="onDelete(item.id)">
 										<p slot="tips">您确定要删除直播么？</p>
@@ -82,9 +83,9 @@
 					</div>
 				</li>
 			</ul>
-	<!-- 		<div class="tips" >
-				{{ loading ? '正在获取列表' : lock_find ? '所有直播加载完毕' : '下拉可刷新' }}
-			</div> -->
+			<div v-if="!loading && !data.length" class="tips">
+				没有数据啦QAQ
+			</div>
 		</div>
 
 		<Modal
@@ -197,9 +198,14 @@
 
 <style lang="less" scoped>
 	.tips {
-		text-align: center;
-		padding: 10px;
-		color: green;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		position: relative;
+		height: 100%;
+		width: 100%;
+		color: #007cbb;
+		font-size: 20px;
 	}
 	.load {
 		position: relative;

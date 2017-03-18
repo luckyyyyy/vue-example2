@@ -2,7 +2,7 @@
 * @Author: Administrator
 * @Date:   2017-01-06 02:33:52
 * @Last Modified by:   William Chan
-* @Last Modified time: 2017-03-18 01:19:00
+* @Last Modified time: 2017-03-18 14:06:54
 */
 
 'use strict';
@@ -25,10 +25,14 @@ const actions = {
 	[LIVE_FIND.REQUEST] ({ commit, state, dispatch }, params) {
 		if (!state.lock || params.reload || state.status != params.status) {
 			commit(LIVE_FIND.REQUEST, params);
-			live_find(state).then(res => {
-				commit(LIVE_FIND.SUCCESS, res);
-			}).catch(err => {
-				commit(LIVE_FIND.FAILURE, err);
+			return new Promise((resolve, reject) => {
+				live_find(state).then(res => {
+					commit(LIVE_FIND.SUCCESS, res);
+					resolve();
+				}).catch(err => {
+					commit(LIVE_FIND.FAILURE, err);
+					reject();
+				})
 			})
 		}
 	},

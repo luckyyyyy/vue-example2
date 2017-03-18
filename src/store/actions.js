@@ -2,7 +2,7 @@
 * @Author: Administrator
 * @Date:   2017-01-06 02:29:39
 * @Last Modified by:   William Chan
-* @Last Modified time: 2017-03-18 14:01:25
+* @Last Modified time: 2017-03-18 14:04:37
 */
 
 'use strict';
@@ -13,7 +13,7 @@ import router from '../router'
 export const LOGIN_CHECK = (store) => {
 	const getters = store.getters;
 	if (!getters.member.user){
-		console.log('无法直接登录');
+		console.log('LOGIN_CHECK');
 	} else {
 		store.commit(LOGIN.SUCCESS, getters.member);
 	}
