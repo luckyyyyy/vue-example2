@@ -2,7 +2,7 @@
 * @Author: William Chan
 * @Date:   2017-03-06 22:26:46
 * @Last Modified by:   William Chan
-* @Last Modified time: 2017-03-18 21:40:36
+* @Last Modified time: 2017-03-18 23:23:15
 */
 
 'use strict';
@@ -50,7 +50,7 @@ export default [
 				component: resolve => require(['../views/user/register-seccuss.vue'], resolve)
 			},
 			{
-				path: '/resetpwd',
+				path: 'resetpwd',
 				name: 'resetpwd',
 				component: resolve => require([
 					'../views/user/reset_password.vue',
