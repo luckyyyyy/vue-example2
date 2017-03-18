@@ -135,7 +135,9 @@
 						this.create.province = this.create.area[0];
 						this.create.city     = this.create.area[1];
 						this.create.county   = this.create.area[2];
-						this.$store.dispatch('CHANNEL_CREATE_REQUEST', this.create);
+						this.$store.dispatch('CHANNEL_CREATE_REQUEST', this.create).then(data => {
+							this.$router.push({ name: 'create_channel', params: { id: data.channel.channelId } })
+						})
 					} else {
 						return false;
 					}

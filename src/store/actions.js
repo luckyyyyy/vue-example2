@@ -2,7 +2,7 @@
 * @Author: Administrator
 * @Date:   2017-01-06 02:29:39
 * @Last Modified by:   William Chan
-* @Last Modified time: 2017-03-05 22:26:28
+* @Last Modified time: 2017-03-18 14:01:25
 */
 
 'use strict';
@@ -19,30 +19,18 @@ export const LOGIN_CHECK = (store) => {
 	}
 }
 
-export const SELECT_CHANNEL = (store, channel) => {
-	let id, to;
-	if (channel && channel.id) {
-		id = channel.id;
-		to = channel.to;
-	} else {
-		id = channel;
-	}
+export const SELECT_CHANNEL = (store, id) => {
 	id = id || store.getters.channel;
-
 	if (id) {
-		if (to) {
-			return router.push({ name: 'create_channel', params: { id: id } })
-		} else {
-			store.dispatch('CHANNEL_QUERY_REQUEST', id).then((data) => {
-				if (data.channel.status == 2) {
-					return store.commit('SET_CHANNEL', id);
-				} else {
-					return router.push({ name: 'create_channel', params: { id: id } })
-				}
-			}).catch(() => {
-				store.commit('SET_CHANNEL');
-			})
-		}
+		store.dispatch('CHANNEL_QUERY_REQUEST', id).then((data) => {
+			if (data.channel.status == 2) {
+				return store.commit('SET_CHANNEL', id);
+			} else {
+				return router.push({ name: 'create_channel', params: { id: id } })
+			}
+		}).catch(() => {
+			store.commit('SET_CHANNEL');
+		})
 	} else {
 		return store.commit('SET_CHANNEL');
 	}

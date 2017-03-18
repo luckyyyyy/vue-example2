@@ -2,7 +2,7 @@
 * @Author: William Chan
 * @Date:   2017-03-10 16:42:39
 * @Last Modified by:   William Chan
-* @Last Modified time: 2017-03-17 19:09:07
+* @Last Modified time: 2017-03-18 13:51:52
 */
 
 'use strict';
@@ -202,8 +202,10 @@ const mutations = {
 
 	[IM_INIT.REQUEST] (state) {
 		state.im_init = false;
-		state.lock    = false;
 		state.init    = false;
+		state.lock    = false;
+		state.data    = [];
+		state.history = [];
 		state.service = [];
 	},
 	[IM_INIT.SUCCESS] (state, nim) {

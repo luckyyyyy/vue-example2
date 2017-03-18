@@ -1,8 +1,8 @@
 /*
 * @Author: Administrator
 * @Date:   2017-01-06 02:33:52
-* @Last Modified by:   Administrator
-* @Last Modified time: 2017-02-25 14:59:42
+* @Last Modified by:   William Chan
+* @Last Modified time: 2017-03-18 13:59:18
 */
 
 'use strict';
@@ -19,11 +19,14 @@ const getters = {}
 const actions = {
 	[CHANNEL_CREATE.REQUEST] ({ commit, dispatch }, ...args) {
 		commit(CHANNEL_CREATE.REQUEST);
-		channel_create(...args).then(res => {
-			commit(CHANNEL_CREATE.SUCCESS, res.data);
-			dispatch('SELECT_CHANNEL', { id: res.data.channel.channelId, to: true });
-		}).catch(err => {
-			commit(CHANNEL_CREATE.FAILURE, err);
+		return new Promise((resolve, reject) => {
+			channel_create(...args).then(res => {
+				commit(CHANNEL_CREATE.SUCCESS, res.data);
+				resolve(res.data);
+			}).catch(err => {
+				commit(CHANNEL_CREATE.FAILURE, err);
+				reject();
+			})
 		})
 	}
 }
