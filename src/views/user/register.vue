@@ -5,7 +5,7 @@
 			:model="register"
 			@submit.native.prevent
 			:rules="rules"
-			:label-width="100"
+			:label-width="85"
 			ref="register"
 		>
 			<FormItem label="手机号码" prop="phone">
@@ -14,7 +14,7 @@
 			<FormItem label="短信验证码" prop="captcha">
 				<div class="smscode">
 					<iInput v-model="register.captcha" placeholder="请输入短信验证码"></iInput>
-					<iButton type="ghost" :disabled="countdown && true" @click="register_captcha">{{ interval ? countdown : '获取验证码' }}</iButton>
+					<iButton :disabled="countdown && true" @click="register_captcha">{{ interval ? countdown : '获取验证码' }}</iButton>
 				</div>
 			</FormItem>
 			<FormItem label="设置密码" prop="password">
@@ -27,10 +27,12 @@
 				<iInput v-model="register.nickName" placeholder="输入个人昵称"></iInput>
 			</FormItem>
 			<div class="button">
-				<iButton :loading="lock" htmlType="submit" type="primary" long @click="submit_register">注册</iButton>
-				<router-link class="login" :to="{ name: 'login' }"><iButton type="dashed" long>登录</iButton></router-link>
+				<iButton :loading="lock" htmlType="submit" type="primary" @click="submit_register">注册</iButton>
 			</div>
 		</iForm>
+		<div class="line">
+			<router-link :to="{ name: 'login' }">已有账号，立即登录！</router-link>
+		</div>
 	</div>
 </template>
 <script>

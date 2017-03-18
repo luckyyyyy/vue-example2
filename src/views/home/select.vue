@@ -27,9 +27,9 @@
 								</div>
 								<div class="info">
 									<div class="name">{{ item.channel.name }}</div>
-									<div class="wechat">公众号：
+									<div class="wechat">
 										<template v-if="item.channel.status == 2">{{ item.wxAppName }}</template>
-										<template v-else><span class="unbind">未绑定</span></template>
+										<template v-else><span class="unbind">未绑定公众号</span></template>
 									</div>
 								</div>
 								<iButton :loading="lock_del" @click.stop="onDelete(item.channel)" type="text" class="delete" size="small">删除</iButton>

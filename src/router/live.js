@@ -2,7 +2,7 @@
 * @Author: William Chan
 * @Date:   2017-03-06 22:29:46
 * @Last Modified by:   William Chan
-* @Last Modified time: 2017-03-18 15:58:19
+* @Last Modified time: 2017-03-18 22:40:34
 */
 
 'use strict';
@@ -71,14 +71,20 @@ export default [
 				component: resolve => require([
 					'../views/live/control.vue',
 					'../store/modules/im',
-					'../store/modules/live/stream'
+					'../store/modules/live/stream',
+					'../store/modules/live/publish',
+					'../store/modules/live/finish',
 				], (
 					LiveControlComponent,
 					IMModule,
-					LiveStreamModule
+					LiveStreamModule,
+					LivePublishModule,
+					LiveFinishModule,
 				) => {
 					registerModule('im', IMModule.default);
 					registerModule('live_query_stream', LiveStreamModule.default);
+					registerModule('live_publish', LivePublishModule.default);
+					registerModule('live_finish', LiveFinishModule.default);
 					resolve(LiveControlComponent);
 				})
 			},

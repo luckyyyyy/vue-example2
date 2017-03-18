@@ -38,6 +38,7 @@
 			})
 		},
 		mounted () {
+
 			const source = this.getSource();
 			this.player = new prism({
 				id       : 'video',
@@ -51,7 +52,7 @@
 			});
 			if (process.env.NODE_ENV !== 'production') {
 				this.player.on('play', () => {
-					this.$message(`DEBUG: source ${source}`)
+					this.$Message.info(`DEBUG: source ${source}`)
 				})
 			}
 			// this.player.on('play', () => {
@@ -67,16 +68,22 @@
 				this.checkStatus();
 			})
 			window.addEventListener('resize', this.autoSetPlayerSize, false);
-			this.player.on('ready', () => {
-				// TODO 初始化状态
-				this.autoSetPlayerSize();
+			this.autoSetPlayerSize();
+			// safari 有问题
+			if (isiPad()) {
 				this.checkStatus();
-				// if (!this.check) {
-				// 	this.interval = setInterval(() => {
-				// 		this.checkStatus();
-				// 	}, 1000);
-				// }
-			})
+			} else {
+				this.player.on('ready', () => {
+					// TODO 初始化状态
+					this.checkStatus();
+					// if (!this.check) {
+					// 	this.interval = setInterval(() => {
+					// 		this.checkStatus();
+					// 	}, 1000);
+					// }
+				})
+			}
+
 		},
 		beforeDestroy () {
 			window.removeEventListener('resize', this.autoSetPlayerSize, false);
@@ -97,8 +104,7 @@
 			// 	}
 			// },
 			checkStatus () {
-				const id = this.live.id;
-				this.$store.dispatch('LIVE_QUERY_STREAM_REQUEST', { id }).then(data => {
+				this.$store.dispatch('LIVE_QUERY_STREAM_REQUEST', this.live).then(data => {
 					this.play = data.status != 0;
 					this.$emit('input', this.play);
 				}).catch(() => {
@@ -113,6 +119,7 @@
 					if (this.play) {
 						this.player.loadByUrl(this.getSource());
 					} else {
+						this.player.stop();
 						this.player.liveStreamStop();
 					}
 				}

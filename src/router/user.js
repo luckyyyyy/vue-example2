@@ -2,7 +2,7 @@
 * @Author: William Chan
 * @Date:   2017-03-06 22:26:46
 * @Last Modified by:   William Chan
-* @Last Modified time: 2017-03-17 21:59:21
+* @Last Modified time: 2017-03-18 21:40:36
 */
 
 'use strict';
@@ -11,42 +11,56 @@ import { registerModule } from './'
 export default [
 	{
 		path: '/user',
-		meta: { requiresAuth: true, group: 'global' },
 		redirect: { name: 'profile' },
 		components: {
-			user: resolve => require(['../views/home/page.vue'], resolve)
+			user: resolve => require(['../views/user/main.vue'], resolve)
 		},
 		children: [
 			{
-				path: 'profile',
-				name: 'profile',
-				meta: { requiresAuth: true, group: 'global', name: "个人中心" },
+				path: 'login',
+				name: 'login',
 				component: resolve => require([
-					'../views/home/profile.vue',
-					'../store/modules/user/update_user',
+					'../views/user/login.vue',
+					'../store/modules/user/login'
 				], (
-					ProfileComponent,
-					UpdateUserModule,
+					LoginComponent,
+					LoginModule,
 				) => {
-					console.log(123)
-					registerModule('update_user', UpdateUserModule.default);
-					resolve(ProfileComponent);
+					registerModule('login', LoginModule.default);
+					resolve(LoginComponent);
 				})
 			},
 			{
-				path: 'password',
-				name: 'password',
-				meta: { requiresAuth: true, group: 'global', name: "修改密码" },
+				path: 'register',
+				name: 'register',
 				component: resolve => require([
-					'../views/home/password.vue',
-					'../store/modules/user/password',
+					'../views/user/register.vue',
+					'../store/modules/user/register'
 				], (
-					PasswordComponent,
-					PasswordModule,
+					RegisterComponent,
+					RegisterModule,
 				) => {
-					console.log(123)
-					registerModule('password', PasswordModule.default);
-					resolve(PasswordComponent);
+					registerModule('register', RegisterModule.default);
+					resolve(RegisterComponent);
+				})
+			},
+			{
+				path: 'register/seccuss',
+				name: 'register_seccuss',
+				component: resolve => require(['../views/user/register-seccuss.vue'], resolve)
+			},
+			{
+				path: '/resetpwd',
+				name: 'resetpwd',
+				component: resolve => require([
+					'../views/user/reset_password.vue',
+					'../store/modules/user/reset_password'
+				], (
+					ResetPasswordComponent,
+					ResetPasswordModule,
+				) => {
+					registerModule('reset_password', ResetPasswordModule.default);
+					resolve(ResetPasswordComponent);
 				})
 			},
 		]

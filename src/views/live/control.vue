@@ -47,7 +47,13 @@
 					</ul>
 					<div class="live-info-time">
 						<div class="time">已经直播xxxxx分钟</div>
-						<iButton size="small" type="error" @click="endLive">结束直播</iButton>
+						<template v-if="live.status == 0">
+							<iButton size="small" type="success" @click="onPublish">发布直播</iButton>
+						</template>
+						<template v-else>
+							<iButton size="small" type="error" @click="onFinish">结束直播</iButton>
+						</template>
+
 					</div>
 				</div>
 				<iForm class="chat-input" @submit.native.prevent :model="chatroom">
@@ -208,10 +214,29 @@
 				this.noticeDialog = true
 				this.notice.text = '';
 			},
-			endLive () {
+			onPublish () {
+				this.$Modal.confirm({
+					title: '直播',
+					content: '确定要发布直播么？发布后用户可在微信列表中找到这场直播',
+					loading: true,
+					onOk: () => {
+						this.$store.dispatch('LIVE_PUBLISH_REQUEST', this.live).then(() => {
+							this.$Modal.remove();
+						})
+					}
+				})
+			},
+			onFinish () {
 				this.$Modal.confirm({
 					title: '确定要结束直播吗？',
-					content: '点击确定将彻底关闭直播，变更为回放状态。'
+					content: '点击确定将彻底关闭直播，变更为回放状态，并且不可恢复。',
+					loading: true,
+					onOk: () => {
+						this.$store.dispatch('LIVE_PUBLISH_FINISH', this.live).then(() => {
+							this.$Modal.remove();
+							this.$router.push({ name: 'video_list' })
+						})
+					}
 				})
 			},
 			onNoticeSubmit () {

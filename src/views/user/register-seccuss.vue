@@ -1,5 +1,8 @@
 <template>
 	<div class="register-seccuss">
+		<div class="logo">
+			<img src="../../assets/toplogo.png" height="40" width="196">
+		</div>
 		<div class="top">
 			<h1>注册成功</h1>
 			<p @click="to_login">请点击此处登录，或等待3秒页面跳转。</p>
@@ -31,19 +34,14 @@ export default {
 <style scoped lang="less">
 	.register-seccuss {
 		text-align: center;
+		color: #fff;
+		width: 480px;
 		.top {
-			width: 480px;
-			&:after {
-				content: "";
-				margin: 50px 0 45px 0;
-				background-image: linear-gradient(to right, #ad6b88, #4095b2);
-				display: block;
-				height: 2px;
-			}
+			margin: 20px;
 			p {
 				cursor: pointer;
 				&:hover {
-					color: #4095b2;
+					color: darken(#fff, 5%);
 				}
 			}
 		}

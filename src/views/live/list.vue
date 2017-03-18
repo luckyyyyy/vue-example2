@@ -24,7 +24,9 @@
 					<div class="body">
 						<div class="top">
 							<div class="status">
-								<em class="publish">推流中</em>
+								<em :class="item.streamStatus">
+									{{  item.streamStatus == 'publish' ? '推流中' : '未推流' }}
+								</em>
 							</div>
 							<div class="active">
 								<template v-if="item.trashStatus">
@@ -174,7 +176,7 @@
 				this.createAgree = true;
 			},
 			onDelete(id) {
-				this.$store.dispatch('LIVE_DELETE_REQUEST', id).then(() => {
+				this.$store.dispatch('LIVE_TRASH_REQUEST', id).then(() => {
 					this.getLiveList();
 				})
 			},
@@ -265,7 +267,7 @@
 						em.publish {
 							background: #0c6;
 						}
-						em.publish_down {
+						em.publish_done {
 							background: #f50;
 						}
 					}

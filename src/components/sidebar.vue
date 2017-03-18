@@ -139,6 +139,16 @@ export default {
 			.iconfont {
 				margin-right: 10px;
 			}
+
+			.ivu-menu-item-active:hover:not(.ivu-menu-submenu),
+			.ivu-menu-item-active:not(.ivu-menu-submenu) {
+				background: #eaedf1 !important;
+				color: black !important;
+				border: none !important;
+				border-left: 5px solid #00C1DE !important;
+			}
+			// .ivu-menu-submenu-title-active:not(.ivu-menu-submenu)
+
 		}
 	}
 </style>
