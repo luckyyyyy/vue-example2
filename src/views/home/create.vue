@@ -151,8 +151,10 @@
 					okText: '已成功绑定',
 					cancelText: '绑定失败',
 					closable: false,
+					loading: true,
 					onOk: () => {
-						this.$store.dispatch('CHANNEL_QUERY_REQUEST', this.id).then((data) => {
+						this.$store.dispatch('CHANNEL_QUERY_REQUEST', this.id).then(data => {
+							this.$Modal.remove();
 							if (data.channel.status == 2) {
 								this.success = true;
 							} else {
