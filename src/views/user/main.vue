@@ -1,7 +1,9 @@
 <template>
 	<div class="home">
 		<div class="box">
-			<router-view></router-view>
+			<transition name="fade" mode="out-in">
+				<router-view></router-view>
+			</transition>
 			<div class="footer">
 				2016 © rainbowbr.cn - 浙ICP备16022511号
 			</div>
