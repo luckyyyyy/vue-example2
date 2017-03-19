@@ -2,7 +2,7 @@
 * @Author: William Chan
 * @Date:   2016-12-01 17:57:50
 * @Last Modified by:   William Chan
-* @Last Modified time: 2017-03-19 18:26:13
+* @Last Modified time: 2017-03-19 19:56:18
 */
 
 'use strict';
@@ -41,8 +41,6 @@ const router = new VueRouter({
 	}
 })
 
-const record = {}
-
 router.beforeEach(async (to, from, next) => {
 	NProgress.remove();
 	NProgress.start();
@@ -57,9 +55,8 @@ router.beforeEach(async (to, from, next) => {
 	} else {
 		if (getCurrentChannelID()) {
 			if (to.params.liveid) {
-				if (record.liveid != to.params.liveid) {
 					await store.dispatch('live/LIVE_QUERY', { id: to.params.liveid }).then(res => {
-						record.liveid = to.params.liveid;
+						// success
 					}).catch(err => {
 						if (from.meta.requiresAuth) {
 							params = false;
@@ -68,7 +65,6 @@ router.beforeEach(async (to, from, next) => {
 							// TODO 根据服务器来源判断
 						}
 					})
-				}
 			} else {
 				if (to.meta.group == 'select' && to.meta.group != 'global') {
 					if (to.query.redirect) {
