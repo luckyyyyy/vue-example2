@@ -2,7 +2,7 @@
 * @Author: William Chan
 * @Date:   2016-12-01 17:57:50
 * @Last Modified by:   William Chan
-* @Last Modified time: 2017-03-19 19:56:18
+* @Last Modified time: 2017-03-19 23:36:55
 */
 
 'use strict';
@@ -58,7 +58,7 @@ router.beforeEach(async (to, from, next) => {
 					await store.dispatch('live/LIVE_QUERY', { id: to.params.liveid }).then(res => {
 						// success
 					}).catch(err => {
-						if (from.meta.requiresAuth) {
+						if (from.matched.some(record => record.name == 'live')) {
 							params = false;
 						} else {
 							params =  { name: 'index' };

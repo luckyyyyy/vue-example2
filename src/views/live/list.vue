@@ -24,7 +24,7 @@
 						<div class="top">
 							<div class="status">
 								<em :class="item.streamStatus">
-									{{  item.streamStatus == 'publish' ? '推流中' : '未推流' }}
+									{{ item.streamStatus == 'publish' ? '推流中' : '未推流' }}
 								</em>
 							</div>
 							<div class="active">

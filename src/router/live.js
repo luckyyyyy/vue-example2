@@ -2,7 +2,7 @@
 * @Author: William Chan
 * @Date:   2017-03-06 22:29:46
 * @Last Modified by:   William Chan
-* @Last Modified time: 2017-03-19 18:33:36
+* @Last Modified time: 2017-03-19 23:31:47
 */
 
 'use strict';
@@ -11,6 +11,7 @@ import { registerModule } from '../store'
 export default [
 	{
 		path: '/live',
+		name: 'live',
 		meta: { requiresAuth: true },
 		redirect: { name: 'live_list' },
 		components: {
