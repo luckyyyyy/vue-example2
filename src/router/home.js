@@ -2,7 +2,7 @@
 * @Author: William Chan
 * @Date:   2017-03-06 22:27:42
 * @Last Modified by:   William Chan
-* @Last Modified time: 2017-03-19 05:55:48
+* @Last Modified time: 2017-03-19 22:49:25
 */
 
 'use strict';
@@ -68,7 +68,7 @@ export default [
 				name: 'profile',
 				meta: { requiresAuth: true, group: 'global', name: "个人中心" },
 				component: resolve => require([
-					'../views/home/profile.vue',
+					'../views/user/profile.vue',
 					'../store/modules/user/profile',
 				], (
 					ProfileComponent,
@@ -83,7 +83,7 @@ export default [
 				name: 'password',
 				meta: { requiresAuth: true, group: 'global', name: "修改密码" },
 				component: resolve => require([
-					'../views/home/password.vue',
+					'../views/user/password.vue',
 					'../store/modules/user/password',
 				], (
 					PasswordComponent,

@@ -20,19 +20,19 @@
 			<template v-if="!lock">
 				<div class="channel" v-if="total">
 					<Row class="list">
-						<iCol span="8" v-for="item in data" class="item" :key="item.channel.channelId">
-							<div class="border" @click="select(item.channel.channelId)">
+						<iCol span="8" v-for="item in data" class="item" :key="item.channelId">
+							<div class="border" @click="select(item.channelId)">
 								<div class="logo">
-									<img witdh="50" height="50" :src="item.channel.wxAvatarUrl">
+									<img witdh="50" height="50" :src="item.wxAvatarUrl">
 								</div>
 								<div class="info">
-									<div class="name">{{ item.channel.name }}</div>
+									<div class="name">{{ item.name }}</div>
 									<div class="wechat">
-										<template v-if="item.channel.status == 2">{{ item.channel.wxAppName }}</template>
+										<template v-if="item.status == 2">{{ item.wxAppName }}</template>
 										<template v-else><span class="unbind">未绑定公众号</span></template>
 									</div>
 								</div>
-								<iButton @click.stop="onDelete(item.channel)" type="text" class="delete" size="small">删除</iButton>
+								<iButton @click.stop="onDelete(item)" type="text" class="delete" size="small">删除</iButton>
 							</div>
 						</iCol>
 					</Row>

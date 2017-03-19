@@ -37,7 +37,10 @@
 				padding: 20px;
 				width: 480px;
 				background: rgba(255, 255, 255, .05);
+				transition: background .3s ease-in-out, box-shadow .3s ease-in-out;
 				border-radius: 10px;
+				box-shadow: 0 0 10px rgba(0, 0, 0, .1);
+				// -webkit-backdrop-filter: blur(20px);
 				.logo {
 					text-align: center;
 				}
@@ -65,6 +68,10 @@
 				}
 				.button {
 					text-align: center;
+				}
+				&:hover {
+					box-shadow: 0 0 10px rgba(0, 0, 0, .3);
+					background: rgba(255, 255, 255, .08);
 				}
 			}
 			.line {

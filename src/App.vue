@@ -6,7 +6,9 @@
 			<router-view name="main" class="router-view"></router-view>
 			<router-view name="home"></router-view>
 		</div>
-		<router-view v-else name="user"></router-view>
+		<transition v-else name="fade" mode="out-in">
+			<router-view name="user"></router-view>
+		</transition>
 	</div>
 </template>
 <script>
