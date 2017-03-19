@@ -176,13 +176,9 @@
 		height: 410px;
 		.channel {
 			display: flex;
-			// align-items: center;
-			// justify-content: space-around;
 			flex-direction: column;
 			.list {
-				display: flex;
-				flex-wrap: wrap;
-				max-height: 380px;
+				height: 380px;
 				padding: 10px;
 				.item {
 					padding: 5px;
