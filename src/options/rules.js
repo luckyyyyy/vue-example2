@@ -2,7 +2,7 @@
 * @Author: William Chan
 * @Date:   2017-03-02 14:29:37
 * @Last Modified by:   William Chan
-* @Last Modified time: 2017-03-19 14:12:01
+* @Last Modified time: 2017-03-19 21:31:17
 */
 
 'use strict';
@@ -51,10 +51,10 @@ export const CHANNEL_CREATE_RULES = {
 		{ required: true, max: 12, message: '频道名称小于12个字符', trigger: 'blur' }
 	],
 	area: [
-		// { required: true, message: '请选择联系地址' }
+		// { required: true, message: '请选择联系地址', trigger: 'change' }
 	],
 	commodityCatalog: [
-		{ required: true, type: 'number', message: '请选择正确的分类', trigger: 'blur' }
+		{ required: true, type: 'number', message: '请选择正确的分类', trigger: 'change' }
 	]
 }
 // 修改个人信息

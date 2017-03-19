@@ -143,7 +143,8 @@
 			}),
 			submit () {
 				this.$refs.create.validate(valid => {
-					if (valid) {
+					// BUG https://github.com/iview/iview/issues/431
+					if (valid && this.create.area) {
 						this.create.province = this.create.area[0];
 						this.create.city     = this.create.area[1];
 						this.create.county   = this.create.area[2];
@@ -151,6 +152,7 @@
 							this.$router.push({ name: 'create_channel', params: { id: data.channel.channelId } })
 						})
 					} else {
+						this.$Message.error('请完整填写信息', 3);
 						return false;
 					}
 				});
