@@ -2,7 +2,7 @@
 ===========================
 
 彩虹云直播 web B端，基于 [Vue2](https://vuejs.org)
-核心组件包括Vuex，axios，eleme.element，vue-router
+核心组件包括vuex，axios，vue-router
 
 DIRECTORY STRUCTURE
 -------------------
@@ -23,16 +23,24 @@ DIRECTORY STRUCTURE
 INSTALLATION
 ------------
 
+## 准备工作
+
 请在工作环境安装好 nodejs 以及 npm包管理器 并克隆仓库至本地环境
 请修改npm镜像为taobao镜像 https://npm.taobao.org/
+
+`npm config set registry https://registry.npm.taobao.org`
+`yarn config set registry https://registry.npm.taobao.org`
+
+```
 "node": ">= 4.3.0"
 "npm":  ">= 3.0.0"
+```
 
 ## Build Setup
 
 ``` bash
 # install dependencies
-npm install
+npm install or yarn
 
 # serve with hot reload at localhost:8080
 npm run dev
