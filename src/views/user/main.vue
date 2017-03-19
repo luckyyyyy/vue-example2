@@ -1,7 +1,11 @@
 <template>
 	<div class="home">
 		<div class="box">
-			<transition name="fade" mode="out-in">
+			<transition
+				enter-active-class="animated zoomIn"
+				leave-active-class="animated zoomOut"
+				mode="out-in"
+			>
 				<router-view></router-view>
 			</transition>
 			<div class="footer">
@@ -37,10 +41,12 @@
 				padding: 20px;
 				width: 480px;
 				background: rgba(255, 255, 255, .05);
-				transition: background .3s ease-in-out, box-shadow .3s ease-in-out;
+				transition: background .3s ease-in-out,
+							box-shadow .3s ease-in-out;
 				border-radius: 10px;
 				box-shadow: 0 0 10px rgba(0, 0, 0, .1);
-				// -webkit-backdrop-filter: blur(20px);
+				backdrop-filter: blur(20px);
+				animation-duration: .5s;
 				.logo {
 					text-align: center;
 				}
@@ -58,7 +64,9 @@
 				}
 				.ivu-input {
 					background: rgba(255, 255, 255, .85);
-					 -webkit-box-shadow: 0 0 0 1000px white inset;
+					&:-webkit-autofill {
+						box-shadow: 0 0 0px 1000px white inset;
+					}
 					&:hover, &:focus {
 						background: #fff;
 					}
@@ -82,10 +90,10 @@
 				flex-direction: column;
 				align-items: center;
 				a {
-					color: #fff;
+					color: darken(#fff, 5%);;
 					margin-top: 10px;
 					&:hover {
-						color: darken(#fff, 10%);
+						color: #fff;
 					}
 				}
 				&:after {

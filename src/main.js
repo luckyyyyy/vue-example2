@@ -1,8 +1,8 @@
 import Vue from 'vue'
 import iView from 'iview'
-import 'iview/dist/styles/iview.css'
+import 'iview/src/styles/index.less'
 import './assets/common.less'
-
+import 'animate.css'
 import App from './App.vue'
 import { store } from './store'
 import router from './router'

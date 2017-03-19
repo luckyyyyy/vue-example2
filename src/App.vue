@@ -1,11 +1,13 @@
 <template>
 	<div class="wrap">
-		<div v-if="member.token" class="main">
-			<router-view name="topbar"></router-view>
-			<router-view name="sidebar"></router-view>
-			<router-view name="main" class="router-view"></router-view>
-			<router-view name="home"></router-view>
-		</div>
+		<transition v-if="member.token" name="fade" mode="out-in">
+			<div class="main">
+				<router-view name="topbar"></router-view>
+				<router-view name="sidebar"></router-view>
+				<router-view name="main" class="router-view"></router-view>
+				<router-view name="home"></router-view>
+			</div>
+		</transition>
 		<transition v-else name="fade" mode="out-in">
 			<router-view name="user"></router-view>
 		</transition>
