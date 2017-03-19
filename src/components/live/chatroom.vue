@@ -10,11 +10,11 @@
 				<div class="btn" @click="onSwitchPage(2)"><span :class="{ active: active == 2 }">用户管理</span></div>
 			</div>
 			<div class="list" ref="list" @scroll="onScroll" v-show="active == 1">
-				<chatroomList :history="true" :data="history"></chatroomList>
-				<chatroomList :data="data"></chatroomList>
+				<chatroomList :im="user.userImInfo" :members="members" :history="true" :data="history"></chatroomList>
+				<chatroomList :im="user.userImInfo" :members="members" :data="data"></chatroomList>
 			</div>
 			<div class="member" v-show="active == 2">
-				<chatroomMemberList></chatroomMemberList>
+				<chatroomMemberList :im="user.userImInfo" :members="members"></chatroomMemberList>
 			</div>
 			<div v-show="notify" class="tips" @click="onToBottom(true)">😯 有新消息 点击查看</div>
 		</div>
@@ -22,10 +22,13 @@
 </template>
 
 <script>
-	import { mapState } from 'vuex'
+	import { mapState, mapGetters } from 'vuex'
 	import chatroomList from './item/chatroomList'
 	import chatroomMemberList from './item/chatroomMemberList'
 	export default {
+		props: {
+			live: Object,
+		},
 		components: {
 			chatroomList, chatroomMemberList
 		},
@@ -58,12 +61,9 @@
 				})
 				return this.$store.state.im.data;
 			},
-			...mapState({
-				init: state => state.im.init,
-				lock: state => state.im.lock,
-				user: state => state.user,
-				live: state => state.live_query.data
-			})
+			...mapState('im', ['init', 'lock']),
+			...mapState('user', ['user']),
+			...mapGetters('im', ['members'])
 		},
 		methods: {
 			onScroll () {

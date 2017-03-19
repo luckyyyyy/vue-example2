@@ -12,10 +12,9 @@
 				<iInput v-model="register.phone" placeholder="请输手机号码"></iInput>
 			</FormItem>
 			<FormItem label="短信验证码" prop="captcha">
-				<div class="smscode">
-					<iInput v-model="register.captcha" placeholder="请输入短信验证码"></iInput>
-					<iButton :disabled="countdown && true" @click="register_captcha">{{ interval ? countdown : '获取验证码' }}</iButton>
-				</div>
+				<iInput v-model="register.captcha" placeholder="请输入短信验证码">
+					<iButton slot="append" :disabled="lock_captcha" @click="register_captcha">{{ countdown ? countdown : '获取验证码' }}</iButton>
+				</iInput>
 			</FormItem>
 			<FormItem label="设置密码" prop="password">
 				<iInput type="password" v-model="register.password" placeholder="密码"></iInput>
@@ -36,29 +35,52 @@
 	</div>
 </template>
 <script>
-	import { mapState } from 'vuex';
+	import { mapActions } from 'vuex';
 	import { REGISTER_RULES } from '../../options/rules'
+	import { PHONE_CAPTCHA_EXPIRED } from '../../options'
+
 	export default {
 		data () {
 			return {
+				lock: false,
 				register: {},
-				rules: REGISTER_RULES
+				rules: REGISTER_RULES,
+				interval: null,
+				countdown: null,
+				lock_captcha: false,
 			}
 		},
-		computed: {
-			...mapState({
-				interval:  state => state.register.interval,
-				countdown: state => state.register.countdown,
-				lock:      state => state.register.lock,
-			})
+		beforeDestroy () {
+			this.clearInterval();
 		},
-		// 13028914409
 		methods: {
+			...mapActions('user/register', {
+				getCaptcha: 'REGISTER_CAPTCHA_REQUEST',
+				register: 'REGISTER_REQUEST'
+			}),
+			clearInterval () {
+				if (this.clearInterval) {
+					clearInterval(this.clearInterval);
+					this.clearInterval = null;
+					this.countdown     = null;
+					this.lock_captcha  = false;
+				}
+			},
 			register_captcha () {
 				this.$refs.register.validateField('phone', errors => {
 					if (!errors) {
-						const phone = this.register.phone;
-						this.$store.dispatch('REGISTER_CAPTCHA_REQUEST', { phone }).catch(err =>{
+						this.lock_captcha = true;
+						this.getCaptcha(this.register).then(() => {
+							this.interval = setInterval(() => {
+								const countdown = (this.countdown || 60) - 1;
+								if (countdown <= 0) {
+									this.clearInterval();
+								} else {
+									this.countdown = countdown;
+								}
+							}, 1000);
+						}).catch(err =>{
+							this.lock_captcha = false;
 							if (err.data) {
 								if (err.data.retCode == -197) {
 									this.$Modal.confirm({
@@ -66,7 +88,6 @@
 										content: '该用户已注册，是否立即登录？',
 										okText: '登录',
 										cancelText: '取消',
-										type: 'warning',
 										onOk: () => {
 											this.$router.push({ name: 'login' })
 										}
@@ -87,8 +108,12 @@
 			submit_register () {
 				this.$refs.register.validate(valid => {
 					if (valid) {
-						this.$store.dispatch('REGISTER_REQUEST', this.register).then(() => {
+						this.lock = true;
+						this.register(this.register).then(() => {
+							this.lock = false;
 							this.$router.push({ name: 'register_seccuss' });
+						}).catch(() => {
+							this.lock = false;
 						})
 					} else {
 						return false;

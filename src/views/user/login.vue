@@ -30,25 +30,29 @@
 
 <script>
 
-	import { mapState } from 'vuex';
 	import { LOGIN_RULES } from '../../options/rules'
+	import { mapActions } from 'vuex'
 	export default {
 		data () {
 			return {
 				login: {},
+				lock: false,
 				rules: LOGIN_RULES
 			}
 		},
-		computed: {
-			...mapState({
-				lock: state => state.login.lock
-			})
-		},
 		methods: {
+			...mapActions('user/login', {
+				userLogin: 'LOGIN_REQUEST'
+			}),
 			submit_login () {
 				this.$refs.login.validate((valid) => {
 					if (valid) {
-						this.$store.dispatch('LOGIN_REQUEST', this.login)
+						this.lock = true;
+						this.userLogin(this.login).then(() => {
+							this.lock = false;
+						}).catch(() => {
+							this.lock = false;
+						})
 					} else {
 						return false;
 					}

@@ -2,12 +2,12 @@
 * @Author: William Chan
 * @Date:   2017-03-06 22:27:42
 * @Last Modified by:   William Chan
-* @Last Modified time: 2017-03-18 20:51:36
+* @Last Modified time: 2017-03-19 05:55:48
 */
 
 'use strict';
 
-import { registerModule } from './'
+import { registerModule } from '../store'
 
 export default [
 	{
@@ -37,8 +37,8 @@ export default [
 					ChannelFindModule,
 					ChannelDeleteModule,
 				) => {
-					registerModule('channel_find', ChannelFindModule.default);
-					registerModule('channel_delete', ChannelDeleteModule.default);
+					registerModule(['channel', 'find'],   ChannelFindModule.default);
+					registerModule(['channel', 'delete'], ChannelDeleteModule.default);
 					resolve(SelectComponent);
 				})
 			},
@@ -57,8 +57,8 @@ export default [
 					WeixinAuthurlModule,
 					CommodityCatalogsModule,
 				) => {
-					registerModule('channel_create', ChannelCreateModule.default);
-					registerModule('weixin_auth_url', WeixinAuthurlModule.default);
+					registerModule(['channel', 'create'], ChannelCreateModule.default);
+					registerModule('weixin_auth', WeixinAuthurlModule.default);
 					registerModule('catalogs', CommodityCatalogsModule.default);
 					resolve(CreateComponent);
 				})
@@ -69,12 +69,12 @@ export default [
 				meta: { requiresAuth: true, group: 'global', name: "个人中心" },
 				component: resolve => require([
 					'../views/home/profile.vue',
-					'../store/modules/user/update_user',
+					'../store/modules/user/profile',
 				], (
 					ProfileComponent,
-					UpdateUserModule,
+					ProfileUserModule,
 				) => {
-					registerModule('update_user', UpdateUserModule.default);
+					registerModule(['user', 'profile'], ProfileUserModule.default);
 					resolve(ProfileComponent);
 				})
 			},
@@ -89,8 +89,7 @@ export default [
 					PasswordComponent,
 					PasswordModule,
 				) => {
-					console.log(123)
-					registerModule('password', PasswordModule.default);
+					registerModule(['user', 'password'], PasswordModule.default);
 					resolve(PasswordComponent);
 				})
 			},

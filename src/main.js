@@ -4,7 +4,7 @@ import 'iview/dist/styles/iview.css'
 import './assets/common.less'
 
 import App from './App.vue'
-import store from './store'
+import { store } from './store'
 import router from './router'
 import { sync } from 'vuex-router-sync'
 

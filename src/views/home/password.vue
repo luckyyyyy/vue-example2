@@ -20,7 +20,7 @@
 	</div>
 </template>
 <script>
-	import { mapState } from 'vuex';
+	import { mapActions } from 'vuex';
 	import { UPDATE_PASSWORD_RULES } from '../../options/rules'
 
 	export default {
@@ -35,6 +35,7 @@
 				}
 			};
 			return {
+				lock: false,
 				password: {},
 				rules: Object.assign(UPDATE_PASSWORD_RULES, {
 					newPassword_confirm: [
@@ -43,17 +44,20 @@
 				})
 			}
 		},
-		computed: {
-			...mapState({
-				lock: state => state.password.lock
-			})
-		},
 		methods: {
+			...mapActions('user/password', {
+				setPassword: 'PASSWORD_REQUEST'
+			}),
 			submit () {
 				this.$refs.password.validate((valid) => {
 					if (valid) {
-						this.$store.dispatch('PASSWORD_REQUEST', this.password).then(() => {
+						this.lock = true;
+						this.setPassword(this.password).then(() => {
 							this.$Message.success('用户密码修改成功');
+							this.lock = false;
+							this.password = {};
+						}).catch(() => {
+							this.lock = false;
 						})
 					} else {
 						return false;

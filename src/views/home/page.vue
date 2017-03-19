@@ -11,7 +11,7 @@
 			<div class="right">
 				<span class="text">账号：{{ user.nickname || user.phone }}</span>
 				<router-link :to="{ name: 'profile' }">设置</router-link>
-				<a href="javascript:;" @click="logout">退出</a>
+				<a href="javascript:;" @click="submit_logout">退出</a>
 			</div>
 		</div>
 		<router-view class="box"></router-view>
@@ -19,24 +19,25 @@
 	</div>
 </template>
 <script>
-	import { mapState } from 'vuex';
+	import { mapState, mapActions } from 'vuex';
 	export default {
 		computed: {
-			...mapState({
-				user: state => state.user
-			}),
+			...mapState('user', [ 'user' ]),
 			name () {
 				return this.$route.meta.name;
 			}
 		},
 		methods: {
-			logout () {
+			...mapActions('user', {
+				logout: 'USER_LOGOUT'
+			}),
+			submit_logout () {
 				this.$Modal.confirm({
 					title: '提示',
 					content: '确定退出系统么？',
 					loading: true,
 					onOk: () => {
-						this.$store.dispatch('LOGOUT_REQUEST').then(() => {
+						this.logout().then(() => {
 							this.$Modal.remove();
 						})
 					}

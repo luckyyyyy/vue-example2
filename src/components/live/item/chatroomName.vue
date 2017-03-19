@@ -46,24 +46,25 @@
 
 
 <script>
+	// TODO 这里有个自己不能管自己的权限还没写
+	import { mapActions } from 'vuex'
 	export default {
 		props: {
 			item: Object,
 			account: String,
 			nickname: String,
 			me: Boolean,
-		},
-		computed: {
-			user () {
-				return this.$store.state.user.userImInfo;
-			},
-			members () {
-				return this.$store.getters.chatroom_members;
-			}
+			members: Object,
+			im: Object
 		},
 		methods: {
+			...mapActions('im', {
+				setManager: 'IM_CHATROOM_MANAGER',
+				setCommon: 'IM_CHATROOM_COMMON',
+				setGag: 'IM_CHATROOM_GAG',
+			}),
 			getAuth (level) {
-				const member = this.members[this.user.accid];
+				const member = this.members[this.im.accid];
 				if (member) {
 					switch (level) {
 						case 1:
@@ -81,13 +82,13 @@
 				const account = this.account;
 				switch (command) {
 					case 'manager':
-						this.$store.dispatch('IM_CHATROOM_MANAGER', { account, isAdd })
+						this.setManager({ account, isAdd })
 						break;
 					case 'common':
-						this.$store.dispatch('IM_CHATROOM_COMMON', { account, isAdd, level: 1 })
+						this.setCommon({ account, isAdd, level: 1 })
 						break;
 					case 'gag':
-						this.$store.dispatch('IM_CHATROOM_GAG', { account, isAdd })
+						this.setGag({ account, isAdd })
 						break;
 					default:
 						// statements_def

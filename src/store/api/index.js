@@ -2,7 +2,7 @@
 * @Author: William Chan
 * @Date:   2016-12-02 11:31:24
 * @Last Modified by:   William Chan
-* @Last Modified time: 2017-03-17 22:57:05
+* @Last Modified time: 2017-03-19 17:48:31
 */
 
 // axios.request(config)
@@ -16,7 +16,7 @@
 
 'use strict';
 
-import store from '../'
+import { clearAuthorization, getAuthorization, getCurrentChannelID } from '../'
 import { Modal } from 'iview'
 import axios from 'axios'
 export const API_HOST =
@@ -50,11 +50,13 @@ if (localStorage.getItem('debug')) {
 }
 export const onRequest = req => {
 	if (req.url.indexOf(API_HOST) >= 0) { // self api auto add Authorization
-		if (!req.headers.Authorization && store.state.token) {
-			req.headers.Authorization = store.getters.auth;
+		const Authorization = getAuthorization();
+		const ChannelID     = getCurrentChannelID();
+		if (!req.headers.Authorization && Authorization) {
+			req.headers.Authorization = Authorization;
 		}
-		if (!req.headers.ChannelID && store.getters.channel) {
-			req.headers.ChannelID = store.getters.channel;
+		if (!req.headers.ChannelID && ChannelID) {
+			req.headers.ChannelID = ChannelID;
 		}
 	}
 	if (req.interceptors !== false) {
@@ -89,9 +91,7 @@ export const onResponseError = error => {
 		})
 	} else {
 		if (error.response.status === 401) {
-			store.commit('LOGIN_FAILURE', error);
-			console.log('LOGIN_FAILURE');
-			console.dir(error)
+			clearAuthorization();
 		}
 		// console.dir(error)
 		// TODO 500 必定显示 or 拦截器配置
@@ -100,7 +100,6 @@ export const onResponseError = error => {
 			content: `${error.response.data.retMsg || '请求发生错误'}`
 		})
 	}
-
 	return Promise.reject(error);
 }
 

@@ -2,11 +2,11 @@
 * @Author: William Chan
 * @Date:   2017-03-06 22:26:46
 * @Last Modified by:   William Chan
-* @Last Modified time: 2017-03-18 23:23:15
+* @Last Modified time: 2017-03-19 03:47:40
 */
 
 'use strict';
-import { registerModule } from './'
+import { registerModule } from '../store'
 
 export default [
 	{
@@ -26,7 +26,7 @@ export default [
 					LoginComponent,
 					LoginModule,
 				) => {
-					registerModule('login', LoginModule.default);
+					registerModule(['user', 'login'], LoginModule.default);
 					resolve(LoginComponent);
 				})
 			},
@@ -40,7 +40,7 @@ export default [
 					RegisterComponent,
 					RegisterModule,
 				) => {
-					registerModule('register', RegisterModule.default);
+					registerModule(['user', 'register'], RegisterModule.default);
 					resolve(RegisterComponent);
 				})
 			},
@@ -59,7 +59,7 @@ export default [
 					ResetPasswordComponent,
 					ResetPasswordModule,
 				) => {
-					registerModule('reset_password', ResetPasswordModule.default);
+					registerModule(['user', 'reset_password'], ResetPasswordModule.default);
 					resolve(ResetPasswordComponent);
 				})
 			},

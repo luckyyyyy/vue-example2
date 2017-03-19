@@ -3,8 +3,8 @@
 		<p v-for="item in data" :class="item.type" :title="item.time | date">
 			<!-- http://dev.netease.im/docs?doc=web&#聊天室消息 -->
 			<template v-if="item.type == 'text'">
-				<chatroomTag :account="item.from"></chatroomTag>
-				<chatroomName :account="item.from" :nickname="item.fromNick" :me="item.flow == 'out'">：</chatroomName>
+				<chatroomTag :members="members" :account="item.from"></chatroomTag>
+				<chatroomName :members="members" :im="im" :account="item.from" :nickname="item.fromNick" :me="item.flow == 'out'">：</chatroomName>
 				<span>{{ item.text }}</span>
 			</template>
 			<template v-if="item.type == 'notification'">
@@ -29,11 +29,8 @@
 				type: Boolean,
 				default: false,
 			},
-		},
-		computed: {
-			members () {
-				return this.$store.getters.chatroom_members;
-			}
+			members: Object,
+			im: Object
 		},
 		filters: {
 			date

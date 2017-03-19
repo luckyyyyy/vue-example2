@@ -8,11 +8,7 @@
 		props: {
 			item: Object,
 			account: String,
-		},
-		computed: {
-			members () {
-				return this.$store.getters.chatroom_members;
-			}
+			members: Object
 		},
 	}
 </script>

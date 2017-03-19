@@ -19,7 +19,7 @@
 </style>
 <script>
 	import { onResponse, onResponseError } from '../../store/api'
-
+	import { mapGetters } from 'vuex'
 	function getBody(xhr) {
 		const text = xhr.responseText || xhr.response;
 		if (!text) {
@@ -79,6 +79,10 @@
 				size: 0
 			}
 		},
+		computed: {
+			...mapGetters('user', ['auth']),
+			...mapGetters('channel', ['channelID'])
+		},
 		methods: {
 			openBrowse () {
 				if (this.length == 0) this.$refs.fileInput.click();
@@ -99,8 +103,8 @@
 				const xhr = new XMLHttpRequest();
 				xhr.open(this.method, this.action, true);
 				xhr.setRequestHeader('Content-Type', 'application/json');
-				xhr.setRequestHeader('Authorization', this.$store.getters.auth);
-				xhr.setRequestHeader('ChannelID', this.$store.getters.channel);
+				xhr.setRequestHeader('Authorization', this.auth);
+				xhr.setRequestHeader('ChannelID',     this.channelID);
 				xhr.upload.onprogress = e => {
 					if (e.total > 0) {
 						e.percent = e.loaded / e.total * 100;

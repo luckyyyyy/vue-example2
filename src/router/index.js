@@ -2,14 +2,13 @@
 * @Author: William Chan
 * @Date:   2016-12-01 17:57:50
 * @Last Modified by:   William Chan
-* @Last Modified time: 2017-03-17 21:58:13
+* @Last Modified time: 2017-03-19 18:26:13
 */
 
 'use strict';
 
 import Vue       from 'vue'
 import VueRouter from 'vue-router'
-import store     from '../store'
 
 import NProgress from 'nprogress'
 import 'nprogress/nprogress.css'
@@ -23,16 +22,10 @@ import homeRoute    from './home'
 // import storeRoute   from './store'
 import userRoute    from './user'
 
+import { getAuthorization, getCurrentChannelID, store } from '../store'
+
+
 Vue.use(VueRouter);
-
-const module = {};
-export const registerModule = (path, module) => {
-	if (!module[path]) {
-		store.registerModule(path, module);
-		module[path] = true;
-	}
-}
-
 const routes = [].concat(
 	// accountRoute, storeRoute,
 	liveRoute, VideoRoute, homeRoute, userRoute,
@@ -47,39 +40,59 @@ const router = new VueRouter({
 		return { x: 0, y: 0 }
 	}
 })
-router.beforeEach((to, from, next) => {
+
+const record = {}
+
+router.beforeEach(async (to, from, next) => {
 	NProgress.remove();
 	NProgress.start();
 	const requiresAuth = to.matched.some(record => record.meta.requiresAuth);
-	if (!store.getters.member.token) {
+	let params;
+	if (!getAuthorization()) {
 		if (to.name == '404' || to.fullPath == '/') {
-			return next({ name: 'login' });
+			params = { name: 'login' };
 		} else if (requiresAuth) {
-			return next({ name: 'login', query: { redirect: to.fullPath } });
+			params = { name: 'login', query: { redirect: to.fullPath } };
 		}
 	} else {
-		if (store.getters.channel) {
-			if (to.meta.group == 'select' && to.meta.group != 'global') {
-				if (to.query.redirect) {
-					return next({ path: to.query.redirect })
-				} else {
-					return next({ name: 'index' })
+		if (getCurrentChannelID()) {
+			if (to.params.liveid) {
+				if (record.liveid != to.params.liveid) {
+					await store.dispatch('live/LIVE_QUERY', { id: to.params.liveid }).then(res => {
+						record.liveid = to.params.liveid;
+					}).catch(err => {
+						if (from.meta.requiresAuth) {
+							params = false;
+						} else {
+							params =  { name: 'index' };
+							// TODO 根据服务器来源判断
+						}
+					})
+				}
+			} else {
+				if (to.meta.group == 'select' && to.meta.group != 'global') {
+					if (to.query.redirect) {
+						params = { path: to.query.redirect };
+					} else {
+						params = { name: 'index' };
+					}
 				}
 			}
 		} else {
 			if (to.meta.group != 'select' && to.meta.group != 'global') {
-				return next({ name: 'select_channel', query: { redirect: to.fullPath } });
+				params = { name: 'select_channel', query: { redirect: to.fullPath } };
 			}
 		}
 		if (!requiresAuth) {
 			if (to.query.redirect) {
-				return next({ path: to.query.redirect })
+				params = { path: to.query.redirect };
 			} else {
-				return next({ name: 'index' })
+				params = { name: 'index' }
 			}
 		}
 	}
-	return next();
+	if (!params) NProgress.done(true);
+	next(params);
 })
 router.afterEach(route => {
 	NProgress.done(true);

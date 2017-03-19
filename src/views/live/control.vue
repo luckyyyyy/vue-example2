@@ -38,7 +38,7 @@
 		<div class="body">
 			<message></message>
 			<prismVideo v-model="play" :live="live"></prismVideo>
-			<chatroom @connect="onJoinChatroom"></chatroom>
+			<chatroom @connect="onJoinChatroom" :live="live"></chatroom>
 			<div class="action">
 				<div class="live-info">
 					<ul class="live-info-stat">
@@ -52,8 +52,8 @@
 						</template>
 						<template v-else>
 							<iButton size="small" type="error" @click="onFinish">结束直播</iButton>
+							<iButton size="small" type="primary" @click="onPublish">隐藏直播</iButton>
 						</template>
-
 					</div>
 				</div>
 				<iForm class="chat-input" @submit.native.prevent :model="chatroom">
@@ -90,7 +90,7 @@
 	import message from '../../components/live/message'
 	import clipboardInput from '../../components/item/clipboardInput'
 	import qrcodejs from 'qrcodejs2'
-	import { mapState } from 'vuex'
+	import { mapState, mapActions, mapMutations } from 'vuex'
 	import { trim } from '../../utils/util'
 	import { LIVE_NOTICE_RULES } from '../../options/rules'
 
@@ -114,12 +114,12 @@
 			}
 		},
 		computed: {
-			...mapState ({
-				live: state => state.live_query.data,
-				chatroom_send: state => state.im.send,
-				chatroom_lock: state => state.im.lock,
-				chatroom_init: state => state.im.init,
-			})
+			...mapState('live', [ 'live' ]),
+			...mapState('im', {
+				chatroom_send: state => state.send,
+				chatroom_lock: state => state.lock,
+				chatroom_init: state => state.init,
+			}),
 		},
 		mounted () {
 			this.onJoinChatroom();
@@ -136,16 +136,33 @@
 			}
 		},
 		beforeDestroy () {
-			this.$store.dispatch('IM_DISCONNECT');
+			this.imDisconnect();
 		},
 		methods: {
+			...mapActions('im', {
+				imDisconnect: 'IM_DISCONNECT',
+				imInit: 'IM_INIT_REQUEST',
+				imSend: 'IM_CHATROOM_MSG_REQUEST'
+			}),
+			...mapMutations('im', {
+				imOnDisconnect: 'IM_CHATROOM_INIT_LOCK'
+			}),
+			...mapMutations('live', {
+				updateLiveInfo: 'LIVE_QUERY',
+			}),
+			...mapActions('live/public', {
+				livePublic: 'LIVE_PUBLIC_REQUEST'
+			}),
+			...mapActions('live/finish', {
+				liveFinish: 'LIVE_FINISH_REQUEST'
+			}),
 			onJoinChatroom () {
 				// const chatroomId         = 7853177; // 暂时
 				const chatroomId         = this.live.liveChatRoom.roomid;
 				const oncustomsysmsg     = this.onCustomSysMsg;
 				const onCustomServiceMsg = this.onCustomServiceMsg;
 				const ondisconnect       = this.onDisconnect;
-				this.$store.dispatch('IM_INIT_REQUEST', { chatroomId, oncustomsysmsg, onCustomServiceMsg }).then(() => {
+				this.imInit( { chatroomId, oncustomsysmsg, onCustomServiceMsg }).then(() => {
 					// join success
 					// console.log(1)
 				}).catch(() => {
@@ -156,7 +173,7 @@
 			},
 			onDisconnect (error) {
 				if (error) {
-					this.$store.commit('IM_CHATROOM_INIT_LOCK');
+					this.imOnDisconnect();
 					let msg = error.message;
 					if (!msg) {
 						switch (error.code) {
@@ -203,7 +220,7 @@
 			chatroomSend () {
 				const text = trim(this.chatroom.text);
 				if (text) {
-					this.$store.dispatch('IM_CHATROOM_MSG_REQUEST', text).then(() => {
+					this.imSend(text).then(() => {
 						this.chatroom.text = '';
 					}).catch(error => {
 						this.$Message.error(error.message);
@@ -217,10 +234,13 @@
 			onPublish () {
 				this.$Modal.confirm({
 					title: '直播',
-					content: '确定要发布直播么？发布后用户可在微信列表中找到这场直播',
+					content: '确定要修改直播状态么？',
 					loading: true,
 					onOk: () => {
-						this.$store.dispatch('LIVE_PUBLISH_REQUEST', this.live).then(() => {
+						this.livePublic(this.live).then(res => {
+							this.updateLiveInfo(res);
+							this.$Modal.remove();
+						}).catch(() => {
 							this.$Modal.remove();
 						})
 					}
@@ -232,9 +252,11 @@
 					content: '点击确定将彻底关闭直播，变更为回放状态，并且不可恢复。',
 					loading: true,
 					onOk: () => {
-						this.$store.dispatch('LIVE_PUBLISH_FINISH', this.live).then(() => {
+						this.liveFinish(this.live).then(() => {
 							this.$Modal.remove();
-							this.$router.push({ name: 'video_list' })
+							this.$router.push({ name: 'live_list' })
+						}).catch(() => {
+							this.$Modal.remove();
 						})
 					}
 				})
@@ -338,12 +360,6 @@
 </style>
 
 <style lang="less">
-	// .noticeDialog {
-	// 	width: 550px;
-	// 	.footer {
-	// 		text-align: right;
-	// 	}
-	// }
 	.stream-url-popper {
 		.tips {
 			padding: 5px;

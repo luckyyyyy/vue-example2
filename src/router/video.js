@@ -2,12 +2,12 @@
 * @Author: William Chan
 * @Date:   2017-03-15 13:20:01
 * @Last Modified by:   William Chan
-* @Last Modified time: 2017-03-17 21:59:06
+* @Last Modified time: 2017-03-19 18:56:20
 */
 
 'use strict';
 
-import { registerModule } from './'
+import { registerModule } from '../store'
 
 export default [
 	{
@@ -33,14 +33,14 @@ export default [
 					{ route: 'video_list', name: '回放列表' }
 				] },
 				component: resolve => require([
-					'../views/video/list.vue',
-					'../store/modules/live/find'
+					// '../views/video/list.vue',
+					// '../store/modules/live/find'
 				], (
-					VideoListComponent,
-					LiveFindModule,
+					// VideoListComponent,
+					// LiveFindModule,
 				) => {
-					registerModule('live_find', LiveFindModule.default);
-					resolve(VideoListComponent);
+					// registerModule('live_find', LiveFindModule.default);
+					// resolve(VideoListComponent);
 				})
 			},
 		]

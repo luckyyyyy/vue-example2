@@ -2,11 +2,11 @@
 * @Author: William Chan
 * @Date:   2017-03-06 22:29:46
 * @Last Modified by:   William Chan
-* @Last Modified time: 2017-03-18 22:40:34
+* @Last Modified time: 2017-03-19 18:33:36
 */
 
 'use strict';
-import { registerModule } from './'
+import { registerModule } from '../store'
 
 export default [
 	{
@@ -18,12 +18,9 @@ export default [
 			topbar:  resolve => require(['../components/topbar.vue'], resolve),
 			main:    resolve => require([
 				'../components/main.vue',
-				'../store/modules/live/query',
 			], (
 				MainComponent,
-				LiveQueryModule
 			) => {
-				registerModule('live_query', LiveQueryModule.default);
 				resolve(MainComponent)
 			})
 		},
@@ -47,10 +44,10 @@ export default [
 					LiveDeleteModule,
 					LiveTrashModule,
 				) => {
-					registerModule('live_find', LiveFindModule.default);
-					registerModule('live_create', LiveCreateModule.default);
-					registerModule('live_delete', LiveDeleteModule.default);
-					registerModule('live_trash', LiveTrashModule.default);
+					registerModule(['live', 'find'], LiveFindModule.default);
+					registerModule(['live', 'create'], LiveCreateModule.default);
+					registerModule(['live', 'delete'], LiveDeleteModule.default);
+					registerModule(['live', 'trash'], LiveTrashModule.default);
 					resolve(LiveListComponent);
 				})
 			},
@@ -72,19 +69,19 @@ export default [
 					'../views/live/control.vue',
 					'../store/modules/im',
 					'../store/modules/live/stream',
-					'../store/modules/live/publish',
+					'../store/modules/live/public',
 					'../store/modules/live/finish',
 				], (
 					LiveControlComponent,
 					IMModule,
 					LiveStreamModule,
-					LivePublishModule,
+					LivePublicModule,
 					LiveFinishModule,
 				) => {
 					registerModule('im', IMModule.default);
-					registerModule('live_query_stream', LiveStreamModule.default);
-					registerModule('live_publish', LivePublishModule.default);
-					registerModule('live_finish', LiveFinishModule.default);
+					registerModule(['live', 'query_stream'], LiveStreamModule.default);
+					registerModule(['live', 'public'], LivePublicModule.default);
+					registerModule(['live', 'finish'], LiveFinishModule.default);
 					resolve(LiveControlComponent);
 				})
 			},

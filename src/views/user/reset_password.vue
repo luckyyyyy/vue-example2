@@ -12,10 +12,9 @@
 				<iInput v-model="reset_password.phone" placeholder="请输手机号码"></iInput>
 			</FormItem>
 			<FormItem label="短信验证码" prop="captcha">
-				<div class="smscode">
-					<iInput v-model="reset_password.captcha" placeholder="请输入短信验证码"></iInput>
-					<iButton :disabled="countdown && true" @click="reset_password_captcha">{{ interval ? countdown : '获取验证码' }}</iButton>
-				</div>
+				<iInput v-model="reset_password.captcha" placeholder="请输入短信验证码">
+					<iButton slot="append" :disabled="lock_captcha" @click="reset_password_captcha">{{ countdown ? countdown : '获取验证码' }}</iButton>
+				</iInput>
 			</FormItem>
 			<FormItem label="设置密码" prop="password">
 				<iInput type="password" v-model="reset_password.password" placeholder="密码"></iInput>
@@ -31,31 +30,52 @@
 </template>
 
 <script>
-
-	import { mapState } from 'vuex';
+	import { mapActions } from 'vuex';
+	import { PHONE_CAPTCHA_EXPIRED } from '../../options'
 	import { RESET_PASSWORD_RULES } from '../../options/rules'
 	export default {
 		data () {
 			return {
 				reset_password: {},
-				rules: RESET_PASSWORD_RULES
+				rules: RESET_PASSWORD_RULES,
+				interval: null,
+				countdown: null,
+				lock: false,
+				lock_captcha: false,
 			}
 		},
-		computed: {
-			...mapState({
-				interval:  state => state.reset_password.interval,
-				countdown: state => state.reset_password.countdown,
-				lock:      state => state.reset_password.lock,
-			})
+		beforeDestroy () {
+			this.clearInterval();
 		},
-
-
 		methods: {
+			...mapActions('user/reset_password', {
+				getCaptcha: 'RESETPWD_CAPTCHA_REQUEST',
+				resetPassword: 'RESETPWD_REQUEST'
+			}),
+			clearInterval () {
+				if (this.clearInterval) {
+					clearInterval(this.clearInterval);
+					this.clearInterval = null;
+					this.countdown     = null;
+					this.lock_captcha  = false;
+				}
+			},
 			reset_password_captcha () {
 				this.$refs.reset_password.validateField('phone', errors => {
 					if (!errors) {
-						const phone = this.reset_password.phone;
-						this.$store.dispatch('RESETPWD_CAPTCHA_REQUEST', { phone })
+						this.lock_captcha = true;
+						this.getCaptcha(this.reset_password).then(() => {
+							this.interval = setInterval(() => {
+								const countdown = (this.countdown || 60) - 1;
+								if (countdown <= 0) {
+									this.clearInterval();
+								} else {
+									this.countdown = countdown;
+								}
+							}, 1000);
+						}).catch(_ => {
+							this.lock_captcha = false;
+						})
 					} else {
 						return false;
 					}
@@ -64,7 +84,9 @@
 			submit_reset_password () {
 				this.$refs.reset_password.validate((valid) => {
 					if (valid) {
-						this.$store.dispatch('RESETPWD_REQUEST', this.reset_password).then(() => {
+						this.lock = true;
+						this.resetPassword(this.reset_password).then(() => {
+							this.lock = false;
 							this.$Modal.success({
 								title: '提示',
 								content: '密码重置成功',
@@ -73,6 +95,8 @@
 									this.$router.push({ name: 'login' })
 								}
 							})
+						}).catch(() => {
+							this.lock = false;
 						})
 					} else {
 						return false;

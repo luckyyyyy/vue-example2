@@ -28,7 +28,7 @@
 					<ul class="popper__menu">
 						<li><router-link :to="{ name: 'profile', query: { redirect: $route.fullPath } }"><i class="iconfont icon-video"></i>账号设置</router-link></li>
 						<li><a @click="switchShop" href="javascript:;"><i class="iconfont icon-video"></i>切换频道</a></li>
-						<li><a @click="logout" href="javascript:;"><i class="iconfont icon-video"></i>退出系统</a></li>
+						<li><a @click="submit_logout" href="javascript:;"><i class="iconfont icon-video"></i>退出系统</a></li>
 					</ul>
 				</div>
 			</menu>
@@ -36,12 +36,10 @@
 	</div>
 </template>
 <script>
-	import { mapState } from 'vuex';
+	import { mapState, mapActions } from 'vuex';
 	export default {
 		computed: {
-			...mapState({
-				user: state => state.user
-			}),
+			...mapState('user', [ 'user' ]),
 			breadcrumb () {
 				let breadcrumb = [
 					{ route: this.$route.name, name: '测试面包' },
@@ -57,13 +55,19 @@
 			}
 		},
 		methods: {
-			logout () {
+			...mapActions('user', {
+				logout: 'USER_LOGOUT'
+			}),
+			...mapActions('channel', {
+				clearChannel: 'CHANNEL_SELECT'
+			}),
+			submit_logout () {
 				this.$Modal.confirm({
 					title: '提示',
 					content: '确定退出系统么？',
 					loading: true,
 					onOk: () => {
-						this.$store.dispatch('LOGOUT_REQUEST').then(() => {
+						this.logout().then(() => {
 							this.$Modal.remove();
 						})
 					}
@@ -74,7 +78,7 @@
 					title: '提示',
 					content: '确定切换频道么？',
 					onOk: () => {
-						this.$store.commit('SET_CHANNEL');
+						this.clearChannel();
 					}
 				})
 			},

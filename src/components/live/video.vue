@@ -4,7 +4,7 @@
 		<div class="lock" v-show="!play">
 			<img src="../../assets/toplogo.png" height="40" width="196">
 			<p>{{ lock ? `正在刷新直播状态` : '主播还未开始直播或断开连接，请尝试刷新' }}</p>
-			<iButton size="large" type="primary" :loading="lock" @click="checkStatus">刷新</iButton>
+			<iButton size="large" type="primary" :loading="lock" @click="checkStatus(true)">刷新</iButton>
 		</div>
 	</div>
 </template>
@@ -13,16 +13,16 @@
 	import '../../assets/prism/index-min.css'
 	import prism from '../../assets/prism/prism-min.js'
 	import { isiPad } from '../../utils/util'
-	import { mapState } from 'vuex'
+	import { mapActions } from 'vuex'
 	export default {
 		props: {
 			value: Boolean,
-			im: Boolean,
 			live: Object
 		},
 		data() {
 			return {
-				play: this.value
+				play: this.value,
+				lock: true,
 			}
 		},
 		computed: {
@@ -33,9 +33,6 @@
 			// 	}
 			// 	return init;
 			// },
-			...mapState({
-				lock: state => state.live_query_stream.lock
-			})
 		},
 		mounted () {
 
@@ -90,6 +87,9 @@
 			// this.clearInterval();
 		},
 		methods: {
+			...mapActions('live/query_stream', {
+				getStreamStatus: 'LIVE_QUERY_STREAM_REQUEST'
+			}),
 			getSource () {
 				return isiPad() ? this.live.liveStream.playOriginM3u8Url : this.live.liveStream.playOriginFlvUrl;
 			},
@@ -103,12 +103,14 @@
 			// 		this.interval = undefined;
 			// 	}
 			// },
-			checkStatus () {
-				this.$store.dispatch('LIVE_QUERY_STREAM_REQUEST', this.live).then(data => {
+			checkStatus (lock) {
+				this.lock = lock;
+				this.getStreamStatus(this.live).then(data => {
+					this.lock = false;
 					this.play = data.status != 0;
 					this.$emit('input', this.play);
 				}).catch(() => {
-					console.log('获取直播状态')
+					this.lock = false;
 				})
 			}
 		},

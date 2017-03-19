@@ -2,7 +2,7 @@
 * @Author: Administrator
 * @Date:   2017-01-06 02:33:52
 * @Last Modified by:   William Chan
-* @Last Modified time: 2017-03-18 14:06:54
+* @Last Modified time: 2017-03-19 15:29:06
 */
 
 'use strict';
@@ -12,7 +12,6 @@ import { LIVE_FIND } from '../../types'
 
 const state = {
 	lock: false,
-	request: false,
 	data: [],
 	start: 0,
 	limits: 30,
@@ -46,7 +45,6 @@ const mutations = {
 		}
 		state.status  = status;
 		state.lock    = true;
-		state.request = true;
 	},
 	[LIVE_FIND.SUCCESS] (state, { data }) {
 		if (data.lives.length >= state.limits) {
@@ -54,14 +52,13 @@ const mutations = {
 		}
 		state.data    = state.data.concat(data.lives);
 		state.start   = state.start + state.limits;
-		state.request = false;
 	},
 	[LIVE_FIND.FAILURE] (state, err) {
 		state.lock    = false;
-		state.request = false;
 	},
 }
 export default {
+	namespaced: true,
 	state,
 	getters,
 	actions,

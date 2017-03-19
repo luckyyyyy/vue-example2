@@ -50,14 +50,6 @@
 					line-height: 26px;
 					margin-bottom: 20px;
 				}
-				.smscode {
-					display: flex;
-					align-items: center;
-					.ivu-btn {
-						margin-left: 10px;
-						width: 100px;
-					}
-				}
 				.ivu-form-item-label {
 					color: #fff
 				}

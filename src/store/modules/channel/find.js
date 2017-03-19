@@ -2,7 +2,7 @@
 * @Author: Administrator
 * @Date:   2017-01-06 02:33:52
 * @Last Modified by:   William Chan
-* @Last Modified time: 2017-03-17 16:34:16
+* @Last Modified time: 2017-03-19 03:54:51
 */
 
 'use strict';
@@ -11,7 +11,6 @@ import { channel_find } from '../../api/channel'
 import { CHANNEL_FIND } from '../../types'
 
 const state = {
-	lock: false,
 	data: [],
 	total: 0
 }
@@ -35,22 +34,20 @@ const actions = {
 
 const mutations = {
 	[CHANNEL_FIND.REQUEST] (state) {
-		state.lock = true;
-		state.data = [];
+		state.data  = [];
 		state.total = 0;
 	},
 	[CHANNEL_FIND.SUCCESS] (state, { data }) {
-		state.lock = false;
-		state.data = data.channels;
+		state.data  = data.channels;
 		state.total = data.total;
 	},
 	[CHANNEL_FIND.FAILURE] (state, err) {
-		state.lock = false;
-		state.data = [];
+		state.data  = [];
 		state.total = 0;
 	},
 }
 export default {
+	namespaced: true,
 	state,
 	getters,
 	actions,

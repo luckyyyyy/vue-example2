@@ -6,11 +6,10 @@
 					<li class="title">
 						<i class="iconfont icon-video"></i>直播状态
 					</li>
-					<!-- TODO BUG 0 !== null -->
-					<MenuItem :name="0">未发布</MenuItem>
-					<MenuItem :name="1">发布中</MenuItem>
+					<MenuItem name="private">未发布</MenuItem>
+					<MenuItem name="public">发布中</MenuItem>
 					<li class="title"></li>
-					<MenuItem :name="3">回收站</MenuItem>
+					<MenuItem name="trash">回收站</MenuItem>
 				</Menu>
 				<div class="button">
     				<iButton @click="openCreateDialog" type="primary">新建直播</iButton>
@@ -18,7 +17,7 @@
 			</div>
 		</div>
 		<div @scroll="onScroll" class="commoon-view">
-			<Spin fix v-if="loading || lock_delete"></Spin>
+			<!-- <Spin fix v-if="loading"></Spin> -->
 			<ul class="list" v-if="data.length">
 				<li v-for="item in data" :key="item.id" class="item">
 					<div class="body">
@@ -31,13 +30,13 @@
 							<div class="active">
 								<template v-if="item.trashStatus">
 									<confirmPopover
-										@ok="onDelete(item.id)">
-										<p slot="tips">您确定要删除直播么？</p>
+										@ok="onChangeStatus(item.id)">
+										<p slot="tips">您确定要恢复这场直播么？</p>
 										<em slot="reference">恢复</em>
 									</confirmPopover>
 									<confirmPopover
-										@ok="onDelete(item.id)">
-										<p slot="tips">您确定要删除直播么？</p>
+										@ok="onChangeStatus(item.id, true)">
+										<p slot="tips">您确定彻底要删除直播么？一旦删除，将彻底无法恢复。</p>
 										<em slot="reference">彻底删除</em>
 									</confirmPopover>
 								</template>
@@ -47,7 +46,7 @@
 										<em slot="reference">二维码</em>
 									</qrcodePopover>
 									<confirmPopover
-										@ok="onDelete(item.id)">
+										@ok="onChangeStatus(item.id)">
 										<p slot="tips">您确定要删除直播么？</p>
 										<em slot="reference">删除</em>
 									</confirmPopover>
@@ -109,25 +108,26 @@
 					</p>
 				</div>
 				<div style="display: none;">
-					<iButton :loading="lock" @click="onSubmit" htmlType="submit" type="primary" :disabled="!createAgree">创 建</iButton>
+					<iButton :loading="lock_create" @click="onSubmit" htmlType="submit" type="primary" :disabled="!createAgree">创 建</iButton>
 				</div>
 			</iForm>
 			<div slot="footer" class="footer">
 				<Checkbox v-model="createAgree">我已阅读</Checkbox>
-				<iButton :loading="lock" @click="onSubmit" type="primary" :disabled="!createAgree">创 建</iButton>
+				<iButton :loading="lock_create" @click="onSubmit" type="primary" :disabled="!createAgree">创 建</iButton>
 			</div>
 		</Modal>
 	</div>
 </template>
 
 <script>
-	import { mapState } from 'vuex'
+	import { mapState, mapActions } from 'vuex'
 	import qrcodePopover from '../../components/item/qrcodePopover'
 	import confirmPopover from '../../components/item/confirmPopover'
 	import { LIVE_CREATE_RULES } from '../../options/rules'
+	import Album from '../../components/item/album'
 	export default {
 		components: {
-			qrcodePopover, confirmPopover
+			qrcodePopover, confirmPopover, Album
 		},
 		data () {
 			return {
@@ -137,56 +137,84 @@
 				rules: LIVE_CREATE_RULES,
 				openDialog: false,
 				createAgree: true,
-				status: parseInt(this.$route.params.status) || 0,
+				status: this.$route.params.status || 'public',
+				loading: false,
+				lock_create: false,
 			}
 		},
 		computed: {
-			...mapState({
-				data: state => state.live_find.data,
-				loading: state => state.live_find.request,
-				lock: state => state.live_create.lock,
-				lock_delete: state => state.live_delete.lock,
-				lock_find: state => state.live_find.lock,
-			}),
+			...mapState('live/find', ['data', 'lock']),
 		},
 		mounted () {
-			this.getLiveList(true);
+			this.findLiveList(true);
 		},
 		methods: {
+			...mapActions('live/find', {
+				getLiveList: 'LIVE_FIND_REQUEST'
+			}),
+			...mapActions('live/create', {
+				createLive: 'LIVE_CREATE_REQUEST'
+			}),
+			...mapActions('live/trash', {
+				trashLive: 'LIVE_TRASH_REQUEST'
+			}),
+			...mapActions('live/delete', {
+				deleteLive: 'LIVE_DELETE_REQUEST'
+			}),
 			onScroll (e) {
 				const el = e.target;
-				if (el.scrollHeight - el.scrollTop - el.offsetHeight < 200 && !this.lock_find) {
-					this.getLiveList();
+				if (el.scrollHeight - el.scrollTop - el.offsetHeight < 200 && !this.lock) {
+					this.findLiveList();
 				}
 			},
 			onStatusChange (val) {
 				this.status = val;
-				this.getLiveList(true);
+				this.findLiveList(true);
 				this.$router.push({ name: this.$route.name, params: { status: this.status } })
 			},
-			getLiveList (reload) {
+			findLiveList (reload) {
 				const msg = this.$Message.loading('正在加载中...', 0);
-				this.$store.dispatch('LIVE_FIND_REQUEST', {
-					reload,
-					status: this.status
-				}).then(msg);
+				this.loading = true;
+				this.getLiveList({ reload, status: this.status }).then(() => {
+					this.loading = false;
+					msg();
+				}).catch(() => {
+					this.loading = false;
+				});
 			},
 			openCreateDialog () {
 				this.openDialog  = true;
 				this.createAgree = true;
 			},
-			onDelete(id) {
-				this.$store.dispatch('LIVE_TRASH_REQUEST', id).then(() => {
-					this.getLiveList();
-				})
+			onChangeStatus(id, confirmDelete) {
+				const msg = this.$Message.loading('正在更改直播状态', 0);
+				if (confirmDelete) {
+					this.deleteLive({ id }).then(() => {
+						this.findLiveList(true);
+						msg();
+					}).catch(() => {
+						msg();
+					});
+				} else {
+					this.trashLive({ id }).then(() => {
+						this.findLiveList(true);
+						msg();
+					}).catch(() => {
+						msg();
+					});
+				}
 			},
 			onSubmit () {
-				this.$refs.create.validate((valid) => {
+				this.$refs.create.validate(valid => {
 					if (valid) {
-						this.$store.dispatch('LIVE_CREATE_REQUEST', this.create).then(() => {
+						this.lock_create = true;
+						this.createLive(this.create).then(() => {
 							this.create.name = '';
-							this.openDialog = false;
-							this.status == 0 ? this.getLiveList(true) : this.status = 0;
+							this.openDialog  = false;
+							this.lock_create = false;
+							this.status      == 'private' ? this.findLiveList(true) : this.onStatusChange('private');
+						}).catch(() => {
+							this.lock_create = false;
 						})
 					} else {
 						return false;
@@ -336,8 +364,6 @@
 			}
 		}
 	}
-</style>
-<style lang="less">
 	.createDialog {
 		.help {
 			padding: 10px 20px;

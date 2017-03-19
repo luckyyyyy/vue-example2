@@ -2,21 +2,19 @@
 * @Author: Administrator
 * @Date:   2017-01-06 02:42:21
 * @Last Modified by:   William Chan
-* @Last Modified time: 2017-03-10 03:29:18
+* @Last Modified time: 2017-03-19 15:03:01
 */
 
 'use strict';
+import { USER } from './types'
+import router from '../router'
 
-import router from "../router"
+import { getSession, setSession } from './modules/user'
 
-const setSession = ({token, user}) => {
-	sessionStorage.setItem('user', JSON.stringify({ token, user }));
-}
-
-export const LOGIN_SUCCESS = (state, data) => {
-	state.token = data.token;
-	state.user  = data.user;
-	setSession(data);
+export const USER_LOGIN = (state, data) => {
+	state.user.token = data.token;
+	state.user.user  = data.user;
+	setSession(state.user);
 	const route = state.route;
 	if (route.meta){
 		const requiresAuth = route.meta.requiresAuth;
@@ -29,13 +27,12 @@ export const LOGIN_SUCCESS = (state, data) => {
 		}
 	}
 }
-
-export const LOGIN_FAILURE = (state, err) => {
-	state.token = '';
-	state.user  = {};
-	state.channel  = 0;
+export const USER_CLEAR = (state, err) => {
+	state.user.token      = '';
+	state.user.user       = {};
+	state.channel.channel = {};
 	sessionStorage.removeItem('user');
-	sessionStorage.removeItem('channel');
+	sessionStorage.removeItem('channelID');
 	const route = state.route;
 	const requiresAuth = route.meta.requiresAuth;
 	if (requiresAuth && err) {
@@ -45,28 +42,18 @@ export const LOGIN_FAILURE = (state, err) => {
 	}
 }
 
-export const UPDATE_USER_SUCCESS = (state, data) => {
-	state.user = Object.assign(state.user, data.user);
-	setSession(state);
-}
-
-export const UPDATE_USER_AVATAR = (state, avatar) => {
-	state.user.avatar = avatar;
-	setSession(state);
-}
-
-export const SET_CHANNEL = (state, id) => {
-	if (id) {
-		sessionStorage.setItem('channel', id);
+export const CHANNEL_SELECT = (state, channel) => {
+	if (channel && channel.channelId) {
+		sessionStorage.setItem('channelID', channel.channelId);
 	} else {
-		sessionStorage.removeItem('channel');
+		sessionStorage.removeItem('channelID');
 	}
-	state.channel = id;
+	state.channel.channel = channel;
 	const route = state.route;
 	if (route.meta) {
 		const requiresAuth = route.meta.requiresAuth;
 		if (requiresAuth) {
-			if (state.channel) {
+			if (state.channel.channel) {
 				if (route.meta.group == 'select' && route.meta.group != 'global') {
 					if (route.query.redirect) {
 						router.push({ path: route.query.redirect })
@@ -82,3 +69,5 @@ export const SET_CHANNEL = (state, id) => {
 		}
 	}
 }
+
+

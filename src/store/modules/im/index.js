@@ -2,7 +2,7 @@
 * @Author: William Chan
 * @Date:   2017-03-10 16:42:39
 * @Last Modified by:   William Chan
-* @Last Modified time: 2017-03-18 13:51:52
+* @Last Modified time: 2017-03-19 18:40:02
 */
 
 'use strict';
@@ -47,7 +47,7 @@ const state = {
 }
 
 const getters = {
-	chatroom_members: state => {
+	members: state => {
 		const members = {};
 		for (let member of state.user) {
 			members[member.account.toString()] = member;
@@ -58,10 +58,10 @@ const getters = {
 
 
 const actions = {
-	async [IM_INIT.REQUEST] ({ commit, dispatch, rootState }, { chatroomId, oncustomsysmsg, onCustomServiceMsg, ondisconnect }) {
+	async [IM_INIT.REQUEST] ({ commit, dispatch, rootState, state }, { chatroomId, oncustomsysmsg, onCustomServiceMsg, ondisconnect }) {
 		return new Promise(async (resolve, reject) => {
 			const init = {}
-			const im            = rootState.user.userImInfo;
+			const im            = rootState.user.user.userImInfo;
 			init.account        = im.accid;
 			init.token          = im.token;
 			init.oncustomsysmsg = oncustomsysmsg;
@@ -84,7 +84,7 @@ const actions = {
 				reject();
 			})
 
-			init.chatroomAddresses = rootState.im.address;
+			init.chatroomAddresses = state.address;
 			commit(IM_CHATROOM_INIT.REQUEST);
 			dispatch(IM_CHATROOM_MSG.SERVICE, 'IM_CHATROOM_INIT');
 			init.onmsgs = msg => {
@@ -274,6 +274,7 @@ const mutations = {
 	}
 }
 export default {
+	namespaced: true,
 	state,
 	getters,
 	actions,

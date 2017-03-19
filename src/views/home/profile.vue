@@ -45,7 +45,7 @@
 	</div>
 </template>
 <script>
-	import { mapState } from 'vuex';
+	import { mapState, mapActions, mapMutations } from 'vuex';
 	import { USER_AVATAR } from '../../store/api'
 	import upload from '../../components/item/upload'
 	import { PROFILE_UPDATE_RULES } from '../../options/rules'
@@ -67,19 +67,25 @@
 					progress: 0,
 					start: false
 				},
-				rules: PROFILE_UPDATE_RULES
+				rules: PROFILE_UPDATE_RULES,
+				lock: false
 			}
 		},
 		computed: {
-			...mapState({
-				info: state => state.user,
-				lock: state => state.update_user.lock
+			...mapState('user', {
+				info: state => state.user
 			})
 		},
 		mounted () {
 			this.user = Object.assign({}, this.info);
 		},
 		methods: {
+			...mapActions('user/profile', {
+				updateUser: 'UPDATE_USER_REQUEST'
+			}),
+			...mapMutations('user', {
+				updateUserAvatar: 'USER_UPDATE_AVATAR'
+			}),
 			avatar_progress (event) {
 				this.upload.progress = Math.floor(event.percent);
 			},
@@ -88,7 +94,7 @@
 				this.$refs.avatar.src = this.info.avatar;
 			},
 			avatar_success (res) {
-				this.$store.commit('UPDATE_USER_AVATAR', res.url);
+				this.updateUserAvatar(res.url);
 				this.upload.start = false;
 			},
 			avatar_queue (files, length) {
@@ -98,8 +104,12 @@
 			submit () {
 				this.$refs.user.validate(valid => {
 					if (valid) {
-						this.$store.dispatch('UPDATE_USER_REQUEST', this.user).then(() => {
+						this.lock = true;
+						this.updateUser(this.user).then(() => {
 							this.$Message.success('个人资料更新成功');
+							this.lock = false;
+						}).catch(() => {
+							this.lock = false;
 						})
 					} else {
 						return false;

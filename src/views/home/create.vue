@@ -12,9 +12,9 @@
 						<iInput placeholder="请输入名称" v-model="create.name"></iInput>
 					</FormItem>
 					<FormItem label="直播商品：" prop="commodityCatalog">
-						<iSelect :disabled="lock_catalogs" placeholder="请选择" v-model="create.commodityCatalog">
+						<iSelect :disabled="option.length == 0" placeholder="请选择" v-model="create.commodityCatalog">
 							<iOption
-								v-for="item in catalogs"
+								v-for="item in option"
 								:key="item.label"
 								:label="item.label"
 								:value="item.value">
@@ -51,7 +51,7 @@
 					<span>基于微信公众号直播 + 电商的全场景化应用解决方案</span>
 				</div>
 				<div class="button">
-					<iButton :disabled="lock_open_button" type="primary" size="large" @click="openWxUrl">{{ lock_open_button ? '正在获取微信授权' : '绑定微信公众号' }}</iButton>
+					<iButton :disabled="!url" type="primary" size="large" @click="openWxUrl">{{ !url ? '正在获取微信授权' : '绑定微信公众号' }}</iButton>
 					<a class="wx" target="_blank" href="https://www.baidu.com">还没有公众号？去申请吧 ></a>
 				</div>
 				<div class="tips">
@@ -71,7 +71,7 @@
 	</div>
 </template>
 <script>
-	import { mapState, mapGetters } from 'vuex';
+	import { mapState, mapGetters, mapActions } from 'vuex';
 	import area from '../../options/area.json'
 	import { CHANNEL_CREATE_RULES } from '../../options/rules'
 
@@ -85,6 +85,8 @@
 					commodityCatalog: '',
 				},
 				area: area,
+				url: '',
+				lock: false,
 			}
 		},
 		computed: {
@@ -92,7 +94,9 @@
 				if (this.success) {
 					return 3;
 				} else if (this.id) {
-					this.$store.dispatch('WEXIN_AUTH_URL_REQUEST', { channelID: this.id }).catch(err =>{
+					this.getWechatAuthUrl({ channelID: this.id }).then(url => {
+						this.url = url;
+					}).catch(err =>{
 						if (err.data) {
 							if (err.data.retCode == -100) {
 								this.success = true;
@@ -111,16 +115,11 @@
 					});
 					return 2;
 				} else {
-					this.$store.dispatch('COMMODITY_CATALOGS_REQUEST');
+					this.getCatalogs();
 					return 1;
 				}
 			},
-			...mapState({
-				lock_catalogs: state => state.catalogs.lock,
-				lock: state => state.channel_create.lock,
-				lock_open_button: state => state.weixin_auth_url.lock,
-				url: state => state.weixin_auth_url.url,
-			}),
+			...mapGetters('catalogs', ['option']),
 			catalogs () {
 				return this.$store.getters.option;
 			},
@@ -129,13 +128,26 @@
 			}
 		},
 		methods: {
+			...mapActions('weixin_auth', {
+				getWechatAuthUrl: 'WEXIN_AUTH_URL_REQUEST'
+			}),
+			...mapActions('catalogs', {
+				getCatalogs: 'COMMODITY_CATALOGS_REQUEST'
+			}),
+			...mapActions('channel/create', {
+				createChannel: 'CHANNEL_CREATE_REQUEST'
+			}),
+			...mapActions('channel', {
+				selectChannel: 'CHANNEL_SELECT',
+				queryChannel: 'CHANNEL_QUERY'
+			}),
 			submit () {
 				this.$refs.create.validate(valid => {
 					if (valid) {
 						this.create.province = this.create.area[0];
 						this.create.city     = this.create.area[1];
 						this.create.county   = this.create.area[2];
-						this.$store.dispatch('CHANNEL_CREATE_REQUEST', this.create).then(data => {
+						this.createChannel(this.create).then(data => {
 							this.$router.push({ name: 'create_channel', params: { id: data.channel.channelId } })
 						})
 					} else {
@@ -153,7 +165,7 @@
 					closable: false,
 					loading: true,
 					onOk: () => {
-						this.$store.dispatch('CHANNEL_QUERY_REQUEST', this.id).then(data => {
+						this.queryChannel(this.id).then(data => {
 							this.$Modal.remove();
 							if (data.channel.status == 2) {
 								this.success = true;
@@ -172,7 +184,7 @@
 				});
 			},
 			onSelect () {
-				this.$store.dispatch('SELECT_CHANNEL', this.id);
+				this.selectChannel(this.id);
 			}
 		}
 	}

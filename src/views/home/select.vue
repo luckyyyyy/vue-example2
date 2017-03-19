@@ -32,7 +32,7 @@
 										<template v-else><span class="unbind">未绑定公众号</span></template>
 									</div>
 								</div>
-								<iButton :loading="lock_del" @click.stop="onDelete(item.channel)" type="text" class="delete" size="small">删除</iButton>
+								<iButton @click.stop="onDelete(item.channel)" type="text" class="delete" size="small">删除</iButton>
 							</div>
 						</iCol>
 					</Row>
@@ -52,22 +52,21 @@
 	</div>
 </template>
 <script>
-	import { mapState } from 'vuex';
+	import { mapState, mapActions } from 'vuex';
 	export default {
 		data () {
 			return {
 				limits: 9,
 				current: 1,
+				lock: false,
 			}
 		},
 		computed: {
-			...mapState({
-				user: state  => state.user,
-				total: state => state.channel_find.total,
-				data: state  => state.channel_find.data,
-				lock: state  => state.channel_find.lock,
-				lock_del: state => state.channel_delete.lock,
-			})
+			...mapState('channel/find', {
+				total: state => state.total,
+				data: state  => state.data,
+			}),
+			...mapState('user', [ 'user' ])
 		},
 		// beforeRouteUpdate (to, from, next) { //待研究
 		// 	next();
@@ -76,22 +75,32 @@
 			this.onChange();
 		},
 		methods: {
+			...mapActions('channel/find', {
+				getChannel: 'CHANNEL_FIND_REQUEST'
+			}),
+			...mapActions('channel', {
+				selectChannel: 'CHANNEL_SELECT'
+			}),
+			...mapActions('channel/delete', {
+				deleteChannel: 'CHANNEL_DELETE_REQUEST'
+			}),
 			onChange (currentPage) {
 				this.current = currentPage || parseInt(this.$route.params.id) || 1;
 				this.$router.push({ name: this.$route.name, params: { id: this.current }, query: this.$route.query })
 				const page   = this.current;
 				const limits = this.limits;
-				this.$store.dispatch('CHANNEL_FIND_REQUEST', { limits, page }).then(res => {
+				this.lock = true;
+				this.getChannel({ limits, page }).then(res => {
+					this.lock = false;
 					if (res.channels.length == 0 && page != 1) {
 						this.onChange(1);
 					}
+				}).catch(() => {
+					this.lock = false;
 				})
 			},
 			select (id) {
-				this.$store.dispatch('SELECT_CHANNEL', id);
-			},
-			sign_out () {
-				this.$store.dispatch('LOGOUT_REQUEST');
+				this.selectChannel(id);
 			},
 			toCreate () {
 				this.$router.push({ name: 'create_channel' })
@@ -100,9 +109,11 @@
 				this.$Modal.confirm({
 					title: '提示',
 					content: '您确定删除频道吗？',
+					loading: true,
 					onOk: () => {
-						this.$store.dispatch('CHANNEL_DELETE_REQUEST', channel.channelId).then(() => {
+						this.deleteChannel( channel.channelId).then(() => {
 							this.onChange();
+							this.$Modal.remove();
 						})
 					}
 				});

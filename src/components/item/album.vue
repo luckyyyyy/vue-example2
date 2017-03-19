@@ -1,14 +1,20 @@
 <template>
 	<div>
-		<el-dialog
+		<Modal
 			v-model="visible"
-			:close-on-click-modal="false"
-			:close-on-press-escape="false"
-			:show-close="false"
-			custom-class="albumDialog"
+			className="albumDialog"
+			:mask-closable="false"
+			:closable="false"
+			:width="848"
+			:title="find.length ? `已选择${find.length}张图片` : '我的图库'"
 		>
-			<template slot="title">我的图库 {{ find.length ? `已选择${find.length}张图片` : '请选择图片' }}</template>
-			<div class="loading" v-loading="lock" :element-loading-text="lock">
+			<div class="content">
+				<div class="loading" v-if="lock">
+					<Spin fix>
+						<Icon type="load-c" size=18 class="spin-icon-load"></Icon>
+						<p>{{ lock }}</p>
+					</Spin>
+				</div>
 				<ul
 					ref="list"
 					@scroll="onScroll"
@@ -32,15 +38,15 @@
 						@fail="fail"
 						@progress="progress"
 					>
-						<el-button :loading="lock ? true : false" type="primary">上传图片</el-button>
+						<iButton :loading="lock ? true : false" type="primary">上传图片</iButton>
 					</upload>
 				</div>
 				<div class="right">
-					<el-button @click="close">取 消</el-button>
-					<el-button :disabled="find.length == 0" type="primary" @click="onSubmit">确 定</el-button>
+					<iButton @click="close">取 消</iButton>
+					<iButton :disabled="find.length == 0" type="primary" @click="onSubmit">选择</iButton>
 				</div>
 			</span>
-		</el-dialog>
+		</Modal>
 		<slot></slot>
 	</div>
 </template>
@@ -50,8 +56,8 @@
 	import upload from './upload'
 	import { MULTIMEDIA_UPLOAD } from '../../store/api'
 	import multimedia_find from '../../store/modules/multimedia/find'
-	import store from '../../store'
-	store.registerModule('multimedia_find', multimedia_find);
+	import { registerModule } from '../../store'
+	registerModule('multimedia_find', multimedia_find);
 
 	export default {
 		components: {
@@ -222,11 +228,24 @@
 </style>
 <style lang="less">
 	.albumDialog {
-		width: 848px;
-		.el-dialog__body {
-			height: 400px;
-			border-box: box-sizing;
-			padding: 10px;
+		.content {
+			position: relative;
+			.loading {
+				position: absolute;
+				// background: #fff;
+				height: 100%;
+				width: 100%;
+				z-index: 1;
+				.spin-icon-load {
+					animation: ani-spin 1s linear infinite;
+				}
+				@keyframes ani-spin {
+					from { transform: rotate(0deg);}
+					50%  { transform: rotate(180deg);}
+					to   { transform: rotate(360deg);}
+				}
+			}
+
 		}
 	}
 </style>

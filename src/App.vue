@@ -1,6 +1,6 @@
 <template>
 	<div class="wrap">
-		<div v-if="token" class="main">
+		<div v-if="member.token" class="main">
 			<router-view name="topbar"></router-view>
 			<router-view name="sidebar"></router-view>
 			<router-view name="main" class="router-view"></router-view>
@@ -11,20 +11,24 @@
 </template>
 <script>
 	import store from './store'
-	import logout from './store/modules/user/logout'
-	import channel_query from './store/modules/channel/query'
-	store.registerModule('channel_query', channel_query);
-	store.registerModule('logout', logout);
+	import { mapActions, mapGetters, mapState } from 'vuex'
 	export default {
 		computed: {
-			token () {
-				return this.$store.state.token;
-			},
+			...mapGetters('user', [ 'member' ]),
+			...mapState('user', [ 'token' ])
 		},
-		beforeCreate () {
-			this.$store.dispatch('LOGIN_CHECK');
-			this.$store.dispatch('SELECT_CHANNEL');
+		mounted () {
+			this.checkLogin();
+			this.checkChannel();
 		},
+		methods: {
+			...mapActions('user', {
+				checkLogin: 'USER_LOGIN'
+			}),
+			...mapActions('channel', {
+				checkChannel: 'CHANNEL_CHECK'
+			})
+		}
 	}
 </script>
 

@@ -34,17 +34,21 @@
 	.confirmPopover {
 		.ivu-poptip-body-content {
 			color: #333;
-			height: 80px; // 设计稿为准
+			min-height: 80px; // 设计稿为准
 			display: flex;
 			flex-direction: column;
 			justify-content: space-between;
 			.body {
+				flex: 1;
 				display: flex;
+				// flex-wrap: wrap;
 				align-items: center;
+				white-space: normal;
+				// justify-content: center;
 				i {
 					color: red;
 					font-size: 20px;
-					padding: 10px;
+					padding-right: 10px;
 				}
 			}
 			.button {

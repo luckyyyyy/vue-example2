@@ -1,44 +1,35 @@
 /*
 * @Author: Administrator
 * @Date:   2017-01-06 02:33:52
-* @Last Modified by:   Administrator
-* @Last Modified time: 2017-02-25 14:49:11
+* @Last Modified by:   William Chan
+* @Last Modified time: 2017-03-19 04:57:02
 */
 
 'use strict';
 
 import { login } from '../../api/user'
-import { LOGIN } from '../../types'
+import { LOGIN, USER } from '../../types'
 
-const state = {
-	lock: false
-}
-
+const state = {}
 const getters = {}
 
 const actions = {
 	[LOGIN.REQUEST] ({ commit }, ...args) {
-		commit(LOGIN.REQUEST);
-		login(...args).then(res => {
-			commit(LOGIN.SUCCESS, res.data);
-		}).catch(err => {
-			commit(LOGIN.FAILURE, err);
+		return new Promise((resolve, reject) => {
+			login(...args).then(res => {
+				commit(USER.LOGIN, res.data, { root: true });
+				resolve();
+			}).catch(err => {
+				commit(USER.CLEAR, err, { root: true });
+				reject();
+			})
 		})
-	}
+	},
 }
 
-const mutations = {
-	[LOGIN.REQUEST] (state) {
-		state.lock = true
-	},
-	[LOGIN.SUCCESS] (state, { data }) {
-		state.lock = false;
-	},
-	[LOGIN.FAILURE] (state, err) {
-		state.lock = false;
-	},
-}
+const mutations = {}
 export default {
+	namespaced: true,
 	state,
 	getters,
 	actions,
