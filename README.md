@@ -23,7 +23,7 @@ DIRECTORY STRUCTURE
 INSTALLATION
 ------------
 
-## 准备工作
+### 准备工作
 
 请在工作环境安装好 nodejs 以及 npm包管理器 并克隆仓库至本地环境
 请修改npm镜像为taobao镜像 https://npm.taobao.org/
@@ -37,7 +37,7 @@ INSTALLATION
 "npm":  ">= 3.0.0"
 ```
 
-## Build Setup
+### Build Setup
 
 ``` bash
 # install dependencies
