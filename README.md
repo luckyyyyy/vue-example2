@@ -29,6 +29,7 @@ INSTALLATION
 请修改npm镜像为taobao镜像 https://npm.taobao.org/
 
 `npm config set registry https://registry.npm.taobao.org`
+
 `yarn config set registry https://registry.npm.taobao.org`
 
 ```
