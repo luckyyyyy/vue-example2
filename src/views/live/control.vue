@@ -162,12 +162,13 @@
 				const oncustomsysmsg     = this.onCustomSysMsg;
 				const onCustomServiceMsg = this.onCustomServiceMsg;
 				const ondisconnect       = this.onDisconnect;
-				this.imInit( { chatroomId, oncustomsysmsg, onCustomServiceMsg }).then(() => {
+				this.imInit( { chatroomId, oncustomsysmsg, onCustomServiceMsg, ondisconnect }).then(() => {
 					// join success
 					// console.log(1)
 				}).catch(() => {
-					this.$alert('初始化聊天室失败，请尝试重新加入，初始化失败将会影响中控台部分功能的使用。', '聊天室', {
-						type: 'error'
+					this.$error({
+						title: '聊天室',
+						content: '初始化聊天室失败，请尝试重新加入，初始化失败将会影响中控台部分功能的使用。'
 					})
 				})
 			},

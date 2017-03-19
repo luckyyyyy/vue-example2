@@ -2,7 +2,7 @@
 * @Author: William Chan
 * @Date:   2017-03-10 16:42:39
 * @Last Modified by:   William Chan
-* @Last Modified time: 2017-03-19 18:40:02
+* @Last Modified time: 2017-03-19 20:35:36
 */
 
 'use strict';
@@ -112,7 +112,8 @@ const actions = {
 				resolve();
 			}).catch(error => {
 				commit(IM_CHATROOM_INIT.FAILURE);
-				reject();
+				console.log(error)
+				reject(error);
 			})
 		})
 	},
@@ -137,7 +138,7 @@ const actions = {
 		commit(IM_INIT.FAILURE);
 	},
 	[IM_CHATROOM.DISCONNECT] ({ commit }) {
-		im_disconnect();
+		im_chatroom_disconnect();
 		commit(IM_CHATROOM_INIT.FAILURE);
 	},
 	[IM_CHATROOM_MSG.REQUEST] ({ commit }, text) {

@@ -2,7 +2,7 @@
 * @Author: William Chan
 * @Date:   2017-03-08 23:18:57
 * @Last Modified by:   William Chan
-* @Last Modified time: 2017-03-10 18:53:58
+* @Last Modified time: 2017-03-19 20:56:42
 */
 
 'use strict';
@@ -36,7 +36,6 @@ export const im_disconnect = () => {
 		nim.disconnect();
 		nim = undefined;
 	}
-	im_chatroom_disconnect();
 }
 export const im_chatroom_address = chatroomId => {
 	return new Promise((resolve, reject) => {

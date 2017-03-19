@@ -137,7 +137,7 @@
 				rules: LIVE_CREATE_RULES,
 				openDialog: false,
 				createAgree: true,
-				status: this.$route.params.status || 'public',
+				status: this.$route.params.status || 'private',
 				loading: false,
 				lock_create: false,
 			}
