@@ -45,14 +45,14 @@
 						<li>观看人数<span>12345</span></li>
 						<li>在线人数<span>12345</span></li>
 					</ul>
-					<div class="live-info-time">
+					<div class="live-info-status">
 						<div class="time">已经直播xxxxx分钟</div>
-						<template v-if="live.status == 0">
+						<template v-if="!live.publicStatus">
 							<iButton size="small" type="success" @click="onPublish">发布直播</iButton>
 						</template>
 						<template v-else>
 							<iButton size="small" type="error" @click="onFinish">结束直播</iButton>
-							<iButton size="small" type="primary" @click="onPublish">隐藏直播</iButton>
+							<iButton size="small" type="primary" @click="onPublish">取消发布</iButton>
 						</template>
 					</div>
 				</div>
@@ -318,11 +318,14 @@
 						}
 					}
 				}
-				.live-info-time {
+				.live-info-status {
 					display: flex;
 					.time {
 						color: white;
-						margin-right: 20px;
+						margin-right: 10px;
+					}
+					.ivu-btn {
+						margin-left: 5px;
 					}
 				}
 			}
