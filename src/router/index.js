@@ -2,7 +2,7 @@
 * @Author: William Chan
 * @Date:   2016-12-01 17:57:50
 * @Last Modified by:   William Chan
-* @Last Modified time: 2017-03-19 23:36:55
+* @Last Modified time: 2017-03-20 02:46:17
 */
 
 'use strict';
@@ -87,11 +87,11 @@ router.beforeEach(async (to, from, next) => {
 			}
 		}
 	}
-	if (!params) NProgress.done(true);
+	if (!params) NProgress.done();
 	next(params);
 })
 router.afterEach(route => {
-	NProgress.done(true);
+	NProgress.done();
 })
 
 export default router

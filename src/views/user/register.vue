@@ -56,7 +56,7 @@
 		methods: {
 			...mapActions('user/register', {
 				getCaptcha: 'REGISTER_CAPTCHA_REQUEST',
-				register: 'REGISTER_REQUEST'
+				registerUser: 'REGISTER_REQUEST'
 			}),
 			clearInterval () {
 				if (this.clearInterval) {
@@ -109,7 +109,7 @@
 				this.$refs.register.validate(valid => {
 					if (valid) {
 						this.lock = true;
-						this.register(this.register).then(() => {
+						this.registerUser(this.register).then(() => {
 							this.lock = false;
 							this.$router.push({ name: 'register_seccuss' });
 						}).catch(() => {
