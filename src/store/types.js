@@ -1,8 +1,8 @@
 /*
 * @Author: William Chan
 * @Date:   2016-12-03 20:43:22
-* @Last Modified by:   William Chan
-* @Last Modified time: 2017-03-19 17:24:43
+* @Last Modified by:   Administrator
+* @Last Modified time: 2017-03-21 00:51:21
 */
 
 'use strict';
@@ -17,7 +17,7 @@ const export_var = (enumerate, ...args) => {
 	return data;
 }
 // user
-export const USER                   = export_var('USER', 'LOGIN', 'LOGOUT', 'CLEAR', 'UPDATE', 'AVATAR_UPDATE');
+export const USER                   = export_var('USER', 'LOGIN', 'LOGOUT', 'CLEAR', 'UPDATE', 'UPDATE_AVATAR');
 export const LOGIN                  = export_var('LOGIN');
 export const REGISTER               = export_var('REGISTER');
 export const REGISTER_CAPTCHA       = export_var('REGISTER_CAPTCHA', 'COUNTDOWN');
