@@ -1,62 +1,66 @@
 <template>
-<!-- 	<div class="view">
-		<div class="left">
-			授权观看：<el-switch @change="switchChange" v-model="enable" on-text="开" off-text="关" on-color="#87D068"></el-switch>
+	<div class="view">
+		<div class="switch">
+			<p>授权观看：</p>
+			<iSwitch size="large" @on-change="switchChange" v-model="enable">
+				<span slot="open">开启</span>
+				<span slot="close">关闭</span>
+			</iSwitch>
+		</div>
+		<div class="body">
 			<template v-if="enable">
-				<div class="radio">
-					<p>选择授权类型：</p>
-					<el-radio-group v-model="authorize">
-						<el-tooltip class="item" effect="dark" content="用户可以无限制进入直播间" placement="bottom">
-							<el-radio :label="1">无限制</el-radio>
-						</el-tooltip>
-						<el-radio :label="2">验证码观看</el-radio>
-						<el-radio :label="3">付费观看</el-radio>
-					</el-radio-group>
-					<div class="setting">
-						<template v-if="authorize == 2">
-							<el-form ref="ruleForm2" label-width="100px" class="demo-ruleForm">
-								<el-form-item label="提示文字:">
-									<el-input></el-input>
-								</el-form-item>
-								<el-form-item label="自定义验证码:">
-									<el-input>
-									</el-input>
-								</el-form-item>
-								<el-form-item>
-									<el-button type="primary">保存</el-button>
-								</el-form-item>
-							</el-form>
-						</template>
-						<template v-if="authorize == 3">
-							<el-form ref="ruleForm2" label-width="100px" class="demo-ruleForm">
-								<el-form-item label="提示文字:">
-									<el-input></el-input>
-								</el-form-item>
-								<el-form-item label="观看价格:">
-									<el-input>
-										<template slot="append">元</template>
-									</el-input>
-								</el-form-item>
-								<el-form-item>
-									<el-button type="primary">保存</el-button>
-								</el-form-item>
-							</el-form>
-						</template>
+				<p class="tips">爱爱爱爱</p>
+				<div class="action">
+					<div class="form">
+						<RadioGroup v-model="authorize">
+							<Radio :label="1">
+								<Icon type="social-apple"></Icon>
+								<span>无限制</span>
+							</Radio>
+							<Radio :label="2">
+								<Icon type="social-android"></Icon>
+								<span>验证码观看</span>
+							</Radio>
+							<Radio :label="3">
+								<Icon type="social-windows"></Icon>
+								<span>付费观看</span>
+							</Radio>
+						</RadioGroup>
+						<div class="setting">
+							<template v-if="authorize == 2">
+								<iForm label-position="left" ref="form" :model="form" :label-width="100">
+									<FormItem label="提示文字：">
+										<iInput v-model="form.name" placeholder="不超过10个字符"></iInput>
+									</FormItem>
+									<FormItem label="自定义验证码：">
+										<iInput v-model="form.name" placeholder="aaaaa"></iInput>
+									</FormItem>
+								</iForm>
+							</template>
+							<template v-if="authorize == 3">
+								<iForm label-position="left" ref="form" :model="form" :label-width="100">
+									<FormItem label="提示文字：">
+										<iInput v-model="form.name" placeholder="不超过10个字符"></iInput>
+									</FormItem>
+									<FormItem label="观看价格：">
+										<iInput v-model="form.name" placeholder="aaaaa"></iInput>
+									</FormItem>
+								</iForm>
+							</template>
+						</div>
+					</div>
+					<div class="iPhone-bg">
+						<div class="iPhone-view">
+							<!-- TODO IMG -->
+						</div>
 					</div>
 				</div>
 			</template>
 			<template v-else>
+				<p class="tips">不不不不</p>
 			</template>
 		</div>
-		<div class="right">
-			<template v-if="enable">
-				<div class="iPhone-bg">
-					<div class="iPhone-view">
-					</div>
-				</div>
-			</template>
-		</div>
-	</div> -->
+	</div>
 </template>
 
 <script>
@@ -84,29 +88,5 @@
 </script>
 
 <style scoped lang="less">
-	.left {
-		width: 510px;
-		.tips {
-			font-size: 12px;
-			color: #999;
-		}
-		.radio {
-			margin-top: 30px;
-			margin-left: 10px;
-			.el-radio {
-				margin: 0 30px;
-			}
-			.setting {
-				margin-top: 30px;
-			}
-		}
-	}
-	.view {
-		display: flex;
-		.right {
-			margin-left: 30px;
-			.iPhone-view {
-			}
-		}
-	}
+	@import url('../../assets/styles/live/detail.less');
 </style>

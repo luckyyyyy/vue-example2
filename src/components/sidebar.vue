@@ -32,17 +32,17 @@ export default {
 			debug: localStorage.getItem('debug') ? true : false,
 			sidebar: [
 				{ item: '<i class="iconfont icon-rank"></i>概况', name: 'index' },
-				{ item: '<i class="iconfont icon-list"></i>频道', name: 'index' },
+				{ item: '<i class="iconfont icon-list"></i>频道', name: 'index2' },
 				{ item: '<i class="iconfont icon-video"></i>直播', name: 'live', sub: [
 					{ item: '直播列表', name: 'live_list' },
 					{ item: '直播间模板', name: 'live_template' },
 					{ item: '回放列表', name: 'video_list' },
 				] },
-				{ item: '<i class="iconfont icon-shop"></i>电商', name: 'shop', sub: [
-					{ item: '商品', name: 'store_shop_list' },
-					{ item: '订单', name: 'store_order_list' },
-					{ item: '设置', name: 'store_setting' },
-				] },
+				// { item: '<i class="iconfont icon-shop"></i>电商', name: 'shop', sub: [
+				// 	{ item: '商品', name: 'store_shop_list' },
+				// 	{ item: '订单', name: 'store_order_list' },
+				// 	{ item: '设置', name: 'store_setting' },
+				// ] },
 				{ item: '<i class="iconfont icon-recharge"></i>账户', name: 'account', sub: [
 					{ item: '账户总览', name: 'account_overview' },
 					{ item: '账户升级', name: 'account_upgrade' },
@@ -50,7 +50,7 @@ export default {
 					{ item: '立即充值', name: 'account_recharge' },
 					{ item: '我的收入', name: 'account_income' },
 				] },
-				{ item: '<i class="iconfont icon-circle"></i>营销', name: 'index2' },
+				// { item: '<i class="iconfont icon-circle"></i>营销', name: 'index2' },
 			],
 		}
 	},
@@ -99,7 +99,7 @@ export default {
 }
 </script>
 
-<style lang="less">
+<style lang="less" scoped>
 	.sidebar {
 		z-index: 222;
 		position: fixed;

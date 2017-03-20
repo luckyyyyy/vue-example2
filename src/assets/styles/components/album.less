@@ -1,0 +1,122 @@
+.content {
+	position: relative;
+	min-height: 400px;
+	.loading {
+		position: absolute;
+		// background: #fff;
+		height: 100%;
+		width: 100%;
+		z-index: 2;
+		.spin-icon-load {
+			animation: ani-spin 1s linear infinite;
+		}
+		@keyframes ani-spin {
+			from { transform: rotate(0deg);}
+			50%  { transform: rotate(180deg);}
+			to   { transform: rotate(360deg);}
+		}
+	}
+	.empty {
+		position: absolute;
+		height: 100%;
+		width: 100%;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		color: #0389ff;
+		font-size: 16px;
+	}
+}
+.dialog-footer {
+	display: flex;
+	justify-content: space-between;
+}
+.list {
+	display: flex;
+	flex-wrap: wrap;
+	max-height: 410px;
+	height: auto;
+	overflow: auto;
+	// justify-content: center;
+	// align-items: center;
+	&.lock {
+		overflow: hidden;
+	}
+	li {
+		margin: 8px;
+		position: relative;
+		width: 85px;
+		height: 85px;
+		user-select: none;
+		.icon {
+			visibility: hidden;
+			position: absolute;
+			top: 3px;
+			right: 5px;
+			opacity: 0;
+			transition: opacity .2s ease;
+			&:after {
+				content: "";
+				position: absolute;
+				left: 5px;
+				top: 5px;
+				height: 12px;
+				width: 12px;
+				background: #fff;
+			}
+			i.ivu-icon {
+				position: relative;
+				z-index: 1;
+				font-size: 24px;
+				color: #39f;
+			}
+		}
+
+		&:after {
+			position: absolute;
+			content: "";
+			height: 100%;
+			left: 0;
+			top: 0;
+			width: 100%;
+			border: 1px solid fadeout(#39f, 20%);
+			visibility: hidden;
+			box-sizing: border-box;
+			cursor: pointer;
+			transition: border .2s ease;
+		}
+		&:hover, &.select {
+			&:after {
+				visibility: visible;
+			}
+		}
+		&.select {
+			&:after {
+				border: 3px solid #39f;
+			}
+			.icon {
+				visibility: visible;
+				opacity: 1;
+			}
+		}
+		img {;
+			width: 85px;
+			height: 85px;
+		}
+		span {
+			position: absolute;
+			width: 100%;
+			height: 20px;
+			line-height: 20px;
+			padding: 0 10px;
+			box-sizing: border-box;
+			text-overflow: ellipsis;
+			overflow: hidden;
+			bottom: 0;
+			left: 0;
+			background: rgba(0, 0, 0, .3);
+			color: white;
+			text-align: center;
+		}
+	}
+}

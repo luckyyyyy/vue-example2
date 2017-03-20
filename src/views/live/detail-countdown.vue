@@ -1,73 +1,70 @@
 <template>
 	<div class="view">
-		<div class="left">
-			<div class="switch">
-				<p>倒计时开关：</p>
-				<iSwitch size="large" @on-change="switchChange" v-model="enable">
-					<span slot="open">开启</span>
-					<span slot="close">关闭</span>
-				</iSwitch>
-			</div>
-
+		<div class="switch">
+			<p>倒计时开关：</p>
+			<iSwitch size="large" @on-change="switchChange" v-model="enable">
+				<span slot="open">开启</span>
+				<span slot="close">关闭</span>
+			</iSwitch>
+		</div>
+		<div class="body">
 			<template v-if="enable">
 				<p class="tips">如果关闭，将影响用户点击进入直播间的效果，同时没有提醒观看的功能。</p>
-				<iForm label-position="left" ref="form" :model="form" :label-width="100" class="form">
-					<FormItem label="直播提示文字:">
-						<iInput v-model="form.name" placeholder="不超过10个字符"></iInput>
-					</FormItem >
-					<FormItem label="直播开始时间:">
-						<div class="block">
-							<DatePicker
-								type="datetime"
-								format="yyyy-MM-dd HH:mm"
-								placeholder="选择日期时间"
-								v-model="form.date"
-								:options="pickerOptions0"
-								@on-change="onChange"
-								:editable="false"
-								:clearable="false"
-								size="large"
-							></DatePicker>
-						</div>
-					</FormItem >
-					<p class="datetime">倒计时剩余时间：
-						<template v-if="countDown.start">
-							开始时间大于当前时间，直播已开始。
-						</template>
-						<template v-else>
-							<span class="days">{{ countDown.d }}</span>天
-							<span class="hours">{{ countDown.h }}</span>时
-							<span class="minutes">{{ countDown.m }}</span>分
-							<span class="seconds">{{ countDown.s }}</span>秒
-						</template>
-					</p>
-				</iForm>
-			</template>
-			<template v-else>
-				<p class="tips">倒计时功能开启时，会以倒计时形式（xx天xx时xx分xx秒）显示在直播页面</p>
-			</template>
-		</div>
-		<div class="right">
-			<template v-if="enable">
-				<div class="iPhone-bg">
-					<div class="iPhone-view">
-						<p class="title">{{ form.name || '直播开始文字' }}</p>
-						<div class="time">
-							<div class="tips">距离直播开始还剩</div>
-							<div class="datetime">
-								<template v-if="countDown.start">
-									开始时间大于当前时间，直播已开始。
-								</template>
-								<template v-else>
-									<span class="days">{{ countDown.d }}</span>天
-									<span class="hours">{{ countDown.h }}</span>时
-									<span class="minutes">{{ countDown.m }}</span>分
-									<span class="seconds">{{ countDown.s }}</span>秒
-								</template>
+				<div class="action">
+					<iForm label-position="left" ref="form" :model="form" :label-width="100" class="form">
+						<FormItem label="提示文字：">
+							<iInput v-model="form.name" placeholder="不超过10个字符"></iInput>
+						</FormItem >
+						<FormItem label="直播开始时间：">
+							<div class="block">
+								<DatePicker
+									type="datetime"
+									format="yyyy-MM-dd HH:mm"
+									placeholder="选择日期时间"
+									v-model="form.date"
+									:options="pickerOptions0"
+									@on-change="onChange"
+									:editable="false"
+									:clearable="false"
+									size="large"
+								></DatePicker>
+							</div>
+						</FormItem>
+						<p class="datetime">倒计时剩余时间：
+							<template v-if="countDown.start">
+								开始时间大于当前时间，直播已开始。
+							</template>
+							<template v-else>
+								<span class="days">{{ countDown.d }}</span>天
+								<span class="hours">{{ countDown.h }}</span>时
+								<span class="minutes">{{ countDown.m }}</span>分
+								<span class="seconds">{{ countDown.s }}</span>秒
+							</template>
+						</p>
+					</iForm>
+					<div class="iPhone-bg">
+						<div class="iPhone-view">
+							<p class="title">{{ form.name || '直播开始文字' }}</p>
+							<div class="time">
+								<div class="tips">距离直播开始还剩</div>
+								<div class="datetime">
+									<template v-if="countDown.start">
+										开始时间大于当前时间，直播已开始。
+									</template>
+									<template v-else>
+										<span class="days">{{ countDown.d }}</span>天
+										<span class="hours">{{ countDown.h }}</span>时
+										<span class="minutes">{{ countDown.m }}</span>分
+										<span class="seconds">{{ countDown.s }}</span>秒
+									</template>
+								</div>
 							</div>
 						</div>
 					</div>
 				</div>
+			</template>
+			<template v-else>
+				<p class="tips">倒计时功能开启时，会以倒计时形式（xx天xx时xx分xx秒）显示在直播页面</p>
 			</template>
 		</div>
 	</div>
@@ -75,6 +72,7 @@
 
 <script>
 	import moment from 'moment'
+	import { mapState } from 'vuex'
 	export default {
 		data () {
 			return {
@@ -100,6 +98,9 @@
 			}
 		},
 		computed: {
+			...mapState('live', {
+				liveCountDown: state => state.live.liveCountDown
+			})
 		},
 		mounted () {
 			this.setInterval = setInterval(() => {
@@ -134,43 +135,5 @@
 </script>
 
 <style scoped lang="less">
-	.left {
-		width: 520px;
-		.tips {
-			font-size: 12px;
-			color: #999;
-		}
-		.form {
-			margin-top: 30px;
-			margin-left: 10px;
-		}
-		.datetime {
-			margin-left: 120px;
-			span {
-				padding: 5px;
-			}
-		}
-	}
-	.view {
-		display: flex;
-		.right {
-			margin-left: 30px;
-			.iPhone-view {
-				color: white;
-				text-align: center;
-				.title {
-					padding-top: 200px;
-				}
-				.time {
-					font-size: 12px;
-					.datetime {
-						span {
-							padding: 5px;
-							color: #b73d6a;
-						}
-					}
-				}
-			}
-		}
-	}
+	@import url('../../assets/styles/live/detail.less');
 </style>

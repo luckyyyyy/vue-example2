@@ -24,7 +24,9 @@
 				</div>
 			</div>
 		</div>
-		<router-view class="commoon-view"></router-view>
+		<transition name="fade" mode="out-in">
+			<router-view class="commoon-view"></router-view>
+		</transition>
 	</div>
 </template>
 

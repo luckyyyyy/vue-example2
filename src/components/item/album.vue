@@ -2,7 +2,6 @@
 	<div>
 		<Modal
 			v-model="visible"
-			className="albumDialog"
 			:mask-closable="false"
 			:closable="false"
 			:width="848"
@@ -19,12 +18,24 @@
 					ref="list"
 					@scroll="onScroll"
 					class="list"
+					v-if="data.length > 0"
 				>
-					<li v-for="item in data" :title="item.name" @click="onSelect(item.id, !select[item.id])" :class="{ select: select[item.id] }">
+					<li
+						v-for="item of data"
+						:title="item.name"
+						@click="onSelect(item.id, !select[item.id])"
+						:class="{ select: select[item.id] }"
+					>
 						<img :src="item.url">
 						<span>{{ item.name }}</span>
+						<div class="icon">
+							<Icon type="checkmark-circled"></Icon>
+						</div>
 					</li>
 				</ul>
+				<div v-else class="empty">
+					还没有图片呢，点击左下角上传吧。
+				</div>
 			</div>
 			<span slot="footer" class="dialog-footer">
 				<div class="left">
@@ -162,90 +173,5 @@
     }
 </script>
 <style lang="less" scoped>
-	.dialog-footer {
-		display: flex;
-		justify-content: space-between;
-	}
-	.list {
-		display: flex;
-		flex-wrap: wrap;
-		max-height: 410px;
-		height: auto;
-		overflow: auto;
-		// justify-content: center;
-		// align-items: center;
-		&.lock {
-			overflow: hidden;
-		}
-		li {
-			margin: 8px;
-			position: relative;
-			width: 85px;
-			height: 85px;
-			&:after {
-				position: absolute;
-				content: "";
-				height: 100%;
-				left: 0;
-				top: 0;
-				width: 100%;
-				border: 2px solid red;
-				visibility: hidden;
-				box-sizing: border-box;
-				cursor: pointer;
-			}
-			&:hover, &.select {
-				&:after {
-					visibility: visible;
-				}
-			}
-			&.select {
-				&:after {
-					border: 3px solid red;
-				}
-			}
-			img {;
-				width: 85px;
-				height: 85px;
-			}
-			span {
-				position: absolute;
-				width: 100%;
-				height: 20px;
-				line-height: 20px;
-				padding: 0 10px;
-				box-sizing: border-box;
-				text-overflow: ellipsis;
-				overflow: hidden;
-				bottom: 0;
-				left: 0;
-				background: rgba(0, 0, 0, .3);
-				color: white;
-				text-align: center;
-			}
-		}
-	}
-</style>
-<style lang="less">
-	.albumDialog {
-		.content {
-			position: relative;
-			.loading {
-				position: absolute;
-				// background: #fff;
-				height: 100%;
-				width: 100%;
-				z-index: 1;
-				.spin-icon-load {
-					animation: ani-spin 1s linear infinite;
-				}
-				@keyframes ani-spin {
-					from { transform: rotate(0deg);}
-					50%  { transform: rotate(180deg);}
-					to   { transform: rotate(360deg);}
-				}
-			}
-
-		}
-	}
+	@import url('../../assets/styles/components/album.less');
 </style>
