@@ -21,27 +21,24 @@
 						<MenuItem v-for="(value, key) in typeClass" :key="key" :name="key | number">{{ value }}</MenuItem>
 					</Menu>
 				</div>
-				<ul
-					ref="list"
-					@scroll="onScroll"
-					class="list"
-					v-if="data.length > 0"
-				>
-					<li
-						v-for="item of data"
-						:title="item.name"
-						@click="onSelect(item.id, !select[item.id])"
-						:class="{ select: select[item.id] }"
-					>
-						<img :src="item.url">
-						<span>{{ item.name }}</span>
-						<div class="icon">
-							<Icon type="checkmark-circled"></Icon>
-						</div>
-					</li>
-				</ul>
-				<div v-else class="empty">
-					<div v-if="empty">
+				<div class="list" ref="list" v-show="data.length > 0">
+					<ul ref="listbar">
+						<li
+							v-for="item of data"
+							:title="item.name"
+							@click="onSelect(item.id, !select[item.id])"
+							:class="{ select: select[item.id] }"
+						>
+							<img :src="item.url">
+							<span>{{ item.name }}</span>
+							<div class="icon">
+								<Icon type="checkmark-circled"></Icon>
+							</div>
+						</li>
+					</ul>
+				</div>
+				<div v-show="!data.length || loading" class="empty">
+					<div v-if="!loading">
 						<Icon type="images" :size="40"></Icon>
 						<p>还没有图片呢，点击左下角上传吧。</p>
 					</div>
@@ -110,12 +107,13 @@
 				option: MULTIMEDIA_UPLOAD,
 				find: [],
 				lock: false,
+				loading: true,
 				menu: this.type,
 				typeClass: MULTIMEDIA_TYPE
 			}
 		},
 		computed : {
-			...mapState ('multimedia', ['data', 'empty']),
+			...mapState ('multimedia', ['data']),
 			select () {
 				let select = [];
 				for (let obj of this.find) {
@@ -134,7 +132,8 @@
 			success (data) {
 				this.multimediaInsert(data);
 				this.lock = false;
-				this.$refs.list.scrollTop = 0;
+				this.$refs.listbar.scrollTop = 0;
+				this.listScroll.refresh();
 			},
 			fail () {
 				this.lock = false;
@@ -169,17 +168,30 @@
 					}
 				}
 			},
-			onScroll (e) {
-				const el = e.target;
-				if (el.scrollHeight - el.scrollTop - el.offsetHeight < 100) {
-					this.getImages();
-				}
-			},
 			onSelectMenu (val) {
 				this.menu = val;
 			},
-			getImages (type) {
-				this.getMultimedia(type);
+			getImages (type, reload) {
+				this.loading = true;
+				this.getMultimedia({ type, reload }).then(data => {
+					this.loading = false;
+					if (!this.listScroll) {
+						this.listScroll = new iscroll(this.$refs.list, {
+							mouseWheel: true,
+							scrollbars: true,
+							fadeScrollbars: true,
+							interactiveScrollbars: true,
+							shrinkScrollbars: 'clip',
+						})
+						this.listScroll.on('scrollEnd', () => {
+							this.getImages(this.menu);
+						});
+					} else {
+						this.listScroll.refresh();
+					}
+				}).catch(() => {
+					this.loading = false;
+				})
 			},
 			close () {
 				this.visible = false;
@@ -189,8 +201,8 @@
 		watch: {
 			value (val) {
 				if (val) {
-					if (!this.myScroll) {
-						this.myScroll = new iscroll(this.$refs.menu, {
+					if (!this.menuScroll) {
+						this.menuScroll = new iscroll(this.$refs.menu, {
 							mouseWheel: true,
 							scrollbars: true,
 							// fadeScrollbars: true,
@@ -198,17 +210,17 @@
 							shrinkScrollbars: 'clip'
 						})
 						this.$nextTick(() => {
-							this.myScroll.refresh();
+							this.menuScroll.refresh();
 						})
 					}
 					this.find = [];
-					this.getImages(this.menu);
+					this.getImages(this.menu, true);
 				}
 				this.visible = val;
 			},
 			menu (val) {
 				this.find = [];
-				this.getImages(this.menu);
+				this.getImages(this.menu, true);
 			}
 		},
 		filters: {
