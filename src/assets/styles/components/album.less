@@ -12,9 +12,10 @@
 	}
 	.content {
 		position: relative;
-		min-height: 410px;
+		height: 410px;
 		display: flex;
 		background: #edf1f5;
+		overflow: auto;
 		.loading {
 			position: absolute;
 			// background: #fff;
@@ -22,9 +23,18 @@
 			width: 100%;
 			z-index: 2;
 		}
-		.album__menu {
+		.menu {
+			z-index: 1;
+			width: 110px;
 			height: 410px;
-			overflow: auto;
+			position: relative;
+			overflow: hidden;
+			background: #464c5b;
+		}
+		.album__menu {
+			// position: relative;
+			// height: 0;
+			// overflow: hidden;
 			.ivu-menu-item {
 				padding: 10px 20px;
 			}

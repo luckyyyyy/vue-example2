@@ -15,9 +15,12 @@
 						<p>{{ lock }}</p>
 					</Spin>
 				</div>
-				<Menu class="album__menu" theme="dark" :activeName="menu" width="110px" @on-select="onSelectMenu">
-					<MenuItem v-for="(value, key) in typeClass" :key="key" :name="key | number">{{ value }}</MenuItem>
-				</Menu>
+
+				<div class="menu" ref="menu">
+					<Menu class="album__menu" theme="dark" :activeName="menu" width="110px" @on-select="onSelectMenu">
+						<MenuItem v-for="(value, key) in typeClass" :key="key" :name="key | number">{{ value }}</MenuItem>
+					</Menu>
+				</div>
 				<ul
 					ref="list"
 					@scroll="onScroll"
@@ -74,6 +77,7 @@
 </template>
 
 <script>
+	import iscroll from 'iscroll'
 	import { mapState, mapActions, mapMutations } from 'vuex';
 	import upload from './upload'
 	import { MULTIMEDIA_UPLOAD } from '../../store/api'
@@ -185,6 +189,18 @@
 		watch: {
 			value (val) {
 				if (val) {
+					if (!this.myScroll) {
+						this.myScroll = new iscroll(this.$refs.menu, {
+							mouseWheel: true,
+							scrollbars: true,
+							// fadeScrollbars: true,
+							interactiveScrollbars: true,
+							shrinkScrollbars: 'clip'
+						})
+						this.$nextTick(() => {
+							this.myScroll.refresh();
+						})
+					}
 					this.find = [];
 					this.getImages(this.menu);
 				}
