@@ -26,7 +26,7 @@
 						<li
 							v-for="item of data"
 							:title="item.name"
-							@click="onSelect(item.id, !select[item.id])"
+							@click="onSelect(item, !select[item.id])"
 							:class="{ select: select[item.id] }"
 						>
 							<img :src="item.url">
@@ -115,9 +115,13 @@
 		computed : {
 			...mapState ('multimedia', ['data']),
 			select () {
+				let images = [];
 				let select = [];
-				for (let obj of this.find) {
-					select[obj] = true;
+				for (let item of this.data) {
+					images[item.id] = item;
+				}
+				for (let id of this.find) {
+					select[id] = images[id];
 				}
 				return select;
 			}
@@ -146,23 +150,23 @@
 
 			},
 			onSubmit () {
-				this.$emit('submit', this.find);
+				this.$emit('submit', this.find, this.select);
 				this.close();
 			},
-			onSelect (id, selected) {
+			onSelect (item, selected) {
 				if (selected) {
 					if (this.multiple) {
 						if (this.find.length >= this.multiple) {
 							this.$message(`最多只能选择${this.multiple}张`)
 						} else {
-							this.find.push(id);
+							this.find.push(item.id);
 						}
 					} else {
 						this.find = [];
-						this.find.push(id);
+						this.find.push(item.id);
 					}
 				} else {
-					const index = this.find.indexOf(id);
+					const index = this.find.indexOf(item.id);
 					if (index > -1) {
 						this.find.splice(index, 1);
 					}
