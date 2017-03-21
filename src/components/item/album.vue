@@ -22,7 +22,7 @@
 					</Menu>
 				</div>
 				<div class="list" ref="list" v-show="data.length > 0">
-					<ul ref="listbar">
+					<ul>
 						<li
 							v-for="item of data"
 							:title="item.name"
@@ -48,7 +48,7 @@
 					</div>
 				</div>
 			</div>
-			<span slot="footer" class="dialog-footer">
+			<div slot="footer" class="dialog-footer">
 				<div class="left">
 		 			<upload
 		 				:type="menu"
@@ -67,7 +67,7 @@
 					<iButton @click="close">取 消</iButton>
 					<iButton :disabled="find.length == 0" type="primary" @click="onSubmit">选择</iButton>
 				</div>
-			</span>
+			</div>
 		</Modal>
 		<slot></slot>
 	</div>
@@ -132,7 +132,7 @@
 			success (data) {
 				this.multimediaInsert(data);
 				this.lock = false;
-				this.$refs.listbar.scrollTop = 0;
+				this.listScroll.scrollTo(0, 0, 100);
 				this.listScroll.refresh();
 			},
 			fail () {
@@ -187,6 +187,9 @@
 							this.getImages(this.menu);
 						});
 					} else {
+						if (reload) {
+							this.listScroll.scrollTo(0, 0);
+						}
 						this.listScroll.refresh();
 					}
 				}).catch(() => {
@@ -205,11 +208,11 @@
 						this.menuScroll = new iscroll(this.$refs.menu, {
 							mouseWheel: true,
 							scrollbars: true,
-							// fadeScrollbars: true,
+							fadeScrollbars: true,
 							interactiveScrollbars: true,
 							shrinkScrollbars: 'clip'
 						})
-						this.$nextTick(() => {
+						this.$nextTick(() => { // 不知道什么BUG
 							this.menuScroll.refresh();
 						})
 					}
