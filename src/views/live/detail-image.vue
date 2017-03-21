@@ -12,7 +12,7 @@
 				<p class="tips">此图片显示在进入直播页面之前，用于展示直播相关介绍内容。</p>
 				<div class="action">
 					<div class="form">
-						<Album class="upload" @submit="selectAlbum" v-model="album">
+						<Album class="upload" @submit="selectAlbum" v-model="album" :type="3">
 							<iButton type="primary" @click="openAlbum">点击上传图片</iButton>
 							<p class="tips">
 								<Icon type="android-warning"></Icon> 因手机机型众多，为保证图片正常展示，请严格按照 1080*1740 像素上传图片。图片大小4M以内支持扩展名：.png .jpg .jpeg

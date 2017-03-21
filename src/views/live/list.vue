@@ -124,10 +124,9 @@
 	import qrcodePopover from '../../components/item/qrcodePopover'
 	import confirmPopover from '../../components/item/confirmPopover'
 	import { LIVE_CREATE_RULES } from '../../options/rules'
-	import Album from '../../components/item/album'
 	export default {
 		components: {
-			qrcodePopover, confirmPopover, Album
+			qrcodePopover, confirmPopover
 		},
 		data () {
 			return {
