@@ -1,6 +1,8 @@
 <template>
 	<div :class="{ lock: lock }" class="chatroom">
-	 <Spin fix v-if="!init && !lock"></Spin>
+	 <Spin fix v-if="!init && !lock">
+	 	正在进入聊天室
+	 </Spin>
 		<div class="lock__btn" v-if="lock">
 			  <iButton @click="onJoinChatroom" type="text">重新连接聊天室</iButton>
 		</div>
