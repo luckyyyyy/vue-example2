@@ -1,8 +1,8 @@
 /*
 * @Author: Administrator
 * @Date:   2017-02-25 14:58:36
-* @Last Modified by:   William Chan
-* @Last Modified time: 2017-03-19 17:45:04
+* @Last Modified by:   Administrator
+* @Last Modified time: 2017-03-22 03:43:20
 */
 
 'use strict';
@@ -45,8 +45,18 @@ export const live_finish = ({ id }) => {
 export const live_public = ({ id }) => {
 	return http.put(`live/public/${id}`)
 }
-
-
+// PUT /api/v1/live/update/count_down/{id}
+export const live_count_down = ({ id, countDownStatus, liveBeginTime, liveHint }) => {
+	return http.put(`live/update/count_down/${id}`, { countDownStatus, liveBeginTime, liveHint })
+}
+// PUT /api/v1/live/update/guide/{id}
+export const live_guide = ({ id, guideStatus, guideImageId }) => {
+	return http.put(`live/update/guide/${id}`, { guideStatus, guideImageId })
+}
+// PUT /api/v1/live/update/share/{id}
+export const live_share = ({ id, shareStatus, shareImageId, shareTitle, shareContent }) => {
+	return http.put(`live/update/share/${id}`, { shareStatus, shareImageId, shareTitle, shareContent })
+}
 
 
 

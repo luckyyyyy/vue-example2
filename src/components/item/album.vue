@@ -5,7 +5,7 @@
 			v-model="visible"
 			:mask-closable="false"
 			:closable="false"
-			:width="830"
+			:width="820"
 			:title="find.length ? `已选择${find.length}张图片` : '我的图库'"
 		>
 			<div class="content">

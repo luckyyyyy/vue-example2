@@ -2,7 +2,7 @@
 * @Author: William Chan
 * @Date:   2016-12-03 20:43:22
 * @Last Modified by:   Administrator
-* @Last Modified time: 2017-03-21 00:51:21
+* @Last Modified time: 2017-03-22 03:44:28
 */
 
 'use strict';
@@ -43,6 +43,7 @@ export const LIVE_DELETE            = export_var('LIVE_DELETE');
 export const LIVE_TRASH             = export_var('LIVE_TRASH');
 export const LIVE_FINISH            = export_var('LIVE_FINISH');
 export const LIVE_PUBLIC            = export_var('LIVE_PUBLIC');
+export const LIVE_DETAIL            = export_var('LIVE_DETAIL', 'COUNTDOWN', 'GUIDE', 'SHARE');
 
 // weixin
 export const WEXIN_AUTH_URL         = export_var('WEXIN_AUTH_URL');

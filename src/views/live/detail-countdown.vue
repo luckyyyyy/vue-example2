@@ -2,7 +2,7 @@
 	<div class="view">
 		<div class="switch">
 			<p>倒计时开关：</p>
-			<iSwitch size="large" @on-change="switchChange" v-model="enable">
+			<iSwitch size="large" @on-change="onChange" v-model="enable">
 				<span slot="open">开启</span>
 				<span slot="close">关闭</span>
 			</iSwitch>
@@ -13,7 +13,7 @@
 				<div class="action">
 					<iForm label-position="left" ref="form" :model="form" :label-width="100" class="form">
 						<FormItem label="提示文字：">
-							<iInput v-model="form.name" placeholder="不超过10个字符"></iInput>
+							<iInput @on-change="onChange" v-model="form.liveHint" placeholder="不超过10个字符"></iInput>
 						</FormItem >
 						<FormItem label="直播开始时间：">
 							<div class="block">
@@ -21,11 +21,12 @@
 									type="datetime"
 									format="yyyy-MM-dd HH:mm"
 									placeholder="选择日期时间"
-									v-model="form.date"
-									:options="pickerOptions0"
-									@on-change="onChange"
+									v-model="form.liveBeginTime"
+									:options="pickerOptions"
+									@on-ok="onChange"
 									:editable="false"
 									:clearable="false"
+									:confirm="false"
 									size="large"
 								></DatePicker>
 							</div>
@@ -44,7 +45,7 @@
 					</iForm>
 					<div class="iPhone-bg">
 						<div class="iPhone-view">
-							<p class="title">{{ form.name || '直播开始文字' }}</p>
+							<p class="title">{{ form.liveHint || '直播开始文字' }}</p>
 							<div class="time">
 								<div class="tips">距离直播开始还剩</div>
 								<div class="datetime">
@@ -72,15 +73,11 @@
 
 <script>
 	import moment from 'moment'
-	import { mapState } from 'vuex'
+	import { mapState, mapActions } from 'vuex'
 	export default {
 		data () {
 			return {
-				setInterval: '',
-				form: {
-					name: '',
-					date: moment().add(30, 'm').toDate()
-				},
+				form: {},
 				countDown: {
 					start: false,
 					d: 0,
@@ -88,8 +85,7 @@
 					m: 0,
 					s: 0,
 				},
-				enable: true,
-				pickerOptions0: {
+				pickerOptions: {
 					disabledDate (date) {
 						return date && date.valueOf() < Date.now() - 86400000;
 						// return time.getTime() < Date.now() - 8.64e7;
@@ -98,15 +94,24 @@
 			}
 		},
 		computed: {
-			...mapState('live', {
-				liveCountDown: state => state.live.liveCountDown
-			})
+			...mapState('live', ['live']),
+			enable: {
+				set (val) {
+					this.form.countDownStatus = val ? 1 : 0;
+				},
+				get () {
+					return this.form.countDownStatus == 1;
+				}
+			}
 		},
 		mounted () {
+			this.form = this.user = Object.assign({}, this.live.liveCountDown);
+			console.log(this.form.liveBeginTime)
+			this.form.liveBeginTime = moment(this.form.liveBeginTime).toDate();
+			console.log(this.form.liveBeginTime)
 			this.setInterval = setInterval(() => {
-				console.log(1)
-				if (this.enable) {
-					const unix = moment(this.form.date).unix();
+				if (this.form.countDownStatus) {
+					const unix = moment(this.form.liveBeginTime).unix();
 					const left = unix - moment().unix();
 					if (left > 0) {
 						this.countDown.start = false;
@@ -124,11 +129,14 @@
 			if (this.setInterval) clearInterval(this.setInterval);
 		},
 		methods: {
-			switchChange (enabled) {
-
-			},
-			onChange (val) {
-
+			...mapActions('live/detail', {
+				setCountDown: 'LIVE_DETAIL_COUNTDOWN'
+			}),
+			onChange () {
+				const data = Object.assign({}, this.form);
+				data.id = this.live.id;
+				data.liveBeginTime = moment(data.liveBeginTime).valueOf()
+				this.setCountDown(data);
 			}
 		}
 	}
