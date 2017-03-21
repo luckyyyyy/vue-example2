@@ -1,35 +1,39 @@
 <template>
 	<div>
 		<div class="info-page">
-			<div class="head">
-				<span class="title">美女聊点</span>
-				<Tag type="border" color="red">标签三</Tag>
-				<Tag type="border" color="red">标签三</Tag>
-				<Tag type="border" color="red">标签三</Tag>
-			</div>
 			<div class="body">
-				<div class="account">
-					<div class="title">账号概况 <a class="link">了解更多</a></div>
+				<!--账号概况-->
+				<div class="account wrap">
+					<div class="head">
+						<div class="header">
+							<span class="header-title">美女聊点</span>
+							<ul class="tag-box">
+								<li class="tag service" >标签三</li>
+								<li class="tag">标签三</li>
+								<li class="tag">标签三</li>
+							</ul>
+						</div>
+						<div class="title">账号概况 <a class="link">了解更多</a></div>
+					</div>	
 					<div class="box">
 						<ul class="list">
-							<li>当前账户版本：<span>基础版</span><a class="link">升级</a></li>
-							<li>当前账户余额：<span>100.00元(赠送)</span><a class="link">充值</a></li>
-							<li>当前流量套餐：<span>无</span><a class="link">购买</a></li>
-						</ul>
-						<ul class="progress">
+							<li>当前账户余额：<span class="content"><span>100.00元(赠送)</span><a class="link">充值</a></span></li>
+							<li>当前账户版本：<span class="content"><span>基础版</span><a class="link">升级</a></span></li>
+							<li>当前流量套餐：<span class="content"><span>无</span><a class="link">购买</a></span></li>
 							<li class="item">
-								<div class="desc d1">剩余充值流量(元)：<span>0.00</span></div>
+								<div class="desc d1">剩余充值流量(元)：<span class="content"><span>0.00</span></span></div>
 								<Progress :hide-info="true" :stroke-width="18" :percent="70"></Progress>
-								<div class="right"><span>0.00</span> <a class="link">充值</a></div>
+								<div class="right"><a class="link">充值</a></div>
 							</li>
 							<li class="item">
-								<div class="desc d2">剩余储存空间(GB)：<span>50.00</span></div>
-								<Progress :hide-info="true" :stroke-width="18" :percent="70"></Progress>
+								<div class="desc d2">剩余储存空间(GB)：<span class="content"><span>50.00</span></span></div>
+								<Progress :hide-info="true" :stroke-width="18" :percent="25"></Progress>
 								<div class="right"><span>200.00</span></div>
 							</li>
 						</ul>
 					</div>
 				</div>
+				<!--具体信息-->
 				<div class="info">
 					<div class="title">频道概况</div>
 					<div class="box">
@@ -126,123 +130,6 @@
 		</div>
 	</div>
 </template>
-<style scoped lang="less">
-	a {
-		font-size: 12px;
-		color: #108EE9;
-		letter-spacing: 0;
-	}
-	.info-page {
-		color: #666;
-		background: #fff;
-		padding: 15px 20px;
-		flex: 1;
-	}
-	.head {
-		margin-bottom: 30px;
-		.title {
-			font-size: 18px;
-		}
-		.el-tag {
-			margin: 0 3px;
-		}
-	}
-	.body {
-		margin-top: 15px;
-		.title {
-			font-size: 14px;
-			.link {
-				color: #108EE9;
-			}
-		}
-		.box {
-			font-size: 14px;
-			margin: 10px 0;
-			background: #F7F8FA;
-		}
-		.account {
-			.list {
-				padding: 25px 15px;
-				padding-bottom: 5px;
-				li {
-					margin-bottom: 15px;
-				}
-				.link {
-					margin-left: 15px;
-				}
-			}
-			.progress {
-				padding: 25px 15px;
-				padding-top: 0;
-				.item {
-					margin-top: 15px;
-					display: flex;
-				}
-				.ivu-progress {
-					width: 400px;
-					margin-right: 10px;
-				}
-				.desc {
-					width: 180px;
-					&.d1 {
-						letter-spacing: 0.64px;
-					}
-					&.d2 {
-						letter-spacing: 0;
-					}
-				}
-			}
-		}
-		.info {
-			.list {
-				display: flex;
-				li {
-					display: flex;
-					flex-direction: column;
-					align-items: center;
-					justify-content: space-around;
-					height: 50px;
-					flex: 1;
-					box-sizing: content-box;
-					padding: 10px;
-					p {
-						font-size: 26px;
-						line-height: 20px;
-						&.red {
-							color: #E85471;
-						}
-						&.blue {
-							color: #1190BF;
-						}
-					}
-				}
-			}
-		}
-		.help {
-			margin-top: 40px;
-			.list {
-				display: flex;
-				justify-content: space-between;
-				li {
-					text-align: center;
-					flex: 1;
-					background: #F7F8FA;
-					margin: 10px;
-					&:first-child, &:last-child {
-						margin: 10px 0;
-					}
-					a {
-						width: 100%;
-						padding: 25px 0;
-						color: #666;
-						display: inline-block;
-						font-size: 14px;
-						&:hover {
-							color: #108EE9;
-						}
-					}
-				}
-			}
-		}
-	}
+<style lang="less" scoped>
+	@import "../assets/styles/views/index";
 </style>

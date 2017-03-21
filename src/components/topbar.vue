@@ -1,7 +1,7 @@
 <template>
 	<div class="topbar">
 		<div class="logo">
-			<img src="../assets/toplogo.png" height="20" width="98" alt="彩虹云直播">
+			<img src="../assets/toplogo.png" height="20" width="100" alt="彩虹云直播">
 			<div class="breadcrumb">
 <!-- 				<el-breadcrumb separator="/">
 					<el-breadcrumb-item
@@ -31,6 +31,7 @@
 						<li><a @click="submit_logout" href="javascript:;"><i class="iconfont icon-video"></i>退出系统</a></li>
 					</ul>
 				</div>
+				<span class="icon"></span>
 			</menu>
 		</div>
 	</div>

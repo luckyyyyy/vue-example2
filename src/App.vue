@@ -42,11 +42,11 @@
 		.router-view {
 			box-sizing: border-box;
 			display: flex;
-			padding-left: 135px;
+			padding-left: 140px;
 			box-sizing: border-box;
 		    position: absolute;
 		    width: 100%;
-		    top: 50px;
+		    top: 46px;
 		    bottom: 0px;
 		    background-color: #000;
 		}

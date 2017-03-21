@@ -1,0 +1,155 @@
+a {
+    font-size: 12px;
+    color: #108EE9;
+    letter-spacing: 0;
+}
+.info-page {
+    color: #666;
+    background: #f2f3f7;
+    padding: 44px 50px 38px;
+    flex: 1;
+}
+.body {
+    margin-top: 15px;
+    .wrap {
+        border-radius: 8px;
+        background: #fff;
+        .head {
+            padding: 21px 25px 14px;
+            border-bottom: 2px solid #f2f3f7;
+            .header {
+                margin-bottom: 14px;
+                font-size: 0;
+                .header-title {
+                    vertical-align: middle;
+                    margin-right: 14px;
+                    font-size: 18px;
+                    font-weight: 500;
+                    color: #000;
+                }
+                .tag-box {
+                    display: inline-block;
+                    vertical-align: middle;
+                    font-size: 12px;
+                    .tag {
+                        display: inline-block;
+                        padding: 5px 12px;
+                        margin-right: 12px;
+                        background-color: #e5e9f2;
+                        border-radius: 4px;
+                        cursor: pointer;
+                        &.service {
+                            color: #FF4949;
+                            background-color: rgba(255, 73, 73, 0.1);
+                        }
+                    }
+                }
+            }
+            .title {
+                font-size: 14px;
+                color: #000;
+                .link {
+                    font-size: 12px;
+                    font-weight: 500;
+                    color: #108EE9;
+                }
+                &:before {
+                    display: inline-block;
+                    margin-right: 10px;
+                    content: "";
+                    width: 10px;
+                    height: 10px;
+                    border-radius: 50%;
+                    background-color: #31bedb;
+                }
+            }
+        }
+        .box {
+            padding: 21px 25px 14px;
+            font-size: 14px;
+        }
+    }
+    .account {
+        .list {
+            li {
+                margin-bottom: 15px;
+            }
+            .content {
+                font-weight: 500;
+                color: #4A4A4A;
+                .link {
+                    margin-left: 15px;
+                }
+            }
+        }
+        .item {
+            margin-top: 15px;
+            display: flex;
+        }
+        .ivu-progress {
+            width: 400px;
+            margin-right: 10px;
+        }
+        .desc {
+            width: 180px;
+            &.d1 {
+                letter-spacing: 0.64px;
+            }
+            &.d2 {
+                letter-spacing: 0;
+            }
+        }
+    }
+    .info {
+        .list {
+            display: flex;
+            li {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                justify-content: space-around;
+                height: 50px;
+                flex: 1;
+                box-sizing: content-box;
+                padding: 10px;
+                p {
+                    font-size: 26px;
+                    line-height: 20px;
+                    &.red {
+                        color: #E85471;
+                    }
+                    &.blue {
+                        color: #1190BF;
+                    }
+                }
+            }
+        }
+    }
+    .help {
+        margin-top: 40px;
+        .list {
+            display: flex;
+            justify-content: space-between;
+            li {
+                text-align: center;
+                flex: 1;
+                background: #F7F8FA;
+                margin: 10px;
+                &:first-child,
+                &:last-child {
+                    margin: 10px 0;
+                }
+                a {
+                    width: 100%;
+                    padding: 25px 0;
+                    color: #666;
+                    display: inline-block;
+                    font-size: 14px;
+                    &:hover {
+                        color: #108EE9;
+                    }
+                }
+            }
+        }
+    }
+}
