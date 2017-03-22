@@ -54,8 +54,8 @@
 			switchChange (enabled) {
 
 			},
-			selectAlbum () {
-
+			selectAlbum (select, data) {
+				console.log(data)
 			},
 			closeAlbum () {
 				this.album = false;

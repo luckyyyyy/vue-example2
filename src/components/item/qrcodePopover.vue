@@ -22,6 +22,7 @@
 			text: String,
 		},
 		mounted () {
+			// 需要优化
 			if (this.qrcode) {
 				this.qrcode.makeCode(this.text);
 			} else {

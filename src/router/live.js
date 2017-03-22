@@ -1,8 +1,8 @@
 /*
 * @Author: William Chan
 * @Date:   2017-03-06 22:29:46
-* @Last Modified by:   William Chan
-* @Last Modified time: 2017-03-19 23:31:47
+* @Last Modified by:   Administrator
+* @Last Modified time: 2017-03-22 02:23:41
 */
 
 'use strict';
@@ -98,7 +98,16 @@ export default [
 				path: 'detail/:liveid',
 				meta: { requiresAuth: true, parent: 'live_list' },
 				redirect: { name: 'live_detail_countdown' },
-				component: resolve => require(['../views/live/detail.vue'], resolve),
+				component: resolve => require([
+					'../views/live/detail.vue',
+					'../store/modules/live/detail',
+				], (
+					LiveDetailComponent,
+					LiveDetailModule
+				) => {
+					registerModule(['live', 'detail'], LiveDetailModule.default);
+					resolve(LiveDetailComponent);
+				}),
 				children: [
 					{
 						name: 'live_detail_countdown',

@@ -1,108 +1,123 @@
 .topbar {
-    position: fixed;
-    width: 100%;
-    height: 46px;
-    background: #4E546C;
-    z-index: 223;
-    display: flex;
-    justify-content: space-between;
-    box-sizing: border-box;
-    color: #fff;
-    box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.5);
-    .logo {
-        display: flex;
-        align-items: center;
-        padding: 0 20px;
-        border-right: 1px solid #343647;
-    }
-    .menu {
-        margin: 0;
-        padding: 0;
-        height: 46px;
-        z-index: 1;
-        cursor: pointer;
-        display: flex;
-        align-items: center;
-        position: relative;
-        transition: all 0.3s ease-in-out;
-        &:hover {
-            background: #31BEDB;
-            .popper {
-                visibility: visible;
-                opacity: 1;
-            }
-            .icon {
-                border-color: #fff transparent transparent transparent;
-            }
-        }
-        .avatar {
-            text-align: left;
-            height: 28px;
-            width: 28px;
-            margin: 0 15px 0 20px;
-            border-radius: 50%;
-            background: #4E546C;
-        }
-        .name {
-            padding-right: 40px;
-            width: 117px;
-            display: inline-block;
-            text-align: left;
-            flex: 1;
-            overflow: hidden;
-            white-space: nowrap;
-            text-overflow: ellipsis;
-        }
-        .popper {
-            visibility: hidden;
-            opacity: 0;
-            cursor: default;
-            position: absolute;
-            right: 0;
-            top: 46px;
-            background: #31BEDB;
-            // width: 100%;
-            width: 180px;
-            transition: visibility 0.3s, opacity 0.3s;
-            .popper__account {
-                text-align: center;
-            }
-            .popper__menu {
-                li {
-                    transition: background 0.3s ease-in-out;
-                    text-align: left;
-                    // padding-left: 50px;
-                    box-sizing: border-box;
-                    a {
-//                      display: flex;
-//                      align-items: center;
-//                      justify-content: center;
-                        display: block;
-                        padding: 6px 0;
-                        color: white;
-                        i {
-                            margin-left: 34px;
-                            width: 32px;
-                            font-size: 16px;
-                            display: inline-block;
-                        }
-                    }
-                    &:hover {
-                        background-color: rgba(78, 83, 108, 0.3);
-                    }
-                }
-            }
-        }
-        .icon {
-            position: absolute;
-            right: 18px;
-            top: 50%;
-            margin-top: -3px;
-            width: 0;
-            height: 0;
-            border-width: 6px;
-            border-style: solid dashed dashed dashed;
-            border-color: #cdcdcd transparent transparent transparent;
-        }
-    }
+	position: fixed;
+	width: 100%;
+	height: 46px;
+	background: #4E546C;
+	z-index: 223;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	box-sizing: border-box;
+	color: #fff;
+	box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.5);
+	.user, .logo {
+		height: 100%;
+	}
+	.logo {
+		display: flex;
+		align-items: center;
+		padding: 0 20px;
+		// border-right: 1px solid #343647;
+		position: relative;
+		&:after {
+			width: 1px;
+			height: 100%;
+			content: "";
+			position: absolute;
+			top: 0;
+			right: 0;
+			border-right: 1px solid #343647;
+		}
+	}
+	.menu {
+		height: 100%;
+		z-index: 1;
+		cursor: pointer;
+		display: flex;
+		align-items: center;
+		position: relative;
+		transition: all 0.3s ease-in-out;
+		&:hover {
+			background: #31BEDB;
+			.popper {
+				visibility: visible;
+				opacity: 1;
+			}
+			.icon {
+				transform: rotate(180deg);
+				margin-top: -9px;
+				border-color: #fff transparent transparent transparent;
+			}
+		}
+		.icon {
+			// transition: transform .5s; // 等以后换icon
+			position: absolute;
+			right: 18px;
+			top: 50%;
+			margin-top: -3px;
+			width: 0;
+			height: 6px;
+			border-width: 6px;
+			border-style: solid dashed dashed dashed;
+			border-color: #cdcdcd transparent transparent transparent;
+		}
+		.avatar {
+			text-align: left;
+			height: 28px;
+			width: 28px;
+			margin: 0 15px 0 20px;
+			border-radius: 50%;
+			background: #4E546C;
+		}
+		.name {
+			padding-right: 40px;
+			width: 117px;
+			display: inline-block;
+			text-align: left;
+			flex: 1;
+			overflow: hidden;
+			white-space: nowrap;
+			text-overflow: ellipsis;
+		}
+		.popper {
+			visibility: hidden;
+			opacity: 0;
+			cursor: default;
+			position: absolute;
+			right: 0;
+			top: 46px;
+			background: #31BEDB;
+			// width: 100%;
+			width: 180px;
+			transition: visibility 0.3s, opacity 0.3s;
+			.popper__account {
+				text-align: center;
+			}
+			.popper__menu {
+				li {
+					transition: background 0.3s ease-in-out;
+					text-align: left;
+					// padding-left: 50px;
+					box-sizing: border-box;
+					a {
+//					  display: flex;
+//					  align-items: center;
+//					  justify-content: center;
+						display: block;
+						padding: 6px 0;
+						color: white;
+						i {
+							margin-left: 34px;
+							width: 32px;
+							font-size: 16px;
+							display: inline-block;
+						}
+					}
+					&:hover {
+						background-color: rgba(78, 83, 108, 0.3);
+					}
+				}
+			}
+		}
+	}
 }
