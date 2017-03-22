@@ -165,10 +165,12 @@
 				this.imInit( { chatroomId, oncustomsysmsg, onCustomServiceMsg, ondisconnect }).then(() => {
 					// join success
 				}).catch(err => {
-					this.$Modal.error({
-						title: '聊天室',
-						content: '初始化聊天室失败，请尝试重新加入，初始化失败将会影响中控台部分功能的使用。'
-					})
+					if (this.$route.name == 'live_control') {
+						this.$Modal.error({
+							title: '聊天室',
+							content: '初始化聊天室失败，请尝试刷新重新加入，初始化失败将会影响中控台部分功能的使用。'
+						});
+					}
 				})
 			},
 			onDisconnect (error) {

@@ -13,10 +13,10 @@
 				<div class="action">
 					<iForm label-position="left" ref="form" :model="form" :label-width="100" class="form">
 						<FormItem label="分享标题：">
-							<iInput v-model="form.shareTitle" placeholder="不超过10个字符"></iInput>
+							<iInput @on-change="onDebounce" v-model="form.shareTitle" placeholder="不超过10个字符"></iInput>
 						</FormItem>
 						<FormItem label="分享文字：">
-							<iInput v-model="form.shareContent" placeholder="aaaaa"></iInput>
+							<iInput @on-change="onDebounce" v-model="form.shareContent" placeholder="aaaaa"></iInput>
 						</FormItem>
 						<FormItem label="分享小图：">
 							<Album class="upload" @submit="selectAlbum" v-model="openAlbum">
@@ -42,8 +42,13 @@
 </template>
 
 <script>
+	import Album from '../../components/item/album'
 	import { mapState, mapActions } from 'vuex'
+	import debounce from 'debounce'
 	export default {
+		components: {
+			Album
+		},
 		data () {
 			return {
 				openAlbum: false,
@@ -62,7 +67,8 @@
 			}
 		},
 		mounted () {
-			this.form = Object.assign({}, this.live.liveGuide);
+			this.form = Object.assign({}, this.live.liveShare);
+			this.onDebounce = debounce(this.onChange, 200)
 		},
 		methods: {
 			...mapActions('live/detail', {
@@ -73,10 +79,11 @@
 				this.onChange()
 			},
 			onChange () {
+				console.log(this.onDebounce)
 				const data = Object.assign({}, this.form);
 				data.id = this.live.id;
 				this.setShare(data);
-			}
+			},
 		}
 	}
 </script>

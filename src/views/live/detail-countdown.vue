@@ -13,7 +13,7 @@
 				<div class="action">
 					<iForm label-position="left" ref="form" :model="form" :label-width="100" class="form">
 						<FormItem label="提示文字：">
-							<iInput @on-change="onChange" v-model="form.liveHint" placeholder="不超过10个字符"></iInput>
+							<iInput @on-change="onDebounce" v-model="form.liveHint" placeholder="不超过10个字符"></iInput>
 						</FormItem >
 						<FormItem label="直播开始时间：">
 							<div class="block">
@@ -74,6 +74,7 @@
 <script>
 	import moment from 'moment'
 	import { mapState, mapActions } from 'vuex'
+	import debounce from 'debounce'
 	export default {
 		data () {
 			return {
@@ -107,6 +108,7 @@
 		mounted () {
 			this.form = Object.assign({}, this.live.liveCountDown);
 			this.form.liveBeginTime = moment(this.form.liveBeginTime).toDate();
+			this.onDebounce = debounce(this.onChange, 200);
 			this.setInterval = setInterval(() => {
 				if (this.form.countDownStatus) {
 					const unix = moment(this.form.liveBeginTime).unix();
