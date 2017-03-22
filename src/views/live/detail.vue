@@ -24,7 +24,11 @@
 				</div>
 			</div>
 		</div>
-		<transition name="fade" mode="out-in">
+		<transition
+			enter-active-class="animated fadeInUp"
+			leave-active-class="animated fadeOutUp"
+			mode="in"
+		>
 			<router-view class="commoon-view"></router-view>
 		</transition>
 	</div>
