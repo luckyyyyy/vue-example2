@@ -29,16 +29,10 @@
 		},
 		methods: {
 			handleSuccess (e) {
-				this.$message({
-					 message: '复制成功',
-					 type: 'success'
-				})
+				this.$Message.success('复制成功');
 			},
 			handleError (e) {
-				this.$message({
-					 message: '您的浏览器不支持自动复制，请连续点击三下左边的输入框按ctrl+c手动复制。',
-					 type: 'error'
-				})
+				this.$Message.error('您的浏览器不支持自动复制，请连续点击三下左边的输入框按ctrl+c手动复制。', 5);
 			}
 		}
 	}
