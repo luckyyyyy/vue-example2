@@ -1,6 +1,6 @@
 <template>
 	<div class="clipboard">
-		<iInput :value="text" :readonly="true" size="small"></iInput>
+		<iInput :value="text" icon="ios-copy-outline" :readonly="true" size="small"></iInput>
 		<iButton @error="handleError" @success="handleSuccess" size="small" v-clipboard="text"><slot>复制</slot></iButton>
 	</div>
 </template>
