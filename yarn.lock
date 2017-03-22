@@ -2543,6 +2543,10 @@ isarray@1.0.0, isarray@^1.0.0, isarray@~1.0.0:
   version "1.0.0"
   resolved "http://registry.npm.taobao.org/isarray/download/isarray-1.0.0.tgz#bb935d48582cba168c06834957a54a3e07124f11"
 
+iscroll@^5.2.0:
+  version "5.2.0"
+  resolved "http://registry.npm.taobao.org/iscroll/download/iscroll-5.2.0.tgz#d513307088b5b25a4f893af474804468481829c8"
+
 isexe@^1.1.1:
   version "1.1.2"
   resolved "http://registry.npm.taobao.org/isexe/download/isexe-1.1.2.tgz#36f3e22e60750920f5e7241a476a8c6a42275ad0"
@@ -2557,9 +2561,9 @@ isstream@~0.1.2:
   version "0.1.2"
   resolved "http://registry.npm.taobao.org/isstream/download/isstream-0.1.2.tgz#47e63f7af55afa6f92e1500e690eb8b8529c099a"
 
-iview@2.0.0-rc.5:
-  version "2.0.0-rc.5"
-  resolved "http://registry.npm.taobao.org/iview/download/iview-2.0.0-rc.5.tgz#b072ccf4030881ebe71efa2a1124cd809c8f2fd5"
+iview@2.0.0-rc.6:
+  version "2.0.0-rc.6"
+  resolved "http://registry.npm.taobao.org/iview/download/iview-2.0.0-rc.6.tgz#45a4ae2d325a816ee93096ab53c55bbefe381060"
   dependencies:
     async-validator "^1.6.7"
     core-js "^2.4.1"

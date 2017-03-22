@@ -105,10 +105,8 @@
 			}
 		},
 		mounted () {
-			this.form = this.user = Object.assign({}, this.live.liveCountDown);
-			console.log(this.form.liveBeginTime)
+			this.form = Object.assign({}, this.live.liveCountDown);
 			this.form.liveBeginTime = moment(this.form.liveBeginTime).toDate();
-			console.log(this.form.liveBeginTime)
 			this.setInterval = setInterval(() => {
 				if (this.form.countDownStatus) {
 					const unix = moment(this.form.liveBeginTime).unix();
