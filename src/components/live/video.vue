@@ -1,10 +1,16 @@
 <template>
 	<div class="video" ref="video">
 		<div id='video' class='prism-player'></div>
-		<div class="lock" v-show="!play">
+		<div class="lock" v-show="!play || countdown.handel">
 			<img src="../../assets/toplogo.png" height="40" width="196">
-			<p>{{ lock ? `正在刷新直播状态` : '主播还未开始直播或断开连接，请尝试刷新' }}</p>
-			<iButton size="large" type="primary" :loading="lock" @click="checkStatus(true)">刷新</iButton>
+			<template v-if="countdown.handel">
+				<p>主播已经开始推流</p>
+				<p>但由于您的终端设备限制，视频将在{{ countdown.time }}秒后开始</p>
+			</template>
+			<template v-else>
+				<p>{{ lock ? `正在刷新直播状态` : '主播还未开始直播或断开连接，请尝试刷新' }}</p>
+				<iButton size="large" type="primary" :loading="lock" @click="checkStatus(true)">刷新</iButton>
+			</template>
 		</div>
 	</div>
 </template>
@@ -19,10 +25,14 @@
 			value: Boolean,
 			live: Object
 		},
-		data() {
+		data () {
 			return {
 				play: this.value,
 				lock: true,
+				countdown: {
+					handel: null,
+					time: 0,
+				}
 			}
 		},
 		computed: {
@@ -35,54 +45,10 @@
 			// },
 		},
 		mounted () {
-
-			const source = this.getSource();
-			this.player = new prism({
-				id       : 'video',
-				source   : source,
-				autoplay : false,
-				preload  : false,
-				isLive   : true,
-				showBarTime: '100',
-				width    : '100%',
-				skinLayout: []
-			});
-			if (process.env.NODE_ENV !== 'production') {
-				this.player.on('play', () => {
-					this.$Message.info(`DEBUG: source ${source}`)
-				})
-			}
-			// this.player.on('play', () => {
-			// 	console.log('play')
-			// })
-			// this.player.on('pause', () => {
-			// 	console.log('pause')
-			// })
-			this.player.on('liveStreamStop', () => {
-				this.checkStatus();
-			})
-			this.player.on('m3u8Retry', () => {
-				this.checkStatus();
-			})
-			window.addEventListener('resize', this.autoSetPlayerSize, false);
-			this.autoSetPlayerSize();
-			// safari 有问题
-			if (isiPad()) {
-				this.checkStatus();
-			} else {
-				this.player.on('ready', () => {
-					// TODO 初始化状态
-					this.checkStatus();
-					// if (!this.check) {
-					// 	this.interval = setInterval(() => {
-					// 		this.checkStatus();
-					// 	}, 1000);
-					// }
-				})
-			}
-
+			this.checkStatus(true);
 		},
 		beforeDestroy () {
+			this.clearCountdown();
 			window.removeEventListener('resize', this.autoSetPlayerSize, false);
 			// this.clearInterval();
 		},
@@ -90,6 +56,51 @@
 			...mapActions('live/query_stream', {
 				getStreamStatus: 'LIVE_QUERY_STREAM_REQUEST'
 			}),
+			playVideo () {
+				console.log(this.player)
+				if (this.player) {
+					this.player.loadByUrl(this.getSource());
+					this.player.play();
+				} else {
+					console.log(12345)
+					const source = this.getSource();
+					this.player = new prism({
+						id       : 'video',
+						source   : source,
+						autoplay : false,
+						preload  : false,
+						isLive   : true,
+						showBarTime: '100',
+						width    : '100%',
+						skinLayout: []
+					});
+					if (process.env.NODE_ENV !== 'production') {
+						this.player.on('play', () => {
+							this.$Message.info(`DEBUG: source ${source}`)
+						})
+					}
+					// this.player.on('play', () => {
+					// 	console.log('play')
+					// })
+					// this.player.on('pause', () => {
+					// 	console.log('pause')
+					// })
+					// this.player.on('liveStreamStop', () => {
+					// 	// alert('liveStreamStop')
+					// 	this.checkStatus();
+					// })
+					// this.player.on('m3u8Retry', () => {
+					// 	// alert('m3u8Retry')
+					// 	this.checkStatus();
+					// })
+					window.addEventListener('resize', this.autoSetPlayerSize, false);
+					this.autoSetPlayerSize();
+					// safari 有问题
+					this.player.on('ready', () => {
+						this.player.play();
+					})
+				}
+			},
 			getSource () {
 				return isiPad() ? this.live.liveStream.playOriginM3u8Url : this.live.liveStream.playOriginFlvUrl;
 			},
@@ -106,24 +117,44 @@
 			checkStatus (lock) {
 				this.lock = lock;
 				this.getStreamStatus(this.live).then(data => {
-					this.lock = false;
 					this.play = data.status != 0;
+					this.lock = false;
 					this.$emit('input', this.play);
 				}).catch(() => {
 					this.lock = false;
 				})
+			},
+			clearCountdown () {
+				if (this.countdown.handel) {
+					clearInterval(this.countdown.handel);
+					this.countdown.handel = null;
+				}
 			}
 		},
 		watch: {
 			value (val) {
 				this.play = val;
-				if (this.player) {
-					if (this.play) {
-						this.player.loadByUrl(this.getSource());
-					} else {
-						this.player.stop();
-						this.player.liveStreamStop();
+				if (this.play) {
+					const fnAction = () => {
+						this.playVideo();
 					}
+					if (isiPad() && !this.countdown.handel) {
+						this.countdown.time = 30;
+						this.countdown.handel = setInterval(() => {
+							if (--this.countdown.time == 0) {
+								fnAction();
+								this.clearCountdown();
+							}
+						}, 1000);
+					} else {
+						fnAction();
+					}
+				} else {
+					if (this.player) {
+						this.player.stop();
+					}
+					// this.player.liveStreamStop();
+					this.clearCountdown();
 				}
 			}
 		}
@@ -152,7 +183,7 @@
 			align-items: center;
 			justify-content: center;
 			p {
-				padding: 10px 0;
+				padding: 10px;
 			}
 		}
 	}
