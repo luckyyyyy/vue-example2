@@ -177,6 +177,7 @@
 				this.getLiveList({ reload, status: this.status }).then(() => {
 					this.loading = false;
 					msg();
+
 				}).catch(() => {
 					this.loading = false;
 				});
@@ -226,6 +227,9 @@
 
 
 <style lang="less" scoped>
+	.commoon-view {
+		-webkit-overflow-scrolling: touch;
+	}
 	.tips {
 		display: flex;
 		align-items: center;
@@ -243,12 +247,8 @@
 		top: 0;
 	}
 	.list {
-		overflow: auto;
-		// .item:nth-child(1) {
-		// 	.body {
-		// 		background-image: linear-gradient(241deg, #1190bf, #e85471);
-		// 	}
-		// }
+		overflow: hidden;
+		// -webkit-overflow-scrolling: touch;
 		> .item {
 			width: 240px;
 			height: 207px;

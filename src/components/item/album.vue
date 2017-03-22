@@ -186,6 +186,7 @@
 					if (!this.listScroll) {
 						this.listScroll = new iscroll(this.$refs.list, {
 							mouseWheel: true,
+							preventDefault: false,
 							scrollbars: true,
 							fadeScrollbars: true,
 							interactiveScrollbars: true,
@@ -215,6 +216,7 @@
 					if (!this.menuScroll) {
 						this.menuScroll = new iscroll(this.$refs.menu, {
 							mouseWheel: true,
+							preventDefault: false,
 							scrollbars: true,
 							fadeScrollbars: true,
 							interactiveScrollbars: true,
