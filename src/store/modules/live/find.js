@@ -1,8 +1,8 @@
 /*
 * @Author: Administrator
 * @Date:   2017-01-06 02:33:52
-* @Last Modified by:   William Chan
-* @Last Modified time: 2017-03-19 15:29:06
+* @Last Modified by:   Administrator
+* @Last Modified time: 2017-03-22 01:34:20
 */
 
 'use strict';
@@ -47,7 +47,7 @@ const mutations = {
 		state.lock    = true;
 	},
 	[LIVE_FIND.SUCCESS] (state, { data }) {
-		if (data.lives.length >= state.limits) {
+		if (data.lives.length == 0 || data.lives.length >= state.limits) {
 			state.lock = false;
 		}
 		state.data    = state.data.concat(data.lives);

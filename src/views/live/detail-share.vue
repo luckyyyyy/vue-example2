@@ -2,7 +2,7 @@
 	<div class="view">
 		<div class="switch">
 			<p>分享设置：</p>
-			<iSwitch size="large" @on-change="switchChange" v-model="enable">
+			<iSwitch size="large" @on-change="onChange" v-model="enable">
 				<span slot="open">开启</span>
 				<span slot="close">关闭</span>
 			</iSwitch>
@@ -13,14 +13,14 @@
 				<div class="action">
 					<iForm label-position="left" ref="form" :model="form" :label-width="100" class="form">
 						<FormItem label="分享标题：">
-							<iInput v-model="form.name" placeholder="不超过10个字符"></iInput>
+							<iInput @on-change="onDebounce" v-model="form.shareTitle" placeholder="不超过10个字符"></iInput>
 						</FormItem>
 						<FormItem label="分享文字：">
-							<iInput v-model="form.name" placeholder="aaaaa"></iInput>
+							<iInput @on-change="onDebounce" v-model="form.shareContent" placeholder="aaaaa"></iInput>
 						</FormItem>
 						<FormItem label="分享小图：">
-							<Album class="upload" @submit="selectAlbum" v-model="album">
-								<iButton type="primary" @click="openAlbum">点击上传图片</iButton>
+							<Album class="upload" @submit="selectAlbum" v-model="openAlbum">
+								<iButton type="primary" @click="openAlbum = true">点击上传图片</iButton>
 								<p class="tips">
 									<Icon type="android-warning"></Icon> 400 x 400
 								</p>
@@ -42,23 +42,47 @@
 </template>
 
 <script>
-	import moment from 'moment'
+	import Album from '../../components/item/album'
+	import { mapState, mapActions } from 'vuex'
+	import debounce from 'debounce'
 	export default {
+		components: {
+			Album
+		},
 		data () {
 			return {
-				enable: true,
-				form: {
-					name: '',
-					time: moment().add(30, 'm').toDate(),//moment().format(),
-					date: moment().toDate()
+				openAlbum: false,
+				form: {}
+			}
+		},
+		computed: {
+			...mapState('live', ['live']),
+			enable: {
+				set (val) {
+					this.form.shareStatus = val ? 1 : 0;
 				},
+				get () {
+					return this.form.shareStatus == 1;
+				}
 			}
 		},
 		mounted () {
+			this.form = Object.assign({}, this.live.liveShare);
+			this.onDebounce = debounce(this.onChange, 200)
 		},
 		methods: {
-			switchChange (enabled) {
-
+			...mapActions('live/detail', {
+				setShare: 'LIVE_DETAIL_SHARE'
+			}),
+			selectAlbum (select, data) {
+				this.form.shareImageId = select;
+				this.onChange()
+			},
+			onChange () {
+				console.log(this.onDebounce)
+				const data = Object.assign({}, this.form);
+				data.id = this.live.id;
+				this.setShare(data);
 			},
 		}
 	}
