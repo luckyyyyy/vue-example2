@@ -1380,6 +1380,10 @@ dashdash@^1.12.0:
   dependencies:
     assert-plus "^1.0.0"
 
+date-now@1.0.1:
+  version "1.0.1"
+  resolved "http://registry.npm.taobao.org/date-now/download/date-now-1.0.1.tgz#bb7d086438debe4182a485fb3df3fbfb99d6153c"
+
 date-now@^0.1.4:
   version "0.1.4"
   resolved "http://registry.npm.taobao.org/date-now/download/date-now-0.1.4.tgz#eaf439fd4d4848ad74e5cc7dbef200672b9e345b"
@@ -1391,6 +1395,12 @@ dateformat@^2.0.0:
 de-indent@^1.0.2:
   version "1.0.2"
   resolved "http://registry.npm.taobao.org/de-indent/download/de-indent-1.0.2.tgz#b2038e846dc33baa5796128d0804b455b8c1e21d"
+
+debounce@^1.0.0:
+  version "1.0.0"
+  resolved "http://registry.npm.taobao.org/debounce/download/debounce-1.0.0.tgz#0948af513d2e4ce407916f8506a423d3f9cf72d8"
+  dependencies:
+    date-now "1.0.1"
 
 debug@2.6.1:
   version "2.6.1"
@@ -2543,6 +2553,10 @@ isarray@1.0.0, isarray@^1.0.0, isarray@~1.0.0:
   version "1.0.0"
   resolved "http://registry.npm.taobao.org/isarray/download/isarray-1.0.0.tgz#bb935d48582cba168c06834957a54a3e07124f11"
 
+iscroll@^5.2.0:
+  version "5.2.0"
+  resolved "http://registry.npm.taobao.org/iscroll/download/iscroll-5.2.0.tgz#d513307088b5b25a4f893af474804468481829c8"
+
 isexe@^1.1.1:
   version "1.1.2"
   resolved "http://registry.npm.taobao.org/isexe/download/isexe-1.1.2.tgz#36f3e22e60750920f5e7241a476a8c6a42275ad0"
@@ -2557,9 +2571,9 @@ isstream@~0.1.2:
   version "0.1.2"
   resolved "http://registry.npm.taobao.org/isstream/download/isstream-0.1.2.tgz#47e63f7af55afa6f92e1500e690eb8b8529c099a"
 
-iview@2.0.0-rc.5:
-  version "2.0.0-rc.5"
-  resolved "http://registry.npm.taobao.org/iview/download/iview-2.0.0-rc.5.tgz#b072ccf4030881ebe71efa2a1124cd809c8f2fd5"
+iview@2.0.0-rc.6:
+  version "2.0.0-rc.6"
+  resolved "http://registry.npm.taobao.org/iview/download/iview-2.0.0-rc.6.tgz#45a4ae2d325a816ee93096ab53c55bbefe381060"
   dependencies:
     async-validator "^1.6.7"
     core-js "^2.4.1"

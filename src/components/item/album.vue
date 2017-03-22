@@ -98,7 +98,7 @@
 			},
 			multiple: {
 				type: Number,
-				default: 0,
+				default: 1,
 			},
 		},
 		data () {
@@ -150,12 +150,16 @@
 
 			},
 			onSubmit () {
-				this.$emit('submit', this.find, this.select);
+				if (this.multiple > 1) {
+					this.$emit('submit', this.find, this.select);
+				} else {
+					this.$emit('submit', ...this.find, this.select);
+				}
 				this.close();
 			},
 			onSelect (item, selected) {
 				if (selected) {
-					if (this.multiple) {
+					if (this.multiple > 1) {
 						if (this.find.length >= this.multiple) {
 							this.$message(`最多只能选择${this.multiple}张`)
 						} else {
