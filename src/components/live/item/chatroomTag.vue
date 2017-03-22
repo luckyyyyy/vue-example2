@@ -6,7 +6,6 @@
 <script>
 	export default {
 		props: {
-			item: Object,
 			account: String,
 			members: Object
 		},

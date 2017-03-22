@@ -1,8 +1,8 @@
 /*
 * @Author: William Chan
 * @Date:   2017-03-10 16:42:39
-* @Last Modified by:   William Chan
-* @Last Modified time: 2017-03-19 20:35:36
+* @Last Modified by:   Administrator
+* @Last Modified time: 2017-03-23 02:09:00
 */
 
 'use strict';
@@ -10,8 +10,11 @@
 import {
 	im_init, im_disconnect, im_chatroom_address,
 	im_chatroom_init, im_chatroom_send, im_chatroom_getHistory, im_chatroom_getMembers,
-	im_chatroom_setGag, im_chatroom_setCommonMember, im_chatroom_setManager, im_chatroom_disconnect
+	im_chatroom_setGag, im_chatroom_setCommonMember, im_chatroom_setManager, im_chatroom_disconnect,
+	im_chatroom_updateMyInfo
 } from '../../api/im'
+
+import { isDev } from '../../../utils/util'
 
 import {
 	IM, IM_INIT,
@@ -28,6 +31,13 @@ const refreshMemberType = [
 	'gagMember',
 	'ungagMember',
 	'kickMember',
+	'updateChatroom',
+	'updateMemberInfo',
+	'addTempMute',
+	'removeTempMute',
+]
+
+const filterMessageType = [
 	'updateChatroom',
 	'updateMemberInfo',
 	'addTempMute',
@@ -58,10 +68,10 @@ const getters = {
 
 
 const actions = {
-	async [IM_INIT.REQUEST] ({ commit, dispatch, rootState, state }, { chatroomId, oncustomsysmsg, onCustomServiceMsg, ondisconnect }) {
+	async [IM_INIT.REQUEST] ({ commit, dispatch, rootState, state }, { im, chatroomId, oncustomsysmsg, onCustomServiceMsg, ondisconnect }) {
 		return new Promise(async (resolve, reject) => {
+			dispatch(IM_CHATROOM_MSG.SERVICE, { type: 'SYSTEM_TIPS', content: '开始初始化中控台' });
 			const init = {}
-			const im            = rootState.user.user.userImInfo;
 			init.account        = im.accid;
 			init.token          = im.token;
 			init.oncustomsysmsg = oncustomsysmsg;
@@ -108,7 +118,7 @@ const actions = {
 				dispatch(IM_CHATROOM_MSG.SERVICE, 'IM_CHATROOM_INIT_SUCCESS');
 				dispatch(IM_CHATROOM_MSG.HISTORY);
 				dispatch(IM_CHATROOM.MEMBERS);
-				dispatch(IM_CHATROOM_MSG.SERVICE, { type: 'SYSTEM_TIPS', content: '通知系统初始化完成' });
+				dispatch(IM_CHATROOM_MSG.SERVICE, { type: 'SYSTEM_TIPS', content: '中控台初始化完成' });
 				resolve();
 			}).catch(error => {
 				commit(IM_CHATROOM_INIT.FAILURE);
@@ -184,6 +194,16 @@ const actions = {
 			})
 		})
 	},
+	[IM_CHATROOM.UPDATE_MY_INFO] ({ commit }, ...args) {
+		return new Promise((resolve, reject) => {
+			im_chatroom_updateMyInfo(...args).then(msg => {
+				resolve(msg);
+			}).catch(error => {
+				console.log(error)
+				reject(error);
+			})
+		})
+	},
 	[IM_CHATROOM_MSG.SERVICE] ({ commit, dispatch }, obj) {
 		let dat = {}
 		if (typeof obj == 'string') {
@@ -193,7 +213,7 @@ const actions = {
 			dat = obj;
 		}
 		dat.date = new Date();
-		if (process.env.NODE_ENV !== 'production' || dat.type != 'DEBUG') {
+		if (isDev() || dat.type != 'DEBUG') {
 			commit(IM_CHATROOM_MSG.SERVICE, dat);
 		}
 	}
@@ -255,16 +275,19 @@ const mutations = {
 		state.send = false;
 	},
 	[IM_CHATROOM_MSG.GET] (state, msg) {
+
+		if (msg.type == 'notification' && filterMessageType.includes(msg.attach.type)) {
+			return;
+		}
 		state.data.push(msg);
 		if (state.data.length > 500) {
 			state.data.splice(0, 200);
 		}
-		// console.log('新消息', state.data);
 	},
 	[IM_CHATROOM_MSG.HISTORY] (state, msg) {
 		const data = [];
 		for (let ret of msg) {
-			if (ret.fromClientType != 'Server') {
+			if (ret.fromClientType != 'Server' && ret.type != 'notification') {
 				data.push(ret);
 			}
 		}

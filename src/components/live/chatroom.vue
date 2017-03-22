@@ -12,11 +12,11 @@
 				<div class="btn" @click="onSwitchPage(2)"><span :class="{ active: active == 2 }">用户管理</span></div>
 			</div>
 			<div class="list" ref="list" @scroll="onScroll" v-show="active == 1">
-				<chatroomList :im="user.userImInfo" :members="members" :history="true" :data="history"></chatroomList>
-				<chatroomList :im="user.userImInfo" :members="members" :data="data"></chatroomList>
+				<chatroomList :im="live.liveImInfo" :members="members" :history="true" :data="history"></chatroomList>
+				<chatroomList :im="live.liveImInfo" :members="members" :data="data"></chatroomList>
 			</div>
 			<div class="member" v-show="active == 2">
-				<chatroomMemberList :im="user.userImInfo" :members="members"></chatroomMemberList>
+				<chatroomMemberList :im="live.liveImInfo" :members="members"></chatroomMemberList>
 			</div>
 			<div v-show="notify" class="tips" @click="onToBottom(true)">😯 有新消息 点击查看</div>
 		</div>
@@ -64,7 +64,6 @@
 				return this.$store.state.im.data;
 			},
 			...mapState('im', ['init', 'lock']),
-			...mapState('user', ['user']),
 			...mapGetters('im', ['members'])
 		},
 		methods: {

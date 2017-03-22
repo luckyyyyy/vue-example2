@@ -1,10 +1,10 @@
 <template>
-	<el-dropdown
+	<Dropdown
 		v-if="
 			(!members[account] ||
 				members[account] &&
 				members[account].type != 'owner' &&
-				account != user.accid
+				account != im.accid
 			)
 			&& getAuth(2)
 			"
@@ -12,35 +12,35 @@
 		style="cursor: pointer"
 	>
 		<em class="name" :class="{ me }">{{ nickname }}<slot></slot></em>
-		<el-dropdown-menu slot="dropdown">
-			<el-dropdown-item disabled>{{ nickname }}</el-dropdown-item>
+		<DropdownMenu slot="dropdown">
+			<DropdownItem disabled>{{ nickname }}</DropdownItem>
 			<template v-if="!members[account]">
-				<el-dropdown-item v-show="getAuth(1)" @click.native="setUser('manager', true)">设为管理员</el-dropdown-item>
-				<el-dropdown-item v-show="getAuth(2)" @click.native="setUser('common', true)">设为会员</el-dropdown-item>
-				<el-dropdown-item v-show="getAuth(2)" @click.native="setUser('gag', true)" divided>禁言</el-dropdown-item>
+				<DropdownItem v-show="getAuth(1)" @click.native="setUser('manager', true)">设为管理员</DropdownItem>
+				<DropdownItem v-show="getAuth(2)" @click.native="setUser('common', true)">设为会员</DropdownItem>
+				<DropdownItem v-show="getAuth(2)" @click.native="setUser('gag', true)" divided>禁言</DropdownItem>
 			</template>
 			<template v-else>
 				<template v-if="members[account].type != 'manager'">
-					<el-dropdown-item v-show="getAuth(1)" @click.native="setUser('manager', true)">设为管理员</el-dropdown-item>
+					<DropdownItem v-show="getAuth(1)" @click.native="setUser('manager', true)">设为管理员</DropdownItem>
 				</template>
 				<template v-else-if="members[account].type == 'manager'">
-					<el-dropdown-item v-show="getAuth(1)" @click.native="setUser('manager', false)">取消管理员</el-dropdown-item>
+					<DropdownItem v-show="getAuth(1)" @click.native="setUser('manager', false)">取消管理员</DropdownItem>
 				</template>
 				<template v-if="members[account].type != 'manager' && members[account].type != 'common'">
-					<el-dropdown-item v-show="getAuth(2)" @click.native="setUser('common', true)">设为会员</el-dropdown-item>
+					<DropdownItem v-show="getAuth(2)" @click.native="setUser('common', true)">设为会员</DropdownItem>
 				</template>
 				<template v-else-if="members[account].type == 'common'">
-					<el-dropdown-item v-show="getAuth(2)" @click.native="setUser('common', false)">取消会员</el-dropdown-item>
+					<DropdownItem v-show="getAuth(2)" @click.native="setUser('common', false)">取消会员</DropdownItem>
 				</template>
 				<template v-if="members[account].type != 'restricted'">
-					<el-dropdown-item v-show="getAuth(2)" @click.native="setUser('gag', true)" divided>禁言</el-dropdown-item>
+					<DropdownItem v-show="getAuth(2)" @click.native="setUser('gag', true)" divided>禁言</DropdownItem>
 				</template>
 				<template v-else-if="members[account].type == 'restricted'">
-					<el-dropdown-item v-show="getAuth(2)" @click.native="setUser('gag', false)" divided>解除禁言</el-dropdown-item>
+					<DropdownItem v-show="getAuth(2)" @click.native="setUser('gag', false)" divided>解除禁言</DropdownItem>
 				</template>
 			</template>
-		</el-dropdown-menu>
-	</el-dropdown>
+		</DropdownMenu>
+	</Dropdown>
 	<em v-else class="name" :class="{ me }">{{ nickname }}<slot></slot></em>
 </template>
 

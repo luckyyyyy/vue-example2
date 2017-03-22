@@ -18,7 +18,7 @@
 <script>
 	import '../../assets/prism/index-min.css'
 	import prism from '../../assets/prism/prism-min.js'
-	import { isiPad } from '../../utils/util'
+	import { isiPad, isDev } from '../../utils/util'
 	import { mapActions } from 'vuex'
 	export default {
 		props: {
@@ -57,12 +57,10 @@
 				getStreamStatus: 'LIVE_QUERY_STREAM_REQUEST'
 			}),
 			playVideo () {
-				console.log(this.player)
 				if (this.player) {
 					this.player.loadByUrl(this.getSource());
 					this.player.play();
 				} else {
-					console.log(12345)
 					const source = this.getSource();
 					this.player = new prism({
 						id       : 'video',
@@ -74,7 +72,7 @@
 						width    : '100%',
 						skinLayout: []
 					});
-					if (process.env.NODE_ENV !== 'production') {
+					if (isDev()) {
 						this.player.on('play', () => {
 							this.$Message.info(`DEBUG: source ${source}`)
 						})

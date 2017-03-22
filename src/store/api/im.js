@@ -1,8 +1,8 @@
 /*
 * @Author: William Chan
 * @Date:   2017-03-08 23:18:57
-* @Last Modified by:   William Chan
-* @Last Modified time: 2017-03-19 20:56:42
+* @Last Modified by:   Administrator
+* @Last Modified time: 2017-03-23 02:00:06
 */
 
 'use strict';
@@ -170,5 +170,20 @@ export const im_chatroom_setManager = ({ account, isAdd }) => {
 	})
 }
 
-
+export const im_chatroom_updateMyInfo = ({ nick }) => {
+	return new Promise((resolve, reject) => {
+		if (chatroom) {
+			chatroom.updateMyChatroomMemberInfo({
+				member: { nick, avatar: '', custom: '' },
+				needNotify: true,
+				done: (error, obj) => {
+					console.log(obj)
+					error ? reject(error) : resolve(obj);
+				}
+			});
+		} else {
+			reject('not connect');
+		}
+	})
+}
 
