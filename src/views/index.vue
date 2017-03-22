@@ -14,12 +14,12 @@
 							</ul>
 						</div>
 						<div class="title">账号概况 <a class="link">了解更多</a></div>
-					</div>	
+					</div>
 					<div class="box">
 						<ul class="list">
 							<li>当前账户余额：<span class="content"><span>100.00元(赠送)</span><a class="link">充值</a></span></li>
-							<li>当前账户版本：<span class="content"><span>基础版</span><a class="link">升级</a></span></li>
-							<li>当前流量套餐：<span class="content"><span>无</span><a class="link">购买</a></span></li>
+							<!--<li>当前账户版本：<span class="content"><span>基础版</span><a class="link">升级</a></span></li>
+							<li>当前流量套餐：<span class="content"><span>无</span><a class="link">购买</a></span></li>-->
 							<li class="item">
 								<div class="desc d1">剩余充值流量(元)：<span class="content"><span>0.00</span></span></div>
 								<Progress :hide-info="true" :stroke-width="18" :percent="70"></Progress>
@@ -33,9 +33,11 @@
 						</ul>
 					</div>
 				</div>
-				<!--具体信息-->
-				<div class="info">
-					<div class="title">频道概况</div>
+				<!--频道概况-->
+				<!--<div class="info wrap">
+					<div class="head">
+						<span class="title">频道概况</span>
+					</div>
 					<div class="box">
 						<ul class="list">
 							<li>
@@ -60,32 +62,12 @@
 							</li>
 						</ul>
 					</div>
-					<div class="title">最近直播</div>
-					<div class="box">
-						<ul class="list">
-							<li>
-								<p>0</p>
-								<span>观看总人数</span>
-							</li>
-							<li>
-								<p>54.56</p>
-								<span>直播时长</span>
-							</li>
-							<li>
-								<p>0</p>
-								<span>新增粉丝数</span>
-							</li>
-							<li>
-								<p>0</p>
-								<span>新增订单数</span>
-							</li>
-							<li>
-								<p>¥0.00</p>
-								<span>成交金额</span>
-							</li>
-						</ul>
+				</div>-->
+				<!--最近直播-->
+				<div class="info wrap">
+					<div class="head">
+						<div class="title">最近直播</div>
 					</div>
-					<div class="title">所有直播</div>
 					<div class="box">
 						<ul class="list">
 							<li>
@@ -111,20 +93,54 @@
 						</ul>
 					</div>
 				</div>
-				<div class="help">
-					<div class="title">新手学习</div>
-					<ul class="list">
-						<li><a>如何创建直播</a></li>
-						<li><a>如何装修直播</a></li>
-						<li><a>如何设置互动</a></li>
-						<li><a>直播设备知识</a></li>
-					</ul>
-					<ul class="list">
-						<li><a>直播现场知识</a></li>
-						<li><a>直播策划分享</a></li>
-						<li><a>直播案例分享</a></li>
-						<li><a>直播商务分享</a></li>
-					</ul>
+				<!--所有直播-->
+				<div class="info wrap">
+					<div class="head">
+						<div class="title">所有直播</div>
+					</div>
+					<div class="box">
+						<ul class="list">
+							<li>
+								<p>0</p>
+								<span>观看总人数</span>
+							</li>
+							<li>
+								<p>54.56</p>
+								<span>直播时长</span>
+							</li>
+							<li>
+								<p>0</p>
+								<span>新增粉丝数</span>
+							</li>
+							<li>
+								<p>0</p>
+								<span>新增订单数</span>
+							</li>
+							<li>
+								<p>¥0.00</p>
+								<span>成交金额</span>
+							</li>
+						</ul>
+					</div>
+				</div>
+				<div class="help wrap">
+					<div class="head">
+						<span class="title">新手学习</span>
+					</div>
+					<div class="box">
+						<ul class="list">
+							<li><a>如何创建直播</a></li>
+							<li><a>如何装修直播</a></li>
+							<li><a>如何设置互动</a></li>
+							<li><a>直播设备知识</a></li>
+						</ul>
+						<ul class="list">
+							<li><a>直播现场知识</a></li>
+							<li><a>直播策划分享</a></li>
+							<li><a>直播案例分享</a></li>
+							<li><a>直播商务分享</a></li>
+						</ul>
+					</div>
 				</div>
 			</div>
 		</div>
