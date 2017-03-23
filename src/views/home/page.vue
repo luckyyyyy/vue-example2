@@ -1,5 +1,5 @@
 <template>
-	<div class="box">
+	<div class="wrap">
 		<div class="page">
 			<div class="head">
 				<router-link :to="{ name: 'select_channel' }" title="返回首页">
@@ -49,15 +49,17 @@
 </script>
 
 <style lang="less" scoped>
-	.box {
+	.wrap {
 		position: absolute;
 		height: 100%;
+		min-height: 700px;
 		width: 100%;
 		left: 0;
 		top: 0;
 		background: #4e546c;
 	}
 	.page {
+		position: relative;
 		margin: 0 auto;
 		display: flex;
 		flex-direction: column;

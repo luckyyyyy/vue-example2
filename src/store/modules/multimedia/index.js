@@ -2,7 +2,7 @@
 * @Author: Administrator
 * @Date:   2017-01-06 02:33:52
 * @Last Modified by:   William Chan
-* @Last Modified time: 2017-03-23 17:07:10
+* @Last Modified time: 2017-03-23 19:27:58
 */
 
 'use strict';
@@ -48,7 +48,7 @@ const mutations = {
 		state.lock = true;
 	},
 	[MULTIMEDIA_FIND.SUCCESS] (state, { data }) {
-		if (data.multimedias.length == 0 || data.multimedias.length >= state.limits) {
+		if (data.multimedias.length >= state.limits) {
 			state.lock = false;
 		}
 		state.data = state.data.concat(data.multimedias);
