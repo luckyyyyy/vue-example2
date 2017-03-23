@@ -18,9 +18,9 @@
 
 export default {
 	mounted () {
-		// setTimeout(() => {
-		// 	this.to_login();
-		// }, 3000);
+		setTimeout(() => {
+			this.to_login();
+		}, 3000);
 	},
 	methods: {
 		to_login () {
