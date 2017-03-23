@@ -48,22 +48,7 @@
 		    width: 100%;
 		    top: 46px;
 		    bottom: 0px;
-		    background-color: #000;
+		    background-color: #fff;
 		}
 	}
 </style>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

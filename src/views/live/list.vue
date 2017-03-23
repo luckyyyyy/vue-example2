@@ -238,6 +238,9 @@
 
 
 <style lang="less" scoped>
+<<<<<<< HEAD
+	@import "../../assets/styles/views/live/list";
+=======
 	.commoon-view {
 		-webkit-overflow-scrolling: touch;
 	}
@@ -386,4 +389,5 @@
 			align-items: center;
 		}
 	}
+>>>>>>> b727135307c816b717f050296d42c930c5f967c5
 </style>
