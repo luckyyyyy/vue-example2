@@ -51,7 +51,7 @@
 			<div slot="footer" class="dialog-footer">
 				<div class="left">
 		 			<upload
-		 				:type="menu"
+		 				:classType="menu"
 						:method="option.method"
 						:action="option.action"
 						:acceptn="option.acceptn"
@@ -147,7 +147,6 @@
 			},
 			progress (p) {
 				this.lock = `上传中${Math.floor(p.percent)}%`;
-
 			},
 			onSubmit () {
 				if (this.multiple > 1) {
@@ -179,8 +178,9 @@
 			onSelectMenu (val) {
 				this.menu = val;
 			},
-			getImages (type, reload) {
+			getImages (reload) {
 				this.loading = true;
+				const type = this.menu;
 				this.getMultimedia({ type, reload }).then(data => {
 					this.loading = false;
 					if (!this.listScroll) {
@@ -195,7 +195,7 @@
 							shrinkScrollbars: 'clip',
 						})
 						this.listScroll.on('scrollEnd', () => {
-							this.getImages(this.menu);
+							this.getImages();
 						});
 					} else {
 						if (reload) {
@@ -231,13 +231,13 @@
 						})
 					}
 					this.find = [];
-					this.getImages(this.menu, true);
+					this.getImages(true);
 				}
 				this.visible = val;
 			},
 			menu (val) {
 				this.find = [];
-				this.getImages(this.menu, true);
+				this.getImages(true);
 			}
 		},
 		filters: {

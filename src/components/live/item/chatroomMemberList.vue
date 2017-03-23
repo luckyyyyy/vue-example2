@@ -22,7 +22,7 @@
 <script>
 	import chatroomName from './chatroomName'
 	import chatroomTag from './chatroomTag'
-	import { mapActions } from 'vuex'
+	import { mapActions, mapState } from 'vuex'
 	export default {
 		components: {
 			chatroomName, chatroomTag
@@ -33,7 +33,7 @@
 		},
 		data () {
 			return {
-				name: this.im.name
+				name: ''
 			}
 		},
 		methods: {

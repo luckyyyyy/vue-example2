@@ -44,11 +44,10 @@
 			display: flex;
 			padding-left: 140px;
 			box-sizing: border-box;
-		    position: absolute;
-		    width: 100%;
-		    top: 46px;
-		    bottom: 0px;
-		    background-color: #fff;
+			position: absolute;
+			width: 100%;
+			top: 46px;
+			bottom: 0px;
 		}
 	}
 </style>

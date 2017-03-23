@@ -1,0 +1,35 @@
+@import '~iview/src/styles/index.less';
+@primary-color: #31BEDB;
+
+.ivu-modal-body {
+	// padding: 0;
+	.ivu-modal-confirm {
+		// padding: 0;
+		.ivu-modal-confirm-head {
+			// padding: 16px;
+			.ivu-modal-confirm-head-title {
+				text-indent: 20px;
+				position: relative;
+				&:before {
+					position: absolute;
+					width: 10px;
+					height: 10px;
+					top: 50%;
+					margin-top: -5px;
+					left: 0;
+					content: "";
+					background: @primary-color;
+					border-radius: 50%;
+				}
+			}
+		}
+		// .ivu-modal-confirm-body {
+		// 	background: #f4f4f4;
+		// 	padding-left: 64px;
+		// 	padding-bottom: 40px;
+		// 	.ivu-modal-confirm-body-icon {
+		// 		left: 16px;
+		// 	}
+		// }
+	}
+}

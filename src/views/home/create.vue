@@ -55,8 +55,7 @@
 					<a class="wx" target="_blank" href="https://www.baidu.com">还没有公众号？去申请吧 ></a>
 				</div>
 				<div class="tips">
-					<strong>说明：</strong>
-					<p>1. 绑定微信公众号不会对您的公众号造成任何影响，自定义菜单、回复规则及图文素材等将保持原样；</p>
+					<p>1.绑定微信公众号不会对您的公众号造成任何影响，自定义菜单、回复规则及图文素材等将保持原样；</p>
 					<p>2.绑定微信公众号只能公众号管理员完成，请确保您是管理员或联系他协助您完成绑定；</p>
 				</div>
 			</template>
@@ -215,7 +214,7 @@
 				border-radius: 0 8px 0 0;
 			}
 			&.active {
-				background: #3399ff;
+				background: #31BEDB;
 				color: white;
 			}
 
@@ -257,6 +256,19 @@
 			}
 		}
 		.tips {
+			position: absolute;
+			bottom: 0;
+			left: 0;
+			width: 100%;
+			padding: 0 100px;
+			font-size: 12px;
+			background: #F2F3F7;
+			border-radius: 0 0 8px 8px;
+			height: 70px;
+			display: flex;
+			flex-direction: column;
+			justify-content: center;
+			// align-items: center;
 			p {
 				margin: 0;
 			}

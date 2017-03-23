@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import iView from 'iview'
-import 'iview/src/styles/index.less'
+import './assets/styles/iview-theme/index.less'
 import './assets/common.less'
 import 'animate.css'
 import App from './App.vue'

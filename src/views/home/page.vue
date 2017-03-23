@@ -112,8 +112,8 @@
 		.box {
 			height: 520px;
 			width: 100%;
-			box-shadow: 0 0 6px 0 rgba(0, 0, 0, 0.04), 0 2px 4px 0 rgba(0, 0, 0, 0.12);
-			border: solid 1px #d3dce6;
+			// box-shadow: 0 0 6px 0 rgba(0, 0, 0, 0.04), 0 2px 4px 0 rgba(0, 0, 0, 0.12);
+			// border: solid 1px #d3dce6;
 			position: relative;
 			background: #fff;
 			border-radius: 8px;

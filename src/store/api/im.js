@@ -1,11 +1,12 @@
 /*
 * @Author: William Chan
 * @Date:   2017-03-08 23:18:57
-* @Last Modified by:   Administrator
-* @Last Modified time: 2017-03-23 02:00:06
+* @Last Modified by:   William Chan
+* @Last Modified time: 2017-03-24 01:49:46
 */
 
 'use strict';
+// import { http } from './'
 import { NIM, Chatroom } from '../../assets/NIM_Web_SDK/js/NIM_Web_SDK_v3.4.0'
 
 const IM_APP_KEY = '29b61d49c94875017bd9855f082a7ec9';
@@ -50,6 +51,22 @@ export const im_chatroom_address = chatroomId => {
 			reject('not connect');
 		}
 	})
+}
+
+export const im_update_myinfo = nick => {
+	return new Promise((resolve, reject) => {
+		if (nim) {
+			nim.updateMyInfo({
+				nick,
+				avatar: '',
+				done: (error, msg) => {
+					error ? reject(error) : resolve(msg);
+				}
+			});
+		} else {
+			reject('not connect');
+		}
+	});
 }
 
 // chatroom
@@ -169,18 +186,23 @@ export const im_chatroom_setManager = ({ account, isAdd }) => {
 		}
 	})
 }
-
+// PUT /api/v1/live/update/chat_room_creator/{id}
+// export const im_chatroom_updateMyInfo = ({ name, id }) => {
+	// return http.put(`live/update/chat_room_creator/${id}`, { name })
+// }
 export const im_chatroom_updateMyInfo = ({ nick }) => {
 	return new Promise((resolve, reject) => {
 		if (chatroom) {
-			chatroom.updateMyChatroomMemberInfo({
-				member: { nick, avatar: '', custom: '' },
-				needNotify: true,
-				done: (error, obj) => {
-					console.log(obj)
-					error ? reject(error) : resolve(obj);
-				}
-			});
+			im_update_myinfo(nick).then(() => {
+				chatroom.updateMyChatroomMemberInfo({
+					member: { nick, avatar: '', custom: '' },
+					needNotify: true,
+					done: (error, obj) => {
+						console.log(obj)
+						error ? reject(error) : resolve(obj);
+					}
+				});
+			})
 		} else {
 			reject('not connect');
 		}

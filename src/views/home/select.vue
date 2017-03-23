@@ -12,7 +12,9 @@
 				</div>
 			</div>
 			<div class="create">
-				<router-link :to="{ name: 'create_channel' }">创建新频道</router-link>
+				<router-link :to="{ name: 'create_channel' }">
+					<iButton type="primary">创建新频道</iButton>
+				</router-link>
 			</div>
 		</header>
 		<div class="body">
@@ -172,7 +174,7 @@
 	}
 	.body {
 		position: relative;
-		height: 410px;
+		height: 430px;
 		.channel {
 			display: flex;
 			flex-direction: column;
@@ -189,6 +191,11 @@
 						cursor: pointer;
 						transition: border .1s ease-in-out;
 						border-radius: 6px;
+						&:hover {
+							.head .ivu-icon {
+								visibility: visible;
+							}
+						}
 						.head {
 							background: #4E546C;
 							box-shadow: 0 2px 6px 2px rgba(0,0,0,0.16);
@@ -209,12 +216,6 @@
 								top: 50%;
 								margin-top: -10px;
 								visibility: hidden;
-							}
-							&:hover {
-								border-color: #51bfff;
-								.ivu-icon {
-									visibility: visible;
-								}
 							}
 							&:after {
 								position: absolute;
@@ -252,8 +253,7 @@
 				display: flex;
 				justify-content: center;
 				position: absolute;
-				bottom: 15px;
-				padding: 10px;
+				bottom: 20px;
 				width: 100%;
 			}
 		}

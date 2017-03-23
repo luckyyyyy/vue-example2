@@ -52,7 +52,7 @@
 
 	export default {
 		props: {
-			type: {
+			classType: {
 				type: Number,
 				default: 2
 			},
@@ -145,7 +145,7 @@
 							this.files.push({
 								body: e.target.result,
 								name: file.name,
-								type: this.type,
+								type: this.classType,
 							});
 							this.size = this.size + e.target.result.length;
 							this.$emit('queue', this.files, this.length);
