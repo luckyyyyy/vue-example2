@@ -2,7 +2,7 @@
 * @Author: William Chan
 * @Date:   2017-03-06 22:28:39
 * @Last Modified by:   William Chan
-* @Last Modified time: 2017-03-08 15:39:48
+* @Last Modified time: 2017-03-23 13:49:48
 */
 
 'use strict';
@@ -18,18 +18,18 @@ export default [
 			main:    resolve => require(['../components/main.vue'], resolve)
 		},
 		children: [
-			{
-				name: 'account_overview',
-				path: 'overview',
-				meta: { requiresAuth: true },
-				component: resolve => require(['../views/account/overview.vue'], resolve)
-			},
-			{
-				name: 'account_upgrade',
-				path: 'uphrade',
-				meta: { requiresAuth: true },
-				component: resolve => require(['../views/account/upgrade.vue'], resolve)
-			},
+			// {
+			// 	name: 'account_overview',
+			// 	path: 'overview',
+			// 	meta: { requiresAuth: true },
+			// 	component: resolve => require(['../views/account/overview.vue'], resolve)
+			// },
+			// {
+			// 	name: 'account_upgrade',
+			// 	path: 'uphrade',
+			// 	meta: { requiresAuth: true },
+			// 	component: resolve => require(['../views/account/upgrade.vue'], resolve)
+			// },
 			{
 				name: 'account_flow',
 				path: 'flow',
@@ -42,12 +42,12 @@ export default [
 				meta: { requiresAuth: true },
 				component: resolve => require(['../views/account/recharge.vue'], resolve)
 			},
-			{
-				name: 'account_income',
-				path: 'income',
-				meta: { requiresAuth: true },
-				component: resolve => require(['../views/account/income.vue'], resolve)
-			}
+			// {
+			// 	name: 'account_income',
+			// 	path: 'income',
+			// 	meta: { requiresAuth: true },
+			// 	component: resolve => require(['../views/account/income.vue'], resolve)
+			// }
 		],
 	},
 ]
