@@ -1,8 +1,8 @@
 /*
 * @Author: Administrator
 * @Date:   2017-01-06 02:33:52
-* @Last Modified by:   Administrator
-* @Last Modified time: 2017-03-22 01:34:20
+* @Last Modified by:   William Chan
+* @Last Modified time: 2017-03-23 17:09:08
 */
 
 'use strict';
@@ -14,7 +14,7 @@ const state = {
 	lock: false,
 	data: [],
 	start: 0,
-	limits: 30,
+	limits: 25,
 	status: 0,
 }
 

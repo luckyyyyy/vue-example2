@@ -167,29 +167,31 @@
 				this.$router.push({ name: this.$route.name, params: { status: this.status } })
 			},
 			findLiveList (reload) {
-				const msg = this.$Message.loading('正在加载中...', 0);
-				this.loading = true;
-				this.getLiveList({ reload, status: this.status }).then(() => {
-					this.loading = false;
-					msg();
-					if (!this.listScroll) {
-						this.listScroll = new iscroll(this.$refs.list, {
-							mouseWheel: true,
-							preventDefault: false,
-							scrollbars: true,
-							fadeScrollbars: true,
-							interactiveScrollbars: true,
-							shrinkScrollbars: 'clip',
-						})
-						this.listScroll.on('scrollEnd', () => {
-							this.findLiveList();
-						});
-					} else {
-						this.listScroll.refresh();
-					}
-				}).catch(() => {
-					this.loading = false;
-				});
+				if (!this.lock || reload) {
+					const msg = this.$Message.loading('正在加载中...', 0);
+					this.loading = true;
+					this.getLiveList({ reload, status: this.status }).then(() => {
+						this.loading = false;
+						msg();
+						if (!this.listScroll) {
+							this.listScroll = new iscroll(this.$refs.list, {
+								mouseWheel: true,
+								preventDefault: false,
+								scrollbars: true,
+								fadeScrollbars: true,
+								interactiveScrollbars: true,
+								shrinkScrollbars: 'clip',
+							})
+							this.listScroll.on('scrollEnd', () => {
+								this.findLiveList();
+							});
+						} else {
+							this.listScroll.refresh();
+						}
+					}).catch(() => {
+						this.loading = false;
+					});
+				}
 			},
 			openCreateDialog () {
 				this.openDialog  = true;
