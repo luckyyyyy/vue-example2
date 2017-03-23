@@ -89,5 +89,5 @@
 </script>
 
 <style scoped lang="less">
-	@import url('../../assets/styles/live/detail.less');
+	@import url('../../assets/styles/views/live/detail.less');
 </style>
