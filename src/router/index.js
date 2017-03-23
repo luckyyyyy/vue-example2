@@ -2,7 +2,7 @@
 * @Author: William Chan
 * @Date:   2016-12-01 17:57:50
 * @Last Modified by:   William Chan
-* @Last Modified time: 2017-03-20 02:46:17
+* @Last Modified time: 2017-03-23 13:44:22
 */
 
 'use strict';
@@ -14,21 +14,24 @@ import NProgress from 'nprogress'
 import 'nprogress/nprogress.css'
 // import { LoadingBar } from 'iview' // 暂时不用
 
-import topRoute     from './top'
-import liveRoute    from './live'
-import VideoRoute   from './video'
-import homeRoute    from './home'
-// import accountRoute from './account'
-// import storeRoute   from './store'
-import userRoute    from './user'
+import topRoute        from './top'
+import liveRoute       from './live'
+import VideoRoute      from './video'
+import homeRoute       from './home'
+import accountRoute    from './account'
+// import storeRoute      from './store'
+import userRoute       from './user'
+import multimediaRoute from './multimedia'
+import channelRoute    from './channel'
 
 import { getAuthorization, getCurrentChannelID, store } from '../store'
 
 
 Vue.use(VueRouter);
 const routes = [].concat(
-	// accountRoute, storeRoute,
+	accountRoute, // storeRoute,
 	liveRoute, VideoRoute, homeRoute, userRoute,
+	multimediaRoute, channelRoute,
 	topRoute
 );
 

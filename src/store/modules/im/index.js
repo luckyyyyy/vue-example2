@@ -1,8 +1,8 @@
 /*
 * @Author: William Chan
 * @Date:   2017-03-10 16:42:39
-* @Last Modified by:   Administrator
-* @Last Modified time: 2017-03-23 02:09:00
+* @Last Modified by:   William Chan
+* @Last Modified time: 2017-03-23 13:15:33
 */
 
 'use strict';
@@ -70,13 +70,13 @@ const getters = {
 const actions = {
 	async [IM_INIT.REQUEST] ({ commit, dispatch, rootState, state }, { im, chatroomId, oncustomsysmsg, onCustomServiceMsg, ondisconnect }) {
 		return new Promise(async (resolve, reject) => {
-			dispatch(IM_CHATROOM_MSG.SERVICE, { type: 'SYSTEM_TIPS', content: '开始初始化中控台' });
 			const init = {}
 			init.account        = im.accid;
 			init.token          = im.token;
 			init.oncustomsysmsg = oncustomsysmsg;
 			commit(IM_INIT.REQUEST);
 			dispatch(IM_CHATROOM_MSG.SERVICE, 'IM_INIT');
+			dispatch(IM_CHATROOM_MSG.SERVICE, { type: 'SYSTEM_TIPS', content: '开始初始化中控台' });
 			await im_init(init).then(() => {
 				commit(IM_INIT.SUCCESS);
 				dispatch(IM_CHATROOM_MSG.SERVICE, 'IM_INIT_SUCCESS');

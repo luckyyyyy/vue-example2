@@ -12,7 +12,7 @@
 						<MenuItem :key="sub.name" v-for="sub of item.sub" :name="sub.name" v-html="sub.item"></MenuItem>
 					</Submenu>
 				</template>
-				<MenuItem v-else :name="item.name" v-html="item.item"></MenuItem>
+				<MenuItem :class="{ line: item.line }" v-else :name="item.name" v-html="item.item"></MenuItem>
 			</template>
 		</Menu>
 		<div style="text-align: center;padding: 10px;">
@@ -51,14 +51,17 @@
 						item: '<i class="iconfont icon-recharge"></i>账户',
 						name: 'account',
 						sub: [
-							{ item: '账户总览', name: 'account_overview' },
-							{ item: '账户升级', name: 'account_upgrade' },
+							// { item: '账户总览', name: 'account_overview' },
+							// { item: '账户升级', name: 'account_upgrade' },
 							{ item: '流量管理', name: 'account_flow' },
 							{ item: '立即充值', name: 'account_recharge' },
-							{ item: '我的收入', name: 'account_income' },
+							// { item: '我的收入', name: 'account_income' },
 						]
 					},
 					// { item: '<i class="iconfont icon-circle"></i>营销', name: 'index2' },
+					{ item: '<i class="iconfont icon-circle"></i>素材', name: 'multimedia', line: true },
+					{ item: '<i class="iconfont icon-circle"></i>设置', name: 'channel_preferences' },
+
 				],
 			}
 		},
