@@ -2,7 +2,7 @@
 * @Author: William Chan
 * @Date:   2017-03-06 22:26:46
 * @Last Modified by:   William Chan
-* @Last Modified time: 2017-03-19 03:47:40
+* @Last Modified time: 2017-03-23 19:10:12
 */
 
 'use strict';
@@ -45,9 +45,9 @@ export default [
 				})
 			},
 			{
-				path: 'register/seccuss',
-				name: 'register_seccuss',
-				component: resolve => require(['../views/user/register-seccuss.vue'], resolve)
+				path: 'register/success',
+				name: 'register_success',
+				component: resolve => require(['../views/user/register_success.vue'], resolve)
 			},
 			{
 				path: 'resetpwd',

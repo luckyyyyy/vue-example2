@@ -115,7 +115,7 @@
 						this.lock = true;
 						this.registerUser(this.register).then(() => {
 							this.lock = false;
-							this.$router.push({ name: 'register_seccuss' });
+							this.$router.push({ name: 'register_success' });
 						}).catch(() => {
 							this.lock = false;
 						})
