@@ -16,9 +16,9 @@
 				</div>
 			</div>
 		</div>
-		<div @scroll="onScroll" class="commoon-view">
+		<div ref="list" @scroll="onScroll" class="commoon-view">
 			<!-- <Spin fix v-if="loading"></Spin> -->
-			<ul class="list" v-if="data.length">
+			<ul class="list" v-show="data.length">
 				<li v-for="item in data" :key="item.id" class="item">
 					<div class="body">
 						<div class="top">
@@ -84,7 +84,7 @@
 					</div>
 				</li>
 			</ul>
-			<div v-if="!loading && !data.length" class="tips">
+			<div v-show="!loading && !data.length" class="tips">
 				没有数据啦QAQ
 			</div>
 		</div>
@@ -124,6 +124,7 @@
 	import qrcodePopover from '../../components/item/qrcodePopover'
 	import confirmPopover from '../../components/item/confirmPopover'
 	import { LIVE_CREATE_RULES } from '../../options/rules'
+	import iscroll from 'iscroll'
 	export default {
 		components: {
 			qrcodePopover, confirmPopover
@@ -177,7 +178,18 @@
 				this.getLiveList({ reload, status: this.status }).then(() => {
 					this.loading = false;
 					msg();
-
+					if (!this.listScroll) {
+						this.listScroll = new iscroll(this.$refs.list, {
+							mouseWheel: true,
+							preventDefault: false,
+							scrollbars: true,
+							fadeScrollbars: true,
+							interactiveScrollbars: true,
+							shrinkScrollbars: 'clip',
+						})
+					} else {
+						this.listScroll.refresh();
+					}
 				}).catch(() => {
 					this.loading = false;
 				});
@@ -247,8 +259,7 @@
 		top: 0;
 	}
 	.list {
-		overflow: hidden;
-		// -webkit-overflow-scrolling: touch;
+
 		> .item {
 			width: 240px;
 			height: 207px;
@@ -258,7 +269,7 @@
 			margin-top: 0;
 			box-shadow: 0 1px 7px 0 rgba(0,43,59,0.20);
 			display: inline-block;
-			z-index: 1;
+			position: relative;
 			.create {
 				display: inline-block;
 			}

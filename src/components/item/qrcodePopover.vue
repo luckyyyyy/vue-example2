@@ -1,7 +1,7 @@
 <template>
 	<Poptip class="qrcode-wrapper" placement="bottom" width="240">
 		<template slot="content">
-			<div class="qrcode-box">
+			<div @show="onShow" class="qrcode-box">
 				<slot name="tips"></slot>
 				<div ref="qrcode" class="qr"></div>
 				<clipboardInput :text="text"></clipboardInput>
@@ -34,7 +34,7 @@
 					// colorLight : "#ffffff",
 				});
 			}
-		}
+		},
 	}
 </script>
 
