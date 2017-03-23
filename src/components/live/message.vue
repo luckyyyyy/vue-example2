@@ -1,5 +1,5 @@
 <template>
-	<div class="message">
+	<div class="message" ref="iScrollWrap">
 		<ul class="list" ref="list">
 			<li v-for="item of message">
 				<div class="head">
@@ -24,7 +24,11 @@
 <script>
 	import _L from '../../options/live/message'
 	import { date } from '../../utils/util'
+	import iScroll from 'iscroll'
 	export default {
+		mounted() {
+
+		},
 		computed: {
 			message () {
 				this.$nextTick(() => {
@@ -40,45 +44,21 @@
 				return _L[txt] || txt;
 			}
 		},
-	}
-</script>
-
-<style scoped lang="less">
-	.message {
-		flex: 3;
-		display: flex;
-		flex-direction: column;
-		padding-bottom: 40px;
-		.list {
-			height: 0; // ?
-			overflow: auto;
-			flex: 1;
-			background: #F7F8FA;
-			font-size: 12px;
-			li {
-				margin: 10px;
-				background: #eaebed;
-				display: flex;
-				flex-direction: column;
-				border-radius: 5px;
-				.head {
-					border-radius: 5px 5px 0 0;
-					padding: 2px 10px;
-					display: flex;
-					justify-content: space-between;
-					background: #fff;
-					span {
-						font-weight: bold;
-					}
-					em {
-						font-style: normal;
-						font-family: HelveticaNeue;
-					}
-				}
-				.body {
-					padding: 10px;
+		watch: {
+			message(val){
+				if(!this.myScroll){
+					this.myScroll = new iScroll(this.$refs.iScrollWrap,{
+						scrollbars: true
+					});
+					this.$nextTick(() => { // 不知道什么BUG
+						this.myScroll.refresh();
+					})
 				}
 			}
 		}
 	}
+</script>
+
+<style scoped lang="less">
+	@import "../../assets/styles/components/live/message";
 </style>

@@ -9,7 +9,7 @@
 							<div class="qrcode"></div>
 							<p>支持Android、iOS 下载</p>
 						</template>
-						<iButton type="ghost">下载直播工具</iButton>
+						<button class="btn">下载直播工具</button>
 					</Poptip>
 					<Poptip placement="bottom" width="200" trigger="click"  class="stream-url-popper" :width="240">
 						<template slot="content">
@@ -25,13 +25,13 @@
 								</div>
 							</div>
 						</template>
-						<iButton type="ghost">推流地址</iButton>
+						<button class="btn" type="ghost">推流地址</button>
 					</Poptip>
 					<qrcodePopover text="假的">
 						<p slot="tips">微信扫码观看直播</p>
-						<iButton type="ghost" slot="reference">观看地址</iButton>
+						<button class="btn" slot="reference">观看地址</button>
 					</qrcodePopover>
-					<iButton type="primary" @click="openNotice">发布公告</iButton>
+					<button class="btn release" @click="openNotice">发布公告</button>
 				</div>
 			</div>
 		</div>
@@ -280,122 +280,5 @@
 	}
 </script>
 <style scoped lang="less">
-	.control {
-		display: flex;
-		padding: 10px;
-		flex-direction: column;
-		.body {
-			display: flex;
-			flex: 1;
-			height: 100%;
-			position: relative;
-		}
-		.action {
-			position: absolute;
-			z-index: 1;
-			bottom: 0;
-			left: 0;
-			width: 100%;
-			height: 40px;
-			background: rgba(0, 0, 0, .5);
-			display: flex;
-			padding: 5px 0;
-			line-height: 30px;
-			box-sizing: border-box;
-			font-size: 12px;
-			.live-info {
-				width: 70%;
-				display: flex;
-				justify-content: space-between;
-				padding: 0 10px;
-				box-sizing: border-box;
-				.live-info-stat {
-					display: flex;
-					color: white;
-					li {
-						margin-right: 20px;
-						span {
-							margin-left: 5px;
-							color: yellow;
-						}
-					}
-				}
-				.live-info-status {
-					display: flex;
-					.time {
-						color: white;
-						margin-right: 10px;
-					}
-					.ivu-btn {
-						margin-left: 5px;
-					}
-				}
-			}
-			.chat-input {
-				width: 30%;
-				padding: 0 10px;
-				box-sizing: border-box;
-				display: flex;
-				align-items: center;
-				.ivu-input-wrapper {
-					flex: 1;
-				}
-				.ivu-btn {
-					margin-left: 10px;
-				}
-			}
-		}
-		.button-action {
-			margin-bottom: 10px;
-			display: flex;
-			flex-direction: column;
-			.line {
-				text-align: center;
-			}
-			.ivu-btn {
-				width: 120px;
-				margin: 0 10px;
-			}
-		}
-		.top {
-			display: flex;
-			display: flex;
-			justify-content: center;
-		}
-	}
+	@import "../../assets/styles/views/live/control";
 </style>
-
-<style lang="less">
-	.stream-url-popper {
-		.tips {
-			padding: 5px;
-			h3 {
-				text-align: center;
-				font-size: 14px;
-				// background: #eee;
-			}
-			.qrcode {
-				display: flex;
-				justify-content: center;
-				padding: 5px;
-				img {
-					width: 120px;
-					height: 120px;
-				}
-			}
-		}
-	}
-</style>
-
-
-
-
-
-
-
-
-
-
-
-
-
