@@ -16,7 +16,7 @@
 				</div>
 			</div>
 		</div>
-		<div ref="list" @scroll="onScroll" class="commoon-view">
+		<div ref="list" class="commoon-view">
 			<!-- <Spin fix v-if="loading"></Spin> -->
 			<ul class="list" v-show="data.length">
 				<li v-for="item in data" :key="item.id" class="item">
@@ -161,12 +161,6 @@
 			...mapActions('live/delete', {
 				deleteLive: 'LIVE_DELETE_REQUEST'
 			}),
-			onScroll (e) {
-				const el = e.target;
-				if (el.scrollHeight - el.scrollTop - el.offsetHeight < 200 && !this.lock) {
-					this.findLiveList();
-				}
-			},
 			onStatusChange (val) {
 				this.status = val;
 				this.findLiveList(true);
@@ -187,6 +181,9 @@
 							interactiveScrollbars: true,
 							shrinkScrollbars: 'clip',
 						})
+						this.listScroll.on('scrollEnd', () => {
+							this.findLiveList();
+						});
 					} else {
 						this.listScroll.refresh();
 					}
