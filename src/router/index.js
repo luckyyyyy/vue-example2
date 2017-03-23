@@ -2,7 +2,7 @@
 * @Author: William Chan
 * @Date:   2016-12-01 17:57:50
 * @Last Modified by:   William Chan
-* @Last Modified time: 2017-03-23 13:44:22
+* @Last Modified time: 2017-03-24 04:43:17
 */
 
 'use strict';
@@ -49,6 +49,7 @@ router.beforeEach(async (to, from, next) => {
 	NProgress.start();
 	const requiresAuth = to.matched.some(record => record.meta.requiresAuth);
 	let params;
+	const channel = getCurrentChannelID();
 	if (!getAuthorization()) {
 		if (to.name == '404' || to.fullPath == '/') {
 			params = { name: 'login' };
@@ -56,18 +57,31 @@ router.beforeEach(async (to, from, next) => {
 			params = { name: 'login', query: { redirect: to.fullPath } };
 		}
 	} else {
-		if (getCurrentChannelID()) {
+		if (channel) {
+			const state = store.state.channel;
+			// 这里有坑 不过暂时先这样
+			if (!state.channel || state.id != state.channel.channelID) {
+				await store.dispatch('channel/CHANNEL_QUERY',  channel).then(res => {
+					if (res.channel.status != 2) {
+						store.commit('channel/CHANNEL_SELECT', null);
+						params = { name: 'create_channel', params: { id: channel } };
+					}
+				}).catch(err => {
+					store.commit('channel/CHANNEL_SELECT', null);
+					params = { name: 'select_channel', query: { redirect: to.fullPath } };
+				})
+			}
 			if (to.params.liveid) {
-					await store.dispatch('live/LIVE_QUERY', { id: to.params.liveid }).then(res => {
-						// success
-					}).catch(err => {
-						if (from.matched.some(record => record.name == 'live')) {
-							params = false;
-						} else {
-							params =  { name: 'index' };
-							// TODO 根据服务器来源判断
-						}
-					})
+				 await store.dispatch('live/LIVE_QUERY', { id: to.params.liveid }).then(res => {
+					// success
+				}).catch(err => {
+					if (from.matched.some(record => record.name == 'live')) {
+						params = false;
+					} else {
+						params =  { name: 'index' };
+						// TODO 根据服务器来源判断
+					}
+				})
 			} else {
 				if (to.meta.group == 'select' && to.meta.group != 'global') {
 					if (to.query.redirect) {

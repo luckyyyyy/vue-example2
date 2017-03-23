@@ -2,7 +2,7 @@
 * @Author: William Chan
 * @Date:   2017-03-19 03:49:11
 * @Last Modified by:   William Chan
-* @Last Modified time: 2017-03-19 15:13:46
+* @Last Modified time: 2017-03-24 04:36:21
 */
 
 'use strict';
@@ -12,13 +12,14 @@ import { CHANNEL } from '../../types'
 import router from '../../../router'
 
 const state = {
-	channel: {},
+	channel: null,
+	id: ''
 }
 
 const getters = {
 	channelID: state => {
-		if (state.channel && state.channel.channelId) {
-			return state.channel.channelId;
+		if (state.id) {
+			return state.id;
 		} else {
 			return sessionStorage.getItem('channelID');
 		}
@@ -29,40 +30,42 @@ const actions = {
 	[CHANNEL.QUERY] ({ commit }, ...args) {
 		return new Promise((resolve, reject) => {
 			channel_query(...args).then(res => {
+				commit(CHANNEL.SELECT, res.data);
 				resolve(res.data);
 			}).catch(err => {
 				reject();
 			})
 		})
 	},
-	[CHANNEL.CHECK] ({ getters, dispatch }) {
-		const id = getters.channelID;
-		if (!id){
-			console.log('没有选择频道');
-		} else {
-			dispatch(CHANNEL.SELECT, id);
-		}
-	},
+	// [CHANNEL.CHECK] ({ getters, dispatch }) {
+	// 	const id = getters.channelID;
+	// 	if (!id){
+	// 		console.log('没有选择频道');
+	// 	} else {
+	// 		dispatch(CHANNEL.SELECT, id);
+	// 	}
+	// },
 	[CHANNEL.SELECT] ({ getters, dispatch, commit }, id) {
 		if (id) {
-			dispatch(CHANNEL.QUERY, id).then(data => {
-				if (data.channel.status == 2) {
-					return commit(CHANNEL.SELECT, data.channel, { root: true });
-				} else {
-					return router.push({ name: 'create_channel', params: { id: id } })
-				}
-			}).catch(() => {
-				commit(CHANNEL.SELECT, null, { root: true });
-			})
+			commit(CHANNEL.SELECT, id, { root: true });
 		} else {
-			return commit(CHANNEL.SELECT, null, { root: true });
+			commit(CHANNEL.SELECT, null, { root: true });
 		}
 
 	}
 }
 
 const mutations = {
-
+	[CHANNEL.SELECT] (state, data) {
+		if (data) {
+			state.channel = data.channel;
+			state.id      = data.channel.channelID;
+		} else {
+			state.channel = null;
+			state.id      = null;
+			sessionStorage.removeItem('channelID')
+		}
+	}
 }
 export default {
 	namespaced: true,

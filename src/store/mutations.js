@@ -2,7 +2,7 @@
 * @Author: Administrator
 * @Date:   2017-01-06 02:42:21
 * @Last Modified by:   William Chan
-* @Last Modified time: 2017-03-19 15:03:01
+* @Last Modified time: 2017-03-24 04:33:55
 */
 
 'use strict';
@@ -42,18 +42,19 @@ export const USER_CLEAR = (state, err) => {
 	}
 }
 
-export const CHANNEL_SELECT = (state, channel) => {
-	if (channel && channel.channelId) {
-		sessionStorage.setItem('channelID', channel.channelId);
+export const CHANNEL_SELECT = (state, id) => {
+	router.push({ name: 'index' })
+	if (id) {
+		sessionStorage.setItem('channelID', id);
 	} else {
 		sessionStorage.removeItem('channelID');
 	}
-	state.channel.channel = channel;
+	state.channel.id = id;
 	const route = state.route;
 	if (route.meta) {
 		const requiresAuth = route.meta.requiresAuth;
 		if (requiresAuth) {
-			if (state.channel.channel) {
+			if (id) {
 				if (route.meta.group == 'select' && route.meta.group != 'global') {
 					if (route.query.redirect) {
 						router.push({ path: route.query.redirect })
@@ -62,6 +63,7 @@ export const CHANNEL_SELECT = (state, channel) => {
 					}
 				}
 			} else {
+
 				if (route.meta.group != 'select' && route.meta.group != 'global') {
 					router.push({ name: 'select_channel', query: { redirect: route.fullPath } });
 				}

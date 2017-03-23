@@ -23,15 +23,15 @@
 		},
 		mounted () {
 			this.checkLogin();
-			this.checkChannel();
+			// this.checkChannel();
 		},
 		methods: {
 			...mapActions('user', {
 				checkLogin: 'USER_LOGIN'
 			}),
-			...mapActions('channel', {
-				checkChannel: 'CHANNEL_CHECK'
-			})
+			// ...mapActions('channel', {
+			// 	checkChannel: 'CHANNEL_CHECK'
+			// })
 		}
 	}
 </script>
