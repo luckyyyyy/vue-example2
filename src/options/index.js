@@ -2,13 +2,14 @@
 * @Author: William Chan
 * @Date:   2017-02-18 10:41:37
 * @Last Modified by:   William Chan
-* @Last Modified time: 2017-03-21 17:02:54
+* @Last Modified time: 2017-03-23 14:53:40
 */
 
 'use strict';
 
 export const PHONE_CAPTCHA_EXPIRED = 60;
-
+export const UPDATE_LIMIT_SIZE  = 1024e3 * 20;
+export const UPDATE_LIMIT_COUNT = 20;
 export const MULTIMEDIA_TYPE = {
 	1: '直播引导图',
 	2: '分享设置图',

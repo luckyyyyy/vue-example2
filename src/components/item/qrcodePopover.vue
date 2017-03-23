@@ -34,7 +34,7 @@
 					// colorLight : "#ffffff",
 				});
 			}
-		}
+		},
 	}
 </script>
 

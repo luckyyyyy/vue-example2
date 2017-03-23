@@ -16,9 +16,9 @@
 				</div>
 			</div>
 		</div>
-		<div @scroll="onScroll" class="commoon-view">
+		<div ref="list" class="commoon-view">
 			<!-- <Spin fix v-if="loading"></Spin> -->
-			<ul class="list" v-if="data.length">
+			<ul class="list" v-show="data.length">
 				<li v-for="item in data" :key="item.id" class="item">
 					<div class="body">
 						<div class="top">
@@ -84,7 +84,7 @@
 					</div>
 				</li>
 			</ul>
-			<div v-if="!loading && !data.length" class="tips">
+			<div v-show="!loading && !data.length" class="tips">
 				没有数据啦QAQ
 			</div>
 		</div>
@@ -124,6 +124,7 @@
 	import qrcodePopover from '../../components/item/qrcodePopover'
 	import confirmPopover from '../../components/item/confirmPopover'
 	import { LIVE_CREATE_RULES } from '../../options/rules'
+	import iscroll from 'iscroll'
 	export default {
 		components: {
 			qrcodePopover, confirmPopover
@@ -160,27 +161,37 @@
 			...mapActions('live/delete', {
 				deleteLive: 'LIVE_DELETE_REQUEST'
 			}),
-			onScroll (e) {
-				const el = e.target;
-				if (el.scrollHeight - el.scrollTop - el.offsetHeight < 200 && !this.lock) {
-					this.findLiveList();
-				}
-			},
 			onStatusChange (val) {
 				this.status = val;
 				this.findLiveList(true);
 				this.$router.push({ name: this.$route.name, params: { status: this.status } })
 			},
 			findLiveList (reload) {
-				const msg = this.$Message.loading('正在加载中...', 0);
-				this.loading = true;
-				this.getLiveList({ reload, status: this.status }).then(() => {
-					this.loading = false;
-					msg();
-
-				}).catch(() => {
-					this.loading = false;
-				});
+				if (!this.lock || reload) {
+					const msg = this.$Message.loading('正在加载中...', 0);
+					this.loading = true;
+					this.getLiveList({ reload, status: this.status }).then(() => {
+						this.loading = false;
+						msg();
+						if (!this.listScroll) {
+							this.listScroll = new iscroll(this.$refs.list, {
+								mouseWheel: true,
+								preventDefault: false,
+								scrollbars: true,
+								fadeScrollbars: true,
+								interactiveScrollbars: true,
+								shrinkScrollbars: 'clip',
+							})
+							this.listScroll.on('scrollEnd', () => {
+								this.findLiveList();
+							});
+						} else {
+							this.listScroll.refresh();
+						}
+					}).catch(() => {
+						this.loading = false;
+					});
+				}
 			},
 			openCreateDialog () {
 				this.openDialog  = true;
@@ -227,5 +238,156 @@
 
 
 <style lang="less" scoped>
+<<<<<<< HEAD
 	@import "../../assets/styles/views/live/list";
+=======
+	.commoon-view {
+		-webkit-overflow-scrolling: touch;
+	}
+	.tips {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		position: relative;
+		height: 100%;
+		width: 100%;
+		color: #007cbb;
+		font-size: 20px;
+	}
+	.load {
+		position: relative;
+		height: 100%;
+		left: 0;
+		top: 0;
+	}
+	.list {
+		user-select: none;
+		> .item {
+			width: 240px;
+			height: 207px;
+			border-radius: 5px;
+			margin-right: 25px;
+			margin-bottom: 25px;
+			margin-top: 0;
+			box-shadow: 0 1px 7px 0 rgba(0,43,59,0.20);
+			display: inline-block;
+			position: relative;
+			.create {
+				display: inline-block;
+			}
+			&:hover {
+				box-shadow: 0 1px 20px 0 rgba(0,43,59,0.20);
+			}
+			.body {
+				height: 135px;
+				border-radius: 5px 5px 0 0;
+				padding: 10px 5px;
+				display: flex;
+				flex-direction: column;
+				justify-content: space-between;
+				color: white;
+				z-index: 1;
+				background: #1190BF;
+				background-image: linear-gradient(-180deg, rgba(0,0,0,0.00) 0%, rgba(0,0,0,0.35) 100%);
+				&.first {
+					background-image: linear-gradient(-225deg, #1190BF 0%, #E85471 100%);
+				}
+				.top {
+					display: flex;
+					justify-content: space-between;
+					em {
+						cursor: pointer;
+						font-style: normal;
+						padding: 5px 10px;
+						font-size: 12px;
+						background: rgba(0, 0, 0, .3);
+						border-radius: 100px;
+					}
+					.status {
+						em.publish {
+							background: #0c6;
+						}
+						em.publish_done {
+							background: #f50;
+						}
+					}
+				}
+				.title {
+					line-height: 14px;
+					align-self: center;
+					span {
+						display: inline-block;
+						width: 150px;
+						overflow: hidden;
+						text-overflow: ellipsis;
+						white-space: nowrap;
+						vertical-align: middle;
+						text-align: center;
+					}
+				}
+			}
+			.buttom {
+				height: 72px;
+				border-radius: 0 0 5px 5px;
+				background: #F7F8FA;
+				display: flex;
+				flex-direction: column;
+				.time {
+					align-self: center;
+					margin: 10px;
+					font-size: 12px;
+					color: #999999;
+				}
+				.button {
+					display: flex;
+					justify-content: space-around;
+					margin-bottom: 8px;
+					a {
+						border-right: 1px solid #EBECF0;
+						flex: 1;
+						cursor: pointer;
+						display: flex;
+						justify-content: center;
+						align-items: center;
+						&:last-child {
+							border: none;
+						}
+						span {
+							display: none;
+							font-size: 12px;
+						}
+						i {
+							vertical-align: middle;
+							font-size: 24px;
+							color: #999;
+							margin-bottom: 5px;
+						}
+						&:hover {
+							span {
+								display: inline-block;
+								color: #1190BF;
+							}
+							i {
+								display: none;
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+	.createDialog {
+		.help {
+			padding: 10px 20px;
+			padding-bottom: 0;
+			font-size: 12px;
+			text-align: justify;
+		}
+		.footer {
+			display: flex;
+			justify-content: space-between;
+			align-items: center;
+		}
+	}
+>>>>>>> b727135307c816b717f050296d42c930c5f967c5
 </style>
