@@ -207,9 +207,12 @@
 			border-right: 1px solid #d3dce6;
 			border-bottom: 1px solid #d3dce6;
 			text-align: center;
-
+			&:first-child {
+				border-radius: 8px 0 0 0;
+			}
 			&:last-child {
 				border-right: 0;
+				border-radius: 0 8px 0 0;
 			}
 			&.active {
 				background: #3399ff;
