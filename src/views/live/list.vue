@@ -259,7 +259,7 @@
 		top: 0;
 	}
 	.list {
-
+		user-select: none;
 		> .item {
 			width: 240px;
 			height: 207px;

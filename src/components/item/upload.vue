@@ -20,6 +20,7 @@
 <script>
 	import { onResponse, onResponseError } from '../../store/api'
 	import { mapGetters } from 'vuex'
+	import { UPDATE_LIMIT_SIZE, UPDATE_LIMIT_COUNT } from '../../options'
 	function getBody(xhr) {
 		const text = xhr.responseText || xhr.response;
 		if (!text) {
@@ -94,7 +95,7 @@
 				this.files = [];
 			},
 			snedImages () {
-				if (this.size > 1024e3 * 20) {
+				if (this.size > UPDATE_LIMIT_SIZE) {
 					this.$Message.error('您一次性上传的图片总大小超过最大限制，请控制在15MB。');
 					console.log(this.size / 1024e3);
 					this.$emit('fail');
@@ -132,8 +133,8 @@
 			onChange () {
 				const input = this.$refs.fileInput;
 				const files = input.files;
-				if (files.length > 20) {
-					this.$Message.error(`一次最多只能同时上传20张图片，您选择了${files.length}张照片。`, 5);
+				if (files.length > UPDATE_LIMIT_COUNT) {
+					this.$Message.error(`一次最多只能同时上传${UPDATE_LIMIT_COUNT}张图片，您选择了${files.length}张照片。`, 5);
 					// this.clearQueue();
 				} else {
 					this.length = files.length;
