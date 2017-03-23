@@ -1,8 +1,8 @@
 /*
 * @Author: William Chan
 * @Date:   2016-12-02 11:31:24
-* @Last Modified by:   William Chan
-* @Last Modified time: 2017-03-19 17:48:31
+* @Last Modified by:   Administrator
+* @Last Modified time: 2017-03-23 01:25:32
 */
 
 // axios.request(config)
@@ -18,12 +18,9 @@
 
 import { clearAuthorization, getAuthorization, getCurrentChannelID } from '../'
 import { Modal } from 'iview'
+import { isDev } from '../../utils/util'
 import axios from 'axios'
-export const API_HOST =
-	process.env.NODE_ENV !== 'production' ?
-	'http://101.37.17.152:8088/api/v1'  :
-	// 'http://localhost:3000/api/v1'  :
-	'/api/v1';
+export const API_HOST = isDev() ? 'http://101.37.17.152:8088/api/v1' : '/api/v1';
 
 if (localStorage.getItem('debug')) {
 	window.onerror = (msg, url, lineNo, columnNo, error) => {
@@ -105,7 +102,7 @@ export const onResponseError = error => {
 
 export const http = axios.create({
 	baseURL: API_HOST,
-	timeout: 10000,
+	timeout: !isDev() && 10000,
 });
 
 http.interceptors.request.use(onRequest, onRequestError);

@@ -2,7 +2,7 @@
 * @Author: William Chan
 * @Date:   2016-12-03 20:43:22
 * @Last Modified by:   Administrator
-* @Last Modified time: 2017-03-22 03:44:28
+* @Last Modified time: 2017-03-23 01:42:11
 */
 
 'use strict';
@@ -53,7 +53,7 @@ export const IM                     = export_var('IM', 'DISCONNECT', 'ADDRESS');
 export const IM_INIT                = export_var('IM_INIT');
 export const IM_DISCONNECT          = export_var('IM_DISCONNECT');
 // 聊天室
-export const IM_CHATROOM            = export_var('IM_CHATROOM', 'DISCONNECT', 'MEMBERS', 'GAG', 'COMMON', 'MANAGER');
+export const IM_CHATROOM            = export_var('IM_CHATROOM', 'DISCONNECT', 'MEMBERS', 'GAG', 'COMMON', 'MANAGER', 'UPDATE_MY_INFO');
 export const IM_CHATROOM_INIT       = export_var('IM_CHATROOM_INIT', 'LOCK');
 export const IM_CHATROOM_MSG        = export_var('IM_CHATROOM_MSG', 'GET', 'HISTORY', 'SERVICE');
 

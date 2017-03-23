@@ -1,8 +1,8 @@
 /*
 * @Author: William Chan
 * @Date:   2017-03-09 04:13:54
-* @Last Modified by:   William Chan
-* @Last Modified time: 2017-03-13 16:59:45
+* @Last Modified by:   Administrator
+* @Last Modified time: 2017-03-23 01:20:26
 */
 
 'use strict';
@@ -12,3 +12,6 @@ export const date = (date, format) => moment(date).format(format || "Y-MM-DD HH:
 export const unix = date => moment(date).unix();
 
 export const isiPad = () => window.navigator.userAgent.indexOf('iPad') > -1;
+
+export const isDev = () => process.env.NODE_ENV !== 'production';
+

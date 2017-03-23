@@ -162,7 +162,8 @@
 				const oncustomsysmsg     = this.onCustomSysMsg;
 				const onCustomServiceMsg = this.onCustomServiceMsg;
 				const ondisconnect       = this.onDisconnect;
-				this.imInit( { chatroomId, oncustomsysmsg, onCustomServiceMsg, ondisconnect }).then(() => {
+				const im                 = this.live.liveImInfo;
+				this.imInit( { chatroomId, im, oncustomsysmsg, onCustomServiceMsg, ondisconnect }).then(() => {
 					// join success
 				}).catch(err => {
 					if (this.$route.name == 'live_control') {
