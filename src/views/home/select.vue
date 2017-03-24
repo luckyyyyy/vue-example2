@@ -40,7 +40,7 @@
 							</div>
 						</iCol>
 					</Row>
-					<Page v-show="total > limits"
+					<Page
 						@on-change="onChange"
 						:page-size="limits"
 						:current="current"
