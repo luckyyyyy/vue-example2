@@ -1,8 +1,8 @@
 /*
 * @Author: Administrator
 * @Date:   2017-01-06 02:42:21
-* @Last Modified by:   William Chan
-* @Last Modified time: 2017-03-24 04:49:02
+* @Last Modified by:   Administrator
+* @Last Modified time: 2017-03-25 00:44:53
 */
 
 'use strict';
@@ -30,7 +30,8 @@ export const USER_LOGIN = (state, data) => {
 export const USER_CLEAR = (state, err) => {
 	state.user.token      = '';
 	state.user.user       = {};
-	state.channel.channel = {};
+	state.channel.channel = null;
+	state.channel.id      = null;
 	sessionStorage.removeItem('user');
 	sessionStorage.removeItem('channelID');
 	const route = state.route;
