@@ -44,7 +44,6 @@
 			width: 100%;
 			top: 46px;
 			bottom: 0px;
-			background: red;
 		}
 	}
 </style>
