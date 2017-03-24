@@ -2,7 +2,7 @@
 * @Author: William Chan
 * @Date:   2017-03-19 03:49:11
 * @Last Modified by:   William Chan
-* @Last Modified time: 2017-03-24 04:36:21
+* @Last Modified time: 2017-03-24 04:48:15
 */
 
 'use strict';
@@ -37,14 +37,6 @@ const actions = {
 			})
 		})
 	},
-	// [CHANNEL.CHECK] ({ getters, dispatch }) {
-	// 	const id = getters.channelID;
-	// 	if (!id){
-	// 		console.log('没有选择频道');
-	// 	} else {
-	// 		dispatch(CHANNEL.SELECT, id);
-	// 	}
-	// },
 	[CHANNEL.SELECT] ({ getters, dispatch, commit }, id) {
 		if (id) {
 			commit(CHANNEL.SELECT, id, { root: true });

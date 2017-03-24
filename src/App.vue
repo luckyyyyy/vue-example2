@@ -23,15 +23,11 @@
 		},
 		mounted () {
 			this.checkLogin();
-			// this.checkChannel();
 		},
 		methods: {
 			...mapActions('user', {
 				checkLogin: 'USER_LOGIN'
 			}),
-			// ...mapActions('channel', {
-			// 	checkChannel: 'CHANNEL_CHECK'
-			// })
 		}
 	}
 </script>
@@ -48,6 +44,7 @@
 			width: 100%;
 			top: 46px;
 			bottom: 0px;
+			background: red;
 		}
 	}
 </style>
