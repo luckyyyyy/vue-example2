@@ -1,8 +1,8 @@
 /*
 * @Author: William Chan
 * @Date:   2017-03-06 22:27:42
-* @Last Modified by:   William Chan
-* @Last Modified time: 2017-03-19 22:49:25
+* @Last Modified by:   Administrator
+* @Last Modified time: 2017-03-25 00:56:14
 */
 
 'use strict';
@@ -16,11 +16,11 @@ export default [
 		redirect: { name: 'select_channel' },
 		components: {
 			home: resolve => require([
-				'../views/home/page.vue',
+				'../views/home/main.vue',
 			], (
-				HomeComponent,
+				MainComponent,
 			) => {
-				resolve(HomeComponent);
+				resolve(MainComponent);
 			})
 		},
 		children: [

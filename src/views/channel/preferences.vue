@@ -19,15 +19,15 @@
 							</FormItem>
 							<template v-if="info.wxAccountType != 2">
 								<FormItem label="频道二维码：">
-									<Alibum>
-										<img :src="channel.wxAvatarUrl" height="80" width="80">
-									</Alibum>
+									<Album v-model="openQrcodeAlbum" :type="4">
+										<img @click="openQrcodeAlbum = true" :src="channel.wxAvatarUrl" class="img">
+									</Album>
 								</FormItem>
 							</template>
-							<FormItem label="频道LOGO：">
-								<Alibum>
-									<img :src="channel.wxAvatarUrl" height="80" width="80">
-								</Alibum>
+							<FormItem label="频道LOGO：" class="img">
+								<Album v-model="openLogoAlbum" :type="5">
+									<img @click="openLogoAlbum = true" :src="channel.wxAvatarUrl" class="img">
+								</Album>
 							</FormItem>
 							<FormItem label="频道简介：" prop="description">
 								<iInput type="textarea" v-model="channel.description" resize="none"></iInput>
@@ -39,7 +39,7 @@
 								<iInput placeholder="请输入邮箱" v-model="channel.email"></iInput>
 							</FormItem>
 							<FormItem>
-								<iButton :loading="lock" htmlType="submit" type="primary" @click="submit">确认修改</iButton>
+								<iButton :loading="lock" htmlType="submit" type="primary" @click="onSubmit">确认修改</iButton>
 							</FormItem>
 						</iForm>
 					</div>
@@ -51,13 +51,16 @@
 
 <script>
 	import { mapState, mapActions } from 'vuex'
-	import Alibum from '../../components/item/album'
+	import Album from '../../components/item/album'
 	export default {
 		components: {
-			Alibum
+			Album,
 		},
 		data () {
 			return {
+				openQrcodeAlbum: false,
+				openLogoAlbum: false,
+				lock: false,
 				channel: {
 
 				},
@@ -71,8 +74,14 @@
 		},
 		mounted () {
 			this.channel = Object.assign({}, this.info);
-			console.log(this.info)
+		},
+		methods: {
+			onSubmit ()  {
+
+			}
 		}
+
+
 	}
 </script>
 

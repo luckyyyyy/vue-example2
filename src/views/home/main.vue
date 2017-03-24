@@ -52,7 +52,7 @@
 	.wrap {
 		position: absolute;
 		height: 100%;
-		min-height: 700px;
+		min-height: 650px;
 		width: 100%;
 		left: 0;
 		top: 0;

@@ -35,7 +35,7 @@
 		height: 100%;
 		padding: 10px;
 		box-sizing: border-box;
-		min-height: 700px;
+		min-height: 650px;
 		.box {
 			display: flex;
 			align-items: center;

@@ -39,12 +39,13 @@
 					</div>
 				</li>
 			</ul>
-			<div v-show="!loading && !data.length" class="tips">
-				没有数据啦QAQ
-			</div>
 		</div>
-
-
+		<div class="tips" v-if="!loading && !data.length && !upload">
+			没有数据啦QAQ
+		</div>
+		<div class="tips" v-if="upload">
+			{{ upload }}
+		</div>
 	</div>
 </template>
 
@@ -65,14 +66,14 @@
 		data () {
 			return {
 				option: MULTIMEDIA_UPLOAD,
-				lock: false,
-				loading: true,
+				upload: false,
+				loading: false,
 				menu: parseInt(this.$route.params.type) || 1,
 				typeClass: MULTIMEDIA_TYPE,
 			}
 		},
 		computed: {
-			...mapState ('multimedia', ['data']),
+			...mapState ('multimedia', ['data', 'lock']),
 		},
 		mounted () {
 			this.getImages(true);
@@ -90,49 +91,53 @@
 				this.getImages(true);
 			},
 			getImages (reload) {
-				// const msg = this.$Message.loading('正在加载中...', 0);
-				this.loading = true;
-				const type = this.menu;
-				this.getMultimedia({ type, reload }).then(data => {
-					this.loading = false;
-					if (!this.listScroll) {
-						this.listScroll = new iscroll(this.$refs.list, {
-							mouseWheel: true,
-							preventDefaultException: {
-								tagName: /^(LI)$/
-							},
-							scrollbars: true,
-							fadeScrollbars: true,
-							interactiveScrollbars: true,
-							shrinkScrollbars: 'clip',
-						})
-						this.listScroll.on('scrollEnd', () => {
-							this.getImages();
-						});
-					} else {
-						if (reload) {
-							this.listScroll.scrollTo(0, 0);
+				if (!this.lock || reload) {
+					const msg = this.$Message.loading('正在加载中...', 0);
+					const type = this.menu;
+					this.loading = true;
+					this.getMultimedia({ type, reload }).then(data => {
+						msg();
+						this.loading = false;
+						if (!this.listScroll) {
+							this.listScroll = new iscroll(this.$refs.list, {
+								mouseWheel: true,
+								preventDefaultException: {
+									tagName: /^(LI)$/
+								},
+								scrollbars: true,
+								fadeScrollbars: true,
+								interactiveScrollbars: true,
+								shrinkScrollbars: 'clip',
+							})
+							this.listScroll.on('scrollEnd', () => {
+								this.getImages();
+							});
+						} else {
+							if (reload) {
+								this.listScroll.scrollTo(0, 0);
+							}
+							this.listScroll.refresh();
 						}
-						this.listScroll.refresh();
-					}
-				}).catch(() => {
-					this.loading = false;
-				})
+					}).catch(() => {
+						msg();
+						this.loading = false;
+					})
+				}
 			},
 			success (data) {
 				this.multimediaInsert(data);
-				this.lock = false;
+				this.upload = false;
 				this.listScroll.scrollTo(0, 0, 100);
 				this.listScroll.refresh();
 			},
 			fail () {
-				this.lock = false;
+				this.upload = false;
 			},
 			queue (files, length) {
-				this.lock = `分析中${files.length}/${length}`;
+				this.upload = `分析中${files.length}/${length}`;
 			},
 			progress (p) {
-				this.lock = `上传中${Math.floor(p.percent)}%`;
+				this.upload = `上传中${Math.floor(p.percent)}%`;
 			},
 		},
 		filters: {

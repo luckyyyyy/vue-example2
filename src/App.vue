@@ -44,6 +44,7 @@
 			width: 100%;
 			top: 46px;
 			bottom: 0px;
+			min-height: 650px;
 		}
 	}
 </style>
