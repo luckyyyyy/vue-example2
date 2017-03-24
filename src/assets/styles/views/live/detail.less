@@ -1,9 +1,12 @@
+.view {
+	background: #fff;
+}
 .switch {
 	display: flex;
 	align-items: center;
 	padding: 10px 20px;
 	position: relative;
-	border-bottom: 1px solid #eee;
+	border-bottom: 1px solid #ddd;
 	&:after {
 		position: absolute;
 		content: "";
@@ -19,12 +22,14 @@
 }
 .body {
 	padding: 10px;
+	position: relative;
 	.tips {
 		color: #999;
 		width: 400px;
-		height: 70px;
+		height: 40px;
 	}
 	.action {
+		margin-top: 20px;
 		display: flex;
 		.form {
 			width: 400px;
@@ -36,10 +41,12 @@
 			}
 		}
 		.iPhone-bg {
+			position: absolute;
 			margin-left: 10px;
 			width: 339px;
 			height: 535px;
-			margin-top: -70px;
+			top: 30px;
+			left: 500px;
 			background: url(../../../iPhone.png) center center no-repeat; //要换的
 			.iPhone-view {
 				color: white;

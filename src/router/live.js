@@ -2,7 +2,7 @@
 * @Author: William Chan
 * @Date:   2017-03-06 22:29:46
 * @Last Modified by:   Administrator
-* @Last Modified time: 2017-03-25 00:23:40
+* @Last Modified time: 2017-03-25 01:59:01
 */
 
 'use strict';
@@ -126,6 +126,12 @@ export default [
 						path: 'share',
 						meta: { requiresAuth: true },
 						component: resolve => require(['../views/live/detail-share.vue'], resolve)
+					},
+					{
+						name: 'live_detail_setting',
+						path: 'setting',
+						meta: { requiresAuth: true },
+						component: resolve => require(['../views/live/detail-setting.vue'], resolve)
 					},
 					// {
 					// 	name: 'live_detail_livebuy',

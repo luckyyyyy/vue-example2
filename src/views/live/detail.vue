@@ -9,6 +9,7 @@
 					<MenuItem name="live_detail_countdown">直播倒计时</MenuItem>
 					<MenuItem name="live_detail_image">直播引导图</MenuItem>
 					<MenuItem name="live_detail_share">分享设置</MenuItem>
+					<MenuItem name="live_detail_setting">直播间设置</MenuItem>
 					<li class="title">
 						<i class="iconfont icon-video"></i>互动设置
 					</li>
