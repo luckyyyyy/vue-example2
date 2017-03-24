@@ -80,15 +80,11 @@
 							</li>
 							<li>
 								<p>0</p>
-								<span>新增粉丝数</span>
+								<span>直播峰值</span>
 							</li>
 							<li>
 								<p>0</p>
-								<span>新增订单数</span>
-							</li>
-							<li>
-								<p>¥0.00</p>
-								<span>成交金额</span>
+								<span>直播计费</span>
 							</li>
 						</ul>
 					</div>
@@ -110,15 +106,11 @@
 							</li>
 							<li>
 								<p>0</p>
-								<span>新增粉丝数</span>
+								<span>直播峰值</span>
 							</li>
 							<li>
 								<p>0</p>
-								<span>新增订单数</span>
-							</li>
-							<li>
-								<p>¥0.00</p>
-								<span>成交金额</span>
+								<span>直播计费</span>
 							</li>
 						</ul>
 					</div>

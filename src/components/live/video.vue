@@ -174,7 +174,7 @@
 			top: 0;
 			padding-bottom: 50px;
 			box-sizing: border-box;
-			background-image: linear-gradient(90deg,#55bd77,#b7ce00);
+			background-image: radial-gradient(circle at 0 0, #2259eb, #8696ce 15%, #cea59d 37%, #e3a383 55%, #f87074 75%, #d22f7a);
 			color: white;
 			display: flex;
 			flex-direction: column;

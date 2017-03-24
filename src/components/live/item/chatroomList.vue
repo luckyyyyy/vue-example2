@@ -62,6 +62,7 @@
 		font-size: 0; // 去空格
 		span {
 			font-size: 12px;
+			color: #9b9b9b;
 		}
 	}
 </style>
