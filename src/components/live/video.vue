@@ -166,7 +166,9 @@
 		background: #333;
 		position: relative;
 		.lock {
+			user-select: none;
 			// opacity: .2; // DEBUG
+			text-shadow: 1px 1px 1px #444;
 			position: absolute;
 			width: 100%;
 			height: 100%;

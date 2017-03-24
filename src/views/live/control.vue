@@ -47,20 +47,19 @@
 					</ul>
 					<div class="live-info-status">
 						<div class="time">直播用时<span class="timeWrapper">00:00:00</span></div>
-						<template v-if="!live.publicStatus">
-							<button class="action-btn" @click="onPublish">发布直播</button>
-						</template>
-						<template v-else>
-							<div>
-								<button class="action-btn" @click="onFinish">结束直播</button>
-								<button class="action-btn" @click="onPublish">取消发布</button>
+						<Tooltip placement="top">
+							<div slot="content">
+								<p v-if="!live.publicStatus">只有至于【发布中】状态的直播才能结束。</p>
+								<p v-if="play">请先【停止推流】再结束直播。</p>
+								<p>本场直播结束将彻底不可恢复，请慎重考虑。</p>
 							</div>
-						</template>
+							<iButton :disabled="!live.publicStatus || play" @click="onFinish"type="error">结束直播</iButton>
+						</Tooltip>
 					</div>
 				</div>
 				<iForm class="chat-input" @submit.native.prevent :model="chatroom">
 					<iInput size="small"  v-model="chatroom.text" placeholder="请输入内容"></iInput>
-					<iButton class="action-btn info" :disabled="chatroom_lock || !chatroom_init" :loading="chatroom_send" @click="chatroomSend" size="small" htmlType="submit" type="primary">发送</iButton>
+					<iButton :disabled="chatroom_lock || !chatroom_init" :loading="chatroom_send" @click="chatroomSend" htmlType="submit" type="primary">发送</iButton>
 				</iForm>
 			</div>
 		</div>
@@ -152,9 +151,9 @@
 			...mapMutations('live', {
 				updateLiveInfo: 'LIVE_QUERY',
 			}),
-			...mapActions('live/public', {
-				livePublic: 'LIVE_PUBLIC_REQUEST'
-			}),
+			// ...mapActions('live/public', {
+			// 	livePublic: 'LIVE_PUBLIC_REQUEST'
+			// }),
 			...mapActions('live/finish', {
 				liveFinish: 'LIVE_FINISH_REQUEST'
 			}),
@@ -236,21 +235,21 @@
 				this.noticeDialog = true
 				this.notice.text = '';
 			},
-			onPublish () {
-				this.$Modal.confirm({
-					title: '直播',
-					content: '确定要修改直播状态么？',
-					loading: true,
-					onOk: () => {
-						this.livePublic(this.live).then(res => {
-							this.updateLiveInfo(res);
-							this.$Modal.remove();
-						}).catch(() => {
-							this.$Modal.remove();
-						})
-					}
-				})
-			},
+			// onPublish () {
+			// 	this.$Modal.confirm({
+			// 		title: '直播',
+			// 		content: '确定要修改直播状态么？',
+			// 		loading: true,
+			// 		onOk: () => {
+			// 			this.livePublic(this.live).then(res => {
+			// 				this.updateLiveInfo(res);
+			// 				this.$Modal.remove();
+			// 			}).catch(() => {
+			// 				this.$Modal.remove();
+			// 			})
+			// 		}
+			// 	})
+			// },
 			onFinish () {
 				this.$Modal.confirm({
 					title: '确定要结束直播吗？',

@@ -2,7 +2,7 @@
 * @Author: William Chan
 * @Date:   2017-03-06 22:29:46
 * @Last Modified by:   Administrator
-* @Last Modified time: 2017-03-22 02:23:41
+* @Last Modified time: 2017-03-25 00:23:40
 */
 
 'use strict';
@@ -38,17 +38,20 @@ export default [
 					'../store/modules/live/create',
 					'../store/modules/live/delete',
 					'../store/modules/live/trash',
+					'../store/modules/live/public',
 				], (
 					LiveListComponent,
 					LiveFindModule,
 					LiveCreateModule,
 					LiveDeleteModule,
 					LiveTrashModule,
+					LivePublicModule,
 				) => {
 					registerModule(['live', 'find'], LiveFindModule.default);
 					registerModule(['live', 'create'], LiveCreateModule.default);
 					registerModule(['live', 'delete'], LiveDeleteModule.default);
 					registerModule(['live', 'trash'], LiveTrashModule.default);
+					registerModule(['live', 'public'], LivePublicModule.default);
 					resolve(LiveListComponent);
 				})
 			},
@@ -70,18 +73,15 @@ export default [
 					'../views/live/control.vue',
 					'../store/modules/im',
 					'../store/modules/live/stream',
-					'../store/modules/live/public',
 					'../store/modules/live/finish',
 				], (
 					LiveControlComponent,
 					IMModule,
 					LiveStreamModule,
-					LivePublicModule,
 					LiveFinishModule,
 				) => {
 					registerModule('im', IMModule.default);
 					registerModule(['live', 'query_stream'], LiveStreamModule.default);
-					registerModule(['live', 'public'], LivePublicModule.default);
 					registerModule(['live', 'finish'], LiveFinishModule.default);
 					resolve(LiveControlComponent);
 				})

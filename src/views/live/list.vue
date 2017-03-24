@@ -7,7 +7,7 @@
 						<i class="iconfont icon-video"></i>直播状态
 					</li>
 					<MenuItem name="private">未发布</MenuItem>
-					<MenuItem name="public">发布中</MenuItem>
+					<MenuItem name="public">已发布</MenuItem>
 					<li class="title"></li>
 					<MenuItem name="trash">回收站</MenuItem>
 				</Menu>
@@ -41,10 +41,20 @@
 									</confirmPopover>
 								</template>
 								<template v-else>
-									<qrcodePopover :text="item.liveId">
-										<p slot="tips">微信扫一扫查看</p>
-										<em slot="reference">二维码</em>
-									</qrcodePopover>
+									<template v-if="!item.publicStatus">
+										<confirmPopover
+											@ok="onChangePublic(item.id)">
+											<p slot="tips">您确定要发布这场直播么？</p>
+											<em slot="reference">发布</em>
+										</confirmPopover>
+									</template>
+									<template v-else>
+										<confirmPopover
+											@ok="onChangePublic(item.id)">
+											<p slot="tips">您确定要撤回这场直播么？</p>
+											<em slot="reference">撤回</em>
+										</confirmPopover>
+									</template>
 									<confirmPopover
 										@ok="onChangeStatus(item.id)">
 										<p slot="tips">您确定要删除直播么？</p>
@@ -121,13 +131,12 @@
 
 <script>
 	import { mapState, mapActions } from 'vuex'
-	import qrcodePopover from '../../components/item/qrcodePopover'
 	import confirmPopover from '../../components/item/confirmPopover'
 	import { LIVE_CREATE_RULES } from '../../options/rules'
 	import iscroll from 'iscroll'
 	export default {
 		components: {
-			qrcodePopover, confirmPopover
+			confirmPopover
 		},
 		data () {
 			return {
@@ -160,6 +169,9 @@
 			}),
 			...mapActions('live/delete', {
 				deleteLive: 'LIVE_DELETE_REQUEST'
+			}),
+			...mapActions('live/public', {
+				livePublic: 'LIVE_PUBLIC_REQUEST'
 			}),
 			onStatusChange (val) {
 				this.status = val;
@@ -196,6 +208,15 @@
 			openCreateDialog () {
 				this.openDialog  = true;
 				this.createAgree = true;
+			},
+			onChangePublic (id) {
+				const msg = this.$Message.loading('正在更改直播状态', 0);
+				this.livePublic({ id }).then(() => {
+					this.findLiveList(true);
+					msg();
+				}).catch(() => {
+					msg();
+				});
 			},
 			onChangeStatus(id, confirmDelete) {
 				const msg = this.$Message.loading('正在更改直播状态', 0);

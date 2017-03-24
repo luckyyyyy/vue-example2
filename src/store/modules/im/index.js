@@ -1,8 +1,8 @@
 /*
 * @Author: William Chan
 * @Date:   2017-03-10 16:42:39
-* @Last Modified by:   William Chan
-* @Last Modified time: 2017-03-23 13:15:33
+* @Last Modified by:   Administrator
+* @Last Modified time: 2017-03-25 00:37:35
 */
 
 'use strict';
@@ -90,6 +90,8 @@ const actions = {
 			await im_chatroom_address(chatroomId).then(address => {
 				commit(IM.ADDRESS, address);
 				dispatch(IM_CHATROOM_MSG.SERVICE, 'IM_CHATROOM_ADDRESS_SUCCESS');
+				console.log(address)
+				dispatch(IM_CHATROOM_MSG.SERVICE, address.join(' | '));
 			}).catch(error => {
 				reject();
 			})

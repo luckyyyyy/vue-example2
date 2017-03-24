@@ -1,14 +1,13 @@
-button{
-	outline: none;
-	border: none;
-}
-input{
+input, button{
 	outline: none;
 	border:none;
 }
+button {
+	cursor: pointer;
+}
 .control {
 	display: flex;
-	margin: 45px 50px 22px;
+	margin: 20px;
 	min-width: 860px;
 	background-color: #343647;
 	flex-direction: column;
@@ -72,20 +71,6 @@ input{
 				}
 			}
 		}
-		.action-btn{
-			margin-left: 10px;
-			width: 64px;
-			min-width: 64px;
-			height: 32px;
-			border-radius: 4px;
-			background-color: #ff4949;
-			line-height: 32px;
-			font-size: 14px;
-			color: #fff;
-			&.info{
-				background-color: #31bedb;
-			}
-		}
 		.chat-input {
 			width: 30%;
 			padding: 0 18px;
@@ -93,6 +78,9 @@ input{
 			display: flex;
 			align-items: center;
 			justify-content: space-between;
+			.ivu-btn {
+				margin-left: 10px;
+			}
 		}
 	}
 	.button-action {
@@ -100,7 +88,7 @@ input{
 		flex-direction: column;
 		.line {
 			text-align: center;
-			.btn{
+			.btn {
 				margin: 0 13px;
 				padding: 6px 8px;
 				width: 102px;

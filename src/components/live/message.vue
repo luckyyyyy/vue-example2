@@ -1,7 +1,7 @@
 <template>
 	<div class="message" ref="iScrollWrap">
-		<ul class="list" ref="list">
-			<li v-for="item of message">
+		<ul class="list">
+			<li v-for="item of service">
 				<div class="head">
 					<span>{{ item.type | L }}</span>
 					<em>{{ item.date | date('HH:mm:ss') }}</em>
@@ -25,15 +25,10 @@
 	import _L from '../../options/live/message'
 	import { date } from '../../utils/util'
 	import iScroll from 'iscroll'
+	import { mapState } from 'vuex'
 	export default {
 		computed: {
-			message () {
-				this.$nextTick(() => {
-					const $el = this.$refs.list;
-					$el.scrollTop = $el.scrollHeight + $el.offsetHeight;
-				});
-				return this.$store.state.im.service;
-			}
+			...mapState('im', ['service'])
 		},
 		filters: {
 			date,
@@ -42,15 +37,18 @@
 			}
 		},
 		watch: {
-			message(val){
-				if(!this.myScroll){
-					this.myScroll = new iScroll(this.$refs.iScrollWrap,{
+			service(val){
+				if(!this.scroll){
+					this.scroll = new iScroll(this.$refs.iScrollWrap,{
 						scrollbars: true,
+						fadeScrollbars: true,
+						shrinkScrollbars: 'clip',
 						mouseWheel: true,
 					});
 				}
-				this.$nextTick(() => { // 不知道什么BUG
-					this.myScroll.refresh();
+				this.$nextTick(() => {
+					this.scroll.refresh();
+					this.scroll.scrollTo(0, this.scroll.maxScrollY, 500);
 				})
 			}
 		}
@@ -61,15 +59,15 @@
 	@import "../../assets/styles/components/live/message";
 </style>
 <style>
-	.iScrollLoneScrollbar{
+/*	.iScrollLoneScrollbar {
 		width: 10px !important;
 		padding-left: 2px;
 	}
-	.iScrollIndicator{
+	.iScrollIndicator {
 		border: none !important;
 		width: 5px !important;
 		opacity: 0.5 !important;
 		border-radius: 21px !important;
 		background-color: rgba(196, 198, 207, 0.4) !important;
-	}
+	}*/
 </style>

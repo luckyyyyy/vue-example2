@@ -40,9 +40,9 @@
 <style lang="less" scoped>
 	.history {
 		text-align: center;
-		color: #ccc;
+		color: #666;
 		position: relative;
-		border-top: 1px solid #eee;
+		border-top: 1px solid #343647;
 		margin: 20px 0;
 		&:after {
 			content: "以上是历史信息";
@@ -51,7 +51,7 @@
 			margin-left: -50px;
 			left: 50%;
 			top: -10px;
-			background: #f7f8fa;
+			background: #1f212f;
 		}
 	}
 	p {
