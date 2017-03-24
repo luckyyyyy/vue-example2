@@ -26,9 +26,6 @@
 	import { date } from '../../utils/util'
 	import iScroll from 'iscroll'
 	export default {
-		mounted() {
-
-		},
 		computed: {
 			message () {
 				this.$nextTick(() => {
@@ -48,12 +45,13 @@
 			message(val){
 				if(!this.myScroll){
 					this.myScroll = new iScroll(this.$refs.iScrollWrap,{
-						scrollbars: true
+						scrollbars: true,
+						mouseWheel: true,
 					});
-					this.$nextTick(() => { // 不知道什么BUG
-						this.myScroll.refresh();
-					})
 				}
+				this.$nextTick(() => { // 不知道什么BUG
+					this.myScroll.refresh();
+				})
 			}
 		}
 	}
@@ -61,4 +59,17 @@
 
 <style scoped lang="less">
 	@import "../../assets/styles/components/live/message";
+</style>
+<style>
+	.iScrollLoneScrollbar{
+		width: 10px !important;
+		padding-left: 2px;
+	}
+	.iScrollIndicator{
+		border: none !important;
+		width: 5px !important;
+		opacity: 0.5 !important;
+		border-radius: 21px !important;
+		background-color: rgba(196, 198, 207, 0.4) !important;
+	}
 </style>

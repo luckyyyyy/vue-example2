@@ -37,9 +37,10 @@
 	em {
 		font-weight: bold;
 		font-style: normal;
-		color: #333;
+		color: #fff;
 	}
 	span {
 		font-size: 12px;
+		color: #999999;
 	}
 </style>

@@ -42,23 +42,25 @@
 			<div class="action">
 				<div class="live-info">
 					<ul class="live-info-stat">
-						<li>观看人数<span>12345</span></li>
-						<li>在线人数<span>12345</span></li>
+						<li>观看人数<span class="count">12345</span></li>
+						<li>在线人数<span class="count">12345</span></li>
 					</ul>
 					<div class="live-info-status">
-						<div class="time">已经直播xxxxx分钟</div>
+						<div class="time">直播用时<span class="timeWrapper">00:00:00</span></div>
 						<template v-if="!live.publicStatus">
-							<iButton size="small" type="success" @click="onPublish">发布直播</iButton>
+							<button class="action-btn" @click="onPublish">发布直播</button>
 						</template>
 						<template v-else>
-							<iButton size="small" type="error" @click="onFinish">结束直播</iButton>
-							<iButton size="small" type="primary" @click="onPublish">取消发布</iButton>
+							<div>
+								<button class="action-btn" @click="onFinish">结束直播</button>
+								<button class="action-btn" @click="onPublish">取消发布</button>
+							</div>
 						</template>
 					</div>
 				</div>
 				<iForm class="chat-input" @submit.native.prevent :model="chatroom">
 					<iInput size="small"  v-model="chatroom.text" placeholder="请输入内容"></iInput>
-					<iButton :disabled="chatroom_lock || !chatroom_init" :loading="chatroom_send" @click="chatroomSend" size="small" htmlType="submit" type="primary">发送</iButton>
+					<iButton class="action-btn info" :disabled="chatroom_lock || !chatroom_init" :loading="chatroom_send" @click="chatroomSend" size="small" htmlType="submit" type="primary">发送</iButton>
 				</iForm>
 			</div>
 		</div>
@@ -281,4 +283,38 @@
 </script>
 <style scoped lang="less">
 	@import "../../assets/styles/views/live/control";
+</style>
+<style  lang="less">
+	.action{
+		.ivu-input{
+			width: 100% !important;
+			height: 32px !important;
+			border-radius: 4px !important;
+			background-color: #343647 !important;
+			text-indent: 6px !important;
+			color: #ccc !important;
+			border: none !important;
+			outline: none !important;
+			box-shadow: none !important;
+		}
+	}
+	.stream-url-popper {
+		.tips {
+			padding: 5px;
+			h3 {
+				text-align: center;
+				font-size: 14px;
+				// background: #eee;
+			}
+			.qrcode {
+				display: flex;
+				justify-content: center;
+				padding: 5px;
+				img {
+					width: 120px;
+					height: 120px;
+				}
+			}
+		}
+	}
 </style>
