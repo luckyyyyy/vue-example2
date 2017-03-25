@@ -24,7 +24,7 @@
 							<chatroomNotification :item="item"></chatroomNotification>
 						</template>
 					</p>
-					<p v-show="history && data.length" class="history"></p>
+					<p v-show="history.length" class="history"></p>
 					<p v-for="item in data" :class="item.type" :title="item.time | date">
 						<template v-if="item.type == 'text'">
 							<chatroomTag :members="members" :account="item.from"></chatroomTag>
