@@ -19,7 +19,7 @@
 						@fail="fail"
 						@progress="progress"
 					>
-						<iButton :loading="lock ? true : false" type="primary">上传图片</iButton>
+						<iButton :loading="upload ? true : false" type="primary">上传图片</iButton>
 					</upload>
 				</div>
 			</div>
@@ -27,15 +27,15 @@
 		<div ref="list" class="commoon-view">
 			<!-- <Spin fix v-if="loading"></Spin> -->
 			<ul class="list" v-show="data.length">
-				<li class="item" v-for="item of data">
+				<li class="item" v-for="item of data" :title="item.name">
 					<!-- <div class="head" :style="`background-image: url(${item.url})`"> -->
 					<div class="head">
 						<img :src="item.url">
 						<div class="name">{{ item.name }}</div>
 					</div>
 					<div class="bottom">
-						<span>1</span>
-						<span>2</span>
+						<!-- <span>1</span> -->
+						<Icon type="android-delete"></Icon>
 					</div>
 				</li>
 			</ul>
@@ -113,10 +113,12 @@
 								this.getImages();
 							});
 						} else {
-							if (reload) {
-								this.listScroll.scrollTo(0, 0);
-							}
-							this.listScroll.refresh();
+							this.$nextTick(() => {
+								if (reload) {
+									this.listScroll.scrollTo(0, 0);
+								}
+								this.listScroll.refresh();
+							})
 						}
 					}).catch(() => {
 						msg();
@@ -127,8 +129,10 @@
 			success (data) {
 				this.multimediaInsert(data);
 				this.upload = false;
-				this.listScroll.scrollTo(0, 0, 100);
-				this.listScroll.refresh();
+				this.$nextTick(() => {
+					this.listScroll.scrollTo(0, 0, 100);
+					this.listScroll.refresh();
+				})
 			},
 			fail () {
 				this.upload = false;

@@ -9,9 +9,6 @@
 					<FormItem label="直播间名字">
 						<iInput @on-change="onDebounce" v-model="form.shareTitle" placeholder="不超过10个字符"></iInput>
 					</FormItem>
-					<FormItem label="主播名字">
-						<iInput @on-change="onDebounce" v-model="form.shareContent" placeholder="aaaaa"></iInput>
-					</FormItem>
 					<FormItem label="主播头像">
 						<Album class="upload" @submit="selectAlbum" v-model="openAlbum" :type="3">
 							<iButton type="primary" @click="openAlbum = true">点击上传图片</iButton>
