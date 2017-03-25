@@ -40,10 +40,12 @@
 			service(val){
 				if(!this.scroll){
 					this.scroll = new iScroll(this.$refs.iScrollWrap,{
+						mouseWheel: true,
+						preventDefault: false,
 						scrollbars: true,
 						fadeScrollbars: true,
+						interactiveScrollbars: true,
 						shrinkScrollbars: 'clip',
-						mouseWheel: true,
 					});
 				}
 				this.$nextTick(() => {
