@@ -57,9 +57,9 @@
 		data () {
 			return {
 				sex: [
-					{ label: 0, name: '保密' },
-					{ label: 1, name: '男'   },
-					{ label: 2, name: '女'   },
+					{ label: 1, name: '保密' },
+					{ label: 2, name: '男'   },
+					{ label: 3, name: '女'   },
 				],
 				user: {},
 				option: USER_AVATAR,
