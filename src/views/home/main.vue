@@ -63,7 +63,7 @@
 		margin: 0 auto;
 		display: flex;
 		flex-direction: column;
-		// justify-content: center;
+		justify-content: center;
 		align-items: center;
 		height: 100%;
 		width: 760px;
@@ -73,8 +73,7 @@
 			padding: 0 30px;
 			background: #fff;
 			width: 100%;
-			margin-bottom: 30px;
-			margin-top: 50px;
+			margin-bottom: 20px;
 			display: flex;
 			justify-content: space-between;
 			align-items: center;

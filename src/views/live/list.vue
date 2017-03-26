@@ -188,7 +188,7 @@
 						if (!this.listScroll) {
 							this.listScroll = new iscroll(this.$refs.list, {
 								mouseWheel: true,
-								preventDefault: false,
+								// preventDefault: false,
 								scrollbars: true,
 								fadeScrollbars: true,
 								interactiveScrollbars: true,
@@ -197,9 +197,13 @@
 							this.listScroll.on('scrollEnd', () => {
 								this.findLiveList();
 							});
-						} else {
-							this.listScroll.refresh();
 						}
+						this.$nextTick(() => {
+							if (reload) {
+								this.listScroll.scrollTo(0, 0);
+							}
+							this.listScroll.refresh();
+						})
 					}).catch(() => {
 						this.loading = false;
 					});

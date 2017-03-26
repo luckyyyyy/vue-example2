@@ -112,14 +112,13 @@
 							this.listScroll.on('scrollEnd', () => {
 								this.getImages();
 							});
-						} else {
-							this.$nextTick(() => {
-								if (reload) {
-									this.listScroll.scrollTo(0, 0);
-								}
-								this.listScroll.refresh();
-							})
 						}
+						this.$nextTick(() => {
+							if (reload) {
+								this.listScroll.scrollTo(0, 0);
+							}
+							this.listScroll.refresh();
+						})
 					}).catch(() => {
 						msg();
 						this.loading = false;

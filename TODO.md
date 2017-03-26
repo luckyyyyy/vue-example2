@@ -22,22 +22,22 @@
 #### 视频域名：
 推流：rtmp://pub.racdn.com/watch `cname -> video-center.alivecdn.com`
 直播：rtmp://v.racdn.com
-点播：http://play.cacdn.com
+点播：http://p.racdn.com
 需要 OSS+CDN+点播+直播
 
 #### B端域名
 前端访问：https://rainbowcloud.tv/store
-静态资源：https://business.racdn.com
+静态资源：https://b.racdn.com
 需要 OSS+CDN+ECS+SLB
 
 #### C端域名
 前端访问：https://racloud.tv
-静态资源：https://customer.racdn.com
+静态资源：https://c.racdn.com
 需要 OSS+CDN+ECS+SLB
 
 #### 官网域名
 前端访问：https://rainbowcloud.tv
-静态资源：https://static.racdn.com
+静态资源：https://s.racdn.com
 需要 OSS+CDN+ECS+SLB
 
 #### 用户静态资源
