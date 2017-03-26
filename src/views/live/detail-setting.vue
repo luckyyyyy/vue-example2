@@ -7,7 +7,7 @@
 			<div class="action">
 				<iForm label-position="left" ref="form" :model="form" :label-width="100" class="form">
 					<FormItem label="直播间名字">
-						<iInput @on-change="onDebounce" v-model="form.shareTitle" placeholder="不超过10个字符"></iInput>
+						<iInput @on-change="onDebounce" v-model="form.name" placeholder="不超过10个字符"></iInput>
 					</FormItem>
 					<FormItem label="主播头像">
 						<Album class="upload" @submit="selectAlbum" v-model="openAlbum" :type="3">
@@ -44,31 +44,23 @@
 		},
 		computed: {
 			...mapState('live', ['live']),
-			enable: {
-				set (val) {
-					this.form.shareStatus = val ? 1 : 0;
-				},
-				get () {
-					return this.form.shareStatus == 1;
-				}
-			}
 		},
 		mounted () {
-			this.form = Object.assign({}, this.live.liveShare);
+			this.form = Object.assign({}, this.live);
 			this.onDebounce = debounce(this.onChange, 200)
 		},
 		methods: {
 			...mapActions('live/detail', {
-				setShare: 'LIVE_DETAIL_SHARE'
+				liveUpdate: 'LIVE_DETAIL_UPDATE'
 			}),
 			selectAlbum (select, data) {
-				this.form.shareImageId = select;
+				this.form.avatarImageId = select;
 				this.onChange()
 			},
 			onChange () {
 				const data = Object.assign({}, this.form);
 				data.id = this.live.id;
-				// this.setShare(data);
+				this.liveUpdate(data);
 			},
 		}
 	}

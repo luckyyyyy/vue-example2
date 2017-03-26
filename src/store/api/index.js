@@ -1,8 +1,8 @@
 /*
 * @Author: William Chan
 * @Date:   2016-12-02 11:31:24
-* @Last Modified by:   Administrator
-* @Last Modified time: 2017-03-23 01:25:32
+* @Last Modified by:   William Chan
+* @Last Modified time: 2017-03-27 05:46:23
 */
 
 // axios.request(config)
@@ -17,7 +17,7 @@
 'use strict';
 
 import { clearAuthorization, getAuthorization, getCurrentChannelID } from '../'
-import { Modal } from 'iview'
+import { Modal, Notice } from 'iview'
 import { isDev } from '../../utils/util'
 import axios from 'axios'
 export const API_HOST = isDev() ? 'http://101.37.17.152:8088/api/v1' : '/api/v1';
@@ -70,7 +70,7 @@ export const onResponse = res => {
 	if (res.data.retCode !== 0) {
 		if (!res.config || res.config && res.config.interceptors === true) {
 			Modal.error({
-				title: res.data.retCode && `操作失败 (${res.data.retCode})` || '错误',
+				title: res.data.retCode && `操作失败` || '错误',
 				content: res.data.retMsg || '数据格式异常'
 			})
 		}
@@ -82,9 +82,9 @@ export const onResponse = res => {
 
 export const onResponseError = error => {
 	if (!error.response) {
-		Modal.error({
+		Notice.error({
 			title: error.message,
-			content: error.stack
+			desc: error.stack
 		})
 	} else {
 		if (error.response.status === 401) {
@@ -92,9 +92,9 @@ export const onResponseError = error => {
 		}
 		// console.dir(error)
 		// TODO 500 必定显示 or 拦截器配置
-		Modal.error({
+		Notice.error({
 			title: `服务器错误 ${error.response.status}`,
-			content: `${error.response.data.retMsg || '请求发生错误'}`
+			desc: `${error.response.data.retMsg || '请求发生错误'}`
 		})
 	}
 	return Promise.reject(error);

@@ -131,7 +131,7 @@
 				getMultimedia: 'MULTIMEDIA_FIND_REQUEST'
 			}),
 			...mapMutations('multimedia', {
-				multimediaInsert: 'MULTIMEDIA_FIND_INSERT',
+				multimediaInsert: 'MULTIMEDIA_INSERT',
 			}),
 			success (data) {
 				this.multimediaInsert(data);

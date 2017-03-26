@@ -2,13 +2,13 @@
 * @Author: Administrator
 * @Date:   2017-01-06 02:33:52
 * @Last Modified by:   William Chan
-* @Last Modified time: 2017-03-23 19:27:58
+* @Last Modified time: 2017-03-27 05:26:12
 */
 
 'use strict';
 
-import { multimedia_find } from '../../api/multimedia'
-import { MULTIMEDIA_FIND } from '../../types'
+import { multimedia_find, multimedia_delete } from '../../api/multimedia'
+import { MULTIMEDIA_FIND, MULTIMEDIA } from '../../types'
 
 const state = {
 	lock: false,
@@ -35,7 +35,16 @@ const actions = {
 				})
 			})
 		}
-	}
+	},
+	[MULTIMEDIA.DELETE] ({ commit, state }, ...args) {
+		return new Promise((resolve, reject) => {
+			multimedia_delete(...args).then(res => {
+				resolve(res);
+			}).catch(err => {
+				reject(err);
+			})
+		})
+	},
 }
 
 const mutations = {
@@ -57,7 +66,7 @@ const mutations = {
 	[MULTIMEDIA_FIND.FAILURE] (state, err) {
 		state.lock = false;
 	},
-	[MULTIMEDIA_FIND.INSERT] (state, data) {
+	[MULTIMEDIA.INSERT] (state, data) {
 		state.data = data.multimedias.concat(state.data);
 		state.start = state.start + data.multimedias.length;
 	},

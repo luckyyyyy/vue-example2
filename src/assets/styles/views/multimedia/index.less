@@ -23,7 +23,7 @@
 		margin-right: 20px;
 		margin-bottom: 20px;
 		width: 140px;
-		height: 165px;
+		height: 140px;
 		box-shadow: 0 1px 7px 0 rgba(0, 43, 59, 0.2);
 		&:hover {
 			box-shadow: 0 1px 20px 0 rgba(0, 43, 59, 0.2);
@@ -49,25 +49,47 @@
 				overflow: hidden;
 				text-overflow: ellipsis;
 			}
-			// img {
-			// 	width: 14px
-			// }
-		}
-		.bottom {
-			background: #EAEAEA;
-			display: flex;
-			height: 25px;
-			padding: 3px 0;
-			align-items: center;
-			i {
-				text-align: center;
-				flex: 1;
-				border-right: 1px solid #D8D8D8;
-				cursor: pointer;
-				&:last-child {
-					border: none;
+			.delete {
+				visibility: hidden;
+				position: absolute;
+				background: rgba(0, 0, 0, .5);
+				width: 100%;
+				height: 115px;
+				left: 0;
+				top: 0;
+				display: flex;
+				justify-content: center;
+				align-items: center;
+				opacity: 0;
+				transition: opacity .3s ease-in-out;
+				i {
+					cursor: pointer;
+					color: #ccc;
+					&:hover {
+						color: #fff;
+					}
 				}
 			}
+			&:hover .delete {
+				visibility: visible;
+				opacity: 1;
+			}
 		}
+		// .bottom {
+		// 	background: #EAEAEA;
+		// 	display: flex;
+		// 	height: 25px;
+		// 	padding: 3px 0;
+		// 	align-items: center;
+		// 	i {
+		// 		text-align: center;
+		// 		flex: 1;
+		// 		border-right: 1px solid #D8D8D8;
+		// 		cursor: pointer;
+		// 		&:last-child {
+		// 			border: none;
+		// 		}
+		// 	}
+		// }
 	}
 }

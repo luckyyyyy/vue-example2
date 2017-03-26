@@ -1,8 +1,8 @@
 /*
 * @Author: William Chan
 * @Date:   2016-12-03 20:43:22
-* @Last Modified by:   Administrator
-* @Last Modified time: 2017-03-23 01:42:11
+* @Last Modified by:   William Chan
+* @Last Modified time: 2017-03-27 05:26:03
 */
 
 'use strict';
@@ -32,7 +32,9 @@ export const CHANNEL_CREATE         = export_var('CHANNEL_CREATE');
 export const CHANNEL_FIND           = export_var('CHANNEL_FIND');
 export const CHANNEL_DELETE         = export_var('CHANNEL_DELETE');
 // multimedia
-export const MULTIMEDIA_FIND        = export_var('MULTIMEDIA_FIND', 'INSERT');
+export const MULTIMEDIA_FIND        = export_var('MULTIMEDIA_FIND', 'DELETE');
+export const MULTIMEDIA             = export_var('MULTIMEDIA', 'INSERT', 'DELETE');
+
 // live
 export const LIVE                   = export_var('LIVE', 'QUERY');
 
@@ -43,7 +45,7 @@ export const LIVE_DELETE            = export_var('LIVE_DELETE');
 export const LIVE_TRASH             = export_var('LIVE_TRASH');
 export const LIVE_FINISH            = export_var('LIVE_FINISH');
 export const LIVE_PUBLIC            = export_var('LIVE_PUBLIC');
-export const LIVE_DETAIL            = export_var('LIVE_DETAIL', 'COUNTDOWN', 'GUIDE', 'SHARE');
+export const LIVE_DETAIL            = export_var('LIVE_DETAIL', 'COUNTDOWN', 'GUIDE', 'SHARE', 'UPDATE');
 
 // weixin
 export const WEXIN_AUTH_URL         = export_var('WEXIN_AUTH_URL');

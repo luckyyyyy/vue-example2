@@ -25,17 +25,14 @@
 			</div>
 		</div>
 		<div ref="list" class="commoon-view">
-			<!-- <Spin fix v-if="loading"></Spin> -->
 			<ul class="list" v-show="data.length">
 				<li class="item" v-for="item of data" :title="item.name">
-					<!-- <div class="head" :style="`background-image: url(${item.url})`"> -->
 					<div class="head">
 						<img :src="item.url">
 						<div class="name">{{ item.name }}</div>
-					</div>
-					<div class="bottom">
-						<!-- <span>1</span> -->
-						<Icon type="android-delete"></Icon>
+						<div class="delete">
+							<Icon @click.native="onDelete(item.id)" title="删除" :size="30" type="android-delete"></Icon>
+						</div>
 					</div>
 				</li>
 			</ul>
@@ -70,6 +67,7 @@
 				loading: false,
 				menu: parseInt(this.$route.params.type) || 1,
 				typeClass: MULTIMEDIA_TYPE,
+				delete: false,
 			}
 		},
 		computed: {
@@ -80,10 +78,11 @@
 		},
 		methods: {
 			...mapActions('multimedia', {
-				getMultimedia: 'MULTIMEDIA_FIND_REQUEST'
+				getMultimedia: 'MULTIMEDIA_FIND_REQUEST',
+				deleteMultimedia: 'MULTIMEDIA_DELETE'
 			}),
 			...mapMutations('multimedia', {
-				multimediaInsert: 'MULTIMEDIA_FIND_INSERT',
+				multimediaInsert: 'MULTIMEDIA_INSERT',
 			}),
 			onStatusChange (val) {
 				this.menu = parseInt(val);
@@ -142,6 +141,20 @@
 			progress (p) {
 				this.upload = `上传中${Math.floor(p.percent)}%`;
 			},
+			onDelete (id) {
+				this.$Modal.confirm({
+					title: '删除',
+					content: '确定要删除这张图片吗？',
+					loading: true,
+					onOk: () => {
+						this.deleteMultimedia({ id }).then(() => {
+							this.$Modal.remove();
+						}).catch(() => {
+							this.$Modal.remove();
+						})
+					}
+				})
+			}
 		},
 		filters: {
 			number (val) {
