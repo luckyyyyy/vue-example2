@@ -16,8 +16,8 @@
 </template>
 
 <script>
-	import '../../assets/prism/index-min.css'
-	import prism from '../../assets/prism/prism-min.js'
+	import '../../assets/libs/prism/index-min.css'
+	import prism from '../../assets/libs/prism/prism-min.js'
 	import { isiPad, isDev } from '../../utils/util'
 	import { mapActions } from 'vuex'
 	export default {

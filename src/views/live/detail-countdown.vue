@@ -47,7 +47,7 @@
 						<div class="iPhone-view">
 							<p class="title">{{ form.liveHint || '直播开始文字' }}</p>
 							<div class="time">
-								<div class="tips">距离直播开始还剩</div>
+								<div class="desc">距离直播开始还剩</div>
 								<div class="datetime">
 									<template v-if="countDown.start">
 										开始时间大于当前时间，直播已开始。

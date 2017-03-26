@@ -58,8 +58,8 @@
 					</div>
 				</div>
 				<iForm class="chat-input" @submit.native.prevent :model="chatroom">
-					<iInput size="small"  v-model="chatroom.text" placeholder="请输入内容"></iInput>
-					<iButton :disabled="chatroom_lock || !chatroom_init" :loading="chatroom_send" @click="chatroomSend" htmlType="submit" type="primary">发送</iButton>
+					<iInput class="chatroom__input" v-model="chatroom.text" placeholder="请输入内容"></iInput>
+					<iButton :disabled="chatroom_lock || !chatroom_init" :loading="send" @click="chatroomSend" htmlType="submit" type="primary">发送</iButton>
 				</iForm>
 			</div>
 		</div>
@@ -72,7 +72,7 @@
 		>
 			<iForm ref="notice" :rules="rules" label-position="left" :label-width="85" :model="notice" @submit.native.prevent>
 				<FormItem label="公告内容" prop="text">
-					<iInput :autofocus="true" v-model="notice.text" placeholder="请输入公告内容"></iInput>
+					<iInput v-model="notice.text" placeholder="请输入公告内容"></iInput>
 				</FormItem>
 				<div style="display: none;">
 					<iButton @click="onNoticeSubmit" :loading="lock" htmlType="submit" type="primary">发 送</iButton>
@@ -112,12 +112,12 @@
 				noticeDialog: false,
 				rules: LIVE_NOTICE_RULES,
 				lock: false,
+				send: false,
 			}
 		},
 		computed: {
 			...mapState('live', [ 'live' ]),
 			...mapState('im', {
-				chatroom_send: state => state.send,
 				chatroom_lock: state => state.lock,
 				chatroom_init: state => state.init,
 			}),
@@ -158,7 +158,6 @@
 				liveFinish: 'LIVE_FINISH_REQUEST'
 			}),
 			onJoinChatroom () {
-				// const chatroomId         = 7853177; // 暂时
 				const chatroomId         = this.live.liveChatRoom.roomid;
 				const oncustomsysmsg     = this.onCustomSysMsg;
 				const onCustomServiceMsg = this.onCustomServiceMsg;
@@ -224,10 +223,13 @@
 			chatroomSend () {
 				const text = trim(this.chatroom.text);
 				if (text) {
+					this.send = true;
 					this.imSend(text).then(() => {
 						this.chatroom.text = '';
+						this.send = false;
 					}).catch(error => {
 						this.$Message.error(error.message);
+						this.send = false;
 					})
 				}
 			},
@@ -283,18 +285,16 @@
 <style scoped lang="less">
 	@import "../../assets/styles/views/live/control";
 </style>
-<style  lang="less">
-	.action{
-		.ivu-input{
-			width: 100% !important;
-			height: 32px !important;
-			border-radius: 4px !important;
-			background-color: #343647 !important;
-			text-indent: 6px !important;
-			color: #ccc !important;
-			border: none !important;
-			outline: none !important;
-			box-shadow: none !important;
+<style lang="less">
+	.chatroom__input {
+		.ivu-input {
+			background-color: #343647;
+			border: none;
+			color: #ccc;
+			box-shadow: none;
+			&:focus, &:hover {
+				background-color: lighten(#343647, 2%);
+			}
 		}
 	}
 	.stream-url-popper {

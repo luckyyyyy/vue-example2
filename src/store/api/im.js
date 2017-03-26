@@ -1,13 +1,13 @@
 /*
 * @Author: William Chan
 * @Date:   2017-03-08 23:18:57
-* @Last Modified by:   William Chan
-* @Last Modified time: 2017-03-24 01:49:46
+* @Last Modified by:   Administrator
+* @Last Modified time: 2017-03-26 18:36:16
 */
 
 'use strict';
 // import { http } from './'
-import { NIM, Chatroom } from '../../assets/NIM_Web_SDK/js/NIM_Web_SDK_v3.4.0'
+import { NIM, Chatroom } from '../../assets/libs/NIM_Web_SDK/js/NIM_Web_SDK_v3.4.0'
 
 const IM_APP_KEY = '29b61d49c94875017bd9855f082a7ec9';
 let nim;

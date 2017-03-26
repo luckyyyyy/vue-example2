@@ -41,7 +41,9 @@
 				if(!this.scroll){
 					this.scroll = new iScroll(this.$refs.iScrollWrap,{
 						mouseWheel: true,
-						preventDefault: false,
+							preventDefaultException: {
+								tagName: /^(div|P|SPAN)$/
+							},
 						scrollbars: true,
 						fadeScrollbars: true,
 						interactiveScrollbars: true,

@@ -82,28 +82,29 @@
 
 			data () {
 				this.$nextTick(() => {
-					if(this.active == 2) {
-						this.notify = true;
-					} else {
-						if (this.scroll) {
-							if (this.scroll.maxScrollY - this.scroll.y > -50) {
-								this.onToBottom();
-							} else {
-								this.notify = true;
-							}
-						}
-					}
 					if (!this.scroll) {
 						this.scroll = new iscroll(this.$refs.list, {
 							mouseWheel: true,
-							preventDefault: false,
+							preventDefaultException: {
+								tagName: /^(SPAN|P|EM)$/
+							},
 							scrollbars: true,
 							fadeScrollbars: true,
 							interactiveScrollbars: true,
 							shrinkScrollbars: 'clip',
 						})
+					}
+					if(this.active == 2) {
+						this.notify = true;
 					} else {
-						this.scroll.refresh();
+						if (this.scroll) {
+							if (this.scroll.maxScrollY - this.scroll.y > -100) {
+								this.onToBottom();
+							} else {
+								this.scroll.refresh();
+								this.notify = true;
+							}
+						}
 					}
 				})
 				return this.$store.state.im.data;
@@ -114,6 +115,7 @@
 			onToTop () {
 				this.$nextTick(() => {
 					if (this.scroll) {
+						this.scroll.refresh();
 						this.scroll.scrollTo(0, 0, 0);
 					}
 				})
@@ -121,6 +123,7 @@
 			onToBottom (delay) {
 				this.$nextTick(() => {
 					if (this.scroll) {
+						this.scroll.refresh();
 						this.scroll.scrollTo(0, this.scroll.maxScrollY, delay === undefined ? 500 : delay);
 					}
 					this.notify = false;
@@ -129,7 +132,6 @@
 			onSwitchPage (active) {
 				this.active = active;
 				this.$nextTick(() => {
-					this.scroll.refresh();
 					if (this.active == 1) {
 						this.onToBottom(0);
 					} else {

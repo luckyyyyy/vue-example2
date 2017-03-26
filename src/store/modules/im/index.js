@@ -2,7 +2,7 @@
 * @Author: William Chan
 * @Date:   2017-03-10 16:42:39
 * @Last Modified by:   Administrator
-* @Last Modified time: 2017-03-25 00:37:35
+* @Last Modified time: 2017-03-26 17:50:29
 */
 
 'use strict';
@@ -48,7 +48,6 @@ const state = {
 	im_init: false,
 	lock: false,
 	init: false,
-	sned: false,
 	user: [],
 	data: [],
 	history: [],

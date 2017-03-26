@@ -104,6 +104,7 @@
 		font-style: normal;
 		font-size: 12px;
 		color: #0076FF;
+		font-weight: bold;
 		&.me {
 			color: red;
 		}
