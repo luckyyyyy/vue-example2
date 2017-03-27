@@ -20,7 +20,7 @@
 						</FormItem>
 						<FormItem label="分享小图：">
 							<Album class="upload" @submit="selectAlbum" v-model="openAlbum">
-								<iButton type="primary" @click="openAlbum = true">点击上传图片</iButton>
+								<iButton type="ghost" @click="openAlbum = true">点击上传图片</iButton>
 								<p class="tips">
 									<Icon type="android-warning"></Icon> 400 x 400
 								</p>

@@ -2,7 +2,7 @@
 * @Author: Administrator
 * @Date:   2017-01-06 02:33:52
 * @Last Modified by:   William Chan
-* @Last Modified time: 2017-03-27 13:51:38
+* @Last Modified time: 2017-03-27 19:03:41
 */
 
 'use strict';
@@ -72,13 +72,12 @@ const mutations = {
 		state.start = state.start + data.multimedias.length;
 	},
 	[MULTIMEDIA.DELETE] (state, { id }) {
-		const index = state.data.indexOf(id);
-		console.log(id, index, state.data)
-		if (index >= 0) {
-			console.log(111)
-			state.data.splice(index, 1);
-			state.start = state.start - 1;
-		}
+		state.data.find((v, k) => {
+			if (v.id == id) {
+				state.data.splice(k, 1);
+				state.start = state.start - 1;
+			}
+		})
 	},
 }
 export default {

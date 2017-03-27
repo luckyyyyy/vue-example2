@@ -13,8 +13,8 @@
 				<div class="action">
 					<div class="form">
 						<Album class="upload" @submit="selectAlbum" v-model="openAlbum" :type="3">
-							<iButton class="upload-btn" type="primary" @click="openAlbum = true">
-								<Icon type="ios-upload-outline" class="icon"></Icon>上传图片
+							<iButton type="ghost" @click="openAlbum = true">
+								<Icon type="ios-upload-outline" class="icon"></Icon> 上传图片
 							</iButton>
 							<p class="tips">
 								<Icon type="android-warning" class="warning"></Icon> 因手机机型众多，为保证图片正常展示，请严格按照 1080*1740 像素上传图片。图片大小4M以内支持扩展名：.png .jpg .jpeg
