@@ -6,10 +6,13 @@
 		<div class="body">
 			<div class="action">
 				<iForm label-position="left" ref="form" :model="form" :label-width="100" class="form">
-					<FormItem label="直播间名字">
+					<FormItem label="直播间标题">
 						<iInput @on-change="onDebounce" v-model="form.name" placeholder="不超过10个字符"></iInput>
 					</FormItem>
-					<FormItem label="主播头像">
+					<FormItem label="直播昵称">
+						<iInput @on-change="onDebounce" v-model="form.name" placeholder="不超过10个字符"></iInput>
+					</FormItem>
+					<FormItem label="直播头像">
 						<Album class="upload" @submit="selectAlbum" v-model="openAlbum" :type="3">
 							<iButton type="ghost" @click="openAlbum = true">点击上传图片</iButton>
 							<p class="tips">

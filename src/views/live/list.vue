@@ -18,82 +18,84 @@
 		</div>
 		<div ref="list" class="commoon-view">
 			<!-- <Spin fix v-if="loading"></Spin> -->
-			<ul class="list" v-show="data.length">
-				<li v-for="item in data" :key="item.id" class="item">
-					<div class="body">
-						<div class="top">
-							<div class="status">
-								<em :class="item.streamStatus">
-									{{ item.streamStatus == 'publish' ? '推流中' : '未推流' }}
-								</em>
-							</div>
-							<div class="active">
-								<template v-if="item.trashStatus">
-									<confirmPopover
-										@ok="onChangeStatus(item.id)">
-										<p slot="tips">您确定要恢复这场直播么？</p>
-										<em slot="reference">恢复</em>
-									</confirmPopover>
-									<confirmPopover
-										@ok="onChangeStatus(item.id, true)">
-										<p slot="tips">您确定彻底要删除直播么？一旦删除，将彻底无法恢复。</p>
-										<em slot="reference">彻底删除</em>
-									</confirmPopover>
-								</template>
-								<template v-else>
-									<template v-if="!item.publicStatus">
+			<Row class="list" v-show="data.length">
+				<Col v-for="item in data" :key="item.id" className="item" :xs="12" :sm="12" :md="8" :lg="6">
+					<div class="box">
+						<div class="body">
+							<div class="top">
+								<div class="status">
+									<em :class="item.streamStatus">
+										{{ item.streamStatus == 'publish' ? '推流中' : '未推流' }}
+									</em>
+								</div>
+								<div class="active">
+									<template v-if="item.trashStatus">
 										<confirmPopover
-											@ok="onChangePublic(item.id)">
-											<p slot="tips">您确定要发布这场直播么？</p>
-											<em slot="reference">发布</em>
+											@ok="onChangeStatus(item.id)">
+											<p slot="tips">您确定要恢复这场直播么？</p>
+											<em slot="reference">恢复</em>
+										</confirmPopover>
+										<confirmPopover
+											@ok="onChangeStatus(item.id, true)">
+											<p slot="tips">您确定彻底要删除直播么？一旦删除，将彻底无法恢复。</p>
+											<em slot="reference">彻底删除</em>
 										</confirmPopover>
 									</template>
 									<template v-else>
+										<template v-if="!item.publicStatus">
+											<confirmPopover
+												@ok="onChangePublic(item.id)">
+												<p slot="tips">您确定要发布这场直播么？</p>
+												<em slot="reference">发布</em>
+											</confirmPopover>
+										</template>
+										<template v-else>
+											<confirmPopover
+												@ok="onChangePublic(item.id)">
+												<p slot="tips">您确定要撤回这场直播么？</p>
+												<em slot="reference">撤回</em>
+											</confirmPopover>
+										</template>
 										<confirmPopover
-											@ok="onChangePublic(item.id)">
-											<p slot="tips">您确定要撤回这场直播么？</p>
-											<em slot="reference">撤回</em>
+											@ok="onChangeStatus(item.id)">
+											<p slot="tips">您确定要删除直播么？</p>
+											<em slot="reference">删除</em>
 										</confirmPopover>
 									</template>
-									<confirmPopover
-										@ok="onChangeStatus(item.id)">
-										<p slot="tips">您确定要删除直播么？</p>
-										<em slot="reference">删除</em>
-									</confirmPopover>
-								</template>
 
+								</div>
+							</div>
+							<div class="title">
+								<span>{{ item.name }}</span>
 							</div>
 						</div>
-						<div class="title">
-							<span>{{ item.name }}</span>
+						<div class="buttom">
+							<div class="time">直播开始时间：<span>未设置</span></div>
+							<div class="button">
+								<router-link :to="{ name: 'live_detail', params: { liveid: item.id } }">
+									<i class="iconfont icon-paintfill"></i>
+									<span>直播装修</span>
+								</router-link>
+
+								<router-link :to="{ name: 'live_detail_image', params: { liveid: item.id } }">
+									<i class="iconfont icon-wefill"></i>
+									<span>互动设置</span>
+								</router-link>
+
+								<router-link :to="{ name: 'live_data', params: { liveid: item.id } }">
+									<i class="iconfont icon-rankfill"></i>
+									<span>直播数据</span>
+								</router-link>
+
+								<router-link :to="{ name: 'live_control', params: { liveid: item.id } }">
+									<i class="iconfont icon-k"></i>
+									<span>中控台</span>
+								</router-link>
+							</div>
 						</div>
 					</div>
-					<div class="buttom">
-						<div class="time">直播开始时间：<span>未设置</span></div>
-						<div class="button">
-							<router-link :to="{ name: 'live_detail', params: { liveid: item.id } }">
-								<i class="iconfont icon-paintfill"></i>
-								<span>直播装修</span>
-							</router-link>
-
-							<router-link :to="{ name: 'live_detail_image', params: { liveid: item.id } }">
-								<i class="iconfont icon-wefill"></i>
-								<span>互动设置</span>
-							</router-link>
-
-							<router-link :to="{ name: 'live_data', params: { liveid: item.id } }">
-								<i class="iconfont icon-rankfill"></i>
-								<span>直播数据</span>
-							</router-link>
-
-							<router-link :to="{ name: 'live_control', params: { liveid: item.id } }">
-								<i class="iconfont icon-k"></i>
-								<span>中控台</span>
-							</router-link>
-						</div>
-					</div>
-				</li>
-			</ul>
+				</Col>
+			</Row>
 			<div v-show="!loading && !data.length" class="tips">
 				没有数据啦QAQ
 			</div>
@@ -206,6 +208,7 @@
 						})
 					}).catch(() => {
 						this.loading = false;
+						msg();
 					});
 				}
 			},

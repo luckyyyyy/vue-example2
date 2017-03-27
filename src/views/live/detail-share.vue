@@ -68,7 +68,6 @@
 		},
 		mounted () {
 			this.form = Object.assign({}, this.live.liveShare);
-			this.onDebounce = debounce(this.onChange, 200)
 		},
 		methods: {
 			...mapActions('live/detail', {
@@ -83,6 +82,12 @@
 				data.id = this.live.id;
 				this.setShare(data);
 			},
+			onDebounce () {
+				if (!this.debounce) {
+					this.debounce = debounce(this.onChange, 200);
+				}
+				this.debounce();
+			}
 		}
 	}
 </script>

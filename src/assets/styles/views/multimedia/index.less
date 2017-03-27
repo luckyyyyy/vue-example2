@@ -19,19 +19,18 @@
 	// text-align: center;
 	padding: 30px;
 	.item {
-		display: inline-block;
-		margin-right: 20px;
-		margin-bottom: 20px;
-		width: 140px;
-		height: 140px;
-		box-shadow: 0 1px 7px 0 rgba(0, 43, 59, 0.2);
-		&:hover {
-			box-shadow: 0 1px 20px 0 rgba(0, 43, 59, 0.2);
-		}
+		display: flex;
+		padding: 20px;
+		justify-content: center;
 		.head {
+			box-shadow: 0 1px 7px 0 rgba(0, 43, 59, 0.2);
 			height: 140px;
+			width: 140px;
 			position: relative;
 			background-position: center center;
+			&:hover {
+				box-shadow: 0 1px 20px 0 rgba(0, 43, 59, 0.2);
+			}
 			img {
 				height: 140px;
 				width: 140px;

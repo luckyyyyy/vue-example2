@@ -33,8 +33,13 @@
 										<img witdh="50" height="50" :src="item.wxAvatarUrl">
 									</div>
 									<div class="wechat">
-										<template v-if="item.status == 2">{{ item.wxAppName }}</template>
-										<template v-else><span class="unbind">未绑定公众号</span></template>
+										<template v-if="item.status == 2">
+											<em>微信公众号</em>
+											<span>{{ item.wxAppName }}</span>
+										</template>
+										<template v-else>
+											<span class="unbind">未绑定公众号</span>
+										</template>
 									</div>
 								</div>
 							</div>
@@ -242,9 +247,18 @@
 								background: #ccc;
 								margin-right: 10px;
 							}
-							.unbind {
-								color: #ff5520;
+							.wechat {
+								display: flex;
+								flex-direction: column;
+								em {
+									coloe: #999;
+									font-style: normal;
+								}
+								.unbind {
+									color: #ff5520;
+								}
 							}
+
 						}
 					}
 				}

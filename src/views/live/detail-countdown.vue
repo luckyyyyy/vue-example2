@@ -108,7 +108,6 @@
 		mounted () {
 			this.form = Object.assign({}, this.live.liveCountDown);
 			this.form.liveBeginTime = moment(this.form.liveBeginTime).toDate();
-			this.onDebounce = debounce(this.onChange, 200);
 			this.setInterval = setInterval(() => {
 				if (this.form.countDownStatus) {
 					const unix = moment(this.form.liveBeginTime).unix();
@@ -139,10 +138,10 @@
 				this.setCountDown(data);
 			},
 			onDebounce () {
-				if(!this.onDebounce){
-					this.onDebounce = debounce(this.onChange, 200)
+				if(!this.debounce){
+					this.debounce = debounce(this.onChange, 200)
 				}
-				this.onDebounce;
+				this.debounce();
 			}
 		}
 	}

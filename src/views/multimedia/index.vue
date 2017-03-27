@@ -25,8 +25,8 @@
 			</div>
 		</div>
 		<div ref="list" class="commoon-view">
-			<ul class="list" v-show="data.length">
-				<li class="item" v-for="item of data" :title="item.name">
+			<Row class="list" v-show="data.length">
+				<Col className="item" v-for="item of data" :title="item.name" :xs="8" :sm="8" :md="6" :lg="4">
 					<div class="head">
 						<img :src="item.url">
 						<div class="name">{{ item.name }}</div>
@@ -34,8 +34,8 @@
 							<Icon @click.native="onDelete(item.id)" title="删除" :size="30" type="android-delete"></Icon>
 						</div>
 					</div>
-				</li>
-			</ul>
+				</Col>
+			</Row>
 		</div>
 		<div class="tips" v-if="!loading && !data.length && !upload">
 			没有数据啦QAQ
