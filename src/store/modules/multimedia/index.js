@@ -2,7 +2,7 @@
 * @Author: Administrator
 * @Date:   2017-01-06 02:33:52
 * @Last Modified by:   William Chan
-* @Last Modified time: 2017-03-27 05:26:12
+* @Last Modified time: 2017-03-27 13:51:38
 */
 
 'use strict';
@@ -15,7 +15,7 @@ const state = {
 	empty: false,
 	data: [],
 	start: 0,
-	limits: 40,
+	limits: 48,
 	type: 1,
 }
 
@@ -36,9 +36,10 @@ const actions = {
 			})
 		}
 	},
-	[MULTIMEDIA.DELETE] ({ commit, state }, ...args) {
+	[MULTIMEDIA.DELETE] ({ commit, state }, id) {
 		return new Promise((resolve, reject) => {
-			multimedia_delete(...args).then(res => {
+			multimedia_delete(id).then(res => {
+				commit(MULTIMEDIA.DELETE, id);
 				resolve(res);
 			}).catch(err => {
 				reject(err);
@@ -69,6 +70,15 @@ const mutations = {
 	[MULTIMEDIA.INSERT] (state, data) {
 		state.data = data.multimedias.concat(state.data);
 		state.start = state.start + data.multimedias.length;
+	},
+	[MULTIMEDIA.DELETE] (state, { id }) {
+		const index = state.data.indexOf(id);
+		console.log(id, index, state.data)
+		if (index >= 0) {
+			console.log(111)
+			state.data.splice(index, 1);
+			state.start = state.start - 1;
+		}
 	},
 }
 export default {
