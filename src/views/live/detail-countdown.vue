@@ -137,6 +137,12 @@
 				data.id = this.live.id;
 				data.liveBeginTime = moment(data.liveBeginTime).valueOf()
 				this.setCountDown(data);
+			},
+			onDebounce () {
+				if(!this.onDebounce){
+					this.onDebounce = debounce(this.onChange, 200)
+				}
+				this.onDebounce;
 			}
 		}
 	}
@@ -145,3 +151,4 @@
 <style scoped lang="less">
 	@import url('../../assets/styles/views/live/detail.less');
 </style>
+

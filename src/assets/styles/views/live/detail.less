@@ -21,34 +21,50 @@
 	}
 }
 .body {
-	padding: 10px;
+	padding-top: 10px;
 	position: relative;
 	.tips {
 		color: #999;
-		width: 400px;
+		width: 370px;
 		height: 40px;
 	}
 	.action {
 		margin-top: 20px;
 		display: flex;
+		position: relative;
 		.form {
-			width: 400px;
+			width: 370px;
 			.tips {
 				padding: 10px 0;
+				.warning{
+					color: #ffaa00;
+				}
 			}
 			.setting {
 				margin-top: 30px;
 			}
+			.upload-btn{
+					border-radius: 4px;
+					background-color: #ffffff;
+					border: solid 1px #c0ccda;
+					font-size: 12px;
+					color: #666666;
+					.icon{
+						margin-right: 7px;
+					}
+			}
 		}
 		.iPhone-bg {
-			position: absolute;
-			margin-left: 10px;
-			width: 339px;
-			height: 535px;
-			top: 30px;
-			left: 500px;
-			background: url(../../../iPhone.png) center center no-repeat; //要换的
+			position:relative;
+			width: 247px;
+			height: 500px;
+			background-image: url(../../../images/live/iPhone7.png); //要换的
+			background-size: 100%;
+			background-repeat: no-repeat;
 			.iPhone-view {
+				position:absolute;
+				top:60px;
+				left:17px;
 				color: white;
 				text-align: center;
 				.title {

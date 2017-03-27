@@ -20,7 +20,7 @@
 				</iForm>
 				<div class="iPhone-bg">
 					<div class="iPhone-view">
-						<!-- TODO IMG -->
+						<img src="../../assets/images/live/setting.png" height="378" width="212" alt="">
 					</div>
 				</div>
 			</div>
@@ -62,6 +62,12 @@
 				data.id = this.live.id;
 				this.liveUpdate(data);
 			},
+			onDebounce () {
+				if(!this.onDebounce){
+					this.onDebounce = debounce(this.onChange, 200)
+				}
+				this.onDebounce;
+			}
 		}
 	}
 </script>
