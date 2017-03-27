@@ -30,37 +30,17 @@
 								</div>
 								<div class="active">
 									<template v-if="item.trashStatus">
-										<confirmPopover
-											@ok="onChangeStatus(item.id)">
-											<p slot="tips">您确定要恢复这场直播么？</p>
-											<em slot="reference">恢复</em>
-										</confirmPopover>
-										<confirmPopover
-											@ok="onChangeStatus(item.id, true)">
-											<p slot="tips">您确定彻底要删除直播么？一旦删除，将彻底无法恢复。</p>
-											<em slot="reference">彻底删除</em>
-										</confirmPopover>
+										<em @click="onChangeStatus(item.id, `您确定要恢复直播【${item.name}】`)">恢复</em>
+										<em @click="onChangeStatus(item.id, `您确定彻底要删除直播【${item.name}】<br>一旦删除，将彻底无法恢复。`, true)">彻底删除</em>
 									</template>
 									<template v-else>
 										<template v-if="!item.publicStatus">
-											<confirmPopover
-												@ok="onChangePublic(item.id)">
-												<p slot="tips">您确定要发布这场直播么？</p>
-												<em slot="reference">发布</em>
-											</confirmPopover>
+											<em @click="onChangePublic(item.id, `您确定要发布直播【${item.name}】<br>发布后在微信端公开展示给用户。`)">发布</em>
 										</template>
 										<template v-else>
-											<confirmPopover
-												@ok="onChangePublic(item.id)">
-												<p slot="tips">您确定要撤回这场直播么？</p>
-												<em slot="reference">撤回</em>
-											</confirmPopover>
+											<em @click="onChangePublic(item.id, `您确定要撤回直播【${item.name}】<br>撤回后微信端用户无法查看直播。`)">撤回</em>
 										</template>
-										<confirmPopover
-											@ok="onChangeStatus(item.id)">
-											<p slot="tips">您确定要删除直播么？</p>
-											<em slot="reference">删除</em>
-										</confirmPopover>
+										<em @click="onChangeStatus(item.id, `您确定要删除直播【${item.name}】`)">删除</em>
 									</template>
 
 								</div>
@@ -133,13 +113,9 @@
 
 <script>
 	import { mapState, mapActions } from 'vuex'
-	import confirmPopover from '../../components/item/confirmPopover'
 	import { LIVE_CREATE_RULES } from '../../options/rules'
 	import iscroll from 'iscroll'
 	export default {
-		components: {
-			confirmPopover
-		},
 		data () {
 			return {
 				create: {
@@ -196,7 +172,7 @@
 								interactiveScrollbars: true,
 								shrinkScrollbars: 'clip',
 							})
-							this.listScroll.on('scrollEnd', () => {
+							this.listScroll.on('scrollStart', () => {
 								this.findLiveList();
 							});
 						}
@@ -216,32 +192,36 @@
 				this.openDialog  = true;
 				this.createAgree = true;
 			},
-			onChangePublic (id) {
-				const msg = this.$Message.loading('正在更改直播状态', 0);
-				this.livePublic({ id }).then(() => {
-					this.findLiveList(true);
-					msg();
-				}).catch(() => {
-					msg();
-				});
+			onChangePublic (id, content) {
+				this.$Modal.confirm({
+					title: '直播',
+					content,
+					loading: true,
+					onOk: () => {
+						this.livePublic({ id }).then(() => {
+							this.$Modal.remove();
+							this.findLiveList(true);
+						}).catch(() => {
+							this.$Modal.remove();
+						})
+					}
+				})
 			},
-			onChangeStatus(id, confirmDelete) {
-				const msg = this.$Message.loading('正在更改直播状态', 0);
-				if (confirmDelete) {
-					this.deleteLive({ id }).then(() => {
-						this.findLiveList(true);
-						msg();
-					}).catch(() => {
-						msg();
-					});
-				} else {
-					this.trashLive({ id }).then(() => {
-						this.findLiveList(true);
-						msg();
-					}).catch(() => {
-						msg();
-					});
-				}
+			onChangeStatus(id, content, confirmDelete) {
+				const api = confirmDelete ? this.deleteLive : this.trashLive;
+				this.$Modal.confirm({
+					title: '直播',
+					content,
+					loading: true,
+					onOk: () => {
+						api({ id }).then(() => {
+							this.$Modal.remove();
+							this.findLiveList(true);
+						}).catch(() => {
+							this.$Modal.remove();
+						})
+					}
+				})
 			},
 			onSubmit () {
 				this.$refs.create.validate(valid => {

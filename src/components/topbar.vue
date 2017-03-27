@@ -1,9 +1,12 @@
 <template>
 	<div class="topbar">
-		<div class="logo">
-			<img src="../assets/toplogo.png" height="20" width="100" alt="彩虹云直播">
+		<div class="left">
+			<div class="logo">
+				<img src="../assets/toplogo.png" height="20" width="100" alt="彩虹云直播">
+			</div>
 			<div class="breadcrumb">
-<!-- 				<el-breadcrumb separator="/">
+				彩虹云直播 alpha Build 20170328
+<!-- 			<el-breadcrumb separator="/">
 					<el-breadcrumb-item
 						v-for="item of breadcrumb"
 						:key="item.name"
@@ -41,19 +44,19 @@
 	export default {
 		computed: {
 			...mapState('user', [ 'user' ]),
-			breadcrumb () {
-				let breadcrumb = [
-					{ route: this.$route.name, name: '测试面包' },
-					{ route: this.$route.name, name: '测试面包' },
-					{ route: this.$route.name, name: '测试面包' },
-					{ route: this.$route.name, name: '测试面包' },
-					{ route: this.$route.name, name: '测试面包' },
-				];
-				if (this.$route.meta.breadcrumb) {
-					breadcrumb = this.$route.meta.breadcrumb;
-				}
-				return breadcrumb
-			}
+			// breadcrumb () {
+			// 	let breadcrumb = [
+			// 		{ route: this.$route.name, name: '测试面包' },
+			// 		{ route: this.$route.name, name: '测试面包' },
+			// 		{ route: this.$route.name, name: '测试面包' },
+			// 		{ route: this.$route.name, name: '测试面包' },
+			// 		{ route: this.$route.name, name: '测试面包' },
+			// 	];
+			// 	if (this.$route.meta.breadcrumb) {
+			// 		breadcrumb = this.$route.meta.breadcrumb;
+			// 	}
+			// 	return breadcrumb
+			// }
 		},
 		methods: {
 			...mapActions('user', {

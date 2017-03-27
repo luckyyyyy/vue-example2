@@ -1,8 +1,8 @@
 /*
 * @Author: Administrator
 * @Date:   2017-02-25 14:58:36
-* @Last Modified by:   William Chan
-* @Last Modified time: 2017-03-27 05:16:31
+* @Last Modified by:   Administrator
+* @Last Modified time: 2017-03-28 02:31:51
 */
 
 'use strict';
@@ -58,10 +58,13 @@ export const live_share = ({ id, shareStatus, shareImageId, shareTitle, shareCon
 	return http.put(`live/update/share/${id}`, { shareStatus, shareImageId, shareTitle, shareContent })
 }
 // PUT /api/v1/live/update/{id}
-export const live_update = ({ id, name, avatarImageId}) => {
+export const live_update = ({ id, name, avatarImageId }) => {
 	return http.put(`live/update/${id}`, { name, avatarImageId })
 }
-
+// PUT /api/v1/live/update/attention_watch/{id}
+export const live_watch = ({ id, attentionWatchStatus }) => {
+	return http.put(`live/update/attention_watch/${id}`, { attentionWatchStatus })
+}
 
 
 

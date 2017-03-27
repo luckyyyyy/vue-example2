@@ -194,7 +194,7 @@
 							interactiveScrollbars: true,
 							shrinkScrollbars: 'clip',
 						})
-						this.listScroll.on('scrollEnd', () => {
+						this.listScroll.on('scrollStart', () => {
 							this.getImages();
 						});
 					} else {

@@ -1,5 +1,5 @@
 <template>
-	<Poptip placement="bottom" width="240" v-model="visible" class="confirmPopover">
+	<Poptip placement="bottom-end" width="200" v-model="visible" class="confirmPopover">
 		<template slot="content">
 			<div class="body">
 				<Icon type="help-circled"></Icon>

@@ -2,7 +2,7 @@
 * @Author: William Chan
 * @Date:   2017-03-06 22:29:46
 * @Last Modified by:   Administrator
-* @Last Modified time: 2017-03-25 01:59:01
+* @Last Modified time: 2017-03-28 02:24:12
 */
 
 'use strict';
@@ -152,10 +152,10 @@ export default [
 					// 	component: resolve => require(['../views/live/detail-luckydraw.vue'], resolve)
 					// },
 					{
-						name: 'live_detail_follow',
-						path: 'follow',
+						name: 'live_detail_watch',
+						path: 'watch',
 						meta: { requiresAuth: true },
-						component: resolve => require(['../views/live/detail-follow.vue'], resolve)
+						component: resolve => require(['../views/live/detail-watch.vue'], resolve)
 					},
 					{
 						name: 'live_detail_authorize',

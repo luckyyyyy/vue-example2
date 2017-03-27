@@ -16,7 +16,7 @@
 <!-- 					<MenuItem name="live_detail_livebuy">边看边买</MenuItem>
 					<MenuItem name="live_detail_liveshop">宝贝上屏</MenuItem>
 					<MenuItem name="live_detail_luckydraw">抽奖</MenuItem> -->
-					<MenuItem name="live_detail_follow">关注观看</MenuItem>
+					<MenuItem name="live_detail_watch">关注观看</MenuItem>
 					<MenuItem name="live_detail_authorize">授权观看</MenuItem>
 				</Menu>
 				<div class="button">

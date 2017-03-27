@@ -2,12 +2,12 @@
 * @Author: Administrator
 * @Date:   2017-03-22 02:16:52
 * @Last Modified by:   Administrator
-* @Last Modified time: 2017-03-27 23:44:11
+* @Last Modified time: 2017-03-28 02:23:02
 */
 
 'use strict';
 
-import { live_count_down, live_guide, live_share, live_update } from '../../api/live'
+import { live_count_down, live_guide, live_share, live_update, live_watch } from '../../api/live'
 import { LIVE_DETAIL, LIVE } from '../../types'
 
 const state = {}
@@ -48,6 +48,16 @@ const actions = {
 	[LIVE_DETAIL.UPDATE] ({ commit }, ...args) {
 		return new Promise((resolve, reject) => {
 			live_update(...args).then(res => {
+				commit(`live/${LIVE.QUERY}`, res.data, { root: true });
+				resolve(res.data);
+			}).catch(err => {
+				reject(err);
+			})
+		})
+	},
+	[LIVE_DETAIL.WATCH] ({ commit }, ...args) {
+		return new Promise((resolve, reject) => {
+			live_watch(...args).then(res => {
 				commit(`live/${LIVE.QUERY}`, res.data, { root: true });
 				resolve(res.data);
 			}).catch(err => {

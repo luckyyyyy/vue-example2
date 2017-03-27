@@ -29,17 +29,33 @@
 </template>
 
 <script>
+	import { mapState, mapActions } from 'vuex'
 	export default {
 		data () {
 			return {
-				enable: true,
+				attentionWatchStatus: 0
+			}
+		},
+		computed: {
+			...mapState('live', ['live']),
+			enable: {
+				set (val) {
+					this.attentionWatchStatus = val ? 1 : 0;
+				},
+				get () {
+					return this.attentionWatchStatus == 1;
+				}
 			}
 		},
 		mounted () {
+			this.attentionWatchStatus = this.live.attentionWatchStatus;
 		},
 		methods: {
+			...mapActions('live/detail', {
+				setWatch: 'LIVE_DETAIL_WATCH'
+			}),
 			switchChange (enabled) {
-
+				this.setWatch({ id: this.live.id, attentionWatchStatus: this.attentionWatchStatus })
 			},
 		}
 	}

@@ -26,7 +26,7 @@
 		</div>
 		<div ref="list" class="commoon-view">
 			<Row class="list" v-show="data.length">
-				<Col className="item" v-for="item of data" :title="item.name" :xs="8" :sm="8" :md="6" :lg="4">
+				<Col className="item" v-for="item of data" :key="item.id" :title="item.name" :xs="8" :sm="8" :md="6" :lg="4">
 					<div class="head">
 						<img :src="item.url">
 						<div class="name">{{ item.name }}</div>
@@ -108,7 +108,7 @@
 								interactiveScrollbars: true,
 								shrinkScrollbars: 'clip',
 							})
-							this.listScroll.on('scrollEnd', () => {
+							this.listScroll.on('scrollStart', () => {
 								this.getImages();
 							});
 						}

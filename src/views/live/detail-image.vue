@@ -23,7 +23,8 @@
 					</div>
 					<div class="iPhone-bg">
 						<div class="iPhone-view">
-							<!-- TODO IMG -->
+								<span style="font-size:20px;color:red">:::DEMO:::</span>
+								<img :src="live.liveGuide.guideImageUrl">
 						</div>
 					</div>
 				</div>
