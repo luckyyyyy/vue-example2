@@ -38,8 +38,8 @@
 						name: 'live',
 						sub: [
 							{ item: '直播列表', name: 'live_list' },
-							{ item: '直播间模板', name: 'live_template' },
 							{ item: '回放列表', name: 'video_list' },
+							{ item: '直播间模板', name: 'live_template' },
 						]
 					},
 					// { item: '<i class="iconfont icon-shop"></i>电商', name: 'shop', sub: [

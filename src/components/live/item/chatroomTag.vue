@@ -23,7 +23,7 @@
 				color: #FF4949;
 			}
 		}
-		&.owner {
+		&.manager {
 			&:after {
 				content: '管理员';
 				background-color: rgba(231, 250, 239, 0.8);

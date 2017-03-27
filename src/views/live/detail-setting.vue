@@ -20,7 +20,7 @@
 				</iForm>
 				<div class="iPhone-bg">
 					<div class="iPhone-view">
-						<!-- TODO IMG -->
+						<img src="../../assets/images/live/setting.png" height="378" width="212" alt="">
 					</div>
 				</div>
 			</div>

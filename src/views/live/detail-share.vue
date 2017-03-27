@@ -79,7 +79,6 @@
 				this.onChange()
 			},
 			onChange () {
-				console.log(this.onDebounce)
 				const data = Object.assign({}, this.form);
 				data.id = this.live.id;
 				this.setShare(data);
