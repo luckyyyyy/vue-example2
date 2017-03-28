@@ -136,7 +136,7 @@
 		background: #F2F3F7;
 		height: 90px;
 		display: flex;
-		padding: 0 30px;
+		padding: 0 20px;
 		box-sizing: border-box;
 		justify-content: space-between;
 		align-items: center;

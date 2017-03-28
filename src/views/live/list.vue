@@ -50,7 +50,14 @@
 							</div>
 						</div>
 						<div class="buttom">
-							<div class="time">直播开始时间：<span>未设置</span></div>
+							<div class="time">直播开始时间：
+								<template v-if="item.countDownStatus">
+									<span class="date">{{ item.liveCountDown.liveBeginTime | date('Y-MM-DD HH:mm') }}</span>
+								</template>
+								<template v-else>
+									<span>未设置</span>
+								</template>
+							</div>
 							<div class="button">
 								<router-link :to="{ name: 'live_detail', params: { liveid: item.id } }">
 									<i class="iconfont icon-paintfill"></i>
@@ -114,6 +121,7 @@
 <script>
 	import { mapState, mapActions } from 'vuex'
 	import { LIVE_CREATE_RULES } from '../../options/rules'
+	import { date } from '../../utils/util'
 	import iscroll from 'iscroll'
 	export default {
 		data () {
@@ -240,7 +248,10 @@
 					}
 				});
 			}
-		}
+		},
+		filters: {
+			date
+		},
 	}
 </script>
 

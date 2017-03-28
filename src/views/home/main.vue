@@ -2,13 +2,15 @@
 	<div class="wrap">
 		<div class="page">
 			<div class="head">
-				<router-link :to="{ name: 'select_channel' }" title="返回首页">
-					<div class="left">
-						<img src="../../assets/logo2.png" height="28" width="39" alt="彩虹云直播">
-						<h1>彩虹云直播</h1>
-						<h2>{{ name }}</h2>
-					</div>
-				</router-link>
+				<div class="left">
+					<h1 title="彩虹云直播">
+						<router-link :to="{ name: 'select_channel' }" title="返回首页">
+							<img src="../../assets/logo2.png" height="28" width="39" alt="彩虹云直播">
+							彩虹云直播
+						</router-link>
+					</h1>
+					<h2>{{ name }}</h2>
+				</div>
 				<div class="right">
 					<span class="text">{{ user.nickname || user.phone }}</span>
 					<a href="javascript:;" @click="submit_logout">退出</a>
@@ -40,6 +42,8 @@
 					onOk: () => {
 						this.logout().then(() => {
 							this.$Modal.remove();
+						}).catch(() => {
+							this.$Modal.remove();
 						})
 					}
 				})
@@ -70,7 +74,7 @@
 		.head {
 			border-radius: 8px;
 			height: 80px;
-			padding: 0 30px;
+			padding: 0 20px;
 			background: #fff;
 			width: 100%;
 			margin-bottom: 20px;
@@ -84,6 +88,8 @@
 				display: flex;
 				line-height: 30px;
 				color: #343647;
+				align-items: center;
+				// display: flex
 				img {
 					margin-right: 10px;
 				}
@@ -94,6 +100,15 @@
 					border-right: 1px solid #C7C7C7;
 					padding-right: 10px;
 					margin-right: 10px;
+					display: flex;
+					align-items: center;
+					justify-content: center;
+					a {
+						color: #333;
+						display: flex;
+						align-items: center;
+						justify-content: center;
+					}
 				}
 			}
 			.right {
