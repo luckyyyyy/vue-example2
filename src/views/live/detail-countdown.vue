@@ -112,7 +112,17 @@
 		mounted () {
 			this.form = Object.assign({}, this.live.liveCountDown);
 			this.form.liveBeginTime = moment(this.form.liveBeginTime).toDate();
-			this.setInterval = setInterval(() => {
+			this.setInterval = setInterval(this.onInterval, 1000);
+			this.onInterval();
+		},
+		beforeDestroy () {
+			if (this.setInterval) clearInterval(this.setInterval);
+		},
+		methods: {
+			...mapActions('live/detail', {
+				setCountDown: 'LIVE_DETAIL_COUNTDOWN'
+			}),
+			onInterval () {
 				if (this.form.countDownStatus) {
 					const unix = moment(this.form.liveBeginTime).unix();
 					const left = unix - moment().unix();
@@ -126,15 +136,7 @@
 						this.countDown.start = true;
 					}
 				}
-			}, 1000);
-		},
-		beforeDestroy () {
-			if (this.setInterval) clearInterval(this.setInterval);
-		},
-		methods: {
-			...mapActions('live/detail', {
-				setCountDown: 'LIVE_DETAIL_COUNTDOWN'
-			}),
+			},
 			onChange () {
 				const data = Object.assign({}, this.form);
 				data.id = this.live.id;
