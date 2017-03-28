@@ -11,13 +11,13 @@
 						<Radio :label="1">
 							<span>无限制</span>
 						</Radio>
-						<Radio :label="4">
+						<Radio :label="2">
 							<span>关注观看</span>
 						</Radio>
-						<Radio :label="2">
+						<Radio :label="3">
 							<span>验证码观看</span>
 						</Radio>
-						<Radio :label="3">
+						<Radio :label="4">
 							<span>付费观看</span>
 						</Radio>
 					</RadioGroup>

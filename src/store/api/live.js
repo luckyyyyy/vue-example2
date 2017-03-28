@@ -1,8 +1,8 @@
 /*
 * @Author: Administrator
 * @Date:   2017-02-25 14:58:36
-* @Last Modified by:   Administrator
-* @Last Modified time: 2017-03-28 02:31:51
+* @Last Modified by:   William Chan
+* @Last Modified time: 2017-03-29 00:51:54
 */
 
 'use strict';
@@ -62,10 +62,13 @@ export const live_update = ({ id, name, avatarImageId }) => {
 	return http.put(`live/update/${id}`, { name, avatarImageId })
 }
 // PUT /api/v1/live/update/attention_watch/{id}
-export const live_watch = ({ id, attentionWatchStatus }) => {
-	return http.put(`live/update/attention_watch/${id}`, { attentionWatchStatus })
+// export const live_watch = ({ id, attentionWatchStatus }) => {
+// 	return http.put(`live/update/attention_watch/${id}`, { attentionWatchStatus })
+// }
+// PUT /api/v1/live/update/auth_watch/{id}
+export const live_auth_watch = ({ id, attentionWatchStatus }) => {
+	return http.put(`live/update/auth_watch/${id}`, { attentionWatchStatus })
 }
-
 
 
 

@@ -1,13 +1,13 @@
 /*
 * @Author: Administrator
 * @Date:   2017-03-22 02:16:52
-* @Last Modified by:   Administrator
-* @Last Modified time: 2017-03-28 02:23:02
+* @Last Modified by:   William Chan
+* @Last Modified time: 2017-03-29 00:52:05
 */
 
 'use strict';
 
-import { live_count_down, live_guide, live_share, live_update, live_watch } from '../../api/live'
+import { live_count_down, live_guide, live_share, live_update } from '../../api/live'
 import { LIVE_DETAIL, LIVE } from '../../types'
 
 const state = {}

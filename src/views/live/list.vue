@@ -95,7 +95,7 @@
 			:maskClosable="false"
 			className="createDialog"
 		>
-			<iForm ref="create" :rules="rules" label-position="left" :label-width="85" :model="create" @submit.native.prevent>
+			<iForm ref="create" :rules="rules" label-position="left" :label-width="75" :model="create" @submit.native.prevent>
 				<FormItem label="直播标题" prop="name">
 					<iInput :autofocus="true" v-model="create.name" placeholder="请输入直播标题"></iInput>
 				</FormItem>
