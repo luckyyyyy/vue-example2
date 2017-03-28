@@ -10,7 +10,7 @@
 						<iInput @on-change="onDebounce" v-model="form.name" placeholder="不超过10个字符"></iInput>
 					</FormItem>
 					<FormItem label="直播昵称">
-						<iInput @on-change="onDebounce" v-model="form.name" placeholder="不超过10个字符"></iInput>
+						<iInput @on-change="onDebounce" v-model="form.nickName" placeholder="不超过10个字符"></iInput>
 					</FormItem>
 					<FormItem label="直播头像">
 						<Album class="upload" @submit="selectAlbum" v-model="openAlbum" :type="3">
@@ -49,7 +49,7 @@
 			...mapState('live', ['live']),
 		},
 		mounted () {
-			this.form = Object.assign({}, this.live);
+			this.form = Object.assign({}, this.live.liveInfo);
 		},
 		methods: {
 			...mapActions('live/detail', {

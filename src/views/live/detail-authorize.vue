@@ -7,7 +7,7 @@
 			<p class="tips">授权观看需要什么什么什么什么大文件第五批几大块为契机哦</p>
 			<div class="action">
 				<div class="form">
-					<RadioGroup v-model="authorize">
+					<RadioGroup @on-change="onChange" v-model="form.authWatchStatus">
 						<Radio :label="1">
 							<span>无限制</span>
 						</Radio>
@@ -22,23 +22,23 @@
 						</Radio>
 					</RadioGroup>
 					<div class="setting">
-						<template v-if="authorize == 2">
+						<template v-if="form.authWatchStatus == 3">
 							<iForm label-position="left" ref="form" :model="form" :label-width="100">
 								<FormItem label="提示文字：">
-									<iInput v-model="form.name" placeholder="不超过10个字符"></iInput>
+									<iInput @on-change="onDebounce" v-model="form.authCodeHints" placeholder="不超过10个字符"></iInput>
 								</FormItem>
-								<FormItem label="自定义验证码：">
-									<iInput v-model="form.name" placeholder="aaaaa"></iInput>
+								<FormItem label="验证码：">
+									<iInput @on-change="onDebounce" v-model="form.authCode" placeholder="aaaaa"></iInput>
 								</FormItem>
 							</iForm>
 						</template>
-						<template v-if="authorize == 3">
+						<template v-if="form.authWatchStatus == 4">
 							<iForm label-position="left" ref="form" :model="form" :label-width="100">
 								<FormItem label="提示文字：">
-									<iInput v-model="form.name" placeholder="不超过10个字符"></iInput>
+									<iInput @on-change="onDebounce" v-model="form.chargeHints" placeholder="不超过10个字符"></iInput>
 								</FormItem>
 								<FormItem label="观看价格：">
-									<iInput v-model="form.name" placeholder="aaaaa"></iInput>
+									<iInput @on-change="onDebounce" v-model="form.price" placeholder="aaaaa"></iInput>
 								</FormItem>
 							</iForm>
 						</template>
@@ -55,19 +55,42 @@
 </template>
 
 <script>
+	import { mapState, mapActions } from 'vuex'
+	import debounce from 'debounce'
 	export default {
 		data () {
 			return {
-				authorize: 1,
-				form: {
-					name: '',
-				},
+				form: {},
 			}
 		},
+		computed: {
+			...mapState('live', ['live']),
+		},
 		mounted () {
+			this.form = Object.assign({}, this.live.liveAuthWatch);
+			this.form.price = this.form.price / 100;
 		},
 		methods: {
-
+			...mapActions('live/detail', {
+				setAuth: 'LIVE_DETAIL_AUTH'
+			}),
+			onChange () {
+				const data = Object.assign({}, this.form);
+				data.id = this.live.id;
+				data.price = this.form.price * 100;
+				this.setAuth(data);
+			},
+			onDebounce () {
+				if(!this.debounce){
+					this.debounce = debounce(this.onChange, 200)
+				}
+				this.debounce();
+			}
+		},
+		filters: {
+			price (price) {
+				return price / 100;
+			}
 		}
 	}
 </script>
