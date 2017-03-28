@@ -11,6 +11,9 @@
 						<Radio :label="1">
 							<span>无限制</span>
 						</Radio>
+						<Radio :label="4">
+							<span>关注观看</span>
+						</Radio>
 						<Radio :label="2">
 							<span>验证码观看</span>
 						</Radio>

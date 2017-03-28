@@ -23,8 +23,10 @@
 					</div>
 					<div class="iPhone-bg">
 						<div class="iPhone-view">
-								<span style="font-size:20px;color:red">:::DEMO:::</span>
-								<img :src="live.liveGuide.guideImageUrl">
+							<div class="view">
+								<img :src="live.liveGuide.guideImageUrl" height="100%" width="100%" alt="直播引导图">
+							</div>
+							<div class="view-bg" src="../../assets/images/live/liveguide.png"></div>
 						</div>
 					</div>
 				</div>

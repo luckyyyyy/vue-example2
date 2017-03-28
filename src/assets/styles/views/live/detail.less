@@ -1,6 +1,9 @@
 .view {
 	background: #fff;
 }
+img{
+	vertical-align: top;
+}
 .switch {
 	display: flex;
 	align-items: center;
@@ -48,26 +51,71 @@
 			position:relative;
 			width: 247px;
 			height: 500px;
+			margin-left: 40px;
 			background-image: url(../../../images/live/iPhone7.png); //要换的
-			background-size: 100%;
-			background-repeat: no-repeat;
+			background-size: 100% 100%;
 			.iPhone-view {
 				position:absolute;
+				background-size:100% 100%;
 				top:60px;
 				left:17px;
+				right: 18px;
+				bottom: 62px;
 				color: white;
 				text-align: center;
+				background-image: url(../../../images/live/live.png);
+				background-size:100% 100%;
+				background-repeat:no-repeat;
 				.title {
-					padding-top: 200px;
+					padding-top: 162px;
+					font-size:16px;
 				}
 				.time {
 					font-size: 12px;
 					.datetime {
 						span {
 							padding: 5px;
+							font-size:18px;
 							color: #b73d6a;
 						}
 					}
+				}
+				.view{
+					position:absolute;
+					left:0;
+					top:37px;
+					right:0;
+					bottom:0;
+					z-index:100;
+				}
+				.view-bg{
+					position:absolute;
+					left:0;
+					top:0;
+					right:0;
+					bottom:0;
+					background-image:url(../../../images/live/liveguide.png);
+					background-size:100% 100%;
+					z-index:101;
+				}
+				.common-bg{
+					position:absolute;
+					left:0;
+					top:0;
+
+					z-index:100;
+				}
+				.txt-box{
+					position:absolute;
+					left:0;
+					top:0;
+					width:100%;
+					z-index:101;
+				}
+				.magnifier{
+					position:absolute;
+					width:110px;
+					height:110px;
 				}
 			}
 		}

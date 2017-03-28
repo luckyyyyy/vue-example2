@@ -45,21 +45,25 @@
 					</iForm>
 					<div class="iPhone-bg">
 						<div class="iPhone-view">
-							<p class="title">{{ form.liveHint || '直播开始文字' }}</p>
-							<div class="time">
-								<div class="desc">距离直播开始还剩</div>
-								<div class="datetime">
-									<template v-if="countDown.start">
-										开始时间大于当前时间，直播已开始。
-									</template>
-									<template v-else>
-										<span class="days">{{ countDown.d }}</span>天
-										<span class="hours">{{ countDown.h }}</span>时
-										<span class="minutes">{{ countDown.m }}</span>分
-										<span class="seconds">{{ countDown.s }}</span>秒
-									</template>
+							<!-- 包裹文本 -->
+							<div class="txt-box">
+								<p class="title">{{ form.liveHint || '直播开始文字' }}</p>
+								<div class="time">
+									<div class="desc">距离直播开始还剩</div>
+									<div class="datetime">
+										<template v-if="countDown.start">
+											开始时间大于当前时间，直播已开始。
+										</template>
+										<template v-else>
+											<span class="days">{{ countDown.d }}</span>天
+											<span class="hours">{{ countDown.h }}</span>时
+											<span class="minutes">{{ countDown.m }}</span>分
+											<span class="seconds">{{ countDown.s }}</span>秒
+										</template>
+									</div>
 								</div>
 							</div>
+							<img class="common-bg" src="../../assets/images/live/countdown.png" height="378" width="212" alt="直播倒计时">
 						</div>
 					</div>
 				</div>

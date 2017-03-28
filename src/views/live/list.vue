@@ -4,7 +4,7 @@
 			<div class="box">
 				<Menu :activeName="status" @on-select="onStatusChange" width="135px">
 					<li class="title">
-						<i class="iconfont icon-video"></i>直播状态
+						直播列表
 					</li>
 					<MenuItem name="private">未发布</MenuItem>
 					<MenuItem name="public">已发布</MenuItem>
@@ -12,7 +12,7 @@
 					<MenuItem name="trash">回收站</MenuItem>
 				</Menu>
 				<div class="button">
-    				<iButton @click="openCreateDialog" type="primary">新建直播</iButton>
+    				<iButton @click="openCreateDialog" type="primary" class="commoon-menu-btn">新建直播<i class="iconfont icon-add"></i></iButton>
 				</div>
 			</div>
 		</div>

@@ -59,8 +59,8 @@
 						]
 					},
 					// { item: '<i class="iconfont icon-circle"></i>营销', name: 'index2' },
-					{ item: '<i class="iconfont icon-circle"></i>素材', name: 'multimedia', line: true },
-					{ item: '<i class="iconfont icon-circle"></i>设置', name: 'channel_preferences' },
+					{ item: '<i class="iconfont icon-material"></i>素材', name: 'multimedia', line: true },
+					{ item: '<i class="iconfont icon-set"></i>设置', name: 'channel_preferences' },
 
 				],
 			}
