@@ -21,9 +21,14 @@
 				<FormItem label="设置密码" prop="password">
 					<iInput type="password" v-model="register.password" placeholder="密码"></iInput>
 				</FormItem>
-				<FormItem label="邮箱" prop="email">
+<!-- 				<FormItem label="邮箱" prop="email">
 					<iInput v-model="register.email" placeholder="邮箱"></iInput>
+				</FormItem> -->
+				<FormItem label="确认密码" prop="password_confirm">
+					<iInput type="password" v-model="register.password_confirm" placeholder="请确认密码"></iInput>
 				</FormItem>
+
+
 				<FormItem label="个人昵称" prop="nickName">
 					<iInput v-model="register.nickName" placeholder="输入个人昵称"></iInput>
 				</FormItem>
@@ -45,10 +50,24 @@
 
 	export default {
 		data () {
+			const checkPassword = (rule, value, callback) => {
+				console.log(value)
+				if (value === '') {
+					callback(new Error('请再次输入密码'));
+				} else if (value !== this.register.password) {
+					callback(new Error('两次输入密码不一致'));
+				} else {
+					callback();
+				}
+			};
 			return {
 				lock: false,
 				register: {},
-				rules: REGISTER_RULES,
+				rules: Object.assign(REGISTER_RULES, {
+					password_confirm: [
+						{ required: true, validator: checkPassword }
+					]
+				}),
 				interval: null,
 				countdown: null,
 				lock_captcha: false,
