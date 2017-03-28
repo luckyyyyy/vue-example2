@@ -56,7 +56,7 @@
 	.wrap {
 		position: absolute;
 		height: 100%;
-		min-height: 650px;
+		min-height: 600px;
 		width: 100%;
 		left: 0;
 		top: 0;

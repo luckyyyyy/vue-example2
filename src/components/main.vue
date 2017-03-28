@@ -60,10 +60,3 @@
 <style scoped lang="less">
 	@import "../assets/styles/main";
 </style>
-<style scoped>
-	@media screen and (max-width:1500px){
-		.help{
-			display: none;
-		}
-	}
-</style>
