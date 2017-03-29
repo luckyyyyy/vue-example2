@@ -50,14 +50,7 @@
 							</div>
 						</div>
 						<div class="buttom">
-							<div class="time">直播开始时间：
-								<template v-if="item.countDownStatus">
-									<span class="date">{{ item.liveCountDown.liveBeginTime | date('Y-MM-DD HH:mm') }}</span>
-								</template>
-								<template v-else>
-									<span>未设置</span>
-								</template>
-							</div>
+							<div class="time">直播开始时间：<span>未设置</span></div>
 							<div class="button">
 								<router-link :to="{ name: 'live_detail', params: { liveid: item.id } }">
 									<i class="iconfont icon-paintfill"></i>
@@ -95,7 +88,7 @@
 			:maskClosable="false"
 			className="createDialog"
 		>
-			<iForm ref="create" :rules="rules" label-position="left" :label-width="75" :model="create" @submit.native.prevent>
+			<iForm ref="create" :rules="rules" label-position="left" :label-width="85" :model="create" @submit.native.prevent>
 				<FormItem label="直播标题" prop="name">
 					<iInput :autofocus="true" v-model="create.name" placeholder="请输入直播标题"></iInput>
 				</FormItem>
@@ -121,7 +114,6 @@
 <script>
 	import { mapState, mapActions } from 'vuex'
 	import { LIVE_CREATE_RULES } from '../../options/rules'
-	import { date } from '../../utils/util'
 	import iscroll from 'iscroll'
 	export default {
 		data () {
@@ -248,10 +240,7 @@
 					}
 				});
 			}
-		},
-		filters: {
-			date
-		},
+		}
 	}
 </script>
 

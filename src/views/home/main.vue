@@ -5,8 +5,7 @@
 				<div class="left">
 					<h1 title="彩虹云直播">
 						<router-link :to="{ name: 'select_channel' }" title="返回首页">
-							<img src="../../assets/logo2.png" height="28" width="39" alt="彩虹云直播">
-							彩虹云直播
+							<img src="../../assets/images/home/headerLogo.png" height="26" width="143" alt="彩虹云直播">
 						</router-link>
 					</h1>
 					<h2>{{ name }}</h2>
@@ -74,7 +73,7 @@
 		.head {
 			border-radius: 8px;
 			height: 80px;
-			padding: 0 20px;
+			padding: 0 40px;
 			background: #fff;
 			width: 100%;
 			margin-bottom: 20px;

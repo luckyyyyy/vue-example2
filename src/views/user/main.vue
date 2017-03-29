@@ -2,7 +2,7 @@
 	<div class="home">
 		<div class="box">
 			<div class="logo">
-				<img src="../../assets/toplogo.png" height="40" width="196">
+				<img src="../../assets/images/login/login.png" height="31" width="293">
 			</div>
 			<transition
 				class="view"

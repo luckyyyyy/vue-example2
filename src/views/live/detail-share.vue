@@ -29,11 +29,7 @@
 					</iForm>
 					<div class="iPhone-bg">
 						<div class="iPhone-view">
-							<!-- 放大镜 -->
-							<div class="magnifier">
-
-							</div>
-							<img src="../../assets/images/live/share.png" height="100%" width="100%" alt="直播分享">
+							<img src="../../assets/images/live/setting.png" height="100%" width="100%" alt="直播分享">
 						</div>
 					</div>
 				</div>
