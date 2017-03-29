@@ -23,11 +23,11 @@
 				</iForm>
 				<div class="iPhone-bg">
 					<div class="iPhone-view">
-						<h2 class="head">{{live.name}}</h2>
+						<h2 class="head">{{ live.name }}</h2>
 						<!-- 放大镜 -->
 						<div class="magnifier">
-							<h3 class="nickName">{{form.nickName}}</h3>
-							<img class="avatar" :src="form.avatarImageUrl" alt="">
+							<h3 class="nickName">{{ form.nickName }}</h3>
+							<img class="avatar" :src="live.liveInfo.avatarImageUrl" alt="">
 						</div>
 						<img src="../../assets/images/live/setting.png" height="100%" width="100%" alt="直播间设置">
 					</div>
