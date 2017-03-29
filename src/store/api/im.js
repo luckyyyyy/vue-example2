@@ -2,7 +2,7 @@
 * @Author: William Chan
 * @Date:   2017-03-08 23:18:57
 * @Last Modified by:   cx
-* @Last Modified time: 2017-03-29 10:12:38
+* @Last Modified time: 2017-03-29 15:53:27
 */
 
 'use strict';
@@ -44,6 +44,7 @@ export const im_chatroom_address = chatroomId => {
 			nim.getChatroomAddress({
 				chatroomId,
 				done: (error, obj) => {
+					console.log(chatroomId);
 					error ? reject(error) : resolve(obj.address);
 				}
 			});

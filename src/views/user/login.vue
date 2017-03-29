@@ -5,23 +5,23 @@
 				:model="login"
 				@submit.native.prevent
 				:rules="rules"
-				:label-width="75"
+				:label-width="50"
 				ref="login"
 				class="form"
 			>
 				<h1 class="title">登录／Login</h1>
-				<FormItem label="账号登录" prop="phone">
+				<FormItem label="账号" prop="phone">
 					<iInput v-model="login.phone" placeholder="请输手机号码"></iInput>
 				</FormItem>
-				<FormItem label="登录密码" prop="password">
+				<FormItem label="密码" prop="password">
 					<iInput type="password" v-model="login.password" placeholder="请输入您的账户密码"></iInput>
 				</FormItem>
 				<div class="button">
 					<iButton :loading="lock" size="large" htmlType="submit" type="primary" @click="submit_login">登录</iButton>
 				</div>
-			<div class="line">
-				<router-link class="resetpwd" :to="{ name: 'resetpwd' }">找回密码</router-link>
-			</div>
+				<div class="line">
+					<router-link class="resetpwd" :to="{ name: 'resetpwd' }">找回密码</router-link>
+				</div>
 
 			</iForm>
 		</div>

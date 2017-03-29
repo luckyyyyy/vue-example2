@@ -29,9 +29,9 @@
 						<p>{{ user.phone }}</p>
 					</div> -->
 					<ul class="popper__menu">
-						<li><router-link :to="{ name: 'profile', query: { redirect: $route.fullPath } }"><i class="iconfont icon-video"></i>账号设置</router-link></li>
-						<li><a @click="switchShop" href="javascript:;"><i class="iconfont icon-video"></i>切换频道</a></li>
-						<li><a @click="submit_logout" href="javascript:;"><i class="iconfont icon-video"></i>退出系统</a></li>
+						<li><router-link :to="{ name: 'profile', query: { redirect: $route.fullPath } }"><i class="iconfont icon-userSetting"></i>账号设置</router-link></li>
+						<li><a @click="switchShop" href="javascript:;"><i class="iconfont icon-change"></i>切换频道</a></li>
+						<li><a @click="submit_logout" href="javascript:;"><i class="iconfont icon-signOut"></i>退出系统</a></li>
 					</ul>
 				</div>
 				<span class="icon"></span>

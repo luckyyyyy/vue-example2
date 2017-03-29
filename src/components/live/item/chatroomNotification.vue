@@ -1,5 +1,5 @@
 <template>
-	<span v-if="item.attach.type == 'memberEnter'" :class="item.attach.type">💡 欢迎 <em>{{ item.attach.fromNick }}</em> 进入了聊天室。</span>
+	<span v-if="item.attach.type == 'memberEnter'" :class="item.attach.type"> 欢迎 <em>{{ item.attach.fromNick }}</em> 进入了聊天室。</span>
 	<span v-else-if="item.attach.type == 'memberExit'" :class="item.attach.type"><em>👌 {{ item.attach.fromNick }}</em> 离开了聊天室。</span>
 	<span v-else-if="item.attach.type == 'gagMember'" :class="item.attach.type">
 		<em>😓 {{ item.attach.fromNick }}</em> 将 <em> {{ item.attach.toNick.join('，') }}</em> 禁言

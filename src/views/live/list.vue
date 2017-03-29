@@ -12,7 +12,7 @@
 					<MenuItem name="trash">回收站</MenuItem>
 				</Menu>
 				<div class="button">
-    				<iButton @click="openCreateDialog" type="primary" class="commoon-menu-btn">新建直播<i class="iconfont icon-add"></i></iButton>
+    				<iButton @click="openCreateDialog" type="primary" class="menu-btn">新建直播<i class="iconfont icon-add"></i></iButton>
 				</div>
 			</div>
 		</div>
@@ -243,7 +243,6 @@
 		}
 	}
 </script>
-
 
 <style lang="less" scoped>
 	@import "../../assets/styles/views/live/list";

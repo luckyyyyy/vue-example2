@@ -20,8 +20,8 @@
 					<MenuItem name="live_detail_authorize">授权观看</MenuItem>
 				</Menu>
 				<div class="button">
-    				<iButton @click="goData" type="primary">直播数据</iButton>
-    				<iButton @click="goControl" type="primary">中控台</iButton>
+    				<iButton @click="goData" type="primary" class="menu-btn">直播数据</iButton>
+    				<iButton @click="goControl" type="primary" class="menu-btn">中控台</iButton>
 				</div>
 			</div>
 		</div>
@@ -56,6 +56,5 @@
 
 
 <style scoped lang="less">
-	// .commoon-view {
-
+	@import "../../assets/styles/views/live/detail";
 </style>
