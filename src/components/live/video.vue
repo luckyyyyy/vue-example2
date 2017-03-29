@@ -22,11 +22,15 @@
 	// 其实都加载了 只是es6 import 不可以做判断 解决Safari问题
 	//
 	let prism;
-	require.ensure([], function(require){
-		prism = isiPad() ? require('../../assets/libs/prism/prism-h5-min.js') :
-						   require('../../assets/libs/prism/prism-flash-min.js');
-	});
-
+	if (isiPad()) {
+		require.ensure([], function(require){
+			prism = require('../../assets/libs/prism/prism-h5-min.js');
+		});
+	} else {
+		require.ensure([], function(require){
+			prism = require('../../assets/libs/prism/prism-flash-min.js');
+		});
+	}
 	export default {
 		props: {
 			value: Boolean,
