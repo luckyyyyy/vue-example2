@@ -17,9 +17,16 @@
 
 <script>
 	import '../../assets/libs/prism/index-min.css'
-	import prism from '../../assets/libs/prism/prism-min.js'
 	import { isiPad, isDev } from '../../utils/util'
 	import { mapActions } from 'vuex'
+	// 其实都加载了 只是es6 import 不可以做判断 解决Safari问题
+	//
+	let prism;
+	require.ensure([], function(require){
+		prism = isiPad() ? require('../../assets/libs/prism/prism-h5-min.js') :
+						   require('../../assets/libs/prism/prism-flash-min.js');
+	});
+
 	export default {
 		props: {
 			value: Boolean,
