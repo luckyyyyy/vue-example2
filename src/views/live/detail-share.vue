@@ -29,7 +29,13 @@
 					</iForm>
 					<div class="iPhone-bg">
 						<div class="iPhone-view">
-							<img src="../../assets/images/live/setting.png" height="100%" width="100%" alt="直播分享">
+							<h2 class="head">{{live.name}}</h2>
+							<!-- 超级放大镜 -->
+							<div class="superMagnifier">
+								<h3 class="shareTitle">{{form.shareTitle}}</h3>
+								<p class="shareContent">{{form.shareContent}}</p>
+							</div>
+							<img src="../../assets/images/live/share.jpeg" height="100%" width="100%" alt="直播分享">
 						</div>
 					</div>
 				</div>

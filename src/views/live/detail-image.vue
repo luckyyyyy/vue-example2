@@ -23,6 +23,7 @@
 					</div>
 					<div class="iPhone-bg">
 						<div class="iPhone-view">
+							<h2 class="head">{{live.name}}</h2>
 							<div class="view">
 								<img :src="live.liveGuide.guideImageUrl" height="100%" width="100%" alt="直播引导图">
 							</div>

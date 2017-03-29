@@ -47,7 +47,7 @@
 						<div class="iPhone-view">
 							<!-- 包裹文本 -->
 							<div class="txt-box">
-								<h2></h2>
+								<h2 class="head">{{live.name}}</h2>
 								<p class="title">{{ form.liveHint || '直播开始文字' }}</p>
 								<div class="time">
 									<div class="desc">距离直播开始还剩</div>
