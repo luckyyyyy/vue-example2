@@ -276,7 +276,7 @@
 			flex-direction: column;
 			justify-content: center;
 			align-items: center;
-			margin-top: 80px;
+			padding-top: 80px;
 			p {
 				margin-bottom: 10px;
 			}

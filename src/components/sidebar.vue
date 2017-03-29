@@ -2,7 +2,7 @@
 	<div class="sidebar">
 		<div class="logo">
 			<!-- 待定 -->
-			<img src="../assets/qrcode.png">
+			<img :src="channel.logoImageUrl">
 		</div>
 		<Menu class="sidebar-menu" @on-select="onSelect" theme="dark" :activeName="active" mode="vertical" width="140px" :openNames="openNames">
 			<template v-for="item of sidebar">
@@ -87,9 +87,7 @@
 				}
 				return openNames;
 			},
-			...mapState({
-				user: state => state.user,
-			})
+			...mapState('channel', ['channel'])
 		},
 		mounted() {
 			// console.log(this.info)

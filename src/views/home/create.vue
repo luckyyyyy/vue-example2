@@ -119,9 +119,6 @@
 				}
 			},
 			...mapGetters('catalogs', ['option']),
-			catalogs () {
-				return this.$store.getters.option;
-			},
 			id () {
 				return this.$route.params.id;
 			}

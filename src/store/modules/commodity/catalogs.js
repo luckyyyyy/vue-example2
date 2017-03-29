@@ -2,7 +2,7 @@
 * @Author: Administrator
 * @Date:   2017-01-06 02:33:52
 * @Last Modified by:   William Chan
-* @Last Modified time: 2017-03-19 05:23:25
+* @Last Modified time: 2017-03-29 23:54:21
 */
 
 'use strict';
@@ -49,7 +49,7 @@ const mutations = {
 		state.data = catalogs;
 	},
 	[COMMODITY_CATALOGS.FAILURE] (state, err) {
-		state.data = [];
+		// state.data = [];
 	},
 }
 export default {

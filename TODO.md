@@ -1,10 +1,18 @@
+# 商户端剩余部分
+* [ ] 中控台发布公告。
+* [ ] 频道页面。
+* [ ] 频道设置页面。
+* [ ] 账户页面。
+* [ ] 数据统计页面。
+* [ ] 所有文案微调。
+
 # 商户端遇到的麻烦
 
-* [ ] iview不成熟，遇到的麻烦很多，所以可能需要逐一解决，具体see https://github.com/iview/iview/issues/431
+* [ ] Cascader选择器无法使用表单认证。
 * [ ] ipad date组件不可点击问题 fastclick问题
 * [x] IM改名需要王川配合
-* [ ] ipad自动刷新推流有待测试，暂定30秒
-* [ ] 修改个人资料，radio group 不能是0，性别保密那个要改。
+* [x] ipad自动刷新推流有待测试，暂定30秒
+* [x] 修改个人资料，radio group 不能是0，性别保密那个要改。
 * [x] 侧边栏在不同路由页面下背景颜色的问题
 
 
@@ -27,21 +35,21 @@
 
 #### B端域名
 前端访问：https://rainbowcloud.tv/store
-静态资源：https://b.racdn.com
+静态资源：https://g.racdn.com/b
 需要 OSS+CDN+ECS+SLB
 
 #### C端域名
 前端访问：https://racloud.tv
-静态资源：https://c.racdn.com
+静态资源：https://g.racdn.com/c
 需要 OSS+CDN+ECS+SLB
 
 #### 官网域名
 前端访问：https://rainbowcloud.tv
-静态资源：https://s.racdn.com
+静态资源：https://g.racdn.com/o
 需要 OSS+CDN+ECS+SLB
 
-#### 用户静态资源
-静态资源：https://u.racdn.com/
+#### 用户上传的静态资源
+静态资源：https://g.racdn.com/u
 需要 OSS+CDN
 
 #### 后端方案
