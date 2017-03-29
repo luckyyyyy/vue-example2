@@ -116,7 +116,7 @@
 			...mapState ('multimedia', ['data']),
 			select () {
 				let images = [];
-				let select = [];
+				let select = {};
 				for (let item of this.data) {
 					images[item.id] = item;
 				}
@@ -152,7 +152,7 @@
 				if (this.multiple > 1) {
 					this.$emit('submit', this.find, this.select);
 				} else {
-					this.$emit('submit', ...this.find, this.select);
+					this.$emit('submit', ...this.find, this.select[Object.keys(this.select)]);
 				}
 				this.close();
 			},

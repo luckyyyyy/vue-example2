@@ -2,7 +2,7 @@
 * @Author: William Chan
 * @Date:   2016-12-03 20:43:22
 * @Last Modified by:   William Chan
-* @Last Modified time: 2017-03-29 01:39:21
+* @Last Modified time: 2017-03-30 01:05:25
 */
 
 'use strict';
@@ -27,7 +27,7 @@ export const UPDATE_USER            = export_var('UPDATE_USER');
 export const PASSWORD               = export_var('PASSWORD');
 export const COMMODITY_CATALOGS     = export_var('COMMODITY_CATALOGS');
 // channel
-export const CHANNEL                = export_var('CHANNEL', 'SELECT', 'CLEAR', 'QUERY', 'CHECK');
+export const CHANNEL                = export_var('CHANNEL', 'SELECT', 'CLEAR', 'QUERY', 'CHECK', 'UPDATE');
 export const CHANNEL_CREATE         = export_var('CHANNEL_CREATE');
 export const CHANNEL_FIND           = export_var('CHANNEL_FIND');
 export const CHANNEL_DELETE         = export_var('CHANNEL_DELETE');

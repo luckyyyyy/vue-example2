@@ -1,23 +1,25 @@
 /*
 * @Author: William Chan
 * @Date:	 2017-02-26 13:20:04
-* @Last Modified by:   Administrator
-* @Last Modified time: 2017-02-27 23:49:01
+* @Last Modified by:   William Chan
+* @Last Modified time: 2017-03-30 01:01:09
 */
 
 'use strict';
 
 var gulp = require('gulp');
 var publish = require('gulp-oss-publish');
+var moment = require('moment');
 
+var getPublicVersion = function () {
+  return moment().format('YYYYMMDD')
+}
 gulp.task('publish', () =>
-	gulp
-	.src('dist/**/*', {
+	gulp.src('dist/**/*', {
 		base: 'dist',
 		buffer: true
-	})
-	.pipe(publish({
-		prefix: 'public',
+	}).pipe(publish({
+		prefix: 'c/' + getPublicVersion(),
 		genShortId: false,
 		oss: {
 			accessKeyId: 'LTAIucdfDsTvyjjx',

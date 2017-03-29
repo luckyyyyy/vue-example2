@@ -2,12 +2,12 @@
 * @Author: William Chan
 * @Date:   2017-03-19 03:49:11
 * @Last Modified by:   William Chan
-* @Last Modified time: 2017-03-24 04:48:15
+* @Last Modified time: 2017-03-30 01:44:06
 */
 
 'use strict';
 
-import { channel_query } from '../../api/channel'
+import { channel_query, channel_update } from '../../api/channel'
 import { CHANNEL } from '../../types'
 import router from '../../../router'
 
@@ -43,8 +43,17 @@ const actions = {
 		} else {
 			commit(CHANNEL.SELECT, null, { root: true });
 		}
-
-	}
+	},
+	[CHANNEL.UPDATE] ({ getters, dispatch, commit }, ...args) {
+		return new Promise((resolve, reject) => {
+			channel_update(...args).then(res => {
+				commit(CHANNEL.UPDATE, res.data);
+				resolve(res.data);
+			}).catch(err => {
+				reject();
+			})
+		})
+	},
 }
 
 const mutations = {
@@ -57,7 +66,12 @@ const mutations = {
 			state.id      = null;
 			sessionStorage.removeItem('channelID')
 		}
-	}
+	},
+	[CHANNEL.UPDATE] (state, data) {
+		if (state.id == data.channel.channelID) {
+			state.channel = data.channel;
+		}
+	},
 }
 export default {
 	namespaced: true,

@@ -1,8 +1,8 @@
 /*
 * @Author: William Chan
 * @Date:   2017-03-02 14:29:37
-* @Last Modified by:   Administrator
-* @Last Modified time: 2017-03-28 00:00:23
+* @Last Modified by:   William Chan
+* @Last Modified time: 2017-03-30 01:39:01
 */
 
 'use strict';
@@ -56,6 +56,21 @@ export const CHANNEL_CREATE_RULES = {
 	commodityCatalog: [
 		{ required: true, type: 'number', message: '请选择正确的分类', trigger: 'change' }
 	]
+}
+// channel preferences
+export const CHANNEL_PREFERENCES_RULES = {
+	name: [
+		{  required: true, max: 12, message: '频道名称小于12个字符', trigger: 'blur' }
+	],
+	contacts: [
+		{ max: 12, message: '联系人小于12个字符', trigger: 'blur' }
+	],
+	description: [
+		{ max: 200, message: '频道简介小于200个字符', trigger: 'blur' }
+	],
+	phone: [
+		{ pattern: /^1[34578]\d{9}$/, message: '请输入正确的手机号', trigger: 'blur' }
+	],
 }
 // 修改个人信息
 export const PROFILE_UPDATE_RULES = {
