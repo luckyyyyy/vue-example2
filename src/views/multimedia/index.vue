@@ -26,7 +26,7 @@
 		</div>
 		<div ref="list" class="commoon-view">
 			<Row class="list" v-show="data.length">
-				<Col className="item" v-for="item of data" :key="item.id" :title="item.name" :xs="8" :sm="8" :md="6" :lg="4">
+				<Col className="item" v-for="item of data" :key="item.id" :title="item.name" :xs="8" :sm="6" :md="6" :lg="4">
 					<div class="head">
 						<img :src="item.url">
 						<div class="name">{{ item.name }}</div>
@@ -90,7 +90,7 @@
 				this.getImages(true);
 			},
 			getImages (reload) {
-				if (!this.lock || reload) {
+				if (!this.lock || reload && !this.loading) {
 					const msg = this.$Message.loading('正在加载中...', 0);
 					const type = this.menu;
 					this.loading = true;

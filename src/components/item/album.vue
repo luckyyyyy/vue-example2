@@ -9,10 +9,10 @@
 			:title="find.length ? `已选择${find.length}张图片` : '我的图库'"
 		>
 			<div class="content">
-				<div class="loading" v-if="lock">
+				<div class="loading" v-if="upload_lock">
 					<Spin fix>
 						<Icon type="load-c" size=18 class="spin-icon-load"></Icon>
-						<p>{{ lock }}</p>
+						<p>{{ upload_lock }}</p>
 					</Spin>
 				</div>
 
@@ -60,7 +60,7 @@
 						@fail="fail"
 						@progress="progress"
 					>
-						<iButton :loading="lock ? true : false" type="primary">上传图片</iButton>
+						<iButton :loading="upload_lock ? true : false" type="primary">上传图片</iButton>
 					</upload>
 				</div>
 				<div class="right">
@@ -106,14 +106,14 @@
 				visible: this.value,
 				option: MULTIMEDIA_UPLOAD,
 				find: [],
-				lock: false,
-				loading: true,
+				upload_lock: false,
+				loading: false,
 				menu: this.type,
 				typeClass: MULTIMEDIA_TYPE
 			}
 		},
 		computed : {
-			...mapState ('multimedia', ['data']),
+			...mapState ('multimedia', ['data', 'lock']),
 			select () {
 				let images = [];
 				let select = {};
@@ -135,18 +135,18 @@
 			}),
 			success (data) {
 				this.multimediaInsert(data);
-				this.lock = false;
+				this.upload_lock = false;
 				this.listScroll.scrollTo(0, 0, 100);
 				this.listScroll.refresh();
 			},
 			fail () {
-				this.lock = false;
+				this.upload_lock = false;
 			},
 			queue (files, length) {
-				this.lock = `分析中${files.length}/${length}`;
+				this.upload_lock = `分析中${files.length}/${length}`;
 			},
 			progress (p) {
-				this.lock = `上传中${Math.floor(p.percent)}%`;
+				this.upload_lock = `上传中${Math.floor(p.percent)}%`;
 			},
 			onSubmit () {
 				if (this.multiple > 1) {
@@ -179,33 +179,35 @@
 				this.menu = val;
 			},
 			getImages (reload) {
-				this.loading = true;
-				const type = this.menu;
-				this.getMultimedia({ type, reload }).then(data => {
-					this.loading = false;
-					if (!this.listScroll) {
-						this.listScroll = new iscroll(this.$refs.list, {
-							mouseWheel: true,
-							preventDefaultException: {
-								tagName: /^(LI)$/
-							},
-							scrollbars: true,
-							fadeScrollbars: true,
-							interactiveScrollbars: true,
-							shrinkScrollbars: 'clip',
-						})
-						this.listScroll.on('scrollStart', () => {
-							this.getImages();
-						});
-					} else {
-						if (reload) {
-							this.listScroll.scrollTo(0, 0);
+				if (!this.lock || reload && !this.loading) {
+					this.loading = true;
+					const type = this.menu;
+					this.getMultimedia({ type, reload }).then(data => {
+						this.loading = false;
+						if (!this.listScroll) {
+							this.listScroll = new iscroll(this.$refs.list, {
+								mouseWheel: true,
+								preventDefaultException: {
+									tagName: /^(LI)$/
+								},
+								scrollbars: true,
+								fadeScrollbars: true,
+								interactiveScrollbars: true,
+								shrinkScrollbars: 'clip',
+							})
+							this.listScroll.on('scrollStart', () => {
+								this.getImages();
+							});
+						} else {
+							if (reload) {
+								this.listScroll.scrollTo(0, 0);
+							}
+							this.listScroll.refresh();
 						}
-						this.listScroll.refresh();
-					}
-				}).catch(() => {
-					this.loading = false;
-				})
+					}).catch(() => {
+						this.loading = false;
+					})
+				}
 			},
 			close () {
 				this.visible = false;

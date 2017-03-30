@@ -157,7 +157,7 @@
 				this.$router.push({ name: this.$route.name, params: { status: this.status } })
 			},
 			findLiveList (reload) {
-				if (!this.lock || reload) {
+				if (!this.lock || reload && !this.loading) {
 					const msg = this.$Message.loading('正在加载中...', 0);
 					this.loading = true;
 					this.getLiveList({ reload, status: this.status }).then(() => {
