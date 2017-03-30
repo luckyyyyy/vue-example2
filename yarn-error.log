@@ -1,5 +1,5 @@
 Arguments: 
-  /usr/local/bin/node /usr/local/bin/yarn install
+  /usr/local/bin/node /usr/local/bin/yarn
 
 PATH: 
   /usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin
@@ -4969,5 +4969,5 @@ Lockfile:
       yargs-parser "^4.2.0"
 
 Trace: 
-  Error: EEXIST: file already exists, mkdir '/Users/chuxiao/Desktop/work/RainbowStore/node_modules/babel-plugin-transform-es2015-unicode-regex'
+  Error: EACCES: permission denied, mkdir '/Users/chuxiao/Desktop/work/RainbowStore/node_modules/copy-webpack-plugin/node_modules/is-extglob'
       at Error (native)
