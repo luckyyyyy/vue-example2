@@ -1,205 +1,209 @@
 .view {
-    background: #fff;
+	background: #fff;
 }
 
 img {
-    vertical-align: top;
+	vertical-align: top;
 }
-.menu-btn{
+
+.menu-btn {
+	font-size: 14px;
 	width: 90px !important;
 	height: 30px;
+	padding: 0;
 	border-radius: 4px;
-	box-shadow: 0 0 8px 2px rgba(0, 173, 203, 0.5);
-	font-size:14px;
-	padding:0;
-	.iconfont{
-		font-size:12px;
-		margin-left:5px;
+	box-shadow: 0 0 8px 2px rgba(0, 173, 203, .5);
+	.iconfont {
+		font-size: 12px;
+		margin-left: 5px;
 	}
 }
 .switch {
-    display: flex;
-    align-items: center;
-    padding: 10px 20px;
-    position: relative;
-    border-bottom: 1px solid #ddd;
-    &:after {
-        position: absolute;
-        content: "";
-        width: 10px;
-        height: 10px;
-        background: #31BEDB;
-        left: 0;
-        border-radius: 50%;
-        top: 50%;
-        margin-top: -5px;
-        left: 0;
-    }
+	position: relative;
+	display: flex;
+	padding: 10px 20px;
+	border-bottom: 1px solid #ddd;
+	align-items: center;
+	&:after {
+		position: absolute;
+		top: 50%;
+		left: 0;
+		left: 0;
+		width: 10px;
+		height: 10px;
+		margin-top: -5px;
+		content: '';
+		border-radius: 50%;
+		background: #31bedb;
+	}
 }
 
 .body {
-    padding-top: 10px;
-    position: relative;
-    .tips {
-        color: #999;
-        width: 370px;
-        height: 40px;
-    }
-    .action {
-        margin-top: 20px;
-        display: flex;
-        position: relative;
-        .form {
-            width: 370px;
-            .tips {
-                padding: 10px 0;
-                .warning {
-                    color: #ffaa00;
-                }
-            }
-            .setting {
-                margin-top: 30px;
-            }
-        }
-        .iPhone-bg {
-            position: relative;
-            width: 247px;
-            height: 500px;
-            margin-left: 40px;
-            background-image: url(../../../images/live/iPhone7.png); //要换的
-            background-size: 100% 100%;
-            .iPhone-view {
-                position: absolute;
-                background-size: 100% 100%;
-                top: 60px;
-                left: 17px;
-                right: 18px;
-                bottom: 62px;
-                color: white;
-                text-align: center;
-                background-image: url(../../../images/live/live.png);
-                background-size: 100% 100%;
-                background-repeat: no-repeat;
-                .head {
-                    position: absolute;
-                    left: 52px;
-                    right: 46px;
-                    top: 17px;
-                    height: 12px;
-                    white-space:nowrap;
-                    overflow:hidden;
-                    text-align: center;
-                    font-size: 12px;
-                    line-height: 12px;
-                    font-weight: normal;
-                    z-index: 105;
-                }
-                .title {
-                    padding-top: 162px;
-                    font-size: 16px;
-                }
-                .time {
-                    font-size: 12px;
-                    .datetime {
-                        span {
-                            padding: 5px;
-                            font-size: 18px;
-                            color: #b73d6a;
-                        }
-                    }
-                }
-                .view {
-                    position: absolute;
-                    left: 0;
-                    top: 37px;
-                    right: 0;
-                    bottom: 0;
-                    z-index: 100;
-                }
-                .view-bg {
-                    position: absolute;
-                    left: 0;
-                    top: 0;
-                    right: 0;
-                    bottom: 0;
-                    background-image: url(../../../images/live/liveguide.png);
-                    background-size: 100% 100%;
-                    z-index: 101;
-                }
-                .common-bg {
-                    position: absolute;
-                    left: 0;
-                    top: 0;
-                    z-index: 100;
-                }
-                .txt-box {
-                    position: absolute;
-                    left: 0;
-                    top: 0;
-                    width: 100%;
-                    z-index: 101;
-                }
-                .magnifier {
-                    position: absolute;
-                    width: 110px;
-                    height: 110px;
-                    top: 30px;
-                    left: 92px;
-                    .avatar {
-                        width: 28px;
-                        height: 28px;
-                        border-radius: 50%;
-                        position: absolute;
-                        top: 37px;
-                        left: 4px;
-                    }
-                    .nickName {
-                        position: absolute;
-                        top: 35px;
-                        left: 42px;
-                        font-weight: normal;
-                        font-size: 12px;
-                    }
-                }
-                .superMagnifier {
-                    position: absolute;
-                    width: 200px;
-                    height: 200px;
-                    left: 6px;
-                    top: 139px;
-                    .shareTitle {
-                        position: absolute;
-                        top: 61px;
-                        left: 18px;
-                        width:140px;
-                        height:14px;
-                        line-height:14px;
-                        overflow:hidden;
-                        color: #444;
-                        font-size: 14px;
-                        font-weight: normal;
-                    }
-                    .shareContent {
-                        position: absolute;
-                        top: 85px;
-                        left: 18px;
-                        width: 132px;
-                        height: 34px;
-                        overflow: hidden;
-                        word-wrap: break-word;
-                        text-align: left;
-                        color: #999;
-                        font-size: 12px;
-                    }
-                    .shareImg {
-                        position: absolute;
-                        top: 84px;
-                        left: 156px;
-                        width: 40px;
-                        height: 40px;
-                    }
-                }
-            }
-        }
-    }
+	position: relative;
+	padding-top: 10px;
+	.tips {
+		width: 370px;
+		height: 40px;
+		color: #999;
+	}
+	.action {
+		position: relative;
+		display: flex;
+		margin-top: 20px;
+		.form {
+			width: 370px;
+			.tips {
+				padding: 10px 0;
+				.warning {
+					color: #fa0;
+				}
+			}
+			.setting {
+				margin-top: 30px;
+			}
+		}
+		.iPhone-bg {
+			position: relative;
+			width: 247px;
+			height: 500px;
+			margin-left: 40px;
+			background-image: url(../../../images/live/iPhone7.png); //要换的
+			background-size: 100% 100%;
+			.iPhone-view {
+				position: absolute;
+				top: 60px;
+				right: 18px;
+				bottom: 62px;
+				left: 17px;
+				text-align: center;
+				color: white;
+				background-image: url(../../../images/live/live.png);
+				background-repeat: no-repeat;
+				background-size: 100% 100%;
+				background-size: 100% 100%;
+				.head {
+					font-size: 12px;
+					font-weight: normal;
+					line-height: 12px;
+					position: absolute;
+					z-index: 105;
+					top: 17px;
+					right: 46px;
+					left: 52px;
+					overflow: hidden;
+					height: 12px;
+					text-align: center;
+					white-space: nowrap;
+					text-overflow: ellipsis;
+				}
+				.title {
+					font-size: 16px;
+					padding-top: 162px;
+				}
+				.time {
+					font-size: 12px;
+					.datetime {
+						span {
+							font-size: 18px;
+							padding: 5px;
+							color: #b73d6a;
+						}
+					}
+				}
+				.view {
+					position: absolute;
+					z-index: 100;
+					top: 37px;
+					right: 0;
+					bottom: 0;
+					left: 0;
+				}
+				.view-bg {
+					position: absolute;
+					z-index: 101;
+					top: 0;
+					right: 0;
+					bottom: 0;
+					left: 0;
+					background-image: url(../../../images/live/liveguide.png);
+					background-size: 100% 100%;
+				}
+				.common-bg {
+					position: absolute;
+					z-index: 100;
+					top: 0;
+					left: 0;
+				}
+				.txt-box {
+					position: absolute;
+					z-index: 101;
+					top: 0;
+					left: 0;
+					width: 100%;
+				}
+				// 放大镜
+				.magnifier {
+					position: absolute;
+					top: 30px;
+					left: 92px;
+					width: 110px;
+					height: 110px;
+					.avatar {
+						position: absolute;
+						top: 37px;
+						left: 4px;
+						width: 28px;
+						height: 28px;
+						border-radius: 50%;
+					}
+					.nickName {
+						font-size: 12px;
+						font-weight: normal;
+						position: absolute;
+						top: 35px;
+						left: 42px;
+					}
+				}
+				// 超级放大镜
+				.superMagnifier {
+					position: absolute;
+					top: 139px;
+					left: 6px;
+					width: 200px;
+					height: 200px;
+					.shareTitle {
+						font-size: 14px;
+						font-weight: normal;
+						line-height: 14px;
+						position: absolute;
+						top: 61px;
+						left: 18px;
+						overflow: hidden;
+						width: 140px;
+						height: 14px;
+						color: #444;
+					}
+					.shareContent {
+						font-size: 12px;
+						position: absolute;
+						top: 85px;
+						left: 18px;
+						overflow: hidden;
+						width: 132px;
+						height: 34px;
+						text-align: left;
+						word-wrap: break-word;
+						color: #999;
+					}
+					.shareImg {
+						position: absolute;
+						top: 84px;
+						left: 156px;
+						width: 40px;
+						height: 40px;
+					}
+				}
+			}
+		}
+	}
 }
