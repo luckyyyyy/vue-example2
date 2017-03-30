@@ -29,11 +29,12 @@
 					</iForm>
 					<div class="iPhone-bg">
 						<div class="iPhone-view">
-							<h2 class="head">{{live.name}}</h2>
+							<h2 class="head">{{ live.name }}</h2>
 							<!-- 超级放大镜 -->
 							<div class="superMagnifier">
-								<h3 class="shareTitle">{{form.shareTitle}}</h3>
-								<p class="shareContent">{{form.shareContent}}</p>
+								<h3 class="shareTitle">{{ form.shareTitle }}</h3>
+								<p class="shareContent">{{ form.shareContent }}</p>
+								<img class="shareImg" :src="live.liveShare.shareImageUrl">
 							</div>
 							<img src="../../assets/images/live/share.jpeg" height="100%" width="100%" alt="直播分享">
 						</div>
@@ -71,6 +72,7 @@
 					return this.form.shareStatus == 1;
 				}
 			}
+
 		},
 		mounted () {
 			this.form = Object.assign({}, this.live.liveShare);
