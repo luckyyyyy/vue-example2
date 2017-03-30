@@ -36,7 +36,7 @@
 								<p class="shareContent">{{ form.shareContent }}</p>
 								<img class="shareImg" :src="live.liveShare.shareImageUrl">
 							</div>
-							<img src="../../assets/images/live/share.jpeg" height="100%" width="100%" alt="直播分享">
+							<img class="bgImg" src="../../assets/images/live/share.jpeg" height="100%" width="100%" alt="直播分享">
 						</div>
 					</div>
 				</div>

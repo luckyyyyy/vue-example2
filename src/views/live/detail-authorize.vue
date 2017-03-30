@@ -17,7 +17,7 @@
 						<Radio :label="3">
 							<span>验证码观看</span>
 						</Radio>
-						<Radio :label="4">
+						<Radio :label="4" disabled>
 							<span>付费观看</span>
 						</Radio>
 					</RadioGroup>
@@ -28,7 +28,7 @@
 									<iInput @on-change="onDebounce" v-model="form.authCodeHints" placeholder="不超过10个字符"></iInput>
 								</FormItem>
 								<FormItem label="验证码：">
-									<iInput @on-change="onDebounce" v-model="form.authCode" placeholder="aaaaa"></iInput>
+									<iInput @on-change="onDebounce" v-model="form.authCode" placeholder="六位验证码"></iInput>
 								</FormItem>
 							</iForm>
 						</template>
@@ -38,7 +38,7 @@
 									<iInput @on-change="onDebounce" v-model="form.chargeHints" placeholder="不超过10个字符"></iInput>
 								</FormItem>
 								<FormItem label="观看价格：">
-									<iInput @on-change="onDebounce" v-model="form.price" placeholder="aaaaa"></iInput>
+									<iInput @on-change="onDebounce" v-model="form.price" placeholder="请输入价格"></iInput>
 								</FormItem>
 							</iForm>
 						</template>
@@ -46,7 +46,31 @@
 				</div>
 				<div class="iPhone-bg">
 					<div class="iPhone-view">
-						<!-- TODO IMG -->
+						<template v-if="form.authWatchStatus == 1">
+							<h2 class="head">{{ live.name }}</h2>
+							<div class="view">
+								<img :src="live.liveGuide.guideImageUrl" height="100%" width="100%" alt="直播引导图">
+							</div>
+							<img class="bgImg" src="../../assets/images/live/liveguide.png"></img>
+						</template>
+						<template v-if="form.authWatchStatus == 2">
+							<h2 class="head">{{ live.name }}</h2>
+							<div class="view">
+								<img :src="live.liveGuide.guideImageUrl" height="100%" width="100%" alt="直播引导图">
+							</div>
+							<img class="bgImg" src="../../assets/images/live/QRcode.png"></img>
+						</template>
+						<template v-if="form.authWatchStatus == 3">
+							<h2 class="head">{{ live.name }}</h2>
+							<p class="authCodeHints">{{ form.authCodeHints }}</p>
+							<div class="view">
+								<img :src="live.liveGuide.guideImageUrl" height="100%" width="100%" alt="直播引导图">
+							</div>
+							<img class="bgImg" src="../../assets/images/live/test.png"></img>
+						</template>
+						<template v-if="form.authWatchStatus == 4">
+							付费观看
+						</template>
 					</div>
 				</div>
 			</div>

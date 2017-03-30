@@ -27,7 +27,7 @@
 							<div class="view">
 								<img :src="live.liveGuide.guideImageUrl" height="100%" width="100%" alt="直播引导图">
 							</div>
-							<div class="view-bg" src="../../assets/images/live/liveguide.png"></div>
+							<img class="bgImg" src="../../assets/images/live/liveguide.png"></img>
 						</div>
 					</div>
 				</div>

@@ -47,7 +47,6 @@ img {
 		color: #999;
 	}
 	.action {
-		position: relative;
 		display: flex;
 		margin-top: 20px;
 		.form {
@@ -63,10 +62,11 @@ img {
 			}
 		}
 		.iPhone-bg {
-			position: relative;
+			position: absolute;
+			top: 20px;
+			left: 400px;
 			width: 247px;
 			height: 500px;
-			margin-left: 40px;
 			background-image: url(../../../images/live/iPhone7.png); //要换的
 			background-size: 100% 100%;
 			.iPhone-view {
@@ -80,7 +80,14 @@ img {
 				background-image: url(../../../images/live/live.png);
 				background-repeat: no-repeat;
 				background-size: 100% 100%;
-				background-size: 100% 100%;
+				.bgImg{
+					position:absolute;
+					left: 0;
+					right: 0;
+					top: 0;
+					bottom: 0;
+					z-index:101;
+				}
 				.head {
 					font-size: 12px;
 					font-weight: normal;
@@ -95,6 +102,19 @@ img {
 					text-align: center;
 					white-space: nowrap;
 					text-overflow: ellipsis;
+				}
+				.authCodeHints{
+					position:absolute;
+					z-index: 105;
+					left: 46px;
+					top: 275px;
+					width: 120px;
+					height: 36px;
+					text-align: left;
+					font-size: 12px;
+					overflow:hidden;
+					word-wrap: break-word;
+					text-overflow:ellipsis;
 				}
 				.title {
 					font-size: 16px;
@@ -118,16 +138,6 @@ img {
 					bottom: 0;
 					left: 0;
 				}
-				.view-bg {
-					position: absolute;
-					z-index: 101;
-					top: 0;
-					right: 0;
-					bottom: 0;
-					left: 0;
-					background-image: url(../../../images/live/liveguide.png);
-					background-size: 100% 100%;
-				}
 				.common-bg {
 					position: absolute;
 					z-index: 100;
@@ -143,15 +153,17 @@ img {
 				}
 				// 放大镜
 				.magnifier {
+					text-align:left;
 					position: absolute;
-					top: 30px;
-					left: 92px;
-					width: 110px;
-					height: 110px;
+					top: 0px;
+					left: 47px;
+					width: 165px;
+					height: 165px;
+					z-index:110;
 					.avatar {
 						position: absolute;
-						top: 37px;
-						left: 4px;
+						top: 59px;
+						left: 3px;
 						width: 28px;
 						height: 28px;
 						border-radius: 50%;
@@ -160,8 +172,12 @@ img {
 						font-size: 12px;
 						font-weight: normal;
 						position: absolute;
-						top: 35px;
-						left: 42px;
+						top: 57px;
+						left: 41px;
+						width:120px;
+						white-space: nowrap;
+						overflow:hidden;
+						text-overflow:ellipsis;
 					}
 				}
 				// 超级放大镜
@@ -171,17 +187,19 @@ img {
 					left: 6px;
 					width: 200px;
 					height: 200px;
+					z-index:110;
 					.shareTitle {
 						font-size: 14px;
 						font-weight: normal;
-						line-height: 14px;
 						position: absolute;
 						top: 61px;
 						left: 18px;
 						overflow: hidden;
+						text-overflow:ellipsis;
+						white-space:nowrap;
 						width: 140px;
-						height: 14px;
 						color: #444;
+						text-align: left;
 					}
 					.shareContent {
 						font-size: 12px;
