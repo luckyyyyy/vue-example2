@@ -23,7 +23,7 @@
 				</iForm>
 				<div class="iPhone-bg">
 					<div class="iPhone-view">
-						<!-- <h2 class="head">{{ live.name }}</h2> -->
+						<h2 class="head">{{ live.name }}</h2>
 						<!-- 放大镜 -->
 						<div class="magnifier">
 							<h3 class="nickName">{{ form.nickName }}</h3>

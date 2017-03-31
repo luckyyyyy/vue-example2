@@ -1,33 +1,33 @@
 <template>
 	<div class="container">
-		<div class="overview-box">
-			<h2>直播概况</h2>
-			<div class="overview-wrapper">
-				<div>
-					<p>观看人次（PV）：1560人</p>
-					<p>直播时长：65分钟</p>
-				</div>
-				<div>
-					<p>用户量（UV）：1000人</p>
-					<p>新增粉丝数：1234人</p>
-				</div>
-				<div>
-					<p>最高在线人数：1000人</p>
-					<p>新增订单数：345笔</p>
-				</div>
-				<div>
-					<p>观看时长：65分钟</p>
-					<p>成交金额：¥ 23456.78</p>
-				</div>
+		<div class="container-wrap">
+			<div class="overview-box">
+				<Card :bordered="false" dis-hover class="border-r">
+					<p slot="title" class="title">直播概况</p>
+					<div class="content">
+							<p>观看人次（PV）：<span>1560人</span></p>
+							<p>用户量（UV）：<span>1000人</span></p>
+							<p>直播时长：<span>65分钟</span></p>
+							<p>观看时长：<span>65分钟</span></p>
+					</div>
+				</Card>
 			</div>
-		</div>
-		<div class="online-box">
-			<h2>在线人数分布曲线</h2>
-			<highcharts :options="count_data" ref="highcharts"></highcharts>
-		</div>
-		<div class="territory-box">
-			<h2>观众地域分布</h2>
-			<highmaps :options="territory_data"></highmaps>
+			<div class="overview-box">
+				<Card :bordered="false" dis-hover class="border-r">
+					<p slot="title" class="title">在线人数分布曲线</p>
+					<div>
+						<highcharts :options="count_data" ref="highcharts"></highcharts>
+					</div>
+				</Card>
+			</div>
+			<div class="overview-box">
+				<Card :bordered="false" dis-hover class="border-r">
+					<p slot="title" class="title">观众地域分布</p>
+					<div>
+						<highmaps :options="territory_data"></highmaps>
+					</div>
+				</Card>
+			</div>
 		</div>
 	</div>
 </template>
@@ -159,27 +159,5 @@ export default {
 }
 </script>
 <style scoped lang="less">
-.container {
-	padding: 30px;
-	h2 {
-		font-size: 12px;
-		color: #333;
-		background-color: #f7f8fa;
-		padding: 4px 16px;
-	}
-	.overview-wrapper {
-		padding: 0 16px;
-		display: flex;
-		justify-content: space-between;
-		p {
-			color: #666;
-		}
-	}
-	.online-box {
-		margin-top: 30px;
-	}
-	.territory-box {
-		margin-top: 30px;
-	}
-}
+	@import "../../assets/styles/views/live/data.less";
 </style>
