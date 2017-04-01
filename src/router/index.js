@@ -2,7 +2,7 @@
 * @Author: William Chan
 * @Date:   2016-12-01 17:57:50
 * @Last Modified by:   William Chan
-* @Last Modified time: 2017-03-24 04:43:17
+* @Last Modified time: 2017-04-02 01:14:29
 */
 
 'use strict';
@@ -36,7 +36,8 @@ const routes = [].concat(
 );
 
 const router = new VueRouter({
-	base: __dirname,
+	// base: __dirname,
+	base: 'store',
 	routes,
 	mode: 'history',
 	scrollBehavior (to, from, savedPosition) {
