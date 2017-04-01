@@ -2,7 +2,7 @@
 * @Author: William Chan
 * @Date:	 2017-02-26 13:20:04
 * @Last Modified by:   William Chan
-* @Last Modified time: 2017-04-01 18:04:55
+* @Last Modified time: 2017-04-01 18:12:29
 */
 
 'use strict';
@@ -25,7 +25,7 @@ gulp.task('publish', () =>
 			accessKeyId: 'LTAIucdfDsTvyjjx',
 			secretAccessKey: 'emSGttqwegQcOMxsmEoutPDUVAePfE',
 			endpoint: 'http://oss-cn-hangzhou.aliyuncs.com',
-			bucket: '<rainbow-global></rainbow-global>'
+			bucket: 'rainbow-global'
 		},
 		headers: {
 			CacheControl: 'max-age=604800',
