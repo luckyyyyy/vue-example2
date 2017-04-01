@@ -7,7 +7,7 @@
   "scripts": {
     "dev": "node build/dev-server.js",
     "build": "node build/build.js",
-    "publish": "node build/build.js && gulp publish"
+    "oss": "gulp publish"
   },
   "dependencies": {
     "animate.css": "^3.5.2",
@@ -18,7 +18,7 @@
     "fastclick": "^1.0.6",
     "highcharts": "^5.0.7",
     "iscroll": "^5.2.0",
-    "iview": "2.0.0-rc.7",
+    "iview": "2.0.0-rc.9",
     "moment": "^2.17.0",
     "nprogress": "^0.2.0",
     "qrcodejs2": "0.0.2",
