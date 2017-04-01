@@ -1,8 +1,8 @@
 /*
 * @Author: William Chan
 * @Date:   2017-03-10 16:42:39
-* @Last Modified by:   Administrator
-* @Last Modified time: 2017-03-26 17:50:29
+* @Last Modified by:   William Chan
+* @Last Modified time: 2017-04-01 15:11:32
 */
 
 'use strict';
@@ -67,7 +67,7 @@ const getters = {
 
 
 const actions = {
-	async [IM_INIT.REQUEST] ({ commit, dispatch, rootState, state }, { im, chatroomId, oncustomsysmsg, onCustomServiceMsg, ondisconnect }) {
+	[IM_INIT.REQUEST] ({ commit, dispatch, rootState, state }, { im, chatroomId, oncustomsysmsg, onCustomServiceMsg, ondisconnect }) {
 		return new Promise(async (resolve, reject) => {
 			const init = {}
 			init.account        = im.accid;
@@ -76,45 +76,38 @@ const actions = {
 			commit(IM_INIT.REQUEST);
 			dispatch(IM_CHATROOM_MSG.SERVICE, 'IM_INIT');
 			dispatch(IM_CHATROOM_MSG.SERVICE, { type: 'SYSTEM_TIPS', content: '开始初始化中控台' });
-			await im_init(init).then(() => {
+			im_init(init).then(() => {
 				commit(IM_INIT.SUCCESS);
 				dispatch(IM_CHATROOM_MSG.SERVICE, 'IM_INIT_SUCCESS');
-			}).catch(error => {
-				commit(IM_INIT.FAILURE);
-				reject();
-			})
-			init.chatroomId = chatroomId;
-			init.ondisconnect = ondisconnect;
-			dispatch(IM_CHATROOM_MSG.SERVICE, 'IM_CHATROOM_ADDRESS');
-			await im_chatroom_address(chatroomId).then(address => {
+				init.chatroomId = chatroomId;
+				init.ondisconnect = ondisconnect;
+				dispatch(IM_CHATROOM_MSG.SERVICE, 'IM_CHATROOM_ADDRESS');
+				return im_chatroom_address(chatroomId)
+			}).then(address => {
 				commit(IM.ADDRESS, address);
 				dispatch(IM_CHATROOM_MSG.SERVICE, 'IM_CHATROOM_ADDRESS_SUCCESS');
-				console.log(address)
 				dispatch(IM_CHATROOM_MSG.SERVICE, address.join(' | '));
-			}).catch(error => {
-				reject();
-			})
-
-			init.chatroomAddresses = state.address;
-			commit(IM_CHATROOM_INIT.REQUEST);
-			dispatch(IM_CHATROOM_MSG.SERVICE, 'IM_CHATROOM_INIT');
-			init.onmsgs = msg => {
-				for (let ret of msg) {
-					if (ret.type == 'custom' && ret.fromClientType == 'Server') {
-						const data = JSON.parse(ret.custom);
-						// TODO
-						data.content = JSON.parse(data.content);
-						dispatch(IM_CHATROOM_MSG.SERVICE, data);
-						onCustomServiceMsg(data);
-					} else {
-						commit(IM_CHATROOM_MSG.GET, ret);
-						if (ret.type == 'notification' && refreshMemberType.includes(ret.attach.type)) {
-							dispatch(IM_CHATROOM.MEMBERS);
+				init.chatroomAddresses = state.address;
+				commit(IM_CHATROOM_INIT.REQUEST);
+				dispatch(IM_CHATROOM_MSG.SERVICE, 'IM_CHATROOM_INIT');
+				init.onmsgs = msg => {
+					for (let ret of msg) {
+						if (ret.type == 'custom' && ret.fromClientType == 'Server') {
+							const data = JSON.parse(ret.custom);
+							// TODO
+							data.content = JSON.parse(data.content);
+							dispatch(IM_CHATROOM_MSG.SERVICE, data);
+							onCustomServiceMsg(data);
+						} else {
+							commit(IM_CHATROOM_MSG.GET, ret);
+							if (ret.type == 'notification' && refreshMemberType.includes(ret.attach.type)) {
+								dispatch(IM_CHATROOM.MEMBERS);
+							}
 						}
 					}
 				}
-			}
-			await im_chatroom_init(init).then(() => {
+				return im_chatroom_init(init);
+			}).then(() => {
 				commit(IM_CHATROOM_INIT.SUCCESS);
 				dispatch(IM_CHATROOM_MSG.SERVICE, 'IM_CHATROOM_INIT_SUCCESS');
 				dispatch(IM_CHATROOM_MSG.HISTORY);
@@ -122,6 +115,7 @@ const actions = {
 				dispatch(IM_CHATROOM_MSG.SERVICE, { type: 'SYSTEM_TIPS', content: '中控台初始化完成' });
 				resolve();
 			}).catch(error => {
+				commit(IM_INIT.FAILURE);
 				commit(IM_CHATROOM_INIT.FAILURE);
 				console.log(error)
 				reject(error);
