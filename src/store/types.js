@@ -1,8 +1,8 @@
 /*
 * @Author: William Chan
 * @Date:   2016-12-03 20:43:22
-* @Last Modified by:   William Chan
-* @Last Modified time: 2017-03-30 01:05:25
+* @Last Modified by:   chuxiao
+* @Last Modified time: 2017-04-02 18:03:04
 */
 
 'use strict';
@@ -47,6 +47,16 @@ export const LIVE_FINISH            = export_var('LIVE_FINISH');
 export const LIVE_PUBLIC            = export_var('LIVE_PUBLIC');
 export const LIVE_DETAIL            = export_var(
 	'LIVE_DETAIL', 'COUNTDOWN', 'GUIDE', 'SHARE', 'UPDATE', 'AUTH'
+);
+
+// VIDEO
+export const VIDEO                   = export_var('VIDEO', 'QUERY');
+
+export const VIDEO_FIND              = export_var('VIDEO_FIND');
+export const VIDEO_DELETE            = export_var('VIDEO_DELETE');
+export const VIDEO_TRASH             = export_var('VIDEO_TRASH');
+export const VIDEO_DETAIL            = export_var(
+  'VIDEO_DETAIL', 'COUNTDOWN', 'GUIDE', 'SHARE', 'UPDATE', 'AUTH'
 );
 
 // weixin
