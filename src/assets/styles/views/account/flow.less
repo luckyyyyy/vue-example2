@@ -1,0 +1,73 @@
+.container {
+	padding: 44px 50px;
+}
+.card-wrap{
+	margin-bottom: 27px;
+	&:last-child{
+		margin-bottom: 0px;
+	}
+	.border-r{
+		border-radius: 8px;
+	}
+	.title{
+		&:before{
+			content: "";
+			margin-right: 10px;
+			display: inline-block;
+			width: 10px;
+			height: 10px;
+			text-align: middle;
+			background-color: #31bedb;
+			border-radius:50%;
+		}
+	}
+	.count{
+		font-weight: 500;
+		color: #4a4a4a;
+	}
+	.content{
+		&.content-info{
+			border-radius: 6px;
+			background-color: #f2f3f7;
+			margin-bottom: 20px;
+			padding: 20px 40px;
+			&:last-child{
+				margin-bottom:0px;
+			}
+		}
+	}
+	.charge{
+		width: 178px;
+		border-radius: 4px;
+		background-color: #ffffff;
+	}
+	.tips{
+		margin: 20px 0 10px;
+		display: flex;
+		flex-direction: column;
+		font-size: 12px;
+		.tips-box{
+			margin-top: 10px;
+		}
+	}
+	.price-box{
+		.price{
+			font-size:18px;
+			color: #ff4949;
+		}
+	}
+	.pay-box{
+		display: flex;
+		justify-content: space-around;
+		.pay-mothod{
+			vertical-align:middle;
+		}
+	}
+	.pay-btn{
+		position: relative;
+		margin-bottom: 4px;
+		left:50%;
+		transform: translateX(-50%);
+		font-size: 14px;
+	}
+}
