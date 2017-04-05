@@ -18,7 +18,7 @@
 		</div>
 		<div class="user">
 			<menu class="menu">
-				<img :src="user.avatar" class="avatar">
+				<img :src="user.avatar + '/avatar'" class="avatar">
 				<span class="name">
 					{{ user.nickName || user.phone }}
 					<!-- <i class="el-icon-caret-bottom"></i> -->

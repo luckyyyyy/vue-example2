@@ -29,7 +29,7 @@
 							@click="onSelect(item, !select[item.id])"
 							:class="{ select: select[item.id] }"
 						>
-							<img :src="item.url">
+							<img :src="item.url + '/albumModal'">
 							<span>{{ item.name }}</span>
 							<div class="icon">
 								<Icon type="checkmark-circled"></Icon>

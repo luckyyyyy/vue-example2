@@ -2,7 +2,7 @@
 	<div class="sidebar">
 		<div class="logo">
 			<!-- 待定 -->
-			<img :src="channel.logoImageUrl">
+			<img :src="channel.logoImageUrl + '/avatar'">
 		</div>
 		<Menu class="sidebar-menu" @on-select="onSelect" theme="dark" :activeName="active" mode="vertical" width="140px" :openNames="openNames">
 			<template v-for="item of sidebar">

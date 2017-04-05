@@ -26,7 +26,7 @@
 							</template>
 							<FormItem label="频道LOGO：" class="img">
 								<Album @submit="onSelectLogo" v-model="openLogoAlbum" :type="5">
-									<img @click="openLogoAlbum = true" :src="channel.logoImageUrl" class="img">
+									<img @click="openLogoAlbum = true" :src="channel.logoImageUrl + '/avatar'" class="img">
 								</Album>
 							</FormItem>
 							<FormItem label="频道简介：" prop="description">
