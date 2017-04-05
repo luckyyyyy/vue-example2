@@ -1,8 +1,8 @@
 /*
 * @Author: William Chan
 * @Date:   2016-12-02 11:31:24
-* @Last Modified by:   William Chan
-* @Last Modified time: 2017-03-27 05:46:23
+* @Last Modified by:   chuxiao
+* @Last Modified time: 2017-04-05 11:05:04
 */
 
 // axios.request(config)
@@ -19,8 +19,9 @@
 import { clearAuthorization, getAuthorization, getCurrentChannelID } from '../'
 import { Modal, Notice } from 'iview'
 import { isDev } from '../../utils/util'
-import axios from 'axios'
-export const API_HOST = isDev() ? 'http://101.37.17.152:8088/api/v1' : '/api/v1';
+import axios from 'axios'  // rainbowcloud.tv/api
+// export const API_HOST = isDev() ? 'http://101.37.17.152:8088/api/v1' : '/api/v1';
+export const API_HOST = isDev() ? 'https://rainbowcloud.tv/api/v1' : '/api/v1';
 
 if (localStorage.getItem('debug')) {
 	window.onerror = (msg, url, lineNo, columnNo, error) => {
