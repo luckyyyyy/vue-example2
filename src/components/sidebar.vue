@@ -32,7 +32,7 @@
 				debug: localStorage.getItem('debug') ? true : false,
 				sidebar: [
 					{ item: '<i class="iconfont icon-rank"></i>概况', name: 'index' },
-					{ item: '<i class="iconfont icon-list"></i>频道', name: 'index2' },
+					{ item: '<i class="iconfont icon-list"></i>频道', name: 'channel' },
 					{
 						item: '<i class="iconfont icon-video"></i>直播',
 						name: 'live',
