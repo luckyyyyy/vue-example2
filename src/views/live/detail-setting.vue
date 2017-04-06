@@ -23,10 +23,10 @@
 				</iForm>
 				<div class="iPhone-bg">
 					<div class="iPhone-view">
-						<h2 class="head">{{ live.name }}</h2>
+						<h2 class="head">{{ form.name || channel.name }}</h2>
 						<!-- 放大镜 -->
 						<div class="magnifier">
-							<h3 class="nickName">{{ form.nickName }}</h3>
+							<h3 class="nickName">{{ form.nickName || channel.name }}</h3>
 							<img class="avatar" :src="live.liveInfo.avatarImageUrl" alt="头像">
 						</div>
 						<img class="bgImg" src="../../assets/images/live/setting.png" height="100%" width="100%" alt="直播间设置">
@@ -53,6 +53,7 @@
 		},
 		computed: {
 			...mapState('live', ['live']),
+			...mapState('channel', ['channel']),
 		},
 		mounted () {
 			this.form = Object.assign({}, this.live.liveInfo);
