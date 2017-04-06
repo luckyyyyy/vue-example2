@@ -2,7 +2,7 @@
 	<div>
 		<header class="header">
 			<div class="left">
-				<img class="avatar" :src="user.avatar">
+				<img class="avatar" :src="user.avatar + '/avatar'">
 				<div class="info">
 					<span class="name">您好：{{ user.nickName }}</span>
 					<div class="account">
