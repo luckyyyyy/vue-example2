@@ -28,10 +28,10 @@
 			<Row class="list" v-show="data.length">
 				<Col className="item" v-for="item of data" :key="item.id" :title="item.name" :xs="8" :sm="6" :md="6" :lg="4">
 					<div class="head">
-						<img :src="item.url">
-						<div class="name">{{ item.name }}</div>
+						<img :src="item.url + '/multimedia'">
 						<div class="delete">
 							<Icon @click.native="onDelete(item.id)" title="删除" :size="30" type="android-delete"></Icon>
+							<div class="name">{{ item.name }}</div>
 						</div>
 					</div>
 				</Col>

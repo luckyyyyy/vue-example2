@@ -89,6 +89,7 @@
 						this.lock = true;
 						this.updateChannel(this.channel).then(() => {
 							this.lock = false;
+							this.$Message.success('资料更新成功');
 						}).catch(() => {
 							this.lock = false;
 						})
