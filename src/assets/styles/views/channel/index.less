@@ -1,0 +1,87 @@
+.container{
+	padding: 44px 50px;
+}
+.card-wrap{
+	margin-bottom: 25px;
+	&:last-child{
+		margin-bottom: 0;
+	}
+	.border-r{
+		border-radius: 8px;
+	}
+	.title{
+		&:before{
+			content: "";
+			margin-right: 10px;
+			display: inline-block;
+			width: 10px;
+			height: 10px;
+			text-align: middle;
+			background-color: #31bedb;
+			border-radius:50%;
+		}
+	}
+}
+.user{
+	padding: 0 20px;
+	display: flex;
+	justify-content: flex-start;
+	.avatar-box{
+		margin-right: 20px;
+		width: 50px;
+		height: 50px;
+		background-color: #fff;
+		.avatar{
+			border-radius: 50%;
+		}
+	}
+	.content{
+		margin-right: 20px;
+		display: flex;
+		flex-direction: column;
+		justify-content: space-between;
+		width: 180px;
+	}
+	.button-box{
+		margin-right: 20px;
+		display: flex;
+		align-items: center;
+		.btn{
+			margin-right: 20px;
+		}
+	}
+}
+.btn{
+	padding: 3px 15px;
+	width: 80px;
+	border-color: #31bedb;
+	color: #31bedb;
+}
+.wrap{
+	padding: 26px 11px 52px;
+	display: flex;
+	flex-wrap: wrap;
+	.template-box{
+		padding: 0 27px;
+		margin-bottom: 40px;
+		.template{
+			width: 320px;
+			height: 178px;
+			box-shadow: 0 0 10px 4px rgba(49, 189, 219, 0.5);
+		}
+		.settings{
+			padding: 0 20px;
+			display: flex;
+			align-items: center;
+			justify-content: space-between;
+			margin: 0 -15px;
+			height: 70px;
+			border-radius: 6px;
+			background-color: #f7f8fa;
+			box-shadow: 0 1px 7px 0 rgba(0, 44, 60, 0.2);
+			.txt{
+				font-size: 14px;
+			}
+		}
+	}
+}

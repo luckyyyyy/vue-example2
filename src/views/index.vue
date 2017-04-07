@@ -6,7 +6,7 @@
 				<div class="account wrap">
 					<div class="head">
 						<div class="header">
-							<span class="header-title">美女聊点</span>
+							<span class="header-title">{{ channel.name }}</span>
 							<ul class="tag-box">
 								<li class="tag service" >标签三</li>
 								<li class="tag">标签三</li>
@@ -138,6 +138,24 @@
 		</div>
 	</div>
 </template>
+
+<script>
+	import { mapState, mapActions } from 'vuex'
+	export default{
+		data() {
+			return{
+
+			}
+		},
+		computed: {
+			...mapState('channel',['channel']),
+		},
+		mounted() {
+			console.log(this.channel)
+		}
+	}
+</script>
+
 <style lang="less" scoped>
 	@import "../assets/styles/views/index";
 </style>

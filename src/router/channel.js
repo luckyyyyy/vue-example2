@@ -2,11 +2,10 @@
 * @Author: William Chan
 * @Date:   2017-03-23 13:14:53
 * @Last Modified by:   chuxiao
-* @Last Modified time: 2017-04-05 18:06:18
+* @Last Modified time: 2017-04-06 17:03:21
 */
 
 'use strict';
-
 import { registerModule } from '../store'
 
 export default [
@@ -30,8 +29,14 @@ export default [
 			{
 				name: 'channel_index',
 				path: 'index',
-				meta: { requiresAuth: true, },
-				component: resolve => require(['../views/channel/index.vue'], resolve)
+				meta: { requiresAuth: true, parent: 'channel' },
+				component: resolve => require([
+					'../views/channel/index.vue',
+				], (
+					IndexComponent,
+				) => {
+					resolve(IndexComponent);
+				})
 			},
 			{
 				name: 'channel_preferences',
@@ -46,6 +51,18 @@ export default [
 				) => {
 					// registerModule(['channel', 'delete'], ChannelDeleteModule.default);
 					resolve(PreferencesComponent);
+				})
+			},
+			{
+				name: 'channel_edit',
+				path: 'edit/:channelid',
+				meta: { requiresAuth: true, parent: 'channel' },
+				component: resolve => require([
+					'../views/channel/edit.vue',
+				],(
+					EditComponent,
+				) => {
+					resolve(EditComponent);
 				})
 			},
 		]
