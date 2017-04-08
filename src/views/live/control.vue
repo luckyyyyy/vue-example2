@@ -125,7 +125,7 @@
 		mounted () {
 			this.onJoinChatroom();
 			if (this.qrcode) {
-				this.qrcode.makeCode(this.text);
+				this.qrcode.makeCode(this.live.liveStream.pushStreamUrl);
 			} else {
 				this.qrcode = new qrcodejs(this.$refs.qrcode, {
 					text: this.live.liveStream.pushStreamUrl,
