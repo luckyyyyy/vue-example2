@@ -62,19 +62,19 @@
 
 <script>
 	export default{
-		data() {
+		data () {
 			return {
 				template: 1,
 			}
 		},
 		watch: {
-			template() {
+			template () {
 				console.log("选择模板：" + this.template);
 			}
 		},
 		methods: {
-			selectTemplate(id){
-				this.$router.push({ name: 'channel_edit', params: { channelid: id } })
+			selectTemplate (id){
+				this.$router.push({ name: 'channel_template', params: { templateID: id } })
 			}
 		}
 	}
