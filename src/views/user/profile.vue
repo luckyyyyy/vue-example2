@@ -30,7 +30,7 @@
 						<div v-show="upload.start" class="avatar__img-shadow">
 							<span>{{ upload.progress }}%</span>
 						</div>
-						<img class="avatar__img" ref="avatar" :src="info.avatar" height="80" width="80">
+						<img class="avatar__img" ref="avatar" :src="info.avatar + '/avatar'" height="80" width="80">
 					</upload>
 				</FormItem>
 				<FormItem label="个性签名：" prop="description">

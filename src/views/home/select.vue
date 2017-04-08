@@ -30,7 +30,7 @@
 								</div>
 								<div class="info">
 									<div class="logo">
-										<img witdh="50" height="50" :src="item.wxAvatarUrl">
+										<img :src="item.logoImageUrl">
 									</div>
 									<div class="wechat">
 										<template v-if="item.status == 2">
