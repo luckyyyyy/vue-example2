@@ -1,8 +1,8 @@
 /*
 * @Author: William Chan
 * @Date:   2017-03-06 22:29:46
-* @Last Modified by:   Administrator
-* @Last Modified time: 2017-03-28 02:24:12
+* @Last Modified by:   William Chan
+* @Last Modified time: 2017-04-09 00:05:50
 */
 
 'use strict';
@@ -74,15 +74,18 @@ export default [
 					'../store/modules/im',
 					'../store/modules/live/stream',
 					'../store/modules/live/finish',
+					'../store/modules/live/notice',
 				], (
 					LiveControlComponent,
 					IMModule,
 					LiveStreamModule,
 					LiveFinishModule,
+					LiveNoticeModule,
 				) => {
 					registerModule('im', IMModule.default);
 					registerModule(['live', 'query_stream'], LiveStreamModule.default);
 					registerModule(['live', 'finish'], LiveFinishModule.default);
+					registerModule(['live', 'notice'], LiveNoticeModule.default);
 					resolve(LiveControlComponent);
 				})
 			},

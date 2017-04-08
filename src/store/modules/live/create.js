@@ -2,20 +2,20 @@
 * @Author: Administrator
 * @Date:   2017-01-06 02:33:52
 * @Last Modified by:   William Chan
-* @Last Modified time: 2017-03-19 15:34:12
+* @Last Modified time: 2017-04-08 23:57:11
 */
 
 'use strict';
 
 import { live_create } from '../../api/live'
-import { LIVE_CREATE } from '../../types'
+import { LIVE } from '../../types'
 
 const state = {}
 
 const getters = {}
 
 const actions = {
-	[LIVE_CREATE.REQUEST] ({ commit }, ...args) {
+	[LIVE.CREATE] ({ commit }, ...args) {
 		return new Promise((resolve, reject) => {
 			live_create(...args).then(res => {
 				resolve();

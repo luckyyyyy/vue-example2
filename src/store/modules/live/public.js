@@ -2,20 +2,20 @@
 * @Author: Administrator
 * @Date:   2017-01-06 02:33:52
 * @Last Modified by:   William Chan
-* @Last Modified time: 2017-03-19 19:23:11
+* @Last Modified time: 2017-04-08 23:58:54
 */
 
 'use strict';
 
 import { live_public } from '../../api/live'
-import { LIVE_PUBLIC } from '../../types'
+import { LIVE } from '../../types'
 
 const state = {}
 
 const getters = {}
 
 const actions = {
-	[LIVE_PUBLIC.REQUEST] ({ commit }, ...args) {
+	[LIVE.PUBLIC] ({ commit }, ...args) {
 		return new Promise((resolve, reject) => {
 			live_public(...args).then(res => {
 				resolve(res.data);

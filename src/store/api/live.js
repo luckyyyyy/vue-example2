@@ -2,7 +2,7 @@
 * @Author: Administrator
 * @Date:   2017-02-25 14:58:36
 * @Last Modified by:   William Chan
-* @Last Modified time: 2017-03-29 01:40:00
+* @Last Modified time: 2017-04-09 00:15:22
 */
 
 'use strict';
@@ -70,7 +70,10 @@ export const live_auth_watch = ({ id, authWatchStatus, chargeHints, price, authC
 	return http.put(`live/update/auth_watch/${id}`, { authWatchStatus, chargeHints, price, authCode, authCodeHints })
 }
 
-
+// POST /api/v1/notice/{live_id}
+export const live_notice = ({ id, content }) => {
+	return http.post(`live/notice/${id}`, { content })
+}
 
 
 

@@ -64,7 +64,7 @@
 		},
 		methods: {
 			...mapActions('live/query_stream', {
-				getStreamStatus: 'LIVE_QUERY_STREAM_REQUEST'
+				getStreamStatus: 'LIVE_QUERY_STREAM'
 			}),
 			playVideo () {
 				if (this.player) {

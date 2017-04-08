@@ -151,11 +151,11 @@
 			...mapMutations('live', {
 				updateLiveInfo: 'LIVE_QUERY',
 			}),
-			// ...mapActions('live/public', {
-			// 	livePublic: 'LIVE_PUBLIC_REQUEST'
-			// }),
 			...mapActions('live/finish', {
-				liveFinish: 'LIVE_FINISH_REQUEST'
+				liveFinish: 'LIVE_FINISH'
+			}),
+			...mapActions('live/notice', {
+				sendNotice: 'LIVE_NOTICE'
 			}),
 			onJoinChatroom () {
 				const chatroomId         = this.live.liveChatRoom.roomid;
@@ -270,10 +270,16 @@
 			onNoticeSubmit () {
 				this.$refs.notice.validate((valid) => {
 					if (valid) {
-						// this.$store.dispatch('LIVE_CREATE_REQUEST', this.create).then(() => {
-						// 	this.create.name = '';
-						// 	this.openDialog = false;
-						// })
+						const content = this.notice.text;
+						const id = this.live.id;
+						this.lock = true;
+						this.sendNotice({ id, content }).then(() => {
+							this.lock = false;
+							this.notice.text = '';
+							this.noticeDialog = false;
+						}).catch(() => {
+							this.lock = false;
+						})
 					} else {
 						return false;
 					}

@@ -1,8 +1,8 @@
 /*
 * @Author: William Chan
 * @Date:   2016-12-03 20:43:22
-* @Last Modified by:   chuxiao
-* @Last Modified time: 2017-04-02 18:03:04
+* @Last Modified by:   William Chan
+* @Last Modified time: 2017-04-08 23:57:40
 */
 
 'use strict';
@@ -36,15 +36,18 @@ export const MULTIMEDIA_FIND        = export_var('MULTIMEDIA_FIND', 'DELETE');
 export const MULTIMEDIA             = export_var('MULTIMEDIA', 'INSERT', 'DELETE');
 
 // live
-export const LIVE                   = export_var('LIVE', 'QUERY');
+export const LIVE                   = export_var(
+	'LIVE', 'QUERY','CREATE', 'QUERY_STREAM', 'NOTICE',
+	'DELETE', 'TRASH', 'FINISH', 'PUBLIC'
+);
 
-export const LIVE_CREATE            = export_var('LIVE_CREATE');
+// export const LIVE_CREATE            = export_var('LIVE_CREATE');
 export const LIVE_FIND              = export_var('LIVE_FIND');
-export const LIVE_QUERY_STREAM      = export_var('LIVE_QUERY_STREAM');
-export const LIVE_DELETE            = export_var('LIVE_DELETE');
-export const LIVE_TRASH             = export_var('LIVE_TRASH');
-export const LIVE_FINISH            = export_var('LIVE_FINISH');
-export const LIVE_PUBLIC            = export_var('LIVE_PUBLIC');
+// export const LIVE_QUERY_STREAM      = export_var('LIVE_QUERY_STREAM');
+// export const LIVE_DELETE            = export_var('LIVE_DELETE');
+// export const LIVE_TRASH             = export_var('LIVE_TRASH');
+// export const LIVE_FINISH            = export_var('LIVE_FINISH');
+// export const LIVE_PUBLIC            = export_var('LIVE_PUBLIC');
 export const LIVE_DETAIL            = export_var(
 	'LIVE_DETAIL', 'COUNTDOWN', 'GUIDE', 'SHARE', 'UPDATE', 'AUTH'
 );
