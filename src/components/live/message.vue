@@ -16,6 +16,9 @@
 					<template v-if="item.type == 'SYSTEM_TIPS'">
 						<p>{{ item.content }}</p>
 					</template>
+					<template v-if="item.type == 'LIVE_NOTICE'">
+						<p>{{ item.content.msg }}</p>
+					</template>
 				</div>
 			</li>
 		</ul>

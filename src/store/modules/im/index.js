@@ -2,7 +2,7 @@
 * @Author: William Chan
 * @Date:   2017-03-10 16:42:39
 * @Last Modified by:   William Chan
-* @Last Modified time: 2017-04-01 15:11:32
+* @Last Modified time: 2017-04-09 14:23:24
 */
 
 'use strict';
@@ -20,7 +20,7 @@ import {
 	IM, IM_INIT,
 	IM_CHATROOM, IM_CHATROOM_INIT, IM_CHATROOM_MSG
 } from '../../types'
-
+// refreshMemberType
 const refreshMemberType = [
 	'addManager',
 	'removeManager',
@@ -36,14 +36,17 @@ const refreshMemberType = [
 	'addTempMute',
 	'removeTempMute',
 ]
-
+// filterMessageType
 const filterMessageType = [
 	'updateChatroom',
 	'updateMemberInfo',
 	'addTempMute',
 	'removeTempMute',
 ]
-
+// 需要显示的customMessageType
+const customMessageType = [
+	'LIVE_NOTICE'
+]
 const state = {
 	im_init: false,
 	lock: false,
@@ -97,6 +100,9 @@ const actions = {
 							// TODO
 							data.content = JSON.parse(data.content);
 							dispatch(IM_CHATROOM_MSG.SERVICE, data);
+							if (customMessageType.includes(data.type)) {
+								commit(IM_CHATROOM_MSG.GET, data);
+							}
 							onCustomServiceMsg(data);
 						} else {
 							commit(IM_CHATROOM_MSG.GET, ret);
