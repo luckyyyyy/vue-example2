@@ -159,7 +159,7 @@
 			},
 			onDebounce () {
 				if (!this.debounce) {
-					this.debounce = debounce(this.onChange, 10000);
+					this.debounce = debounce(this.onChange, 200);
 				}
 				this.debounce();
 			}
