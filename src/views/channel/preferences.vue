@@ -2,10 +2,8 @@
 	<div>
 		<div class="info-page">
 			<div class="body">
-				<div class="info wrap">
-					<div class="head">
-						<span class="title">频道信息</span>
-					</div>
+				<Card class="commoon-card wrap" :bordered="false" dis-hover>
+					<p slot="title" class="commoon-card__title">频道信息</p>
 					<div class="box">
 						<iForm class="form" @submit.native.prevent :rules="rules" :label-width="100" ref="channel" :model="channel">
 							<FormItem label="频道名称：" prop="name">
@@ -43,7 +41,7 @@
 							</FormItem>
 						</iForm>
 					</div>
-				</div>
+				</Card>
 			</div>
 		</div>
 	</div>

@@ -90,6 +90,28 @@ ul {
 	}
 }
 
+.commoon-card {
+	margin-bottom: 25px;
+	border-radius: 8px;
+	&:last-child {
+		margin-bottom: 0;
+	}
+	.commoon-card__title {
+		&:before {
+			content: "";
+			margin-right: 10px;
+			display: inline-block;
+			width: 10px;
+			height: 10px;
+			text-align: middle;
+			background-color: #31bedb;
+			border-radius:50%;
+		}
+	}
+	.ivu-card-body{
+		padding: 35px;
+	}
+}
 
 #nprogress {
 	position: absolute;

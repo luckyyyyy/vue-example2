@@ -34,6 +34,11 @@
 						<template v-if="item.type == 'notification'">
 							<chatroomNotification :item="item"></chatroomNotification>
 						</template>
+						<template v-if="item.type == 'LIVE_NOTICE'">
+							<span class="notice">
+								<em>直播公告：</em>{{ item.content.msg }}
+							</span>
+						</template>
 					</p>
 
 				</div>

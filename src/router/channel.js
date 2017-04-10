@@ -1,8 +1,8 @@
 /*
 * @Author: William Chan
 * @Date:   2017-03-23 13:14:53
-* @Last Modified by:   chuxiao
-* @Last Modified time: 2017-04-06 17:03:21
+* @Last Modified by:   William Chan
+* @Last Modified time: 2017-04-09 00:27:07
 */
 
 'use strict';
@@ -54,11 +54,11 @@ export default [
 				})
 			},
 			{
-				name: 'channel_edit',
-				path: 'edit/:channelid',
+				name: 'channel_template',
+				path: 'template/:templateID',
 				meta: { requiresAuth: true, parent: 'channel' },
 				component: resolve => require([
-					'../views/channel/edit.vue',
+					'../views/channel/template.vue',
 				],(
 					EditComponent,
 				) => {

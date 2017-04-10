@@ -140,16 +140,16 @@
 				getLiveList: 'LIVE_FIND_REQUEST'
 			}),
 			...mapActions('live/create', {
-				createLive: 'LIVE_CREATE_REQUEST'
+				createLive: 'LIVE_CREATE'
 			}),
 			...mapActions('live/trash', {
-				trashLive: 'LIVE_TRASH_REQUEST'
+				trashLive: 'LIVE_TRASH'
 			}),
 			...mapActions('live/delete', {
-				deleteLive: 'LIVE_DELETE_REQUEST'
+				deleteLive: 'LIVE_DELETE'
 			}),
 			...mapActions('live/public', {
-				livePublic: 'LIVE_PUBLIC_REQUEST'
+				livePublic: 'LIVE_PUBLIC'
 			}),
 			onStatusChange (val) {
 				this.status = val;
