@@ -2564,9 +2564,9 @@ isstream@~0.1.2:
   version "0.1.2"
   resolved "http://registry.npm.taobao.org/isstream/download/isstream-0.1.2.tgz#47e63f7af55afa6f92e1500e690eb8b8529c099a"
 
-iview@2.0.0-rc.9:
-  version "2.0.0-rc.9"
-  resolved "http://registry.npm.taobao.org/iview/download/iview-2.0.0-rc.9.tgz#76a17378db09823374e94b575da8f2b22ccc58fc"
+iview@2.0.0-rc.10:
+  version "2.0.0-rc.10"
+  resolved "http://registry.npm.taobao.org/iview/download/iview-2.0.0-rc.10.tgz#6f5970d941ae8a2863cc521e6d1ec8f9d89bfacb"
   dependencies:
     async-validator "^1.6.7"
     core-js "^2.4.1"
@@ -4653,9 +4653,9 @@ vue-quill-editor@^1.1.1:
   dependencies:
     quill "^1.1.7"
 
-vue-router@2.3.0:
-  version "2.3.0"
-  resolved "http://registry.npm.taobao.org/vue-router/download/vue-router-2.3.0.tgz#a25c8359e8ca989d22ce79f64322eb0ad0c8670f"
+vue-router@2.4.0:
+  version "2.4.0"
+  resolved "http://registry.npm.taobao.org/vue-router/download/vue-router-2.4.0.tgz#56a635e1434a1966ac095f2a485bebdcfc36cec5"
 
 vue-style-loader@^2.0.0:
   version "2.0.5"
@@ -4664,9 +4664,9 @@ vue-style-loader@^2.0.0:
     hash-sum "^1.0.2"
     loader-utils "^1.0.2"
 
-vue-template-compiler@2.2.4:
-  version "2.2.4"
-  resolved "http://registry.npm.taobao.org/vue-template-compiler/download/vue-template-compiler-2.2.4.tgz#2856fb09f1571e9098872bf3c512d670eeeafba9"
+vue-template-compiler@2.2.6:
+  version "2.2.6"
+  resolved "http://registry.npm.taobao.org/vue-template-compiler/download/vue-template-compiler-2.2.6.tgz#2e2928daf0cd0feca9dfc35a9729adeae173ec68"
   dependencies:
     de-indent "^1.0.2"
     he "^1.1.0"
@@ -4675,9 +4675,9 @@ vue-template-es2015-compiler@^1.2.2:
   version "1.5.1"
   resolved "http://registry.npm.taobao.org/vue-template-es2015-compiler/download/vue-template-es2015-compiler-1.5.1.tgz#0c36cc57aa3a9ec13e846342cb14a72fcac8bd93"
 
-vue@2.2.4:
-  version "2.2.4"
-  resolved "http://registry.npm.taobao.org/vue/download/vue-2.2.4.tgz#d0a3a050a80a12356d7950ae5a7b3131048209cc"
+vue@2.2.6:
+  version "2.2.6"
+  resolved "http://registry.npm.taobao.org/vue/download/vue-2.2.6.tgz#451714b394dd6d4eae7b773c40c2034a59621aed"
 
 vuex-router-sync@4.1.0:
   version "4.1.0"

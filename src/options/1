@@ -1,0 +1,78 @@
+几种情况
+用户未注册 商户是服务号   走1-2-3
+用户已注册 商户是服务器号 走1-2
+不管用户是否注册 商户是订阅号 走1-3
+
+
+用户 GET https://racloud.tv/live/1?channel=1
+*    用户进入任意路由
+     判断和验证session 有的情况下直接输出页面
+     如果是access_token失效 则也重新登录 暂时不调用刷新接口
+
+*    需要如果登录
+     存储下用户当前进入的uri session存储
+     从数据库获取channel信息，判断使用snsapi_userinfo还是snsapi_base
+
+*    如若服务号则使用 snsapi_base 彩虹云开放平台appid授权
+     跳转至 https://open.weixin.qq.com/ ... snsapi_base
+     拼接回调地址 redirect_uri /api/base_login
+
+*    如若订阅号则使用 snsapi_info 彩虹云开放平台appid授权
+     跳转至 https://open.weixin.qq.com/ ... snsapi_info
+     拼接回调地址 redirect_uri /api/info_login
+
+微信 callback GET /api/info_login
+*    判断code是否存在（一般情况都存在）
+     GET API https://api.weixin.qq.com/sns/oauth2/access_token?appid=APPID&secret=SECRET&code=CODE&grant_type=authorization_code
+     获取openID和access_token成功后 判断用户是否已注册
+     存入更新数据库 access_token expires_in refresh_token openid
+
+if   用户未注册我们平台
+     获取用户基本信息
+     https://api.weixin.qq.com/cgi-bin/user/info?access_token=ACCESS_TOKEN&openid=OPENID&lang=zh_CN
+     注册用户信息
+
+done
+     创建我们自己的登录授权 获取session存入的起始位置
+     存入session 登录授权
+     跳转回用户GET URI
+
+微信 callback GET /api/base_login
+*    判断code是否存在（一般情况都存在）
+     GET API https://api.weixin.qq.com/sns/oauth2/access_token?appid=APPID&secret=SECRET&code=CODE&grant_type=authorization_code
+     获取openID和access_token成功后 判断用户是否已注册
+     存入更新数据库 access_token expires_in refresh_token openid
+
+if   如用户未在我们平台注册 走商户显示授权
+     跳转至 https://open.weixin.qq.com/ ... snsapi_info&state = 1
+     拼接回调地址 redirect_uri /api/register
+
+eif  如用户已在我们平台注册 未在商户平台注册
+     跳转至 https://open.weixin.qq.com/ ... snsapi_base&state = 2
+     拼接回调地址 redirect_uri /api/register
+
+eif  如果用户已注册
+     创建我们自己的登录授权 获取session存入的起始位置
+     存入session 登录授权
+     跳转回用户GET URI
+
+微信 callback GET /api/register
+*    判断code是否存在（一般情况都存在）
+     GET API https://api.weixin.qq.com/sns/oauth2/access_token?appid=APPID&secret=SECRET&code=CODE&grant_type=authorization_code
+     获取openID和access_token成功后
+     存入更新数据库 access_token expires_in refresh_token openid
+
+if   如果state == 1 也可以用 上一步的scope判断
+     获取用户基本信息
+     https://api.weixin.qq.com/cgi-bin/user/info?access_token=ACCESS_TOKEN&openid=OPENID&lang=zh_CN
+     注册用户信息
+
+done 创建我们自己的登录授权 获取session存入的起始位置
+     存入session 登录授权
+     跳转回用户GET URI
+
+
+
+
+
+
