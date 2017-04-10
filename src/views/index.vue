@@ -151,7 +151,7 @@
 			...mapState('channel',['channel']),
 		},
 		mounted() {
-			console.log(this.channel)
+
 		}
 	}
 </script>

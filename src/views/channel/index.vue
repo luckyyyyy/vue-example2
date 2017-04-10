@@ -45,10 +45,10 @@
 						<div class="template-box">
 							<div class="template"></div>
 							<div class="settings">
-								<Radio :label="2">
+								<Radio :label="2" disabled>
 									<span class="txt">店招模版</span>
 								</Radio>
-								<Button @click="selectTemplate(2)" class="btn" type="ghost" shape="circle">
+								<Button @click="selectTemplate(2)" disabled class="btn" type="ghost" shape="circle">
 									编辑
 								</Button>
 							</div>

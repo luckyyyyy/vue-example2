@@ -56,7 +56,16 @@
 		</div>
 	</div>
 </template>
+<script>
+	export default{
+		data() {
 
+		},
+		mounted() {
+
+		}
+	}
+</script>
 <style scoped lang="less">
 	@import "../assets/styles/main";
 </style>

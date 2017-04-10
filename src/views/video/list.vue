@@ -23,7 +23,7 @@
 										{{ item.streamStatus == 'publish' ? '推流中' : '未推流' }}
 									</em>
 								</div>
-	<!-- 							<div class="active">
+								<!-- <div class="active">
 									<template v-if="item.trashStatus">
 										<em @click="onChangeStatus(item.id, `您确定要恢复直播【${item.name}】`)">恢复</em>
 										<em @click="onChangeStatus(item.id, `您确定彻底要删除直播【${item.name}】<br>一旦删除，将彻底无法恢复。`, true)">彻底删除</em>
@@ -37,7 +37,6 @@
 										</template>
 										<em @click="onChangeStatus(item.id, `您确定要删除直播【${item.name}】`)">删除</em>
 									</template>
-
 								</div> -->
 							</div>
 							<div class="title">
