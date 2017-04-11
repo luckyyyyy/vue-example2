@@ -1,8 +1,8 @@
 /*
 * @Author: William Chan
 * @Date:   2016-12-01 17:57:50
-* @Last Modified by:   William Chan
-* @Last Modified time: 2017-04-02 01:14:29
+* @Last Modified by:   chuxiao
+* @Last Modified time: 2017-04-11 13:56:53
 */
 
 'use strict';
@@ -77,6 +77,26 @@ router.beforeEach(async (to, from, next) => {
 					// success
 				}).catch(err => {
 					if (from.matched.some(record => record.name == 'live')) {
+						params = false;
+					} else {
+						params =  { name: 'index' };
+						// TODO 根据服务器来源判断
+					}
+				})
+			} else {
+				if (to.meta.group == 'select' && to.meta.group != 'global') {
+					if (to.query.redirect) {
+						params = { path: to.query.redirect };
+					} else {
+						params = { name: 'index' };
+					}
+				}
+			}
+			if (to.params.videoid) {
+				 await store.dispatch('video/VIDEO_QUERY', { id: to.params.videoid }).then(res => {
+					// success
+				}).catch(err => {
+					if (from.matched.some(record => record.name == 'video')) {
 						params = false;
 					} else {
 						params =  { name: 'index' };
