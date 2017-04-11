@@ -20,8 +20,12 @@
 					<MenuItem name="live_detail_authorize">授权观看</MenuItem>
 				</Menu>
 				<div class="button">
-    				<iButton @click="goData" type="primary" class="menu-btn">直播数据</iButton>
-    				<iButton @click="goControl" type="primary" class="menu-btn">中控台</iButton>
+					<router-link :to="{ name: 'live_data', params: { liveid: $route.params.liveid } }" target="_blank">
+    					<iButton type="primary" class="menu-btn">直播数据</iButton>
+    				</router-link>
+    				<router-link :to="{ name: 'live_control', params: { liveid: $route.params.liveid } }" target="_blank">
+    					<iButton type="primary" class="menu-btn">中控台</iButton>
+    				</router-link>
 				</div>
 			</div>
 		</div>
@@ -42,14 +46,6 @@
 			onSelect (val) {
 				this.$router.push({ name: val, params: this.$route.params })
 			},
-			goControl () {
-				const uri = `/live/control/${this.$route.params.liveid}`
-				window.open(uri)
-			},
-			goData () {
-				const uri = `/live/data/${this.$route.params.liveid}`
-				window.open(uri)
-			}
 		}
 	}
 </script>
