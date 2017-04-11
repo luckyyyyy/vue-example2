@@ -1,8 +1,8 @@
 /*
 * @Author: William Chan
 * @Date:   2016-12-01 17:57:50
-* @Last Modified by:   chuxiao
-* @Last Modified time: 2017-04-11 13:56:53
+* @Last Modified by:   Administrator
+* @Last Modified time: 2017-04-12 01:12:02
 */
 
 'use strict';
@@ -83,16 +83,7 @@ router.beforeEach(async (to, from, next) => {
 						// TODO 根据服务器来源判断
 					}
 				})
-			} else {
-				if (to.meta.group == 'select' && to.meta.group != 'global') {
-					if (to.query.redirect) {
-						params = { path: to.query.redirect };
-					} else {
-						params = { name: 'index' };
-					}
-				}
-			}
-			if (to.params.videoid) {
+			} else if (to.params.videoid) {
 				 await store.dispatch('video/VIDEO_QUERY', { id: to.params.videoid }).then(res => {
 					// success
 				}).catch(err => {
