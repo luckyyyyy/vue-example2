@@ -2,7 +2,7 @@
 * @Author: William Chan
 * @Date:   2017-03-06 22:29:46
 * @Last Modified by:   William Chan
-* @Last Modified time: 2017-04-12 17:40:10
+* @Last Modified time: 2017-04-12 19:08:34
 */
 
 'use strict';
@@ -19,12 +19,10 @@ export default [
 			topbar:  resolve => require(['../components/topbar.vue'], resolve),
 			main:    resolve => require([
 				'../components/main.vue',
-				'../store/modules/live',
 			], (
 				MainComponent,
 				LiveModule,
 			) => {
-				registerModule('live', LiveModule.default);
 				resolve(MainComponent)
 			})
 		},

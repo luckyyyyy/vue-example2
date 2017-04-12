@@ -3,7 +3,7 @@
 * @Date:   2017-03-15 13:20:01
 <<<<<<< HEAD
 * @Last Modified by:   William Chan
-* @Last Modified time: 2017-04-12 17:32:06
+* @Last Modified time: 2017-04-12 19:08:43
 =======
 * @Last Modified by:   Administrator
 * @Last Modified time: 2017-04-12 15:07:29
@@ -25,12 +25,9 @@ export default [
 			topbar:  resolve => require(['../components/topbar.vue'], resolve),
 			main:    resolve => require([
 				'../components/main.vue',
-				'../store/modules/video',
 			], (
 				MainComponent,
-				VideoModule
 			) => {
-				registerModule('video', VideoModule.default);
 				resolve(MainComponent);
 			})
 		},
