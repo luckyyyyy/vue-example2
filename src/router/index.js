@@ -2,7 +2,7 @@
 * @Author: William Chan
 * @Date:   2016-12-01 17:57:50
 * @Last Modified by:   Administrator
-* @Last Modified time: 2017-04-12 01:12:02
+* @Last Modified time: 2017-04-12 14:55:43
 */
 
 'use strict';
@@ -72,35 +72,11 @@ router.beforeEach(async (to, from, next) => {
 					params = { name: 'select_channel', query: { redirect: to.fullPath } };
 				})
 			}
-			if (to.params.liveid) {
-				 await store.dispatch('live/LIVE_QUERY', { id: to.params.liveid }).then(res => {
-					// success
-				}).catch(err => {
-					if (from.matched.some(record => record.name == 'live')) {
-						params = false;
-					} else {
-						params =  { name: 'index' };
-						// TODO 根据服务器来源判断
-					}
-				})
-			} else if (to.params.videoid) {
-				 await store.dispatch('video/VIDEO_QUERY', { id: to.params.videoid }).then(res => {
-					// success
-				}).catch(err => {
-					if (from.matched.some(record => record.name == 'video')) {
-						params = false;
-					} else {
-						params =  { name: 'index' };
-						// TODO 根据服务器来源判断
-					}
-				})
-			} else {
-				if (to.meta.group == 'select' && to.meta.group != 'global') {
-					if (to.query.redirect) {
-						params = { path: to.query.redirect };
-					} else {
-						params = { name: 'index' };
-					}
+			if (to.meta.group == 'select' && to.meta.group != 'global') {
+				if (to.query.redirect) {
+					params = { path: to.query.redirect };
+				} else {
+					params = { name: 'index' };
 				}
 			}
 		} else {
@@ -122,5 +98,7 @@ router.beforeEach(async (to, from, next) => {
 router.afterEach(route => {
 	NProgress.done();
 })
-
+router.onError = err => {
+	console.log(err)
+}
 export default router

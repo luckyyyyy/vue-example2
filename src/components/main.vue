@@ -57,15 +57,39 @@
 	</div>
 </template>
 <script>
-	export default{
-		data() {
-			return {
+	import { store } from '../store'
 
-			}
-		},
-		mounted() {
-
+	const verifyParams = async (to, from, next) => {
+		let params;
+		if (to.params.liveid) {
+			 await store.dispatch('live/LIVE_QUERY', { id: to.params.liveid }).then(res => {
+				// success
+			}).catch(err => {
+				if (from.matched.some(record => record.name == 'live')) {
+					params = false;
+				} else {
+					params =  { name: 'index' };
+					// TODO 根据服务器来源判断
+				}
+			})
+		} else if (to.params.videoid) {
+			 await store.dispatch('video/VIDEO_QUERY', { id: to.params.videoid }).then(res => {
+				// success
+			}).catch(err => {
+				if (from.matched.some(record => record.name == 'video')) {
+					params = false;
+				} else {
+					params =  { name: 'index' };
+					// TODO 根据服务器来源判断
+				}
+			})
 		}
+		next(params);
+	}
+
+	export default{
+		beforeRouteEnter: verifyParams,
+		beforeRouteUpdate: verifyParams
 	}
 </script>
 <style scoped lang="less">
