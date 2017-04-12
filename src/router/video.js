@@ -1,8 +1,8 @@
 /*
 * @Author: William Chan
 * @Date:   2017-03-15 13:20:01
-* @Last Modified by:   chuxiao
-* @Last Modified time: 2017-04-11 11:02:44
+* @Last Modified by:   Administrator
+* @Last Modified time: 2017-04-12 15:07:29
 */
 
 'use strict';
@@ -19,9 +19,12 @@ export default [
 			topbar:  resolve => require(['../components/topbar.vue'], resolve),
 			main:    resolve => require([
 				'../components/main.vue',
+				'../store/modules/video',
 			], (
 				MainComponent,
+				VideoModule
 			) => {
+				registerModule('video', VideoModule.default);
 				resolve(MainComponent)
 			})
 		},
