@@ -5,7 +5,7 @@
 				<img src="../assets/toplogo.png" height="20" width="100" alt="彩虹云直播">
 			</div>
 			<div class="breadcrumb">
-				{{ channel.name }} - 彩虹云直播 alpha Build 20170330
+				{{ channel.name }} - 彩虹云直播 alpha Build 2017年04月11日16:15:51
 <!-- 			<el-breadcrumb separator="/">
 					<el-breadcrumb-item
 						v-for="item of breadcrumb"

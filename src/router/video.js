@@ -2,7 +2,7 @@
 * @Author: William Chan
 * @Date:   2017-03-15 13:20:01
 * @Last Modified by:   chuxiao
-* @Last Modified time: 2017-04-11 11:02:44
+* @Last Modified time: 2017-04-12 10:14:40
 */
 
 'use strict';
@@ -71,18 +71,18 @@ export default [
 						meta: { requiresAuth: true },
 						component: resolve => require(['../views/video/detail-image.vue'], resolve)
 					},
-					// {
-					// 	name: 'live_detail_share',
-					// 	path: 'share',
-					// 	meta: { requiresAuth: true },
-					// 	component: resolve => require(['../views/live/detail-share.vue'], resolve)
-					// },
-					// {
-					// 	name: 'live_detail_setting',
-					// 	path: 'setting',
-					// 	meta: { requiresAuth: true },
-					// 	component: resolve => require(['../views/live/detail-setting.vue'], resolve)
-					// },
+					{
+						name: 'video_detail_share',
+						path: 'share',
+						meta: { requiresAuth: true },
+						component: resolve => require(['../views/video/detail-share.vue'], resolve)
+					},
+					{
+						name: 'video_detail_setting',
+						path: 'setting',
+						meta: { requiresAuth: true },
+						component: resolve => require(['../views/video/detail-setting.vue'], resolve)
+					},
 					// {
 					// 	name: 'live_detail_livebuy',
 					// 	path: 'livebuy',

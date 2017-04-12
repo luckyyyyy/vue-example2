@@ -4,7 +4,7 @@
 			<div class="box">
 				<Menu :activeName="status" @on-select="onStatusChange" width="135px">
 					<li class="title">
-						直播列表
+						回放列表
 					</li>
 					<MenuItem name="finish">列表</MenuItem>
 					<MenuItem name="trash">回收站</MenuItem>
@@ -44,17 +44,17 @@
 							</div>
 						</div>
 						<div class="buttom">
-							<div class="time">直播开始时间：<span>未设置</span></div>
+							<div class="time">视频存储大小：<span>未知</span></div>
 							<div class="button">
 								<router-link :to="{ name: 'video_detail', params: { videoid: item.id } }">
 									<i class="iconfont icon-paintfill"></i>
 									<span>直播装修</span>
 								</router-link>
 
-								<router-link :to="{ name: 'live_detail_image', params: { liveid: item.id } }">
+								<!-- <router-link :to="{ name: 'video_detail_image', params: { videoid: item.id } }">
 									<i class="iconfont icon-wefill"></i>
 									<span>互动设置</span>
-								</router-link>
+								</router-link> -->
 
 								<router-link :to="{ name: 'video_data', params: { videoid: item.id } }">
 									<i class="iconfont icon-rankfill"></i>
