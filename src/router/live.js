@@ -2,11 +2,12 @@
 * @Author: William Chan
 * @Date:   2017-03-06 22:29:46
 * @Last Modified by:   William Chan
-* @Last Modified time: 2017-04-12 19:08:34
+* @Last Modified time: 2017-04-12 19:40:47
 */
 
 'use strict';
 import { registerModule } from '../store'
+import LiveModule from '../store/modules/live'
 
 export default [
 	{
@@ -17,14 +18,17 @@ export default [
 		components: {
 			sidebar: resolve => require(['../components/sidebar.vue'], resolve),
 			topbar:  resolve => require(['../components/topbar.vue'], resolve),
-			main:    resolve => require([
-				'../components/main.vue',
-			], (
-				MainComponent,
-				LiveModule,
-			) => {
-				resolve(MainComponent)
-			})
+			main:    resolve => {
+				registerModule('live', LiveModule);
+				return require([
+					'../components/main.vue',
+
+				], (
+					MainComponent,
+				) => {
+					resolve(MainComponent)
+				})
+			}
 		},
 		children: [
 			{

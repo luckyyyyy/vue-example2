@@ -1,18 +1,14 @@
 /*
 * @Author: William Chan
 * @Date:   2017-03-15 13:20:01
-<<<<<<< HEAD
 * @Last Modified by:   William Chan
-* @Last Modified time: 2017-04-12 19:08:43
-=======
-* @Last Modified by:   Administrator
-* @Last Modified time: 2017-04-12 15:07:29
->>>>>>> 6a7574b4df4805975e15afae6fba7ad04569eec4
+* @Last Modified time: 2017-04-12 19:40:04
 */
 
 'use strict';
 
 import { registerModule } from '../store'
+import VideoModule from '../store/modules/video'
 
 export default [
 	{
@@ -23,13 +19,17 @@ export default [
 		components: {
 			sidebar: resolve => require(['../components/sidebar.vue'], resolve),
 			topbar:  resolve => require(['../components/topbar.vue'], resolve),
-			main:    resolve => require([
-				'../components/main.vue',
-			], (
-				MainComponent,
-			) => {
-				resolve(MainComponent);
-			})
+			main:    resolve => {
+				registerModule('video', VideoModule);
+				return require([
+					'../components/main.vue',
+				], (
+					MainComponent,
+				) => {
+
+					resolve(MainComponent);
+				})
+			}
 		},
 		children: [
 			{
