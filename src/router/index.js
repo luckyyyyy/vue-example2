@@ -1,8 +1,8 @@
 /*
 * @Author: William Chan
 * @Date:   2016-12-01 17:57:50
-* @Last Modified by:   Administrator
-* @Last Modified time: 2017-04-12 14:55:43
+* @Last Modified by:   William Chan
+* @Last Modified time: 2017-04-12 16:51:49
 */
 
 'use strict';
@@ -98,7 +98,7 @@ router.beforeEach(async (to, from, next) => {
 router.afterEach(route => {
 	NProgress.done();
 })
-router.onError = err => {
-	console.log(err)
-}
+// router.onError = err => {
+// 	console.log(err)
+// }
 export default router

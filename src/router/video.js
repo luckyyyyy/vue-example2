@@ -2,8 +2,8 @@
 * @Author: William Chan
 * @Date:   2017-03-15 13:20:01
 <<<<<<< HEAD
-* @Last Modified by:   chuxiao
-* @Last Modified time: 2017-04-12 10:14:40
+* @Last Modified by:   William Chan
+* @Last Modified time: 2017-04-12 17:32:06
 =======
 * @Last Modified by:   Administrator
 * @Last Modified time: 2017-04-12 15:07:29
@@ -17,6 +17,7 @@ import { registerModule } from '../store'
 export default [
 	{
 		path: '/video',
+		name: 'video',
 		meta: { requiresAuth: true },
 		redirect: { name: 'video_list' },
 		components: {
@@ -30,7 +31,7 @@ export default [
 				VideoModule
 			) => {
 				registerModule('video', VideoModule.default);
-				resolve(MainComponent)
+				resolve(MainComponent);
 			})
 		},
 		children: [
