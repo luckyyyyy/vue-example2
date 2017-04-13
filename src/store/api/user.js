@@ -2,7 +2,7 @@
 * @Author: Administrator
 * @Date:   2017-02-25 14:41:16
 * @Last Modified by:   Administrator
-* @Last Modified time: 2017-03-02 23:51:38
+* @Last Modified time: 2017-04-13 09:25:51
 */
 
 'use strict';
@@ -28,19 +28,19 @@ export const login = ({ phone, password }) => {
 export const logout = () => {
 	return http.post(`user/logout`)
 }
-// POST /api/v1/user/reset_password/captcha
+// POST /api/v1/user/reset/captcha
 export const reset_password_captcha = ({ phone }) => {
-	return http.post(`user/reset_password/captcha`, { phone })
+	return http.post(`user/reset/captcha`, { phone })
 }
-// PUT /api/v1/user/reset_password
+// PUT /api/v1/user/reset
 export const reset_password = ({ phone, password, captcha }) => {
-	return http.put(`user/reset_password`, { phone, password, captcha })
+	return http.put(`user/reset`, { phone, password, captcha })
 }
-// PUT /api/v1/user/update/user
+// PUT /api/v1/user/profile
 export const update_user = ({ nickName, email, sex, description }) => {
-	return http.put(`user/update_user`, { nickName, email, sex, description })
+	return http.put(`user/profile`, { nickName, email, sex, description })
 }
-// POST /api/v1/user/update_password
+// POST /api/v1/user/password
 export const password = ({ oldPassword, newPassword }) => {
-	return http.put(`user/update_password`, { oldPassword, newPassword })
+	return http.put(`user/password`, { oldPassword, newPassword })
 }

@@ -1,8 +1,8 @@
 /*
 * @Author: William Chan
 * @Date:   2016-12-02 11:31:24
-* @Last Modified by:   chuxiao
-* @Last Modified time: 2017-04-05 11:05:04
+* @Last Modified by:   Administrator
+* @Last Modified time: 2017-04-13 09:26:03
 */
 
 // axios.request(config)
@@ -110,7 +110,7 @@ http.interceptors.request.use(onRequest, onRequestError);
 http.interceptors.response.use(onResponse, onResponseError);
 // 头像接口
 export const USER_AVATAR = {
-	action: `${API_HOST}/user/update/avatar`,
+	action: `${API_HOST}/user/avatar`,
 	method: 'PUT',
 	type: 1
 }

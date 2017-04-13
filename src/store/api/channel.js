@@ -1,8 +1,8 @@
 /*
 * @Author: Administrator
 * @Date:   2017-02-25 14:58:36
-* @Last Modified by:   William Chan
-* @Last Modified time: 2017-03-30 01:35:36
+* @Last Modified by:   Administrator
+* @Last Modified time: 2017-04-13 09:26:36
 */
 
 'use strict';
@@ -29,9 +29,9 @@ export const channel_delete = (id) => {
 export const channel_query = (id) => {
 	return http.get(`channel/query/${id}`)
 }
-// PUT /api/v1/channel/update/{channel_id}
+// PUT /api/v1/channel/{channel_id}
 export const channel_update = ({ channelId, contacts, description, logoImageId, name, phone }) => {
-	return http.put(`channel/update/${channelId}`, { contacts, description, logoImageId, name, phone })
+	return http.put(`channel/${channelId}`, { contacts, description, logoImageId, name, phone })
 }
 
 

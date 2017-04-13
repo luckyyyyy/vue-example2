@@ -1,8 +1,8 @@
 /*
 * @Author: Administrator
 * @Date:   2017-02-25 14:58:36
-* @Last Modified by:   William Chan
-* @Last Modified time: 2017-04-09 00:15:22
+* @Last Modified by:   Administrator
+* @Last Modified time: 2017-04-13 09:31:38
 */
 
 'use strict';
@@ -45,29 +45,26 @@ export const live_finish = ({ id }) => {
 export const live_public = ({ id }) => {
 	return http.put(`live/public/${id}`)
 }
-// PUT /api/v1/live/update/count_down/{id}
+// PUT /api/v1/live/count_down/{id}
 export const live_count_down = ({ id, countDownStatus, liveBeginTime, liveHint }) => {
-	return http.put(`live/update/count_down/${id}`, { countDownStatus, liveBeginTime, liveHint })
+	return http.put(`live/countdown/${id}`, { countDownStatus, liveBeginTime, liveHint })
 }
-// PUT /api/v1/live/update/guide/{id}
+// PUT /api/v1/live/guide/{id}
 export const live_guide = ({ id, guideStatus, guideImageId }) => {
-	return http.put(`live/update/guide/${id}`, { guideStatus, guideImageId })
+	return http.put(`live/guide/${id}`, { guideStatus, guideImageId })
 }
-// PUT /api/v1/live/update/share/{id}
+// PUT /api/v1/live/share/{id}
 export const live_share = ({ id, shareStatus, shareImageId, shareTitle, shareContent }) => {
-	return http.put(`live/update/share/${id}`, { shareStatus, shareImageId, shareTitle, shareContent })
+	return http.put(`live/share/${id}`, { shareStatus, shareImageId, shareTitle, shareContent })
 }
-// PUT /api/v1/live/update/{id}
+// PUT /api/v1/live/{id}
 export const live_update = ({ id, name, nickName, avatarImageId }) => {
-	return http.put(`live/update/${id}`, { name, nickName, avatarImageId })
+	return http.put(`live/${id}`, { name, nickName, avatarImageId })
 }
-// PUT /api/v1/live/update/attention_watch/{id}
-// export const live_watch = ({ id, attentionWatchStatus }) => {
-// 	return http.put(`live/update/attention_watch/${id}`, { attentionWatchStatus })
-// }
-// PUT /api/v1/live/update/auth_watch/{id}
+
+// PUT /api/v1/live/auth_watch/{id}
 export const live_auth_watch = ({ id, authWatchStatus, chargeHints, price, authCode, authCodeHints }) => {
-	return http.put(`live/update/auth_watch/${id}`, { authWatchStatus, chargeHints, price, authCode, authCodeHints })
+	return http.put(`live/auth-watch/${id}`, { authWatchStatus, chargeHints, price, authCode, authCodeHints })
 }
 
 // POST /api/v1/notice/{live_id}
