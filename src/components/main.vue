@@ -73,7 +73,7 @@
 				}
 			})
 		} else if (to.params.videoid) {
-			 await store.dispatch('video/VIDEO_QUERY', { id: to.params.videoid }).then(res => {
+			 await store.dispatch('video/query/VIDEO_QUERY', { id: to.params.videoid }).then(res => {
 				// success
 			}).catch(err => {
 				if (from.matched.some(record => record.name == 'video')) {
