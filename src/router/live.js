@@ -2,12 +2,11 @@
 * @Author: William Chan
 * @Date:   2017-03-06 22:29:46
 * @Last Modified by:   Administrator
-* @Last Modified time: 2017-04-14 20:23:37
+* @Last Modified time: 2017-04-14 20:39:11
 */
 
 'use strict';
 import { registerModule } from '../store'
-import LiveModule from '../store/modules/live'
 
 export default [
 	{
