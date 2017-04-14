@@ -1,8 +1,8 @@
 /*
 * @Author: William Chan
 * @Date:   2017-03-06 22:29:46
-* @Last Modified by:   chuxiao
-* @Last Modified time: 2017-04-14 11:59:21
+* @Last Modified by:   Administrator
+* @Last Modified time: 2017-04-14 20:23:37
 */
 
 'use strict';
@@ -18,17 +18,16 @@ export default [
 		components: {
 			sidebar: resolve => require(['../components/sidebar.vue'], resolve),
 			topbar:  resolve => require(['../components/topbar.vue'], resolve),
-			main:    resolve => {
-				registerModule('live', LiveModule);
-				return require([
-					'../components/main.vue',
-
-				], (
-					MainComponent,
-				) => {
-					resolve(MainComponent)
-				})
-			}
+			main:    resolve => require([
+				'../components/main.vue',
+				'../store/modules/live/query',
+			], (
+				MainComponent,
+				LiveQueryModule,
+			) => {
+				registerModule(['live', 'query'], LiveQueryModule.default);
+				resolve(MainComponent)
+			})
 		},
 		children: [
 			{

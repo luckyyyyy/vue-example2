@@ -1,8 +1,8 @@
 /*
 * @Author: Administrator
 * @Date:   2017-01-06 02:33:52
-* @Last Modified by:   chuxiao
-* @Last Modified time: 2017-04-02 18:11:05
+* @Last Modified by:   Administrator
+* @Last Modified time: 2017-04-14 20:32:56
 */
 
 'use strict';
@@ -47,11 +47,11 @@ const mutations = {
 		state.lock    = true;
 	},
 	[VIDEO_FIND.SUCCESS] (state, { data }) {
-		if (data.videos.length >= state.limits) {
-			state.lock = false;
-		}
 		state.data    = state.data.concat(data.videos);
 		state.start   = state.start + state.limits;
+		if (state.data.length !== data.total) {
+			state.lock = false;
+		}
 	},
 	[VIDEO_FIND.FAILURE] (state, err) {
 		state.lock    = false;
