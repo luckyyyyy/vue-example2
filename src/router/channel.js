@@ -1,12 +1,13 @@
 /*
 * @Author: William Chan
 * @Date:   2017-03-23 13:14:53
-* @Last Modified by:   William Chan
-* @Last Modified time: 2017-04-09 00:27:07
+* @Last Modified by:   chuxiao
+* @Last Modified time: 2017-04-14 14:13:56
 */
 
 'use strict';
 import { registerModule } from '../store'
+import LiveModule from '../store/modules/live'
 
 export default [
 	{
@@ -17,13 +18,17 @@ export default [
 		components: {
 			sidebar: resolve => require(['../components/sidebar.vue'], resolve),
 			topbar:  resolve => require(['../components/topbar.vue'], resolve),
-			main:    resolve => require([
-				'../components/main.vue',
-			], (
-				MainComponent,
-			) => {
-				resolve(MainComponent)
-			})
+			main:    resolve => {
+				registerModule('live', LiveModule);
+				return require([
+					'../components/main.vue',
+
+				], (
+					MainComponent,
+				) => {
+					resolve(MainComponent)
+				})
+			}
 		},
 		children: [
 			{
@@ -33,9 +38,9 @@ export default [
 				component: resolve => require([
 					'../views/channel/index.vue',
 				], (
-					IndexComponent,
+					ChannelIndexComponent,
 				) => {
-					resolve(IndexComponent);
+					resolve(ChannelIndexComponent);
 				})
 			},
 			{
@@ -59,10 +64,13 @@ export default [
 				meta: { requiresAuth: true, parent: 'channel' },
 				component: resolve => require([
 					'../views/channel/template.vue',
+					'../store/modules/live/find',
 				],(
-					EditComponent,
+					TemplateComponent,
+					LiveFindModule,
 				) => {
-					resolve(EditComponent);
+					registerModule(['live', 'find'], LiveFindModule.default);
+					resolve(TemplateComponent);
 				})
 			},
 		]

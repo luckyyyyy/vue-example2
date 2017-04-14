@@ -135,22 +135,45 @@
 		data () {
 			return {
 				openLogoAlbum: false,
-				lock: false,
 				channel: {},
+				status: this.$route.params.status || 'template',
+				loading: false,
 			}
 		},
 		computed: {
 			...mapState('channel', {
 				info: state => state.channel
-			})
+			}),
+			...mapState('live/find', ['data', 'lock']),
 		},
 		mounted () {
 			this.channel = Object.assign({}, this.info);
+			this.findLiveList(true);
 		},
 		methods: {
 			...mapActions('channel', {
 				updateChannel: 'CHANNEL_UPDATE'
 			}),
+			...mapActions('live/find', {
+				getLiveList: 'LIVE_FIND_REQUEST'
+			}),
+			findLiveList (reload) {
+				if(!this.lock || reload && !this.loading){
+					const msg = this.$Message.loading('正在加载中...', 0);
+					this.loading = true;
+					this.getLiveList({ reload, status: this.status }).then(() => {
+						this.loading = false;
+						msg();
+						if(!this.lock){
+							// 这里不能用滚动触发 分页请求，所以先一次性全加载完，不做滚动加载了
+							this.findLiveList();
+						}
+					}).catch(() => {
+						this.loading = false;
+						msg();
+					})
+				}
+			},
 			onSelectLogo (select, data) {
 				this.channel.logoImageId  = select;;
 				this.channel.logoImageUrl = data.url;

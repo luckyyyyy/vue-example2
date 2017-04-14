@@ -1,8 +1,8 @@
 /*
 * @Author: Administrator
 * @Date:   2017-02-25 14:58:36
-* @Last Modified by:   Administrator
-* @Last Modified time: 2017-04-13 09:31:32
+* @Last Modified by:   chuxiao
+* @Last Modified time: 2017-04-14 16:02:24
 */
 
 'use strict';
@@ -17,11 +17,18 @@ import { http } from './'
 export const video_find = ({ start, limits, status }) => {
 	return http.get(`video/find/${status}`, { params: { start, limits } })
 }
-// GET /api/v1/live/query
+// GET /api/v1/video/query
 export const video_query = ({ id }) => {
   return http.get(`video/query/${id}`)
 }
-
+// PUT /api/v1/video/trash
+export const video_trash = ({ id }) => {
+  return http.put(`video/trash/${id}`)
+}
+// DELETE /api/v1/video
+export const video_delete = ({ id }) => {
+  return http.delete(`video/delete/${id}`)
+}
 // PUT /api/v1/video/guide/{id}
 export const video_guide = ({ id, guideStatus, guideImageId }) => {
   return http.put(`video/guide/${id}`, { guideStatus, guideImageId })

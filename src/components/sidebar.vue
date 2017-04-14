@@ -51,7 +51,7 @@
 						item: '<i class="iconfont icon-recharge"></i>账户',
 						name: 'account',
 						sub: [
-							// { item: '账户总览', name: 'account_overview' },
+							{ item: '账户总览', name: 'account_overview' },
 							// { item: '账户升级', name: 'account_upgrade' },
 							{ item: '流量管理', name: 'account_flow' },
 							{ item: '立即充值', name: 'account_recharge' },

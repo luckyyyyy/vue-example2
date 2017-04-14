@@ -1,8 +1,8 @@
 /*
 * @Author: William Chan
 * @Date:   2017-03-15 13:20:01
-* @Last Modified by:   William Chan
-* @Last Modified time: 2017-04-12 19:40:04
+* @Last Modified by:   chuxiao
+* @Last Modified time: 2017-04-14 15:55:45
 */
 
 'use strict';
@@ -40,12 +40,18 @@ export default [
 				] },
 				component: resolve => require([
 					'../views/video/list.vue',
-					'../store/modules/video/find'
+					'../store/modules/video/find',
+					'../store/modules/video/trash',
+					'../store/modules/video/delete',
 				], (
 					VideoListComponent,
 					VideoFindModule,
+					VideoTrashModule,
+					VideoDeleteModule,
 				) => {
 					registerModule(['video', 'find'], VideoFindModule.default);
+					registerModule(['video', 'trash'], VideoTrashModule.default);
+					registerModule(['video', 'delete'], VideoDeleteModule.default);
 					resolve(VideoListComponent);
 				})
 			},
@@ -57,7 +63,7 @@ export default [
 			},
 			{
 				name: 'video_detail',
-				path: 'detail/:videoid',
+				path: 'detail',
 				meta: { requiresAuth: true, parent: 'video_list' },
 				redirect: { name: 'video_detail_image' },
 				component: resolve => require([
@@ -73,21 +79,27 @@ export default [
 				children: [
 					{
 						name: 'video_detail_image',
-						path: 'image',
+						path: 'image/:videoid',
 						meta: { requiresAuth: true },
 						component: resolve => require(['../views/video/detail-image.vue'], resolve)
 					},
 					{
 						name: 'video_detail_share',
-						path: 'share',
+						path: 'share/:videoid',
 						meta: { requiresAuth: true },
 						component: resolve => require(['../views/video/detail-share.vue'], resolve)
 					},
 					{
 						name: 'video_detail_setting',
-						path: 'setting',
+						path: 'setting/:videoid',
 						meta: { requiresAuth: true },
 						component: resolve => require(['../views/video/detail-setting.vue'], resolve)
+					},
+					{
+						name: 'video_detail_authorize',
+						path: 'authorize/:videoid',
+						meta: { requiresAuth: true },
+						component: resolve => require(['../views/video/detail-authorize.vue'], resolve)
 					},
 					// {
 					// 	name: 'live_detail_livebuy',
@@ -112,12 +124,6 @@ export default [
 					// 	path: 'watch',
 					// 	meta: { requiresAuth: true },
 					// 	component: resolve => require(['../views/live/detail-watch.vue'], resolve)
-					// },
-					// {
-					// 	name: 'live_detail_authorize',
-					// 	path: 'authorize',
-					// 	meta: { requiresAuth: true },
-					// 	component: resolve => require(['../views/live/detail-authorize.vue'], resolve)
 					// },
 				],
 			}

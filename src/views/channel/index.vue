@@ -32,7 +32,9 @@
 					<p slot="title" class="commoon-card__title">选择模版</p>
 					<Radio-group class="wrap" v-model="template">
 						<div class="template-box">
-							<div class="template"></div>
+							<div class="template">
+								<div class="header"></div>
+							</div>
 							<div class="settings">
 								<Radio :label="1">
 									<span class="txt">BANNER模版</span>
@@ -43,7 +45,9 @@
 							</div>
 						</div>
 						<div class="template-box">
-							<div class="template"></div>
+							<div class="template">
+								<div class="header"></div>
+							</div>
 							<div class="settings">
 								<Radio :label="2" disabled>
 									<span class="txt">店招模版</span>

@@ -23,21 +23,15 @@
 										{{ item.streamStatus == 'publish' ? '推流中' : '未推流' }}
 									</em>
 								</div>
-								<!-- <div class="active">
+								<div class="active">
 									<template v-if="item.trashStatus">
 										<em @click="onChangeStatus(item.id, `您确定要恢复直播【${item.name}】`)">恢复</em>
 										<em @click="onChangeStatus(item.id, `您确定彻底要删除直播【${item.name}】<br>一旦删除，将彻底无法恢复。`, true)">彻底删除</em>
 									</template>
 									<template v-else>
-										<template v-if="!item.publicStatus">
-											<em @click="onChangePublic(item.id, `您确定要发布直播【${item.name}】<br>发布后在微信端公开展示给用户。`)">发布</em>
-										</template>
-										<template v-else>
-											<em @click="onChangePublic(item.id, `您确定要撤回直播【${item.name}】<br>撤回后微信端用户无法查看直播。`)">撤回</em>
-										</template>
 										<em @click="onChangeStatus(item.id, `您确定要删除直播【${item.name}】`)">删除</em>
 									</template>
-								</div> -->
+								</div>
 							</div>
 							<div class="title">
 								<span>{{ item.name }}</span>
@@ -46,11 +40,12 @@
 						<div class="buttom">
 							<div class="time">视频存储大小：<span>未知</span></div>
 							<div class="button">
-								<router-link :to="{ name: 'video_detail', params: { videoid: item.id } }">
-									<i class="iconfont icon-paintfill"></i>
-									<span>直播装修</span>
-								</router-link>
-
+								<template v-if="!item.trashStatus">
+									<router-link :to="{ name: 'video_detail', params: { videoid: item.id } }">
+										<i class="iconfont icon-paintfill"></i>
+										<span>直播装修</span>
+									</router-link>
+								</template>
 								<!-- <router-link :to="{ name: 'video_detail_image', params: { videoid: item.id } }">
 									<i class="iconfont icon-wefill"></i>
 									<span>互动设置</span>
@@ -62,8 +57,8 @@
 								</router-link>
 
 								<router-link :to="{ name: 'live_control', params: { liveid: item.id } }">
-									<i class="iconfont icon-k"></i>
-									<span>中控台</span>
+									<i class="iconfont icon-videoplay"></i>
+									<span>播放</span>
 								</router-link>
 							</div>
 						</div>
@@ -102,15 +97,12 @@
 			// ...mapActions('live/create', {
 			// 	createLive: 'LIVE_CREATE_REQUEST'
 			// }),
-			// ...mapActions('live/trash', {
-			// 	trashLive: 'LIVE_TRASH_REQUEST'
-			// }),
-			// ...mapActions('live/delete', {
-			// 	deleteLive: 'LIVE_DELETE_REQUEST'
-			// }),
-			// ...mapActions('live/public', {
-			// 	livePublic: 'LIVE_PUBLIC_REQUEST'
-			// }),
+			...mapActions('video/trash', {
+				trashVideo: 'VIDEO_TRASH_REQUEST'
+			}),
+			...mapActions('video/delete', {
+				deleteVideo: 'VIDEO_DELETE_REQUEST'
+			}),
 			onStatusChange (val) {
 				this.status = val;
 				this.findVideoList(true);
@@ -148,8 +140,22 @@
 					});
 				}
 			},
-
-
+			onChangeStatus(id, content, confirmDelete) {
+				const api = confirmDelete ? this.deleteVideo : this.trashVideo;
+				this.$Modal.confirm({
+					title: '直播',
+					content,
+					loading: true,
+					onOk: () => {
+						api({ id }).then(() => {
+							this.$Modal.remove();
+							this.findVideoList(true);
+						}).catch(() => {
+							this.$Modal.remove();
+						})
+					}
+				})
+			},
 		}
 	}
 </script>

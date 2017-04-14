@@ -1,23 +1,23 @@
 /*
 * @Author: Administrator
 * @Date:   2017-01-06 02:33:52
-* @Last Modified by:   William Chan
-* @Last Modified time: 2017-03-19 18:55:28
+* @Last Modified by:   chuxiao
+* @Last Modified time: 2017-04-14 15:47:26
 */
 
 'use strict';
 
-import { live_trash } from '../../api/live'
-import { LIVE_TRASH } from '../../types'
+import { video_trash } from '../../api/video'
+import { VIDEO_TRASH } from '../../types'
 
 const state = {}
 
 const getters = {}
 
 const actions = {
-	[LIVE_TRASH.REQUEST] ({ commit }, ...args) {
+	[VIDEO_TRASH.REQUEST] ({ commit }, ...args) {
 		return new Promise((resolve, reject) => {
-			live_trash(...args).then(res => {
+			video_trash(...args).then(res => {
 				resolve();
 			}).catch(err => {
 				reject();

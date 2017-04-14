@@ -42,7 +42,6 @@
 										</template>
 										<em @click="onChangeStatus(item.id, `您确定要删除直播【${item.name}】`)">删除</em>
 									</template>
-
 								</div>
 							</div>
 							<div class="title">
@@ -52,7 +51,6 @@
 						<div class="buttom">
 							<div class="time">直播开始时间：
 								<template v-if="item.countDownStatus">
-
 									<span class="date">{{ item.liveCountDown.liveBeginTime | date('Y-MM-DD HH:mm') }}</span>
 								</template>
 								<template v-else>
@@ -60,25 +58,28 @@
 								</template>
 							</div>
 							<div class="button">
-								<router-link :to="{ name: 'live_detail', params: { liveid: item.id } }">
-									<i class="iconfont icon-paintfill"></i>
-									<span>直播装修</span>
-								</router-link>
-
-								<router-link :to="{ name: 'live_detail_image', params: { liveid: item.id } }">
-									<i class="iconfont icon-wefill"></i>
-									<span>互动设置</span>
-								</router-link>
-
+								<template v-if="!item.trashStatus">
+									<router-link :to="{ name: 'live_detail', params: { liveid: item.id } }">
+										<i class="iconfont icon-paintfill"></i>
+										<span>直播装修</span>
+									</router-link>
+								</template>
+								<template v-if="!item.trashStatus">
+									<router-link :to="{ name: 'live_detail_image', params: { liveid: item.id } }">
+										<i class="iconfont icon-wefill"></i>
+										<span>互动设置</span>
+									</router-link>
+								</template>
 								<router-link :to="{ name: 'live_data', params: { liveid: item.id } }">
 									<i class="iconfont icon-rankfill"></i>
 									<span>直播数据</span>
 								</router-link>
-
-								<router-link :to="{ name: 'live_control', params: { liveid: item.id } }">
-									<i class="iconfont icon-k"></i>
-									<span>中控台</span>
-								</router-link>
+								<template v-if="!item.trashStatus">
+									<router-link :to="{ name: 'live_control', params: { liveid: item.id } }">
+										<i class="iconfont icon-k"></i>
+										<span>中控台</span>
+									</router-link>
+								</template>
 							</div>
 						</div>
 					</div>
@@ -88,7 +89,6 @@
 				没有数据啦QAQ
 			</div>
 		</div>
-
 		<Modal
 			:width="550"
 			title="新建直播"
@@ -118,7 +118,6 @@
 		</Modal>
 	</div>
 </template>
-
 <script>
 	import { mapState, mapActions } from 'vuex'
 	import { LIVE_CREATE_RULES } from '../../options/rules'
@@ -255,7 +254,6 @@
 		},
 	}
 </script>
-
 <style lang="less" scoped>
 	@import "../../assets/styles/views/live/list";
 </style>

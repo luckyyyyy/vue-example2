@@ -1,8 +1,8 @@
 /*
 * @Author: William Chan
 * @Date:   2017-03-06 22:29:46
-* @Last Modified by:   William Chan
-* @Last Modified time: 2017-04-12 19:40:47
+* @Last Modified by:   chuxiao
+* @Last Modified time: 2017-04-14 11:59:21
 */
 
 'use strict';
@@ -103,7 +103,7 @@ export default [
 			},
 			{
 				name: 'live_detail',
-				path: 'detail/:liveid',
+				path: 'detail',
 				meta: { requiresAuth: true, parent: 'live_list' },
 				redirect: { name: 'live_detail_countdown' },
 				component: resolve => require([
@@ -119,25 +119,25 @@ export default [
 				children: [
 					{
 						name: 'live_detail_countdown',
-						path: 'countdown',
+						path: 'countdown/:liveid',
 						meta: { requiresAuth: true },
 						component: resolve => require(['../views/live/detail-countdown.vue'], resolve)
 					},
 					{
 						name: 'live_detail_image',
-						path: 'image',
+						path: 'image/:liveid',
 						meta: { requiresAuth: true },
 						component: resolve => require(['../views/live/detail-image.vue'], resolve)
 					},
 					{
 						name: 'live_detail_share',
-						path: 'share',
+						path: 'share/:liveid',
 						meta: { requiresAuth: true },
 						component: resolve => require(['../views/live/detail-share.vue'], resolve)
 					},
 					{
 						name: 'live_detail_setting',
-						path: 'setting',
+						path: 'setting/:liveid',
 						meta: { requiresAuth: true },
 						component: resolve => require(['../views/live/detail-setting.vue'], resolve)
 					},
@@ -161,13 +161,13 @@ export default [
 					// },
 					{
 						name: 'live_detail_watch',
-						path: 'watch',
+						path: 'watch/:liveid',
 						meta: { requiresAuth: true },
 						component: resolve => require(['../views/live/detail-watch.vue'], resolve)
 					},
 					{
 						name: 'live_detail_authorize',
-						path: 'authorize',
+						path: 'authorize/:liveid',
 						meta: { requiresAuth: true },
 						component: resolve => require(['../views/live/detail-authorize.vue'], resolve)
 					},

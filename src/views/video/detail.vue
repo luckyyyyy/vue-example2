@@ -18,10 +18,6 @@
 					<!-- <MenuItem name="live_detail_watch">关注观看</MenuItem> -->
 					<MenuItem name="video_detail_authorize">授权观看</MenuItem>
 				</Menu>
-				<div class="button">
-    				<iButton @click="goData" type="primary" class="menu-btn">直播数据</iButton>
-    				<iButton @click="goControl" type="primary" class="menu-btn">中控台</iButton>
-				</div>
 			</div>
 		</div>
 		<transition name="fade" mode="out-in">
@@ -43,14 +39,6 @@
 		methods: {
 			onSelect (val) {
 				this.$router.push({ name: val, params: this.$route.params })
-			},
-			goControl () {
-				const uri = `/live/control/${this.$route.params.liveid}`
-				window.open(uri)
-			},
-			goData () {
-				const uri = `/live/data/${this.$route.params.liveid}`
-				window.open(uri)
 			}
 		}
 	}
