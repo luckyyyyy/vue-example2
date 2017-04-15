@@ -1,8 +1,8 @@
 /*
 * @Author: William Chan
 * @Date:   2017-03-23 13:14:53
-* @Last Modified by:   Administrator
-* @Last Modified time: 2017-04-14 20:22:41
+* @Last Modified by:   chuxiao
+* @Last Modified time: 2017-04-15 10:46:42
 */
 
 'use strict';
@@ -20,7 +20,6 @@ export default [
 			main:    resolve => {
 				return require([
 					'../components/main.vue',
-
 				], (
 					MainComponent,
 				) => {

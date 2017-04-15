@@ -21,10 +21,47 @@
 				</div>
 				<div class="content-body">
 					<div class="content-card">
-
+						<div id="container-speed"></div>
 					</div>
 					<div class="content-card">
 
+					</div>
+					<div class="content-card-large">
+						<h4 class="content-card-title">免费版套餐详情</h4>
+						<ul class="collapse" :class="{ open: isOpen }">
+							<li class="item"></li>
+							<li class="item"></li>
+							<li class="item"></li>
+							<li class="item"></li>
+							<li class="item"></li>
+							<li class="item"></li>
+							<li class="item"></li>
+							<li class="item"></li>
+							<li class="item"></li>
+							<li class="item"></li>
+							<li class="item"></li>
+							<li class="item"></li>
+							<li class="item"></li>
+							<li class="item"></li>
+							<li class="item"></li>
+							<li class="item"></li>
+							<li class="item"></li>
+							<li class="item"></li>
+							<li class="item"></li>
+							<li class="item"></li>
+							<li class="item"></li>
+							<li class="item"></li>
+							<li class="item"></li>
+							<li class="item"></li>
+							<li class="item"></li>
+							<li class="item"></li>
+							<li class="item"></li>
+							<li class="item"></li>
+							<li class="item"></li>
+						</ul>
+						<div class="collapse-btn" @click="isOpen = !isOpen;">
+							<i class="icon" :class="{ open:isOpen }"></i>
+						</div>
 					</div>
 				</div>
 			</div>
@@ -33,9 +70,11 @@
 </template>
 
 <script>
+
 	export default {
 		data () {
 			return {
+				isOpen: false,
 			}
 		},
 		mounted () {
