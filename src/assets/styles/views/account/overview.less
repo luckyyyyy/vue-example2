@@ -1,5 +1,6 @@
-.container {
+.wrapper {
 	padding: 44px 50px;
+	background: #f2f3f7;
 }
 
 .content-head{
@@ -67,6 +68,31 @@
 			height: 96px;
 			border-radius: 6px;
 			border: solid 1px #fff;
+			font-size: 12px;
+			text-align: center;
+			.item-title{
+				display: flex;
+				flex-direction: column;
+				align-items: center;
+				justify-content: center;
+				items-aglin: center;
+				width: 100%;
+				height: 63px;
+				background: #fff;
+				color: #4e546c;
+				box-shadow: inset 0 -3px 4px 0 rgba(0, 0, 0, 0.2);
+				.line{
+					margin: 6px 0 8px;
+					width: 10px;
+					height: 1px;
+					background: #4e546c;
+				}
+			}
+			.item-main{
+				color: #13ce66;
+				line-height: 31px;
+				font-weight: 500;
+			}
 		}
 		.collapse-btn{
 			position: absolute;
@@ -92,5 +118,36 @@
 				}
 			}
 		}
+	}
+}
+
+.right{
+	position: relative;
+	width: 300px;
+	height: 80px;
+	overflow: hidden;
+}
+.rightcircle{
+	width: 160px;
+	height: 160px;
+	border:28px solid transparent;
+	border-radius: 50%;
+	position: absolute;
+	top: 0;
+	right: 0;
+	border-top:28px solid green;
+	border-right:28px solid green;
+	transform : rotate(-45deg); /* 旋转45度 */
+	animation-name: circle_right; /* 动画名称 */
+	animation-duration: 5s;  /* 完成一个动画需要的时间 */
+	animation-timing-function: linear; /* 动画播放的方式，linear是匀速变化 */
+	animation-iteration-count: infinite;  /* 动画播放的次数，infinite是无限次数 */
+}
+@-webkit-keyframes circle_right{
+	0%{
+		transform : rotate(-225deg);
+	}
+	100%{
+		transform : rotate(-45deg);
 	}
 }
