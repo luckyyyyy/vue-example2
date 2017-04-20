@@ -22,7 +22,7 @@
 					</div>
 					<div class="content-body">
 						<div class="content-card">
-
+							<dashboard :max="max" :value="value" ></dashboard>
 						</div>
 						<div class="content-card">
 
@@ -64,14 +64,12 @@
 				</p>
 				<p class="content">当前流量余额：<span class="text-bold">¥ 0.00</span></p>
 			</Card>
-			<div class="right">
-    		<div class="rightcircle"></div>
-			</div>
 		</div>
 	</div>
 </template>
 
 <script>
+	import dashboard from '../../components/item/dashboard.vue'
 	export default {
 		data () {
 			return {
@@ -244,7 +242,8 @@
 						imgURL: require('../../assets/error.png'),
 					},
 				],
-				percent: 51,
+				max: 200,
+				value: 101,
 			}
 		},
 		mounted () {
@@ -254,16 +253,9 @@
 		watch: {
 		},
 		components: {
-
+			dashboard,
 		},
 		computed: {
-			color () {
-				let color = '#2db7f5';
-				if (this.percent == 100) {
-					color = '#5cb85c';
-				}
-				return color;
-			}
 		},
 	}
 </script>
