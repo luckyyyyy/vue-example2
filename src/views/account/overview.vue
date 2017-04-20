@@ -1,5 +1,5 @@
 <template>
-	<div class="container">
+	<div>  <!-- 必须多套一层，不然背景颜色会出现问题 -->
 		<div class="wrapper">
 			<Card class="commoon-card" :bordered="false" dis-hover>
 				<p slot="title" class="commoon-card__title">
@@ -22,10 +22,20 @@
 					</div>
 					<div class="content-body">
 						<div class="content-card">
-							<dashboard :max="max" :value="value" ></dashboard>
+							<h4 class="content-card-title">本月剩余观看时长</h4>
+							<div class="data">
+								<p>已用 <span>{{ 300000 | limit }}</span> </p>
+								<p>剩余 <span>{{ 150000 | limit }}</span> </p>
+							</div>
+							<dashboard class="board" :unit="'MIN'" :max="200000" :value="156550" ></dashboard>
 						</div>
 						<div class="content-card">
-
+							<h4 class="content-card-title">剩余存储空间</h4>
+							<div class="data">
+								<p>已用 <span>{{ 300000 | limit }}</span> </p>
+								<p>剩余 <span>{{ 150000 | limit }}</span> </p>
+							</div>
+							<dashboard class="board" :unit="'GB'" :max="200000" :value="99999" ></dashboard>
 						</div>
 						<div class="content-card-large">
 							<h4 class="content-card-title">免费版套餐详情</h4>
@@ -62,14 +72,56 @@
 				<p slot="title" class="commoon-card__title">
 					频道消费明细
 				</p>
-				<p class="content">当前流量余额：<span class="text-bold">¥ 0.00</span></p>
+				<div class="content">
+					<ul class="table">
+						<li class='thead'>
+							<p>消费时间</p>
+							<p>购买项目</p>
+							<p>账单号</p>
+							<p>应付金额</p>
+							<p>支付状态</p>
+						</li>
+						<li class="tbody">
+							<p>消费时间</p>
+							<p>购买项目</p>
+							<p>账单号</p>
+							<p>应付金额</p>
+							<p>支付状态</p>
+						</li>
+						<li class="tbody">
+							<p>消费时间</p>
+							<p>购买项目</p>
+							<p>账单号</p>
+							<p>应付金额</p>
+							<p>支付状态</p>
+						</li>
+					</ul>
+					<div class="page">
+						<Page @on-change="selectPage" :total="25" show-elevator show-total :page-size='5'></Page>
+					</div>
+				</div>
+			</Card>
+			<Card class="commoon-card" :bordered="false" dis-hover>
+				<p slot="title" class="commoon-card__title">
+					发票管理
+				</p>
+				<p class="content">发票管理暂时由人工管理   发票服务电话：<a href="tel:0571-81959767">0571-81959767</a></p>
+			</Card>
+			<Card class="commoon-card" :bordered="false" dis-hover>
+				<p slot="title" class="commoon-card__title">
+					优惠券
+				</p>
+				<p class="content">暂无优惠券信息</p>
 			</Card>
 		</div>
 	</div>
 </template>
 
 <script>
+	import Vue from 'vue'
 	import dashboard from '../../components/item/dashboard.vue'
+	import { limit } from '../../filter/filter.js'
+	Vue.filter('limit', limit);
 	export default {
 		data () {
 			return {
@@ -242,13 +294,14 @@
 						imgURL: require('../../assets/error.png'),
 					},
 				],
-				max: 200,
-				value: 101,
 			}
 		},
 		mounted () {
 		},
 		methods: {
+			selectPage(pageNum) {
+				console.log(pageNum);
+			}
 		},
 		watch: {
 		},
@@ -263,3 +316,4 @@
 <style scoped lang='less'>
 	@import "../../assets/styles/views/account/overview.less";
 </style>
+

@@ -2,7 +2,7 @@
 * @Author: William Chan
 * @Date:   2017-03-06 22:28:39
 * @Last Modified by:   chuxiao
-* @Last Modified time: 2017-04-14 17:35:09
+* @Last Modified time: 2017-04-20 15:30:40
 */
 
 'use strict';
@@ -41,6 +41,12 @@ export default [
 				path: 'recharge',
 				meta: { requiresAuth: true },
 				component: resolve => require(['../views/account/recharge.vue'], resolve)
+			},
+			{
+				name: 'account_package',
+				path: 'package',
+				meta: { requiresAuth: true },
+				component: resolve => require(['../views/account/package.vue'], resolve)
 			},
 			// {
 			// 	name: 'account_income',
