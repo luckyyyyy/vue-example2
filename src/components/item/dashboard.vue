@@ -4,21 +4,22 @@
 				<div class="dashboard" :style="{ transform: angle, borderTopColor: color, borderRightColor: color }"></div>
 		</div>
 		<div class="main-wrap">
-			<p class="number">{{ min | limit }}</p>
+			<p class="number">{{ min | numberFormat }}</p>
 			<p class="main">
-				<span class="value">{{ value | limit }}</span>
+				<span class="value">{{ value | numberFormat }}</span>
 				<span class="unit">{{ unit }}</span>
 			</p>
-			<p class="number">{{ max | limit }}</p>
+			<p class="number">{{ max | numberFormat }}</p>
 		</div>
 	</div>
 </template>
 
 <script>
-import Vue from 'vue'
-import { limit } from '../../filter/filter.js'
-Vue.filter('limit', limit);
+import { numberFormat } from '../../filter'
 export default {
+	filters: {
+		numberFormat,
+	},
 	props: {
 		min: {
 			type: Number,
@@ -47,29 +48,21 @@ export default {
 			default: '',
 		}
 	},
-	events: {
-
-	},
 	data () {
 		return {
 		}
-	},
-	methods: {
-
-	},
-	watch: {
 	},
 	computed: {
 		color() {
 			return this.value / this.max <= 0.5 ? '#7ed321' : '#ff4949';
 		},
 		angle() {
-			return 'rotate(' + (Math.round((this.value / this.max) * 180) - 225) + 'deg)';
+			return `rotate(${(Math.round((this.value / this.max) * 180) - 225)}deg)`;
 		}
 	},
 }
 </script>
-<style lang='less' scoped>
+<style lang="less" scoped>
 .contain{
 	position: relative;
 }

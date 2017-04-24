@@ -54,7 +54,7 @@
 							{ item: '账户总览', name: 'account_overview' },
 							{ item: '套餐购买', name: 'account_package' },
 							{ item: '流量管理', name: 'account_flow' },
-							{ item: '立即充值', name: 'account_recharge' },
+							// { item: '立即充值', name: 'account_recharge' },
 							// { item: '我的收入', name: 'account_income' },
 						]
 					},

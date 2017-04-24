@@ -3,11 +3,11 @@
 		<div class="wrapper">
 			<Card class="commoon-card" :bordered="false" dis-hover>
 				<p slot="title" class="commoon-card__title">
-					流量管理
-					<a class="link" href="#">充值</a>
+					账户余额
+					<router-link class="link" :to="{ name: 'account_balance_order' }">充值</router-link>
 					<a class="link" href="#">账户充值记录</a>
 				</p>
-				<p class="content">当前流量余额：<span class="text-bold">¥ 0.00</span></p>
+				<p class="content">当前账户余额：<span class="text-bold">¥ 0.00</span></p>
 			</Card>
 			<Card class="commoon-card" :bordered="false" dis-hover>
 				<p slot="title" class="commoon-card__title">
@@ -16,26 +16,30 @@
 				</p>
 				<div class="content">
 					<div class="content-head">
-						<p>当前频道流量套餐：<span class="text-bold">基础班</span></p>
+						<p>当前频道流量套餐：<span class="text-bold">基础版</span></p>
 						<p>有效期至：<span class="text-bold">2018.04.06</span></p>
-						<a class="link" href="#">购买</a>
+						<router-link class="link" :to="{ name: 'account_package' }">购买</router-link>
 					</div>
 					<div class="content-body">
 						<div class="content-card">
 							<h4 class="content-card-title">本月剩余观看时长</h4>
-							<div class="data">
-								<p>已用 <span>{{ 300000 | limit }}</span> </p>
-								<p>剩余 <span>{{ 150000 | limit }}</span> </p>
+							<div class="content-card-main">
+								<div class="data">
+									<p>已用 <span>{{ 300000 | numberFormat }}</span> </p>
+									<p>剩余 <span>{{ 150000 | numberFormat }}</span> </p>
+								</div>
+								<dashboard :unit="'MIN'" :max="200000" :value="156550" ></dashboard>
 							</div>
-							<dashboard class="board" :unit="'MIN'" :max="200000" :value="156550" ></dashboard>
 						</div>
 						<div class="content-card">
 							<h4 class="content-card-title">剩余存储空间</h4>
-							<div class="data">
-								<p>已用 <span>{{ 300000 | limit }}</span> </p>
-								<p>剩余 <span>{{ 150000 | limit }}</span> </p>
+							<div class="content-card-main">
+								<div class="data">
+									<p>已用 <span>{{ 300000 | numberFormat }}</span> </p>
+									<p>剩余 <span>{{ 150000 | numberFormat }}</span> </p>
+								</div>
+								<dashboard class="board" :unit="'GB'" :max="200000" :value="23567" ></dashboard>
 							</div>
-							<dashboard class="board" :unit="'GB'" :max="200000" :value="99999" ></dashboard>
 						</div>
 						<div class="content-card-large">
 							<h4 class="content-card-title">免费版套餐详情</h4>
@@ -61,8 +65,8 @@
 									</div>
 								</li>
 							</ul>
-							<div class="collapse-btn" @click="isOpen = !isOpen;">
-								<i class="icon" :class="{ open:isOpen }"></i>
+							<div class="collapse-btn" @click="isOpen = !isOpen;" :class="{ open:isOpen }">
+								<i class="icon"></i>
 							</div>
 						</div>
 					</div>
@@ -118,10 +122,8 @@
 </template>
 
 <script>
-	import Vue from 'vue'
 	import dashboard from '../../components/item/dashboard.vue'
-	import { limit } from '../../filter/filter.js'
-	Vue.filter('limit', limit);
+	import { numberFormat } from '../../filter'
 	export default {
 		data () {
 			return {
@@ -298,17 +300,19 @@
 		},
 		mounted () {
 		},
-		methods: {
-			selectPage(pageNum) {
-				console.log(pageNum);
-			}
+		filters: {
+			numberFormat,
 		},
-		watch: {
+		methods: {
+			selectPage (pageNum) {
+				console.log(pageNum);
+			},
+			routerJump (routerName) {
+
+			}
 		},
 		components: {
 			dashboard,
-		},
-		computed: {
 		},
 	}
 </script>

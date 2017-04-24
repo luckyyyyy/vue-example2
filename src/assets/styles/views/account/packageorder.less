@@ -8,8 +8,31 @@
 		background-color: #f2f3f7;
 		margin-bottom: 20px;
 		padding: 20px 40px;
+		display: flex;
+		justify-content: space-around;
 		&:last-child {
 			margin-bottom:0px;
+		}
+		.info{
+			width: 100%;
+			text-align: center;
+			position: relative;
+			h4{
+				margin-bottom: 14px;
+				font-weight: 400;
+			}
+			p{
+				color: #000000;
+			}
+			&:not(:last-child):after{
+				content: '';
+				position: absolute;
+				right: 0;
+				top: 8px;
+				width: 2px;
+				height: 40px;
+				background: #e2e4ee;
+			}
 		}
 	}
 }
@@ -40,4 +63,3 @@
 	transform: translateX(-50%);
 	font-size: 14px;
 }
-

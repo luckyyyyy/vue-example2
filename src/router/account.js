@@ -2,7 +2,7 @@
 * @Author: William Chan
 * @Date:   2017-03-06 22:28:39
 * @Last Modified by:   chuxiao
-* @Last Modified time: 2017-04-20 15:30:40
+* @Last Modified time: 2017-04-24 17:27:49
 */
 
 'use strict';
@@ -23,6 +23,12 @@ export default [
 				path: 'overview',
 				meta: { requiresAuth: true },
 				component: resolve => require(['../views/account/overview.vue'], resolve)
+			},
+			{
+				name: 'account_balance_order',
+				path: 'overview/balance',
+				meta: { requiresAuth: true, parent: 'account_overview'},
+				component: resolve => require(['../views/account/balanceorder.vue'], resolve)
 			},
 			// {
 			// 	name: 'account_upgrade',
@@ -47,6 +53,12 @@ export default [
 				path: 'package',
 				meta: { requiresAuth: true },
 				component: resolve => require(['../views/account/package.vue'], resolve)
+			},
+			{
+				name: 'account_package_order',
+				path: 'package/order/:edition',
+				meta: { requiresAuth: true, parent: 'account_package'},
+				component: resolve => require(['../views/account/packageorder.vue'], resolve)
 			},
 			// {
 			// 	name: 'account_income',
