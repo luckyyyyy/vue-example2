@@ -1,8 +1,8 @@
 /*
 * @Author: William Chan
 * @Date:   2016-12-03 20:43:22
-* @Last Modified by:   William Chan
-* @Last Modified time: 2017-04-08 23:57:40
+* @Last Modified by:   chuxiao
+* @Last Modified time: 2017-04-25 10:35:50
 */
 
 'use strict';
@@ -35,6 +35,15 @@ export const CHANNEL_DELETE         = export_var('CHANNEL_DELETE');
 export const MULTIMEDIA_FIND        = export_var('MULTIMEDIA_FIND', 'DELETE');
 export const MULTIMEDIA             = export_var('MULTIMEDIA', 'INSERT', 'DELETE');
 
+// ORDER
+export const ORDER                  = export_var('ORDER', 'QUERY');
+export const ORDER_FIND             = export_var(
+	'ORDER_FIND', 'CONSUME', 'FLOW', 'RECHARGE'
+);
+export const ORDER_CREATE           = export_var(
+	'ORDER_CREATE', 'CONSUME', 'FLOW'
+);
+
 // live
 export const LIVE                   = export_var(
 	'LIVE', 'QUERY','CREATE', 'QUERY_STREAM', 'NOTICE',
@@ -59,7 +68,7 @@ export const VIDEO_FIND              = export_var('VIDEO_FIND');
 export const VIDEO_DELETE            = export_var('VIDEO_DELETE');
 export const VIDEO_TRASH             = export_var('VIDEO_TRASH');
 export const VIDEO_DETAIL            = export_var(
-  'VIDEO_DETAIL', 'COUNTDOWN', 'GUIDE', 'SHARE', 'UPDATE', 'AUTH'
+	'VIDEO_DETAIL', 'COUNTDOWN', 'GUIDE', 'SHARE', 'UPDATE', 'AUTH'
 );
 
 // weixin
@@ -73,7 +82,6 @@ export const IM_DISCONNECT          = export_var('IM_DISCONNECT');
 export const IM_CHATROOM            = export_var('IM_CHATROOM', 'DISCONNECT', 'MEMBERS', 'GAG', 'COMMON', 'MANAGER', 'UPDATE_MY_INFO');
 export const IM_CHATROOM_INIT       = export_var('IM_CHATROOM_INIT', 'LOCK');
 export const IM_CHATROOM_MSG        = export_var('IM_CHATROOM_MSG', 'GET', 'HISTORY', 'SERVICE');
-
 
 
 
