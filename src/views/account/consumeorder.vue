@@ -58,7 +58,7 @@
 		methods: {
 			checkedParams () {
 				if((this.$route.params.edition !== 2 || this.$route.params.edition !== 3) && this.$route.params.quantity === undefined){
-					this.$router.push ({ name: 'account_package' }); // 如果参数错误 则跳转回购买页面
+					this.$router.push ({ name: 'account_consume' }); // 如果参数错误 则跳转回购买页面
 				}
 			}
 		},

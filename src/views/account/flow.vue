@@ -10,45 +10,32 @@
 			<p slot="title" class="commoon-card__title">一元起充</p>
 			<!-- tips -->
 			<div class="content content-info">
-				<Input class="charge" placeholder="请输入充值金额"></Input>
+				<Input-number :min="1" :step="1" v-model="totalPrice" style="width:178px"></Input-number>
 				<p class="tips">
 					<span>注：起充金额 ≥ 1元；流量单价 0.06 元/人/分钟。</span>
 					<span>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp观看费用 = 直播、点播累计观看时长 x 单价。</span>
 					<span>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp单人次不满1分钟不计费。</span>
-					<span class="tips-box">有效期：无限期</span>
-					<span class="tips-box">
-						<Checkbox v-model="form.isAgree"><a href="#">《 彩虹云直播平台服务条款 》</a></Checkbox>
-					</span>
 				</p>
-				<p class="price-box">总价：<span class="price">￥ 0.00</span></p>
+				<p class="price-box">总价：<span class="price">￥ {{ totalPrice }}</span></p>
 			</div>
-			<!-- 支付方式 -->
-			<Paymethod :form='form'></Paymethod>
-			<!-- 支付按钮 -->
+			<!-- 确认按钮 -->
 			<div class="content">
-				<Button type="error" class="pay-btn">确认支付</Button>
+				<Button type="error" class="pay-btn">立即购买</Button>
 			</div>
 		</Card>
 	</div>
 </template>
 
 <script>
-	import Paymethod from '../../components/item/paymethod.vue'
 	export default {
 		data () {
 			return {
-				form: {
-					payMethod: 1,
-					isAgree: false,
-				}
+				totalPrice: 1,
 			}
 		},
 		methods: {
 
 		},
-		components: {
-			Paymethod,
-		}
 	}
 </script>
 

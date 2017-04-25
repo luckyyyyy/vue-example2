@@ -111,7 +111,7 @@ import moment from 'moment'
 				this.fTime = moment(this.time).add(this.form.quantity, 'years').format('YYYY-MM-DD HH:mm:ss');
 			},
 			onSubmit () {
-				this.$router.push({ name: 'account_package_order', params: { edition: this.form.edition, quantity: this.form.quantity }})
+				this.$router.push({ name: 'account_consume_order', params: { edition: this.form.edition, quantity: this.form.quantity }})
 			}
 		},
 		watch: {

@@ -1,8 +1,8 @@
 /*
 * @Author: William Chan
 * @Date:   2016-12-03 20:43:22
-* @Last Modified by:   Administrator
-* @Last Modified time: 2017-04-25 12:24:30
+* @Last Modified by:   chuxiao
+* @Last Modified time: 2017-04-25 14:11:36
 */
 
 'use strict';
@@ -39,12 +39,20 @@ export const MULTIMEDIA = export_var('MULTIMEDIA',
 export const ORDER = export_var('ORDER',
 	'QUERY'
 );
-export const ORDER_FIND = export_var('ORDER_FIND',
-	'CONSUME', 'FLOW', 'RECHARGE'
+export const ORDER_CONSUME = export_var('ORDER_CONSUME',
+	'FIND_REQUEST', 'FIND_SUCCESS', 'FIND_FAILURE',
+	'CREATE'
 );
-export const ORDER_CREATE = export_var('ORDER_CREATE',
-	'CONSUME', 'FLOW'
+export const ORDER_FLOW = export_var('ORDER_FLOW',
+	'FIND_REQUEST', 'FIND_SUCCESS', 'FIND_FAILURE',
+	'CREATE'
 );
+// export const ORDER_FIND = export_var('ORDER_FIND',
+// 	'CONSUME', 'FLOW', 'RECHARGE'
+// );
+// export const ORDER_CREATE = export_var('ORDER_CREATE',
+// 	'CONSUME', 'FLOW'
+// );
 
 // live
 export const LIVE = export_var('LIVE',

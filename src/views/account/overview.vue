@@ -18,7 +18,7 @@
 					<div class="content-head">
 						<p>当前频道流量套餐：<span class="text-bold">基础版</span></p>
 						<p>有效期至：<span class="text-bold">2018.04.06</span></p>
-						<router-link class="link" :to="{ name: 'account_package' }">购买</router-link>
+						<router-link class="link" :to="{ name: 'account_consume' }">购买</router-link>
 					</div>
 					<div class="content-body">
 						<div class="content-card">

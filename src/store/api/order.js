@@ -2,7 +2,7 @@
 * @Author: chuxiao
 * @Date:   2017-04-25 10:51:56
 * @Last Modified by:   chuxiao
-* @Last Modified time: 2017-04-25 11:04:02
+* @Last Modified time: 2017-04-25 14:27:05
 */
 
 'use strict';
@@ -14,11 +14,11 @@ import { http } from './'
 // -----------------------------
 
 // POST /api/v1/order/consume/create
-export const order_create_consume = ({ consumeReq }) => {
+export const order_consume_create = ({ consumeReq }) => {
 	return http.get('order/consume/create', { consumeReq })
 }
 //  POST /api/v1/order/flow/create
-export const order_create_flow = ({ flowReq }) => {
+export const order_flow_create = ({ flowReq }) => {
 	return http.get('order/flow/create', { flowReq })
 }
 //	GET /api/v1/order/find/consume
