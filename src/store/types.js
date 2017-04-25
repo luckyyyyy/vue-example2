@@ -2,7 +2,7 @@
 * @Author: William Chan
 * @Date:   2016-12-03 20:43:22
 * @Last Modified by:   Administrator
-* @Last Modified time: 2017-04-25 12:17:22
+* @Last Modified time: 2017-04-25 12:20:31
 */
 
 'use strict';
@@ -29,16 +29,16 @@ export const CHANNEL = export_var('CHANNEL',
 );
 
 // multimedia
-export const MULTIMEDIA             = export_var('MULTIMEDIA',
+export const MULTIMEDIA = export_var('MULTIMEDIA',
 	'INSERT', 'DELETE',
 	'FIND_REQUEST', 'FIND_SUCCESS', 'FIND_FAILURE'
 );
 
 // ORDER
-export const ORDER                  = export_var('ORDER',
+export const ORDER = export_var('ORDER',
 	'QUERY'
 );
-export const ORDER_FIND             = export_var('ORDER_FIND',
+export const ORDER_FIND = export_var('ORDER_FIND',
 	'CONSUME', 'FLOW', 'RECHARGE'
 );
 export const ORDER_CREATE = export_var('ORDER_CREATE',
