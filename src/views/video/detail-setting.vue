@@ -60,7 +60,7 @@
 		},
 		methods: {
 			...mapActions('video/detail', {
-				liveUpdate: 'VIDEO_DETAIL_UPDATE'
+				liveUpdate: 'VIDEO_UPDATE'
 			}),
 			selectAlbum (select, data) {
 				this.form.avatarImageId = select;

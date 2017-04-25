@@ -2,13 +2,13 @@
 * @Author: Administrator
 * @Date:   2017-01-06 02:33:52
 * @Last Modified by:   Administrator
-* @Last Modified time: 2017-04-14 20:33:12
+* @Last Modified time: 2017-04-25 11:36:58
 */
 
 'use strict';
 
 import { multimedia_find, multimedia_delete } from '../../api/multimedia'
-import { MULTIMEDIA_FIND, MULTIMEDIA } from '../../types'
+import { MULTIMEDIA } from '../../types'
 
 const state = {
 	lock: false,
@@ -22,15 +22,15 @@ const state = {
 const getters = {}
 
 const actions = {
-	[MULTIMEDIA_FIND.REQUEST] ({ commit, state }, params) {
+	[MULTIMEDIA.FIND_REQUEST] ({ commit, state }, params) {
 		if (!state.lock || params.reload || state.type != params.type) {
 			return new Promise((resolve, reject) => {
-				commit(MULTIMEDIA_FIND.REQUEST, params);
+				commit(MULTIMEDIA.FIND_REQUEST, params);
 				multimedia_find(state).then(res => {
-					commit(MULTIMEDIA_FIND.SUCCESS, res);
+					commit(MULTIMEDIA.FIND_SUCCESS, res);
 					resolve(res);
 				}).catch(err => {
-					commit(MULTIMEDIA_FIND.FAILURE, err);
+					commit(MULTIMEDIA.FIND_FAILURE, err);
 					reject(err);
 				})
 			})
@@ -49,7 +49,7 @@ const actions = {
 }
 
 const mutations = {
-	[MULTIMEDIA_FIND.REQUEST] (state, { reload, type }) {
+	[MULTIMEDIA.FIND_REQUEST] (state, { reload, type }) {
 		if (reload || state.type != type) {
 			state.data  = [];
 			state.start = 0;
@@ -57,14 +57,14 @@ const mutations = {
 		state.type = type;
 		state.lock = true;
 	},
-	[MULTIMEDIA_FIND.SUCCESS] (state, { data }) {
+	[MULTIMEDIA.FIND_SUCCESS] (state, { data }) {
 		state.data = state.data.concat(data.multimedias);
 		state.start = state.start + state.limits;
 		if (state.data.length !== data.total) {
 			state.lock = false;
 		}
 	},
-	[MULTIMEDIA_FIND.FAILURE] (state, err) {
+	[MULTIMEDIA.FIND_FAILURE] (state, err) {
 		state.lock = false;
 	},
 	[MULTIMEDIA.INSERT] (state, data) {

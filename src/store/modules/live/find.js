@@ -2,13 +2,13 @@
 * @Author: Administrator
 * @Date:   2017-01-06 02:33:52
 * @Last Modified by:   Administrator
-* @Last Modified time: 2017-04-14 20:32:35
+* @Last Modified time: 2017-04-25 11:46:38
 */
 
 'use strict';
 
 import { live_find } from '../../api/live'
-import { LIVE_FIND } from '../../types'
+import { LIVE } from '../../types'
 
 const state = {
 	lock: false,
@@ -21,15 +21,15 @@ const state = {
 const getters = {}
 
 const actions = {
-	[LIVE_FIND.REQUEST] ({ commit, state, dispatch }, params) {
+	[LIVE.FIND_REQUEST] ({ commit, state, dispatch }, params) {
 		if (!state.lock || params.reload || state.status != params.status) {
-			commit(LIVE_FIND.REQUEST, params);
+			commit(LIVE.FIND_REQUEST, params);
 			return new Promise((resolve, reject) => {
 				live_find(state).then(res => {
-					commit(LIVE_FIND.SUCCESS, res);
+					commit(LIVE.FIND_SUCCESS, res);
 					resolve();
 				}).catch(err => {
-					commit(LIVE_FIND.FAILURE, err);
+					commit(LIVE.FIND_FAILURE, err);
 					reject();
 				})
 			})
@@ -38,7 +38,7 @@ const actions = {
 }
 
 const mutations = {
-	[LIVE_FIND.REQUEST] (state, { reload, status }) {
+	[LIVE.FIND_REQUEST] (state, { reload, status }) {
 		if (reload || state.status != status) {
 			state.data  = [];
 			state.start = 0;
@@ -46,14 +46,14 @@ const mutations = {
 		state.status  = status;
 		state.lock    = true;
 	},
-	[LIVE_FIND.SUCCESS] (state, { data }) {
+	[LIVE.FIND_SUCCESS] (state, { data }) {
 		state.data    = state.data.concat(data.lives);
 		state.start   = state.start + state.limits;
 		if (state.data.length !== data.total) {
 			state.lock = false;
 		}
 	},
-	[LIVE_FIND.FAILURE] (state, err) {
+	[LIVE.FIND_FAILURE] (state, err) {
 		state.lock    = false;
 	},
 }

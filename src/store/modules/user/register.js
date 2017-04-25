@@ -1,21 +1,21 @@
 /*
 * @Author: Administrator
 * @Date:   2017-01-06 02:33:57
-* @Last Modified by:   William Chan
-* @Last Modified time: 2017-03-19 03:32:27
+* @Last Modified by:   Administrator
+* @Last Modified time: 2017-04-25 11:22:26
 */
 
 'use strict';
 
 import { register_captcha, register } from '../../api/user'
-import { REGISTER_CAPTCHA, REGISTER } from '../../types'
+import { USER } from '../../types'
 
 const state = {}
 
 const getters = {}
 
 const actions = {
-	[REGISTER.REQUEST] ({ commit }, ...args) {
+	[USER.REGISTER] ({ commit }, ...args) {
 		return new Promise((resolve, reject) => {
 			register(...args).then(res => {
 				resolve();
@@ -24,7 +24,7 @@ const actions = {
 			})
 		})
 	},
-	[REGISTER_CAPTCHA.REQUEST] (store, ...args) {
+	[USER.REGISTER_CAPTCHA] (store, ...args) {
 		return new Promise(function(resolve, reject) {
 			register_captcha(...args).then(res => {
 				resolve();

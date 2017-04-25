@@ -79,7 +79,7 @@
 		},
 		methods: {
 			...mapActions('video/detail', {
-				setShare: 'VIDEO_DETAIL_SHARE'
+				setShare: 'VIDEO_SHARE'
 			}),
 			selectAlbum (select, data) {
 				this.form.shareImageId = select;

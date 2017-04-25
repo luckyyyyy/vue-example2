@@ -53,8 +53,8 @@
 		},
 		methods: {
 			...mapActions('user/reset_password', {
-				getCaptcha: 'RESETPWD_CAPTCHA_REQUEST',
-				resetPassword: 'RESETPWD_REQUEST'
+				getCaptcha: 'USER_RESETPWD_CAPTCHA',
+				resetPassword: 'USER_RESETPWD'
 			}),
 			clearInterval () {
 				if (this.clearInterval) {

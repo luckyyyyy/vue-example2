@@ -94,14 +94,11 @@
 			...mapActions('video/find', {
 				getVideoList: 'VIDEO_FIND_REQUEST'
 			}),
-			// ...mapActions('live/create', {
-			// 	createLive: 'LIVE_CREATE_REQUEST'
-			// }),
 			...mapActions('video/trash', {
-				trashVideo: 'VIDEO_TRASH_REQUEST'
+				trashVideo: 'VIDEO_TRASH'
 			}),
 			...mapActions('video/delete', {
-				deleteVideo: 'VIDEO_DELETE_REQUEST'
+				deleteVideo: 'VIDEO_DELETE'
 			}),
 			onStatusChange (val) {
 				this.status = val;

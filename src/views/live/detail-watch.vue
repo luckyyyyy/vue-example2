@@ -52,7 +52,7 @@
 		},
 		methods: {
 			...mapActions('live/detail', {
-				setWatch: 'LIVE_DETAIL_WATCH'
+				setWatch: 'LIVE_WATCH'
 			}),
 			switchChange (enabled) {
 				this.setWatch({ id: this.live.id, attentionWatchStatus: this.attentionWatchStatus })

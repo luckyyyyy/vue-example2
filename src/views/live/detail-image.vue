@@ -68,7 +68,7 @@
 		},
 		methods: {
 			...mapActions('live/detail', {
-				setGuide: 'LIVE_DETAIL_GUIDE'
+				setGuide: 'LIVE_GUIDE'
 			}),
 			selectAlbum (select, data) {
 				this.form.guideImageId = select;

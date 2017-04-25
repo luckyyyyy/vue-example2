@@ -125,13 +125,13 @@
 		},
 		methods: {
 			...mapActions('weixin_auth', {
-				getWechatAuthUrl: 'WEXIN_AUTH_URL_REQUEST'
+				getWechatAuthUrl: 'WEXIN_AUTH_URL'
 			}),
 			...mapActions('catalogs', {
 				getCatalogs: 'COMMODITY_CATALOGS_REQUEST'
 			}),
 			...mapActions('channel/create', {
-				createChannel: 'CHANNEL_CREATE_REQUEST'
+				createChannel: 'CHANNEL_CREATE'
 			}),
 			...mapActions('channel', {
 				selectChannel: 'CHANNEL_SELECT',

@@ -121,7 +121,7 @@
 		},
 		methods: {
 			...mapActions('live/detail', {
-				setCountDown: 'LIVE_DETAIL_COUNTDOWN'
+				setCountDown: 'LIVE_COUNTDOWN'
 			}),
 			onInterval () {
 				if (this.form.countDownStatus) {

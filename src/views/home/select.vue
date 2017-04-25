@@ -91,7 +91,7 @@
 				selectChannel: 'CHANNEL_SELECT'
 			}),
 			...mapActions('channel/delete', {
-				deleteChannel: 'CHANNEL_DELETE_REQUEST'
+				deleteChannel: 'CHANNEL_DELETE'
 			}),
 			onChange (currentPage) {
 				this.current = currentPage || parseInt(this.$route.params.id) || 1;

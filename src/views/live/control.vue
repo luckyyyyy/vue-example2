@@ -143,7 +143,7 @@
 			...mapActions('im', {
 				imDisconnect: 'IM_DISCONNECT',
 				imInit: 'IM_INIT_REQUEST',
-				imSend: 'IM_CHATROOM_MSG_REQUEST'
+				imSend: 'IM_CHATROOM_MSG_SEND'
 			}),
 			...mapMutations('im', {
 				imOnDisconnect: 'IM_CHATROOM_INIT_LOCK'

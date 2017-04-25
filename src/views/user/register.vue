@@ -78,8 +78,8 @@
 		},
 		methods: {
 			...mapActions('user/register', {
-				getCaptcha: 'REGISTER_CAPTCHA_REQUEST',
-				registerUser: 'REGISTER_REQUEST'
+				getCaptcha: 'USER_REGISTER_CAPTCHA',
+				registerUser: 'USER_REGISTER'
 			}),
 			clearInterval () {
 				if (this.clearInterval) {
