@@ -2,7 +2,7 @@
 * @Author: William Chan
 * @Date:   2016-12-03 20:43:22
 * @Last Modified by:   Administrator
-* @Last Modified time: 2017-04-25 12:20:31
+* @Last Modified time: 2017-04-25 12:24:30
 */
 
 'use strict';
@@ -10,11 +10,12 @@
 const export_var = (enumerate, ...args) => {
 	let data = {};
 	const type = [].concat(...args);
-	type.map(status => {
-		data[status] = `${enumerate}_${status}`;
+	type.map(action => {
+		data[action] = `${enumerate}_${action}`;
 	})
 	return data;
 }
+
 // user
 export const USER = export_var('USER',
 	'LOGIN', 'LOGOUT', 'REGISTER', 'REGISTER_CAPTCHA', 'RESETPWD', 'RESETPWD_CAPTCHA', 'PASSWORD',
