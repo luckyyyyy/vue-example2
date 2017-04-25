@@ -68,7 +68,7 @@
 		},
 		methods: {
 			...mapActions('video/detail', {
-				setGuide: 'VIDEO_DETAIL_GUIDE'
+				setGuide: 'VIDEO_GUIDE'
 			}),
 			selectAlbum (select, data) {
 				this.form.guideImageId = select;

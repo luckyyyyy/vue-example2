@@ -46,7 +46,7 @@
 		},
 		methods: {
 			...mapActions('user/login', {
-				userLogin: 'LOGIN_REQUEST'
+				userLogin: 'USER_LOGIN'
 			}),
 			submit_login () {
 				this.$refs.login.validate((valid) => {

@@ -96,7 +96,7 @@
 		},
 		methods: {
 			...mapActions('video/detail', {
-				setAuth: 'VIDEO_DETAIL_AUTH'
+				setAuth: 'VIDEO_AUTH'
 			}),
 			onChange () {
 				const data = Object.assign({}, this.form);

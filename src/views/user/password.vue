@@ -46,7 +46,7 @@
 		},
 		methods: {
 			...mapActions('user/password', {
-				setPassword: 'PASSWORD_REQUEST'
+				setPassword: 'USER_PASSWORD'
 			}),
 			submit () {
 				this.$refs.password.validate((valid) => {

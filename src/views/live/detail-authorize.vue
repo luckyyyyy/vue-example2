@@ -96,7 +96,7 @@
 		},
 		methods: {
 			...mapActions('live/detail', {
-				setAuth: 'LIVE_DETAIL_AUTH'
+				setAuth: 'LIVE_AUTH'
 			}),
 			onChange () {
 				const data = Object.assign({}, this.form);

@@ -1,14 +1,14 @@
 /*
 * @Author: Administrator
 * @Date:   2017-01-06 02:33:52
-* @Last Modified by:   William Chan
-* @Last Modified time: 2017-03-19 03:54:51
+* @Last Modified by:   Administrator
+* @Last Modified time: 2017-04-25 11:30:12
 */
 
 'use strict';
 
 import { channel_find } from '../../api/channel'
-import { CHANNEL_FIND } from '../../types'
+import { CHANNEL } from '../../types'
 
 const state = {
 	data: [],
@@ -18,14 +18,14 @@ const state = {
 const getters = {}
 
 const actions = {
-	[CHANNEL_FIND.REQUEST] ({ commit }, ...args) {
-		commit(CHANNEL_FIND.REQUEST);
+	[CHANNEL.FIND_REQUEST] ({ commit }, ...args) {
+		commit(CHANNEL.FIND_REQUEST);
 		return new Promise((resolve, reject) => {
 			channel_find(...args).then(res => {
-				commit(CHANNEL_FIND.SUCCESS, res);
+				commit(CHANNEL.FIND_SUCCESS, res);
 				resolve(res.data);
 			}).catch(err => {
-				commit(CHANNEL_FIND.FAILURE, err);
+				commit(CHANNEL.FIND_FAILURE, err);
 				reject();
 			})
 		})
@@ -33,15 +33,15 @@ const actions = {
 }
 
 const mutations = {
-	[CHANNEL_FIND.REQUEST] (state) {
+	[CHANNEL.FIND_REQUEST] (state) {
 		state.data  = [];
 		state.total = 0;
 	},
-	[CHANNEL_FIND.SUCCESS] (state, { data }) {
+	[CHANNEL.FIND_SUCCESS] (state, { data }) {
 		state.data  = data.channels;
 		state.total = data.total;
 	},
-	[CHANNEL_FIND.FAILURE] (state, err) {
+	[CHANNEL.FIND_FAILURE] (state, err) {
 		state.data  = [];
 		state.total = 0;
 	},

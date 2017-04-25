@@ -81,7 +81,7 @@
 		},
 		methods: {
 			...mapActions('user/profile', {
-				updateUser: 'UPDATE_USER_REQUEST'
+				updateUser: 'USER_UPDATE'
 			}),
 			...mapMutations('user', {
 				updateUserAvatar: 'USER_UPDATE_AVATAR'
