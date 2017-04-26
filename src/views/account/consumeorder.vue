@@ -5,11 +5,11 @@
 			<div class="content content-info">
 				<div class="info">
 					<h4>升级版本</h4>
-					<p>{{ editionName }}</p>
+					<p>{{  }}</p>
 				</div>
 				<div class="info">
 					<h4>购买年限</h4>
-					<p>{{ $route.params.quantity }}年</p>
+					<p>{{  }}年</p>
 				</div>
 				<div class="info">
 					<h4>折扣</h4>
@@ -17,7 +17,7 @@
 				</div>
 				<div class="info">
 					<h4>资费</h4>
-					<p>{{ totalPrice }}元</p>
+					<p>{{  }}元</p>
 				</div>
 			</div>
 			<!-- 支付方式 -->
@@ -33,13 +33,14 @@
 			</p>
 			<!-- 支付按钮 -->
 			<div class="content">
-				<Button type="error" class="pay-btn">确认支付</Button>
+				<Button type="error" class="pay-btn" :disabled='!form.isAgree' title='请确认同意《 彩虹云直播平台服务条款 》'>确认支付</Button>
 			</div>
 		</Card>
 	</div>
 </template>
 
 <script>
+	import { mapActions } from 'vuex'
 	import Paymethod from '../../components/item/paymethod.vue'
 	import moment from 'moment'
 	export default {
@@ -48,27 +49,39 @@
 				form: {
 					payMethod: 1,
 					isAgree: false,
-				}
+				},
+				order: {},
 			}
 		},
-		mounted () {
-			console.log(this.$route.params);
+		beforeMount () {
 			this.checkedParams();
 		},
+		mounted () {
+
+		},
 		methods: {
+			...mapActions('order/consume_query',{
+				queryConsumeOrder: 'ORDER_CONSUME_QUERY'
+			}),
 			checkedParams () {
-				if((this.$route.params.edition !== 2 || this.$route.params.edition !== 3) && this.$route.params.quantity === undefined){
+				if(!this.$route.params.sn){
 					this.$router.push ({ name: 'account_consume' }); // 如果参数错误 则跳转回购买页面
+				}else{
+					this.queryConsume();
 				}
+			},
+			queryConsume () {
+				this.queryConsumeOrder(this.$route.params.sn).then(res => {
+					for(let key in res.order){
+						this.order[key] = res.order[key]; // 这里有坑，应该用vue提供的方法
+					}
+				}).catch(err => {
+
+				})
 			}
 		},
 		computed: {
-			editionName () {
-				return this.$route.params.edition === 2 ? '普通版' : '高级版';
-			},
-			totalPrice () {
-				return (this.$route.params.edition === 2 ? 4990 : 12990) * this.$route.params.quantity;
-			}
+
 		},
 		components: {
 			Paymethod,

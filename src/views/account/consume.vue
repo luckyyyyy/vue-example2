@@ -18,7 +18,7 @@
 				</p>
 				<div class="content">
 					<div class="select-box">
-						<div @click="selectPackage(lowGrade)" class="version-wrap low-grade" :class="{ active: form.name == '普通版' }">
+						<div @click="selectConsume(lowGrade)" class="version-wrap low-grade" :class="{ active: form.edition === 2 }">
 							<p class="title">普通版 <span>4990元/年</span></p>
 							<ul class="main">
 								<li>+ 10W分钟流量</li>
@@ -31,7 +31,7 @@
 							</ul>
 							<p class="footer">(包含免费版所有功能)</p>
 						</div>
-						<div @click="selectPackage(highGrade)" class="version-wrap high-grade" :class="{ active: form.name == '高级版' }">
+						<div @click="selectConsume(highGrade)" class="version-wrap high-grade" :class="{ active: form.edition === 3 }">
 							<p class="title">高级版 <span>12990元/年</span></p>
 							<ul class="main">
 								<li>+ 30W分钟流量</li>
@@ -60,7 +60,7 @@
 						</div>
 						<div class='message'>
 							<p class="label">总价：</p>
-							<span class="focus">{{ form.quantity * form.price }}</span>
+							<span class="focus">{{ form.quantity * price }}</span>
 						</div>
 						<Button @click="onSubmit" type="error">立即购买</Button>
 					</div>
@@ -71,8 +71,8 @@
 </template>
 
 <script>
-
-import moment from 'moment'
+	import { mapActions } from 'vuex'
+	import moment from 'moment'
 	export default {
 		data () {
 			return {
@@ -87,11 +87,11 @@ import moment from 'moment'
 					price: 12990,
 				},
 				form:{
-					name: '普通版',
 					edition: 2,
-					price: 4990,
 					quantity: 1,
 				},
+				req_lock: true,
+				price: 4990,
 				time: 0,	// 测试用
 				fTime: 0,	// 测试用
 			}
@@ -101,18 +101,31 @@ import moment from 'moment'
 			this.fTime=moment(this.time).add(this.form.quantity, 'years').format('YYYY-MM-DD HH:mm:ss');
 		},
 		methods: {
-			selectPackage (version) {
-				for(let key in version){
-					this.form[key] = version[key];
-				}
+			...mapActions('order/consume_create',{
+				createConsumeOrder: 'ORDER_CONSUME_CREATE'
+			}),
+			// ...mapActions('order/')
+			selectConsume (version) {
+				// for(let key in version){
+				// 	this.form[key] = version[key];
+				// }
+				this.form.edition = version.edition;
+				this.price = version.price;
 			},
 			changeQuantity () {
 				this.form.quantity = Math.round(this.form.quantity); //	确保数量是整数
 				this.fTime = moment(this.time).add(this.form.quantity, 'years').format('YYYY-MM-DD HH:mm:ss');
 			},
 			onSubmit () {
-				this.$router.push({ name: 'account_consume_order', params: { edition: this.form.edition, quantity: this.form.quantity }})
-			}
+				if(this.req_lock){
+					this.createConsumeOrder(this.form).then((data) => {
+						//data.orderInfo.sn 返回的sn
+						this.$router.push({ name: 'account_consume_order', params: { sn: data.orderInfo.sn }})
+					}).catch( err => {
+
+					});
+				}
+			},
 		},
 		watch: {
 		},

@@ -2,7 +2,7 @@
 * @Author: William Chan
 * @Date:   2016-12-03 20:43:22
 * @Last Modified by:   chuxiao
-* @Last Modified time: 2017-04-25 14:11:36
+* @Last Modified time: 2017-04-26 15:41:40
 */
 
 'use strict';
@@ -37,15 +37,19 @@ export const MULTIMEDIA = export_var('MULTIMEDIA',
 
 // ORDER
 export const ORDER = export_var('ORDER',
-	'QUERY'
+	'QUERY',
+	'FIND_REQUEST', 'FIND_SUCCESS', 'FIND_FAILURE',
 );
 export const ORDER_CONSUME = export_var('ORDER_CONSUME',
-	'FIND_REQUEST', 'FIND_SUCCESS', 'FIND_FAILURE',
-	'CREATE'
+	'CREATE',
+	'QUERY'
 );
 export const ORDER_FLOW = export_var('ORDER_FLOW',
-	'FIND_REQUEST', 'FIND_SUCCESS', 'FIND_FAILURE',
-	'CREATE'
+	'CREATE',
+	'QUERY'
+);
+export const ORDER_RECHARGE = export_var('ORDER_RECHARGE',
+	'QUERY'
 );
 // export const ORDER_FIND = export_var('ORDER_FIND',
 // 	'CONSUME', 'FLOW', 'RECHARGE'

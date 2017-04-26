@@ -13,7 +13,7 @@
 				</div>
 				<div class="info">
 					<h4>资费</h4>
-					<p>{{ totalPrice }}元</p>
+					<p>{{ $route.params.totalPrice }}元</p>
 				</div>
 			</div>
 			<!-- 支付方式 -->
@@ -29,7 +29,7 @@
 			</p>
 			<!-- 支付按钮 -->
 			<div class="content">
-				<Button type="error" class="pay-btn">确认支付</Button>
+				<Button type="error" class="pay-btn" :disabled='!form.isAgree' title='请确认同意《 彩虹云直播平台服务条款 》'>确认支付</Button>
 			</div>
 		</Card>
 	</div>
@@ -53,18 +53,13 @@
 		},
 		methods: {
 			checkedParams () {
-				if(false){
+				if(!this.$route.params.totalPrice){
 					this.$router.push ({ name: 'account_flow' }); // 如果参数错误 则跳转回购买页面
 				}
 			}
 		},
 		computed: {
-			editionName () {
-				return this.$route.params.edition === 2 ? '普通版' : '高级版';
-			},
-			totalPrice () {
-				return (this.$route.params.edition === 2 ? 4990 : 12990) * this.$route.params.quantity;
-			}
+
 		},
 		components: {
 			Paymethod,

@@ -2,7 +2,7 @@
 * @Author: chuxiao
 * @Date:   2017-04-25 10:51:56
 * @Last Modified by:   chuxiao
-* @Last Modified time: 2017-04-25 14:27:05
+* @Last Modified time: 2017-04-26 17:20:00
 */
 
 'use strict';
@@ -14,22 +14,30 @@ import { http } from './'
 // -----------------------------
 
 // POST /api/v1/order/consume/create
-export const order_consume_create = ({ consumeReq }) => {
-	return http.get('order/consume/create', { consumeReq })
+export const order_consume_create = ({ edition, quantity }) => {
+	return http.post('order/consume/create', { edition, quantity})
 }
 //  POST /api/v1/order/flow/create
-export const order_flow_create = ({ flowReq }) => {
-	return http.get('order/flow/create', { flowReq })
+export const order_flow_create = (money) => {
+	return http.post('order/flow/create', { money })
 }
 //	GET /api/v1/order/find/consume
-export const order_find_consume = ({ page, start, limits }) => {
-	return http.get('order/find/consume', { page, start, limits })
-}
-//	GET /api/v1/order/find/flow
-export const order_find_flow = ({ page, start, limits }) => {
-	return http.get('order/find/flow', { page, start, limits })
+export const order_find = ({ page, start, limits }) => {
+	return http.get('order/find', { page, start, limits })
 }
 //	GET /api/v1/order/find/recharge
 export const order_find_recharge = ({ page, start, limits }) => {
 	return http.get('order/find/recharge', { page, start, limits })
+}
+//  GET /api/v1/order/query/consume
+export const order_query_consume = (sn) => {
+	return http.get(`order/query/consume/${sn}`)
+}
+//  GET /api/v1/order/query/flow
+export const order_query_flow = (sn) => {
+	return http.get('order/query/flow', { sn })
+}
+//  GET /api/v1/order/query/recharge
+export const order_query_recharge = (sn) => {
+	return http.get('order/query/recharge', { sn })
 }

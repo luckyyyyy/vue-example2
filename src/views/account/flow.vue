@@ -20,7 +20,7 @@
 			</div>
 			<!-- 确认按钮 -->
 			<div class="content">
-				<Button type="error" class="pay-btn">立即购买</Button>
+				<Button @click='onSubmit' type="error" class="pay-btn">立即购买</Button>
 			</div>
 		</Card>
 	</div>
@@ -34,7 +34,9 @@
 			}
 		},
 		methods: {
-
+			onSubmit () {
+				this.$router.push({ name: 'account_flow_order', params: { totalPrice: this.totalPrice }})
+			}
 		},
 	}
 </script>
