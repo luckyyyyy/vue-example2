@@ -2,7 +2,7 @@
 * @Author: William Chan
 * @Date:   2016-12-01 17:57:50
 * @Last Modified by:   William Chan
-* @Last Modified time: 2017-04-12 16:51:49
+* @Last Modified time: 2017-04-26 16:49:43
 */
 
 'use strict';
@@ -44,7 +44,13 @@ const router = new VueRouter({
 		return { x: 0, y: 0 }
 	}
 })
-
+// router.beforeResolve via 2.5.0+
+// In 2.5.0+ you can register a global guard with router.beforeResolve.
+// This is similar to router.beforeEach, with the difference that resolve guards will be called right before the navigation is confirmed,
+// after all in-component guards and async route components are resolved.
+// // router.onError = err => {
+// 	console.log(err)
+// }
 router.beforeEach(async (to, from, next) => {
 	NProgress.remove();
 	NProgress.start();
@@ -98,7 +104,4 @@ router.beforeEach(async (to, from, next) => {
 router.afterEach(route => {
 	NProgress.done();
 })
-// router.onError = err => {
-// 	console.log(err)
-// }
 export default router
