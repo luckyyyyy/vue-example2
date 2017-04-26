@@ -18,15 +18,15 @@
     "fastclick": "^1.0.6",
     "highcharts": "^5.0.7",
     "iscroll": "^5.2.0",
-    "iview": "2.0.0-rc.10",
+    "iview": "2.0.0-rc.11",
     "moment": "^2.17.0",
     "nprogress": "^0.2.0",
     "qrcodejs2": "0.0.2",
     "vue": "2.2.6",
     "vue-highcharts": "0.0.9",
     "vue-quill-editor": "^1.1.1",
-    "vue-router": "2.4.0",
-    "vuex": "2.2.1",
+    "vue-router": "2.5.2",
+    "vuex": "2.3.0",
     "vuex-router-sync": "4.1.0"
   },
   "devDependencies": {
