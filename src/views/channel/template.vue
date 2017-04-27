@@ -12,7 +12,7 @@
 							<!-- 频道设置	 -->
 							<div class="content">
 								<div class="content-bg">
-									<img src="../../assets/images/live/live.png" width="100%" height="100%">
+									<img :src="channel.coverImageUrl" width="100%" height="100%">
 								</div>
 								<div class="content-bottom">
 									<img class="content-logo" :src="channel.logoImageUrl + '/avatar'" alt="频道logo">
@@ -105,8 +105,8 @@
 							</div>
 							<div class="input-box">
 								<span class="label">频道背景：</span>
-								<Album @submit="onSelectLogo" v-model="openLogoAlbum" :type="5">
-										<div @click="openLogoAlbum = true" class="icon"><i class="iconfont icon-upload"></i></div>
+								<Album @submit="onSelectCover" v-model="openCoverAlbum" :type="1">
+										<div @click="openCoverAlbum = true" class="icon"><i class="iconfont icon-upload"></i></div>
 										<span class="tips">750 * 300像素</span>
 								</Album>
 							</div>
@@ -135,8 +135,9 @@
 		data () {
 			return {
 				openLogoAlbum: false,
+				openCoverAlbum: false,
 				channel: {},
-				status: this.$route.params.status || 'template',
+				status: this.$route.params.status || 'public',
 				loading: false,
 			}
 		},
@@ -174,8 +175,13 @@
 					})
 				}
 			},
+			onSelectCover (select, data) {
+				this.channel.coverImageId = select;
+				this.channel.coverImageUrl = data.url;
+				this.updateChannel(this.channel);
+			},
 			onSelectLogo (select, data) {
-				this.channel.logoImageId  = select;;
+				this.channel.logoImageId  = select;
 				this.channel.logoImageUrl = data.url;
 				this.updateChannel(this.channel);
 			},

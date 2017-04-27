@@ -60,9 +60,19 @@
 						</div>
 						<div class='message'>
 							<p class="label">总价：</p>
-							<span class="focus">{{ form.quantity * price }}</span>
+							<span class="focus">￥ {{ (form.quantity * price).toFixed(2) }}</span>
 						</div>
-						<Button @click="onSubmit" type="error">立即购买</Button>
+						<Paymethod style="width: 100%;" @select="selectPayMethod" :defaultPayMethod="payMethod"></Paymethod>
+						<!-- tips -->
+						<p class="tips">
+							<span>有效期：1年（2017-02-10 至 2018-02-10）</span>
+							<span>注：若当前版本未到期，剩余版本余额可抵用升级版本相应金额（如，专业版剩余3个月，则可抵扣1/4*4990=1247.5元。）；有效期于升级日期起计算。</span>
+							<span>发票：订单对应可开发票的类型和抬头为您在用户中心-发票信息管理中设置的信息</span>
+							<span class="tips-box">
+								<Checkbox v-model="isAgree"><a href="#">《 彩虹云直播平台服务条款 》</a></Checkbox>
+							</span>
+						</p>
+						<Button @click="onSubmit" type="error" :disabled="!isAgree">立即购买</Button>
 					</div>
 				</div>
 			</Card>
@@ -72,8 +82,12 @@
 
 <script>
 	import { mapActions } from 'vuex'
+	import Paymethod from '../../components/item/paymethod.vue'
 	import moment from 'moment'
 	export default {
+		components: {
+			Paymethod,
+		},
 		data () {
 			return {
 				lowGrade:{
@@ -94,6 +108,8 @@
 				price: 4990,
 				time: 0,	// 测试用
 				fTime: 0,	// 测试用
+				payMethod: 1,
+				isAgree: false,
 			}
 		},
 		mounted () {
@@ -118,13 +134,16 @@
 			},
 			onSubmit () {
 				if(this.req_lock){
-					this.createConsumeOrder(this.form).then((data) => {
-						//data.orderInfo.sn 返回的sn
-						this.$router.push({ name: 'account_consume_order', params: { sn: data.orderInfo.sn }})
-					}).catch( err => {
+					// this.createConsumeOrder(this.form).then((data) => {
 
-					});
+					// }).catch( err => {
+
+					// });
 				}
+			},
+			selectPayMethod (result){
+				this.payMethod = result;
+				console.log('支付方式',this.payMethod);
 			},
 		},
 		watch: {
@@ -135,6 +154,6 @@
 </script>
 
 <style scoped lang='less'>
-	@import "../../assets/styles/views/account/package.less";
+	@import "../../assets/styles/views/account/consume.less";
 </style>
 

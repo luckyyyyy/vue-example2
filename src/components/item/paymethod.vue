@@ -1,6 +1,7 @@
+<!--  -->
 <template>
-	<div class="container">
-		<Radio-group v-model="form.payMethod" class="pay-box">
+	<div class="pay-wrap">
+		<Radio-group v-model="payMethod" class="pay-box">
 			<Radio :label="1" v-if="alipay">
 				<img class="pay-method" src="../../assets/images/account/alipay.png" height="43" width="125" alt="支付宝支付">
 			</Radio>
@@ -17,11 +18,6 @@
 <script>
 	export default {
 		props: {
-			form: {
-				type: Object,
-				default: {},
-				required: true,
-			},
 			alipay: {
 				type: Boolean,
 				default: true,
@@ -33,25 +29,33 @@
 			balance: {
 				type: Boolean,
 				default: true,
+			},
+			defaultPayMethod: {
+				type: Number,
+				required: true,
 			}
 		},
 		data() {
 			return {
-
+				payMethod: this.defaultPayMethod,
 			}
 		},
 		methods: {
 
+		},
+		watch: {
+			payMethod () {
+				this.$emit('select', this.payMethod);
+			}
 		}
 	}
 </script>
 
 <style lang="less" scoped>
-.container {
+.pay-wrap {
 	border-radius: 6px;
 	background-color: #f2f3f7;
-	margin-bottom: 20px;
-	padding: 20px 40px;
+	padding: 29px 40px 28px;
 	&:last-child {
 		margin-bottom:0px;
 	}
