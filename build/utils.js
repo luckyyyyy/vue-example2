@@ -44,7 +44,7 @@ exports.cssLoaders = function (options) {
     }
   }
 
-  // http://vuejs.github.io/vue-loader/en/configurations/extract-css.html
+  // https://vue-loader.vuejs.org/en/configurations/extract-css.html
   return {
     css: generateLoaders(),
     postcss: generateLoaders(),
@@ -69,13 +69,3 @@ exports.styleLoaders = function (options) {
   }
   return output
 }
-
-
-
-
-
-
-
-
-
-

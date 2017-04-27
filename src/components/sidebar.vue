@@ -89,9 +89,6 @@
 			},
 			...mapState('channel', ['channel'])
 		},
-		mounted() {
-			// console.log(this.info)
-		},
 		methods: {
 			enableDebug(val) {
 				if(val) {

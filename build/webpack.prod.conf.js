@@ -8,6 +8,7 @@ var CopyWebpackPlugin = require('copy-webpack-plugin')
 var HtmlWebpackPlugin = require('html-webpack-plugin')
 var ExtractTextPlugin = require('extract-text-webpack-plugin')
 var OptimizeCSSPlugin = require('optimize-css-assets-webpack-plugin')
+var moment = require('moment')
 
 var env = config.build.env
 
@@ -27,7 +28,8 @@ var webpackConfig = merge(baseWebpackConfig, {
   plugins: [
     // http://vuejs.github.io/vue-loader/en/workflow/production.html
     new webpack.DefinePlugin({
-      'process.env': env
+      'process.env': env,
+      'process.env.BUILD_TIME': moment().format('YMMDDHHmm')
     }),
     new webpack.optimize.UglifyJsPlugin({
       compress: {
@@ -41,11 +43,11 @@ var webpackConfig = merge(baseWebpackConfig, {
     }),
     // Compress extracted CSS. We are using this plugin so that possible
     // duplicated CSS from different components can be deduped.
-    // http://cssnano.co/optimisations/zindex/
     new OptimizeCSSPlugin({
       cssProcessor: require('cssnano'),
       cssProcessorOptions: {
-          zindex: false
+          zindex: false,
+          safe: true
       }
     }),
     // generate dist index.html with correct asset hash for caching.

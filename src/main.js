@@ -9,7 +9,7 @@ import router from './router'
 import { sync } from 'vuex-router-sync'
 
 import FastClick from 'fastclick'
-
+Vue.config.productionTip = false;
 sync(store, router) // done.
 Vue.use(iView);
 // create app

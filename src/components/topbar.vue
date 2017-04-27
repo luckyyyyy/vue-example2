@@ -5,7 +5,7 @@
 				<img src="../assets/toplogo.png" height="20" width="100" alt="彩虹云直播">
 			</div>
 			<div class="breadcrumb">
-				{{ channel.name }} - 彩虹云直播 alpha Build 2017年04月20日16:06:45
+				{{ channel.name }} - 彩虹云直播 alpha Build {{ build }}
 <!-- 			<el-breadcrumb separator="/">
 					<el-breadcrumb-item
 						v-for="item of breadcrumb"
@@ -42,6 +42,11 @@
 <script>
 	import { mapState, mapActions } from 'vuex';
 	export default {
+		data () {
+			return {
+				build: process.env.BUILD_TIME || 'in develop'
+			}
+		},
 		computed: {
 			...mapState('user', [ 'user' ]),
 			...mapState('channel', ['channel'])
