@@ -2,7 +2,7 @@
 * @Author: Administrator
 * @Date:   2017-02-25 14:58:36
 * @Last Modified by:   chuxiao
-* @Last Modified time: 2017-04-14 11:25:30
+* @Last Modified time: 2017-04-26 11:39:00
 */
 
 'use strict';
@@ -15,6 +15,7 @@ import { http } from './'
 
 // POST /api/v1/live/create
 export const live_create = ({ name }) => {
+	console.log(name);
 	return http.post(`live/create`, { name })
 }
 // GET /api/v1/live/find

@@ -2,7 +2,7 @@
 * @Author: William Chan
 * @Date:   2017-03-06 22:28:39
 * @Last Modified by:   chuxiao
-* @Last Modified time: 2017-04-25 17:41:01
+* @Last Modified time: 2017-04-27 17:39:37
 */
 
 'use strict';
@@ -44,18 +44,6 @@ export default [
 				component: resolve => require(['../views/account/flow.vue'], resolve)
 			},
 			{
-				name: 'account_flow_order',
-				path: 'flow/order/:totalPrice',
-				meta: { requiresAuth: true, parent: 'account_flow'},
-				component: resolve => require([
-					'../views/account/floworder.vue',
-				], (
-					ConsumeOrderComponent,
-				) => {
-					resolve(ConsumeOrderComponent);
-				})
-			},
-			{
 				name: 'account_recharge',
 				path: 'recharge',
 				meta: { requiresAuth: true },
@@ -65,21 +53,15 @@ export default [
 				name: 'account_consume',
 				path: 'consume',
 				meta: { requiresAuth: true },
-				component: resolve => require(['../views/account/consume.vue'], resolve)
-			},
-			{
-				name: 'account_consume_order',
-				path: 'consume/order/:edition',
-				meta: { requiresAuth: true, parent: 'account_consume'},
 				component: resolve => require([
-					'../views/account/consumeorder.vue',
-					'../store/modules/order/consumecreate'
+					'../views/account/consume.vue',
+					'../store/modules/order/consumecreate',
 				], (
-					ConsumeOrderComponent,
+					ConsumeComponent,
 					ConsumeCreateModule,
 				) => {
 					registerModule(['order', 'consume_create'], ConsumeCreateModule.default);
-					resolve(ConsumeOrderComponent);
+					resolve(ConsumeComponent);
 				})
 			},
 			// {
