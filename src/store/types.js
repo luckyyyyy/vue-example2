@@ -2,7 +2,7 @@
 * @Author: William Chan
 * @Date:   2016-12-03 20:43:22
 * @Last Modified by:   chuxiao
-* @Last Modified time: 2017-04-26 15:41:40
+* @Last Modified time: 2017-04-28 15:01:29
 */
 
 'use strict';
@@ -51,13 +51,17 @@ export const ORDER_FLOW = export_var('ORDER_FLOW',
 export const ORDER_RECHARGE = export_var('ORDER_RECHARGE',
 	'QUERY'
 );
-// export const ORDER_FIND = export_var('ORDER_FIND',
-// 	'CONSUME', 'FLOW', 'RECHARGE'
-// );
-// export const ORDER_CREATE = export_var('ORDER_CREATE',
-// 	'CONSUME', 'FLOW'
-// );
 
+// pay
+export const PAY = export_var('PAY',
+	'NOTIFY'
+)
+export const PAY_CREATE = export_var('PAY_CREATE',
+	'CONSUME','FLOW','RECHARGE'
+)
+export const PAY_ORDER = export_var('PAY_ORDER',
+	'ALIPAY','DEPOSIT'
+)
 // live
 export const LIVE = export_var('LIVE',
 	'QUERY','CREATE', 'QUERY_STREAM', 'NOTICE',

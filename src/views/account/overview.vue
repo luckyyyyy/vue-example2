@@ -4,7 +4,7 @@
 			<Card class="commoon-card" :bordered="false" dis-hover>
 				<p slot="title" class="commoon-card__title">
 					账户余额
-					<router-link class="link" :to="{ name: 'account_balance_order' }">充值</router-link>
+					<router-link class="link" :to="{ name: 'account_recharge' }">充值</router-link>
 					<a class="link" href="#">账户充值记录</a>
 				</p>
 				<p class="content">当前账户余额：<span class="text-bold">¥ 0.00</span></p>

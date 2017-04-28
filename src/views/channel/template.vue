@@ -176,6 +176,7 @@
 				}
 			},
 			onSelectCover (select, data) {
+				console.log(select,data);
 				this.channel.coverImageId = select;
 				this.channel.coverImageUrl = data.url;
 				this.updateChannel(this.channel);

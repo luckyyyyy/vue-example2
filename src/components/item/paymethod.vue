@@ -46,6 +46,8 @@
 		watch: {
 			payMethod () {
 				this.$emit('select', this.payMethod);
+				let arr = ['未选择', '支付宝', '线下支付', '余额支付'];
+				console.log('支付方式: ' + arr[this.payMethod]);
 			}
 		}
 	}

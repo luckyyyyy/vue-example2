@@ -2,7 +2,7 @@
 * @Author: William Chan
 * @Date:   2016-12-03 19:24:59
 * @Last Modified by:   chuxiao
-* @Last Modified time: 2017-04-25 15:09:23
+* @Last Modified time: 2017-04-28 14:36:26
 */
 
 'use strict';
@@ -19,6 +19,7 @@ import channelModule   from './modules/channel'
 import liveModule      from './modules/live'
 import videoModule     from './modules/video'
 import orderModule     from './modules/order'
+import payModule			 from './modules/pay'
 import { isDev }       from '../utils/util'
 
 Vue.use(Vuex)
@@ -37,7 +38,8 @@ store.registerModule('user',    userModule);
 store.registerModule('channel', channelModule);
 store.registerModule('live',    liveModule);
 store.registerModule('video',   videoModule);
-store.registerModule('order',   orderModule)
+store.registerModule('order',   orderModule);
+store.registerModule('pay', payModule);
 const module = {};
 export const registerModule = (path, module) => {
 	const name = typeof path == 'string' ? path : path.join('/');

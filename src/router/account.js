@@ -2,7 +2,7 @@
 * @Author: William Chan
 * @Date:   2017-03-06 22:28:39
 * @Last Modified by:   chuxiao
-* @Last Modified time: 2017-04-27 17:39:37
+* @Last Modified time: 2017-04-28 14:50:06
 */
 
 'use strict';
@@ -26,50 +26,33 @@ export default [
 				component: resolve => require(['../views/account/overview.vue'], resolve)
 			},
 			{
-				name: 'account_balance_order',
-				path: 'overview/balance',
+				name: 'account_recharge',
+				path: 'overview/recharge',
 				meta: { requiresAuth: true, parent: 'account_overview'},
-				component: resolve => require(['../views/account/balanceorder.vue'], resolve)
+				component: resolve => require(['../views/account/recharge.vue'], resolve)
 			},
-			// {
-			// 	name: 'account_upgrade',
-			// 	path: 'uphrade',
-			// 	meta: { requiresAuth: true },
-			// 	component: resolve => require(['../views/account/upgrade.vue'], resolve)
-			// },
 			{
 				name: 'account_flow',
 				path: 'flow',
 				meta: { requiresAuth: true },
 				component: resolve => require(['../views/account/flow.vue'], resolve)
 			},
-			{
-				name: 'account_recharge',
-				path: 'recharge',
-				meta: { requiresAuth: true },
-				component: resolve => require(['../views/account/recharge.vue'], resolve)
-			},
+
 			{
 				name: 'account_consume',
 				path: 'consume',
 				meta: { requiresAuth: true },
 				component: resolve => require([
 					'../views/account/consume.vue',
-					'../store/modules/order/consumecreate',
+					'../store/modules/pay/consume.js',
 				], (
 					ConsumeComponent,
-					ConsumeCreateModule,
+					PayConsumeModule,
 				) => {
-					registerModule(['order', 'consume_create'], ConsumeCreateModule.default);
+					registerModule(['pay', 'consume_create'], PayConsumeModule.default);
 					resolve(ConsumeComponent);
 				})
 			},
-			// {
-			// 	name: 'account_income',
-			// 	path: 'income',
-			// 	meta: { requiresAuth: true },
-			// 	component: resolve => require(['../views/account/income.vue'], resolve)
-			// }
 		],
 	},
 ]

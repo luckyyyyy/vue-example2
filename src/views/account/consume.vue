@@ -60,9 +60,9 @@
 						</div>
 						<div class='message'>
 							<p class="label">总价：</p>
-							<span class="focus">￥ {{ (form.quantity * price).toFixed(2) }}</span>
+							<span class="focus">￥ {{ (form.quantity * form.price).toFixed(2) }}</span>
 						</div>
-						<Paymethod style="width: 100%;" @select="selectPayMethod" :defaultPayMethod="payMethod"></Paymethod>
+						<Paymethod style="width: 100%;" @select="selectPayMethod" :defaultPayMethod="form.type"></Paymethod>
 						<!-- tips -->
 						<p class="tips">
 							<span>有效期：1年（2017-02-10 至 2018-02-10）</span>
@@ -103,12 +103,12 @@
 				form:{
 					edition: 2,
 					quantity: 1,
+					price: 4990,
+					type: 1,
 				},
 				req_lock: true,
-				price: 4990,
 				time: 0,	// 测试用
 				fTime: 0,	// 测试用
-				payMethod: 1,
 				isAgree: false,
 			}
 		},
@@ -117,16 +117,13 @@
 			this.fTime=moment(this.time).add(this.form.quantity, 'years').format('YYYY-MM-DD HH:mm:ss');
 		},
 		methods: {
-			...mapActions('order/consume_create',{
-				createConsumeOrder: 'ORDER_CONSUME_CREATE'
+			...mapActions('pay/consume_create', {
+				createConsume: 'PAY_CREATE_CONSUME'
 			}),
-			// ...mapActions('order/')
 			selectConsume (version) {
-				// for(let key in version){
-				// 	this.form[key] = version[key];
-				// }
-				this.form.edition = version.edition;
-				this.price = version.price;
+				for(let key in version){
+					this.form[key] = version[key];
+				}
 			},
 			changeQuantity () {
 				this.form.quantity = Math.round(this.form.quantity); //	确保数量是整数
@@ -134,16 +131,15 @@
 			},
 			onSubmit () {
 				if(this.req_lock){
-					// this.createConsumeOrder(this.form).then((data) => {
+					this.createConsume(this.form).then(() => {
 
-					// }).catch( err => {
+					}).catch(() => {
 
-					// });
+					})
 				}
 			},
 			selectPayMethod (result){
-				this.payMethod = result;
-				console.log('支付方式',this.payMethod);
+				this.form.type = result;
 			},
 		},
 		watch: {
