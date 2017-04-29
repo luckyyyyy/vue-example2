@@ -1,78 +1,72 @@
 /*
 * @Author: Administrator
 * @Date:   2017-01-06 02:33:52
-* @Last Modified by:   William Chan
-* @Last Modified time: 2017-03-19 15:08:30
+* @Last Modified by:   Webster
+* @Last Modified time: 2017-04-29 14:24:41
 */
 
 'use strict';
 
-import { logout } from '../../api/user'
-import { LOGIN, USER } from '../../types'
+import { logout, get_user } from '../../api/user'
+import { USER, CHANNEL } from '../../types'
 
 const state = {
-	user: {},
-	token: ''
+	user: null,
 }
 
-export const getSession = () => {
-	return JSON.parse(sessionStorage.getItem('user'));
+const isEmpty = obj => {
+	for (const i in obj) {
+		return false;
+	}
+	return true;
 }
-
-export const setSession = ({ token, user }) => {
-	sessionStorage.setItem('user', JSON.stringify({ token, user }));
-}
-
 const getters = {
-	member: state => {
-		if (state.user.length > 0 && state.token) {
-			return { user: state.user, token: state.token };
+	user: state => {
+		if (state.user && !isEmpty(state.user)) {
+			return state.user;
 		} else {
-			return getSession() || {};
+			return false;
 		}
-	},
-	auth: state => {
-		let token;
-		if (state.token) {
-			token = state.token;
-		} else {
-			const data = getSession();
-			if (data && data.token) {
-				token = data.token;
-			}
-		}
-		return token && `Basic ${new Buffer(`${token}:`).toString('base64')}`;
 	}
 }
 
 const actions = {
-	[USER.LOGIN] ({ getters, commit }) {
-		if (!getters.member.user){
-			console.log('无法直接登录');
-		} else {
-			commit(USER.LOGIN, getters.member, { root: true });
-		}
+	[USER.GET] ({ commit }, ...args) {
+		return get_user().then(data => {
+			commit(USER.LOGIN, data.data);
+		}).catch(() => {
+			commit(USER.LOGOUT);
+		})
 	},
-	[USER.LOGOUT] ({ commit }, ...args) {
+	[USER.LOGOUT] ({ dispatch }, ...args) {
 		return new Promise((resolve, reject) => {
 			logout().then(() => {
-				commit(USER.CLEAR, null, { root: true });
+				dispatch(USER.CLEAR);
 				resolve();
 			}).catch(() => {
 				reject();
 			})
 		})
+	},
+	[USER.CLEAR] ({ commit }, err) {
+		commit(`channel/${CHANNEL.SELECT}`, null, { root: true });
+		commit(USER.LOGOUT);
+		commit(USER.LOGOUT, err, { root: true });
 	}
 }
 
 const mutations = {
 	[USER.UPDATE] (state, data) {
 		state.user = Object.assign(state.user, data.user);
-		setSession(state);
 	},
 	[USER.UPDATE_AVATAR] (state, avatar) {
 		state.user.avatar = avatar;
-		setSession(state);
+	},
+	[USER.LOGIN] (state, data) {
+		state.user = data.user;
+	},
+	[USER.LOGOUT] (state) {
+		state.user = {};
 	}
 }
 export default {

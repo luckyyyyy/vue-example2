@@ -1,10 +1,12 @@
 <template>
 	<div class="wrap">
-		<transition v-if="member.token" name="fade" mode="out-in">
+		<transition v-if="user" name="fade" mode="out-in">
 			<div class="main">
-				<router-view name="topbar"></router-view>
-				<router-view name="sidebar"></router-view>
-				<router-view name="main" class="router-view"></router-view>
+				<template v-if="channel">
+					<router-view name="topbar"></router-view>
+					<router-view name="sidebar"></router-view>
+					<router-view name="main" class="router-view"></router-view>
+				</template>
 				<router-view name="home"></router-view>
 			</div>
 		</transition>
@@ -14,21 +16,13 @@
 	</div>
 </template>
 <script>
-	import store from './store'
-	import { mapActions, mapGetters, mapState } from 'vuex'
+	import { mapGetters, mapState } from 'vuex'
 	export default {
 		computed: {
-			...mapGetters('user', [ 'member' ]),
-			...mapState('user', [ 'token' ])
+			...mapGetters('user', [ 'user' ]),
+			...mapGetters('channel', [ 'channel' ]),
+			// ...mapState('user', ['user'])
 		},
-		mounted () {
-			this.checkLogin();
-		},
-		methods: {
-			...mapActions('user', {
-				checkLogin: 'USER_LOGIN'
-			}),
-		}
 	}
 </script>
 

@@ -69,7 +69,7 @@
 				logout: 'USER_LOGOUT'
 			}),
 			...mapActions('channel', {
-				clearChannel: 'CHANNEL_SELECT'
+				clearChannel: 'CHANNEL_SET'
 			}),
 			submit_logout () {
 				this.$Modal.confirm({

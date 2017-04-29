@@ -1,20 +1,15 @@
 /*
 * @Author: Administrator
 * @Date:   2017-01-06 02:42:21
-* @Last Modified by:   Administrator
-* @Last Modified time: 2017-03-25 00:44:53
+* @Last Modified by:   Webster
+* @Last Modified time: 2017-04-29 16:04:40
 */
 
 'use strict';
 import { USER } from './types'
 import router from '../router'
 
-import { getSession, setSession } from './modules/user'
-
-export const USER_LOGIN = (state, data) => {
-	state.user.token = data.token;
-	state.user.user  = data.user;
-	setSession(state.user);
+export const USER_LOGIN = (state) => {
 	const route = state.route;
 	if (route.meta){
 		const requiresAuth = route.meta.requiresAuth;
@@ -27,13 +22,7 @@ export const USER_LOGIN = (state, data) => {
 		}
 	}
 }
-export const USER_CLEAR = (state, err) => {
-	state.user.token      = '';
-	state.user.user       = {};
-	state.channel.channel = null;
-	state.channel.id      = null;
-	sessionStorage.removeItem('user');
-	sessionStorage.removeItem('channelID');
+export const USER_LOGOUT = (state, err) => {
 	const route = state.route;
 	const requiresAuth = route.meta.requiresAuth;
 	if (requiresAuth && err) {
@@ -44,30 +33,19 @@ export const USER_CLEAR = (state, err) => {
 }
 
 export const CHANNEL_SELECT = (state, id) => {
-	router.push({ name: 'index' })
-	if (id) {
-		sessionStorage.setItem('channelID', id);
-	} else {
-		sessionStorage.removeItem('channelID');
-	}
-	state.channel.id = id;
 	const route = state.route;
 	if (route.meta) {
-		const requiresAuth = route.meta.requiresAuth;
-		if (requiresAuth) {
-			if (id) {
-				if (route.meta.group == 'select' && route.meta.group != 'global') {
-					if (route.query.redirect) {
-						router.push({ path: route.query.redirect })
-					} else {
-						router.push({ name: 'index' })
-					}
+		if (id) {
+			if (route.meta.group == 'select' && route.meta.group != 'global') {
+				if (route.query.redirect) {
+					router.push({ path: route.query.redirect })
+				} else {
+					router.push({ name: 'index' })
 				}
-			} else {
-
-				if (route.meta.group != 'select' && route.meta.group != 'global') {
-					router.push({ name: 'select_channel', query: { redirect: route.fullPath } });
-				}
+			}
+		} else {
+			if (route.meta.group != 'select' && route.meta.group != 'global') {
+				router.push({ name: 'select_channel', query: { redirect: route.fullPath } });
 			}
 		}
 	}

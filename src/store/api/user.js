@@ -1,8 +1,8 @@
 /*
 * @Author: Administrator
 * @Date:   2017-02-25 14:41:16
-* @Last Modified by:   Administrator
-* @Last Modified time: 2017-04-13 09:25:51
+* @Last Modified by:   Webster
+* @Last Modified time: 2017-04-29 11:40:47
 */
 
 'use strict';
@@ -39,6 +39,10 @@ export const reset_password = ({ phone, password, captcha }) => {
 // PUT /api/v1/user/profile
 export const update_user = ({ nickName, email, sex, description }) => {
 	return http.put(`user/profile`, { nickName, email, sex, description })
+}
+// GET /api/v1/user/profile
+export const get_user = () => {
+	return http.get(`user/profile`)
 }
 // POST /api/v1/user/password
 export const password = ({ oldPassword, newPassword }) => {

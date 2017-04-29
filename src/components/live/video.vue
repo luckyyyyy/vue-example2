@@ -17,7 +17,7 @@
 
 <script>
 	import '../../assets/libs/prism/index-min.css'
-	import { isiPad, isDev } from '../../utils/util'
+	import { isiPad, isDevelop } from '../../utils/util'
 	import { mapActions } from 'vuex'
 
 	let prism;
@@ -82,7 +82,7 @@
 						width    : '100%',
 						skinLayout: []
 					});
-					if (isDev()) {
+					if (isDevelop()) {
 						this.player.on('play', () => {
 							this.$Message.info(`DEBUG: source ${source}`)
 						})

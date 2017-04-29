@@ -1,14 +1,14 @@
 /*
 * @Author: William Chan
 * @Date:   2016-12-03 19:24:59
-* @Last Modified by:   chuxiao
-* @Last Modified time: 2017-04-28 14:36:26
+* @Last Modified by:   Webster
+* @Last Modified time: 2017-04-29 16:31:42
 */
 
 'use strict';
 import Vue from 'vue'
 import Vuex from 'vuex'
-
+import cookie from 'js-cookie'
 // globle and common
 // import * as getters   from './getters'
 // import * as actions   from './actions'
@@ -19,13 +19,13 @@ import channelModule   from './modules/channel'
 import liveModule      from './modules/live'
 import videoModule     from './modules/video'
 import orderModule     from './modules/order'
-import payModule			 from './modules/pay'
-import { isDev }       from '../utils/util'
+import payModule       from './modules/pay'
+import { isDevelop }       from '../utils/util'
 
 Vue.use(Vuex)
 const state = {}
 export const store = new Vuex.Store({
-	strict: isDev(),
+	strict: isDevelop(),
 	// state,
 	// getters,
 	// actions,
@@ -39,7 +39,7 @@ store.registerModule('channel', channelModule);
 store.registerModule('live',    liveModule);
 store.registerModule('video',   videoModule);
 store.registerModule('order',   orderModule);
-store.registerModule('pay', payModule);
+store.registerModule('pay',     payModule);
 const module = {};
 export const registerModule = (path, module) => {
 	const name = typeof path == 'string' ? path : path.join('/');
@@ -49,15 +49,22 @@ export const registerModule = (path, module) => {
 	}
 }
 
+export const getAuthorization = async () => {
+	if (!store.state.user.user) {
+		await store.dispatch('user/USER_GET');
+	}
+	return store.getters['user/user'];
+}
+
 export const clearAuthorization = error => {
-	return store.commit('USER_CLEAR', error, { root: true });
+	store.dispatch('user/USER_CLEAR');
 }
 
-export const getAuthorization = () => {
-	return store.getters['user/auth'];
-}
-
-export const getCurrentChannelID = () => {
-	return store.getters['channel/channelID'];
+export const getCurrentChannel = async () => {
+	const id = cookie.get('channelID');
+	if (id && !store.state.channel.channel) {
+		await store.dispatch('channel/CHANNEL_GET', id);
+	}
+	return store.getters['channel/channel'];
 }
 

@@ -1,8 +1,8 @@
 /*
 * @Author: William Chan
 * @Date:   2016-12-01 17:57:50
-* @Last Modified by:   William Chan
-* @Last Modified time: 2017-04-26 16:49:43
+* @Last Modified by:   Webster
+* @Last Modified time: 2017-04-29 15:59:03
 */
 
 'use strict';
@@ -24,7 +24,7 @@ import userRoute       from './user'
 import multimediaRoute from './multimedia'
 import channelRoute    from './channel'
 
-import { getAuthorization, getCurrentChannelID, store } from '../store'
+import { getAuthorization, getCurrentChannel, store } from '../store'
 
 
 Vue.use(VueRouter);
@@ -56,27 +56,19 @@ router.beforeEach(async (to, from, next) => {
 	NProgress.start();
 	const requiresAuth = to.matched.some(record => record.meta.requiresAuth);
 	let params;
-	const channel = getCurrentChannelID();
-	if (!getAuthorization()) {
+	const user = await getAuthorization();
+	if (!user) {
 		if (to.name == '404' || to.fullPath == '/') {
 			params = { name: 'login' };
 		} else if (requiresAuth) {
 			params = { name: 'login', query: { redirect: to.fullPath } };
 		}
 	} else {
+		const channel = await getCurrentChannel();
 		if (channel) {
-			const state = store.state.channel;
-			// 这里有坑 不过暂时先这样
-			if (!state.channel || state.id != state.channel.channelID) {
-				await store.dispatch('channel/CHANNEL_QUERY',  channel).then(res => {
-					if (res.channel.status != 2) {
-						store.commit('channel/CHANNEL_SELECT', null);
-						params = { name: 'create_channel', params: { id: channel } };
-					}
-				}).catch(err => {
-					store.commit('channel/CHANNEL_SELECT', null);
-					params = { name: 'select_channel', query: { redirect: to.fullPath } };
-				})
+			if (channel.status != 2) {
+				store.commit('channel/CHANNEL_SELECT', null);
+				params = { name: 'create_channel', params: { id: channel.channelId } };
 			}
 			if (to.meta.group == 'select' && to.meta.group != 'global') {
 				if (to.query.redirect) {

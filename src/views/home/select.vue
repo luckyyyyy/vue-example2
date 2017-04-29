@@ -88,7 +88,7 @@
 				getChannel: 'CHANNEL_FIND_REQUEST'
 			}),
 			...mapActions('channel', {
-				selectChannel: 'CHANNEL_SELECT'
+				selectChannel: 'CHANNEL_SET',
 			}),
 			...mapActions('channel/delete', {
 				deleteChannel: 'CHANNEL_DELETE'

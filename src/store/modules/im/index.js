@@ -1,8 +1,8 @@
 /*
 * @Author: William Chan
 * @Date:   2017-03-10 16:42:39
-* @Last Modified by:   Administrator
-* @Last Modified time: 2017-04-25 12:18:33
+* @Last Modified by:   Webster
+* @Last Modified time: 2017-04-29 16:32:28
 */
 
 'use strict';
@@ -14,7 +14,7 @@ import {
 	im_chatroom_updateMyInfo
 } from '../../api/im'
 
-import { isDev } from '../../../utils/util'
+import { isDevelop } from '../../../utils/util'
 
 import { IM, IM_CHATROOM } from '../../types'
 // refreshMemberType
@@ -208,7 +208,7 @@ const actions = {
 			dat = obj;
 		}
 		dat.date = new Date();
-		if (isDev() || dat.type != 'DEBUG') {
+		if (isDevelop() || dat.type != 'DEBUG') {
 			commit(IM_CHATROOM.MSG_SERVICE, dat);
 		}
 	}

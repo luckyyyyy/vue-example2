@@ -1,8 +1,8 @@
 /*
 * @Author: William Chan
 * @Date:   2016-12-03 20:43:22
-* @Last Modified by:   chuxiao
-* @Last Modified time: 2017-04-28 15:01:29
+* @Last Modified by:   Webster
+* @Last Modified time: 2017-04-29 15:35:41
 */
 
 'use strict';
@@ -18,14 +18,14 @@ const export_var = (enumerate, ...args) => {
 
 // user
 export const USER = export_var('USER',
-	'LOGIN', 'LOGOUT', 'REGISTER', 'REGISTER_CAPTCHA', 'RESETPWD', 'RESETPWD_CAPTCHA', 'PASSWORD',
+	'GET', 'LOGIN', 'LOGOUT', 'REGISTER', 'REGISTER_CAPTCHA', 'RESETPWD', 'RESETPWD_CAPTCHA', 'PASSWORD',
 	'CLEAR', 'UPDATE', 'UPDATE_AVATAR'
 );
 // COMMODITY_CATALOGS
 export const COMMODITY_CATALOGS = export_var('COMMODITY_CATALOGS', 'REQUEST', 'SUCCESS', 'FAILURE');
 // channel
 export const CHANNEL = export_var('CHANNEL',
-	'SELECT', 'CLEAR', 'QUERY', 'CHECK', 'UPDATE',
+	'GET', 'SET', 'SELECT', 'CLEAR', 'QUERY', 'CHECK', 'UPDATE',
 	'CREATE', 'DELETE', 'FIND_REQUEST', 'FIND_SUCCESS', 'FIND_FAILURE'
 );
 
