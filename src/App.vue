@@ -1,5 +1,5 @@
 <template>
-	<div class="wrap">
+	<div id="app">
 		<transition v-if="user" name="fade" mode="out-in">
 			<div class="main">
 				<template v-if="channel">
