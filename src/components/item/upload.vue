@@ -80,10 +80,6 @@
 				size: 0
 			}
 		},
-		computed: {
-			...mapGetters('user', ['auth']),
-			...mapGetters('channel', ['channelID'])
-		},
 		methods: {
 			openBrowse () {
 				if (this.length == 0) this.$refs.fileInput.click();
@@ -104,8 +100,7 @@
 				const xhr = new XMLHttpRequest();
 				xhr.open(this.method, this.action, true);
 				xhr.setRequestHeader('Content-Type', 'application/json');
-				xhr.setRequestHeader('Authorization', this.auth);
-				xhr.setRequestHeader('ChannelID',     this.channelID);
+				xhr.withCredentials = true;
 				xhr.upload.onprogress = e => {
 					if (e.total > 0) {
 						e.percent = e.loaded / e.total * 100;
