@@ -157,6 +157,9 @@
 			...mapActions('live/notice', {
 				sendNotice: 'LIVE_NOTICE'
 			}),
+			...mapActions('live/query_stream', {
+				getStreamStatus: 'LIVE_QUERY_STREAM'
+			}),
 			onJoinChatroom () {
 				const chatroomId         = this.live.liveChatRoom.roomid;
 				const oncustomsysmsg     = this.onCustomSysMsg;
@@ -205,7 +208,13 @@
 				}
 			},
 			onSwitchLiveAction (action) {
-				this.play = action;
+				if (action) {
+					this.getStreamStatus(this.live).then(data => {
+						this.play = data.status != 0;
+					})
+				} else {
+					this.play = false;
+				}
 			},
 			onCustomServiceMsg (data) { // chatroom callback
 				switch (data.type) {
@@ -237,21 +246,6 @@
 				this.noticeDialog = true
 				this.notice.text = '';
 			},
-			// onPublish () {
-			// 	this.$Modal.confirm({
-			// 		title: '直播',
-			// 		content: '确定要修改直播状态么？',
-			// 		loading: true,
-			// 		onOk: () => {
-			// 			this.livePublic(this.live).then(res => {
-			// 				this.updateLiveInfo(res);
-			// 				this.$Modal.remove();
-			// 			}).catch(() => {
-			// 				this.$Modal.remove();
-			// 			})
-			// 		}
-			// 	})
-			// },
 			onFinish () {
 				this.$Modal.confirm({
 					title: '确定要结束直播吗？',

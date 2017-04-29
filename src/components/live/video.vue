@@ -1,6 +1,13 @@
 <template>
 	<div class="video" ref="video">
 		<div id='video' class='prism-player'></div>
+		<div class="video__info" v-if="play">
+			<p><span><strong>Live information</strong></span></p>
+			<p><span>BitRate:</span> {{ bitRateInfo.bitRate / 1000 | floor }} kbps</p>
+			<p><span>FPS:</span>  {{ bitRateInfo.videoFrameRate }}</p>
+			<p><span>AudioFrameRate:</span> {{ bitRateInfo.audioFrameRate }}</p>
+			<p><span>Time:</span>  {{ bitRateInfo.time | date }}</p>
+		</div>
 		<div class="lock" v-show="!play || countdown.handel">
 			<img src="../../assets/toplogo.png" height="40" width="196">
 			<template v-if="countdown.handel">
@@ -16,24 +23,30 @@
 </template>
 
 <script>
-	import '../../assets/libs/prism/index-min.css'
-	import { isiPad, isDevelop } from '../../utils/util'
-	import { mapActions } from 'vuex'
-
+	import { mapActions, mapState } from 'vuex'
+	import '@/assets/libs/prism/index-min.css'
+	import { isiPad, isDevelop, date } from '@/utils/util'
 	let prism;
 	if (isiPad()) {
-		require.ensure([], function(require){
-			prism = require('../../assets/libs/prism/prism-h5-min.js');
-		});
+		import('@/assets/libs/prism/prism-h5-min.js').then(p => prism = p)
 	} else {
-		require.ensure([], function(require){
-			prism = require('../../assets/libs/prism/prism-flash-min.js');
-		});
+		import('@/assets/libs/prism/prism-flash-min.js').then(p => prism = p)
 	}
 	export default {
 		props: {
 			value: Boolean,
 			live: Object
+		},
+		computed: {
+			...mapState('live/query_stream', [
+				'bitRateInfo', 'publishStreamInfo'
+			])
+		},
+		filters: {
+			date,
+			floor (val) {
+				return Math.floor(val);
+			}
 		},
 		data () {
 			return {
@@ -45,22 +58,13 @@
 				}
 			}
 		},
-		computed: {
-			// check () {
-			// 	const init = this.$store.state.im.init;
-			// 	if (init) {
-			// 		this.clearInterval();
-			// 	}
-			// 	return init;
-			// },
-		},
 		mounted () {
 			this.checkStatus(true);
 		},
 		beforeDestroy () {
 			this.clearCountdown();
+			this.clearInterval();
 			window.removeEventListener('resize', this.autoSetPlayerSize, false);
-			// this.clearInterval();
 		},
 		methods: {
 			...mapActions('live/query_stream', {
@@ -116,12 +120,6 @@
 				const height = this.$refs.video.offsetHeight - 40;
 				this.player.setPlayerSize('100%', `${height}px`);
 			},
-			// clearInterval () {
-			// 	if (this.interval) {
-			// 		clearInterval(this.interval);
-			// 		this.interval = undefined;
-			// 	}
-			// },
 			checkStatus (lock) {
 				this.lock = lock;
 				this.getStreamStatus(this.live).then(data => {
@@ -137,6 +135,12 @@
 					clearInterval(this.countdown.handel);
 					this.countdown.handel = null;
 				}
+			},
+			clearInterval () {
+				if (this.Interval) {
+					clearInterval(this.Interval);
+					this.Interval = null;
+				}
 			}
 		},
 		watch: {
@@ -145,6 +149,11 @@
 				if (this.play) {
 					const fnAction = () => {
 						this.playVideo();
+						if (!this.Interval) {
+							this.Interval = setInterval(() => {
+								this.checkStatus();
+							}, 60000)
+						}
 					}
 					if (isiPad() && !this.countdown.handel) {
 						this.countdown.time = 30;
@@ -161,7 +170,7 @@
 					if (this.player) {
 						this.player.stop();
 					}
-					// this.player.liveStreamStop();
+					this.clearInterval();
 					this.clearCountdown();
 				}
 			}
@@ -175,6 +184,28 @@
 		width: 100%;
 		background: #333;
 		position: relative;
+		.video__info {
+			position: absolute;
+			z-index: 9;
+			background: rgba(0, 0, 0, .4);
+			color: darken(white, 30%);
+			top: 0;
+			left: 0;
+			visibility: hidden;
+			opacity: 0;
+			padding: 10px;
+			transition: visibility 0.3s, opacity 0.3s;
+			backdrop-filter: blur(20px);
+			span {
+				color: white;
+			}
+		}
+		&:hover {
+			.video__info {
+				visibility: visible;
+				opacity: 1;
+			}
+		}
 		.lock {
 			user-select: none;
 			// opacity: .2; // DEBUG
