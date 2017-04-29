@@ -2,7 +2,7 @@
 * @Author: William Chan
 * @Date:   2017-03-19 03:49:11
 * @Last Modified by:   Webster
-* @Last Modified time: 2017-04-29 16:37:08
+* @Last Modified time: 2017-04-29 17:30:30
 */
 
 'use strict';
@@ -31,6 +31,8 @@ const actions = {
 	[CHANNEL.GET] ({ commit }, id) {
 		return channel_query(id).then(res => {
 			commit(CHANNEL.SELECT, res.data);
+		}).catch(() => {
+			commit(CHANNEL.SELECT, null);
 		})
 	},
 	[CHANNEL.SET] ({ commit, dispatch }, id) {
@@ -39,17 +41,8 @@ const actions = {
 				commit(CHANNEL.SELECT, id, { root: true });
 			})
 		} else {
+			commit(CHANNEL.SELECT, null);
 			commit(CHANNEL.SELECT, null, { root: true });
-			commit(CHANNEL.SELECT, null);
-		}
-	},
-	[CHANNEL.SELECT] ({ getters, dispatch, commit }, id) {
-		if (id) {
-			commit(CHANNEL.SELECT, id);
-			// commit(CHANNEL.SELECT, id, { root: true });
-		} else {
-			commit(CHANNEL.SELECT, null);
-			// commit(CHANNEL.SELECT, null, { root: true });
 		}
 	},
 	[CHANNEL.UPDATE] ({ getters, dispatch, commit }, ...args) {
@@ -71,11 +64,11 @@ const mutations = {
 			// because cros domain, can not set cookie.
 			// so, local set cookie.
 			if (isDevelop() && data.channel.status == 2) {
-				cookie.set('channelID', data.channel.channelId);
+				cookie.set('ChannelID', data.channel.channelId);
 			}
 		} else {
 			state.channel = null;
-			cookie.remove('channelID');
+			cookie.remove('ChannelID');
 		}
 	},
 	[CHANNEL.UPDATE] (state, data) {
