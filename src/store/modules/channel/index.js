@@ -2,7 +2,7 @@
 * @Author: William Chan
 * @Date:   2017-03-19 03:49:11
 * @Last Modified by:   Webster
-* @Last Modified time: 2017-04-29 17:12:07
+* @Last Modified time: 2017-04-29 17:30:30
 */
 
 'use strict';
@@ -31,6 +31,8 @@ const actions = {
 	[CHANNEL.GET] ({ commit }, id) {
 		return channel_query(id).then(res => {
 			commit(CHANNEL.SELECT, res.data);
+		}).catch(() => {
+			commit(CHANNEL.SELECT, null);
 		})
 	},
 	[CHANNEL.SET] ({ commit, dispatch }, id) {

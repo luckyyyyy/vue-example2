@@ -40,7 +40,6 @@
 							</span>
 						</template>
 					</p>
-
 				</div>
 				<div class="member" v-show="active == 2">
 					<chatroomMemberList :im="live.liveImInfo" :members="members"></chatroomMemberList>
@@ -91,7 +90,7 @@
 						this.scroll = new iscroll(this.$refs.list, {
 							mouseWheel: true,
 							preventDefaultException: {
-								tagName: /^(SPAN|P|EM)$/
+								tagName: /^(SPAN|P|EM|INPUT)$/
 							},
 							scrollbars: true,
 							fadeScrollbars: true,
