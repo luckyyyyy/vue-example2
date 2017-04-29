@@ -74,6 +74,12 @@
 						</p>
 						<Button @click="onSubmit" type="error" :disabled="!isAgree">立即购买</Button>
 					</div>
+					<!-- 支付方式Tabs -->
+					<Tabs type="card" id='pay-tabs'>
+						<Tab-pane label="线上支付">标签一的内容</Tab-pane>
+						<Tab-pane label="线下支付">标签二的内容</Tab-pane>
+						<Tab-pane label="余额支付">标签三的内容</Tab-pane>
+					</Tabs>
 				</div>
 			</Card>
 		</div>
@@ -149,7 +155,8 @@
 	}
 </script>
 
-<style scoped lang='less'>
+<style scoped lang="less">
 	@import "../../assets/styles/views/account/consume.less";
 </style>
+
 
