@@ -179,7 +179,6 @@
 			},
 			onDisconnect (error) {
 				if (error) {
-					this.imOnDisconnect();
 					let msg = error.message;
 					if (!msg) {
 						switch (error.code) {
@@ -198,6 +197,7 @@
 							default:
 								break;
 						}
+						this.imOnDisconnect();
 					}
 					if (error.code != 'logout') {
 						this.$Modal.error({
