@@ -2,7 +2,7 @@
 * @Author: William Chan
 * @Date:   2016-12-03 19:24:59
 * @Last Modified by:   Webster
-* @Last Modified time: 2017-04-29 16:31:42
+* @Last Modified time: 2017-04-29 17:01:50
 */
 
 'use strict';
@@ -61,7 +61,7 @@ export const clearAuthorization = error => {
 }
 
 export const getCurrentChannel = async () => {
-	const id = cookie.get('channelID');
+	const id = cookie.get('ChannelID');
 	if (id && !store.state.channel.channel) {
 		await store.dispatch('channel/CHANNEL_GET', id);
 	}

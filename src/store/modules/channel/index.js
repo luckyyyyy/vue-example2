@@ -2,7 +2,7 @@
 * @Author: William Chan
 * @Date:   2017-03-19 03:49:11
 * @Last Modified by:   Webster
-* @Last Modified time: 2017-04-29 16:37:08
+* @Last Modified time: 2017-04-29 17:03:13
 */
 
 'use strict';
@@ -71,11 +71,11 @@ const mutations = {
 			// because cros domain, can not set cookie.
 			// so, local set cookie.
 			if (isDevelop() && data.channel.status == 2) {
-				cookie.set('channelID', data.channel.channelId);
+				cookie.set('ChannelID', data.channel.channelId);
 			}
 		} else {
 			state.channel = null;
-			cookie.remove('channelID');
+			cookie.remove('ChannelID');
 		}
 	},
 	[CHANNEL.UPDATE] (state, data) {
