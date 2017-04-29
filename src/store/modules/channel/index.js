@@ -2,7 +2,7 @@
 * @Author: William Chan
 * @Date:   2017-03-19 03:49:11
 * @Last Modified by:   Webster
-* @Last Modified time: 2017-04-29 17:03:13
+* @Last Modified time: 2017-04-29 17:08:42
 */
 
 'use strict';
@@ -39,17 +39,15 @@ const actions = {
 				commit(CHANNEL.SELECT, id, { root: true });
 			})
 		} else {
-			commit(CHANNEL.SELECT, null, { root: true });
 			commit(CHANNEL.SELECT, null);
+			commit(CHANNEL.SELECT, null, { root: true });
 		}
 	},
 	[CHANNEL.SELECT] ({ getters, dispatch, commit }, id) {
 		if (id) {
 			commit(CHANNEL.SELECT, id);
-			// commit(CHANNEL.SELECT, id, { root: true });
 		} else {
 			commit(CHANNEL.SELECT, null);
-			// commit(CHANNEL.SELECT, null, { root: true });
 		}
 	},
 	[CHANNEL.UPDATE] ({ getters, dispatch, commit }, ...args) {
