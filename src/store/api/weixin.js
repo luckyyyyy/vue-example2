@@ -1,13 +1,13 @@
 /*
 * @Author: Administrator
 * @Date:   2017-02-25 14:58:36
-* @Last Modified by:   Administrator
-* @Last Modified time: 2017-04-13 09:30:31
+* @Last Modified by:   William Chan
+* @Last Modified time: 2017-05-02 23:51:24
 */
 
 'use strict';
 
-import { http } from './'
+import { http } from '@/store/api'
 
 // -----------------------------
 // weixin 微信接口

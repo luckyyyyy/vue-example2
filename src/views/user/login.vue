@@ -45,7 +45,7 @@
 			}
 		},
 		methods: {
-			...mapActions('user/login', {
+			...mapActions('user', {
 				userLogin: 'USER_LOGIN'
 			}),
 			submit_login () {

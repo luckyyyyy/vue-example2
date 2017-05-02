@@ -77,7 +77,7 @@
 			this.clearInterval();
 		},
 		methods: {
-			...mapActions('user/register', {
+			...mapActions('user', {
 				getCaptcha: 'USER_REGISTER_CAPTCHA',
 				registerUser: 'USER_REGISTER'
 			}),

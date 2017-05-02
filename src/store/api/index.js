@@ -1,8 +1,8 @@
 /*
 * @Author: William Chan
 * @Date:   2016-12-02 11:31:24
-* @Last Modified by:   chuxiao
-* @Last Modified time: 2017-05-02 14:08:46
+* @Last Modified by:   William Chan
+* @Last Modified time: 2017-05-02 23:51:51
 */
 
 // axios.request(config)
@@ -15,11 +15,10 @@
 
 
 'use strict';
-
-import { clearAuthorization } from '../'
 import { Modal, Notice } from 'iview'
-import { isDevelop } from '../../utils/util'
-import axios from 'axios'  // rainbowcloud.tv/api
+import axios from 'axios'
+import { clearAuthorization } from '@/store'
+import { isDevelop } from '@/utils/util'
 export const API_HOST = isDevelop() ? 'https://rainbowcloud.tv/api/v1' : '/api/v1';
 
 if (localStorage.getItem('debug')) {

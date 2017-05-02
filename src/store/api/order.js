@@ -1,13 +1,13 @@
 /*
 * @Author: chuxiao
 * @Date:   2017-04-25 10:51:56
-* @Last Modified by:   chuxiao
-* @Last Modified time: 2017-04-28 10:23:49
+* @Last Modified by:   William Chan
+* @Last Modified time: 2017-05-02 23:50:54
 */
 
 'use strict';
 
-import { http } from './'
+import { http } from '@/store/api'
 
 // -----------------------------
 // order

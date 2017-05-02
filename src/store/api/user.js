@@ -1,8 +1,8 @@
 /*
 * @Author: Administrator
 * @Date:   2017-02-25 14:41:16
-* @Last Modified by:   Webster
-* @Last Modified time: 2017-04-29 11:40:47
+* @Last Modified by:   William Chan
+* @Last Modified time: 2017-05-02 23:50:26
 */
 
 'use strict';
@@ -11,7 +11,7 @@
 // user 用户接口
 // -----------------------------
 
-import { http } from './'
+import { http } from '@/store/api'
 // POST /api/v1/user/register/captcha 获取验证码
 export const register_captcha = ({ phone }) => {
 	return http.post(`user/register/captcha`, { phone }, { interceptors: false })

@@ -45,7 +45,7 @@
 			}
 		},
 		methods: {
-			...mapActions('user/password', {
+			...mapActions('user', {
 				setPassword: 'USER_PASSWORD'
 			}),
 			submit () {

@@ -1,13 +1,13 @@
 /*
 * @Author: Administrator
 * @Date:   2017-01-06 02:33:52
-* @Last Modified by:   Webster
-* @Last Modified time: 2017-04-29 14:24:41
+* @Last Modified by:   William Chan
+* @Last Modified time: 2017-05-02 23:57:14
 */
 
 'use strict';
 
-import { logout, get_user } from '../../api/user'
+import * as user from '../../api/user'
 import { USER, CHANNEL } from '../../types'
 
 const state = {
@@ -32,7 +32,7 @@ const getters = {
 
 const actions = {
 	[USER.GET] ({ commit }, ...args) {
-		return get_user().then(data => {
+		return user.get_user().then(data => {
 			commit(USER.LOGIN, data.data);
 		}).catch(() => {
 			commit(USER.LOGOUT);
@@ -40,7 +40,7 @@ const actions = {
 	},
 	[USER.LOGOUT] ({ dispatch }, ...args) {
 		return new Promise((resolve, reject) => {
-			logout().then(() => {
+			user.logout().then(() => {
 				dispatch(USER.CLEAR);
 				resolve();
 			}).catch(() => {
@@ -52,6 +52,73 @@ const actions = {
 		commit(`channel/${CHANNEL.SELECT}`, null, { root: true });
 		commit(USER.LOGOUT);
 		commit(USER.LOGOUT, err, { root: true });
+	},
+	[USER.LOGIN] ({ commit }, ...args) {
+		return new Promise((resolve, reject) => {
+			user.login(...args).then(res => {
+				commit(`user/${USER.LOGIN}`, res.data, { root: true });
+				commit(USER.LOGIN, res.data, { root: true });
+				resolve();
+			}).catch(err => {
+				commit(USER.CLEAR, err, { root: true });
+				reject();
+			})
+		})
+	},
+	[USER.PASSWORD] ({ commit }, ...args) {
+		return new Promise((resolve, reject) => {
+			user.password(...args).then(res => {
+				resolve();
+			}).catch(err => {
+				reject();
+			})
+		})
+	},
+	[USER.UPDATE] ({ commit }, ...args) {
+		return new Promise((resolve, reject) => {
+			user.update_user(...args).then(res => {
+				commit(`user/${USER.UPDATE}`, res.data, { root: true });
+				resolve();
+			}).catch(err => {
+				reject();
+			})
+		});
+	},
+	[USER.REGISTER] ({ commit }, ...args) {
+		return new Promise((resolve, reject) => {
+			user.register(...args).then(res => {
+				resolve();
+			}).catch(err => {
+				reject();
+			})
+		})
+	},
+	[USER.REGISTER_CAPTCHA] (store, ...args) {
+		return new Promise(function(resolve, reject) {
+			user.register_captcha(...args).then(res => {
+				resolve();
+			}).catch(err => {
+				reject(err);
+			})
+		})
+	},
+	[USER.RESETPWD_CAPTCHA] (store, ...args) {
+		return new Promise((resolve, reject) => {
+			user.reset_password_captcha(...args).then(res => {
+				resolve();
+			}).catch(err => {
+				reject(err);
+			})
+		})
+	},
+	[USER.RESETPWD] ({ commit }, ...args) {
+		return new Promise((resolve, reject) => {
+			user.reset_password(...args).then(res => {
+				resolve();
+			}).catch(err => {
+				reject();
+			})
+		})
 	}
 }
 

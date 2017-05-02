@@ -1,13 +1,13 @@
 /*
 * @Author: Administrator
 * @Date:   2017-02-25 14:58:36
-* @Last Modified by:   chuxiao
-* @Last Modified time: 2017-04-26 11:39:00
+* @Last Modified by:   William Chan
+* @Last Modified time: 2017-05-02 23:50:56
 */
 
 'use strict';
 
-import { http } from './'
+import { http } from '@/store/api'
 
 // -----------------------------
 // live

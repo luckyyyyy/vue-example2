@@ -52,7 +52,7 @@
 			this.clearInterval();
 		},
 		methods: {
-			...mapActions('user/reset_password', {
+			...mapActions('user', {
 				getCaptcha: 'USER_RESETPWD_CAPTCHA',
 				resetPassword: 'USER_RESETPWD'
 			}),
