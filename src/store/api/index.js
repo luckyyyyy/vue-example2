@@ -1,8 +1,8 @@
 /*
 * @Author: William Chan
 * @Date:   2016-12-02 11:31:24
-* @Last Modified by:   Webster
-* @Last Modified time: 2017-04-29 16:32:08
+* @Last Modified by:   chuxiao
+* @Last Modified time: 2017-05-02 14:08:46
 */
 
 // axios.request(config)
@@ -102,6 +102,7 @@ export const http = axios.create({
 
 http.interceptors.request.use(onRequest, onRequestError);
 http.interceptors.response.use(onResponse, onResponseError);
+
 // 头像接口
 export const USER_AVATAR = {
 	action: `${API_HOST}/user/avatar`,
@@ -114,7 +115,6 @@ export const MULTIMEDIA_UPLOAD = {
 	method: 'POST',
 	multiple: true,
 }
-
 
 
 

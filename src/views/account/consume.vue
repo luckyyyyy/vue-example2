@@ -62,7 +62,6 @@
 							<p class="label">总价：</p>
 							<span class="focus">￥ {{ (form.quantity * form.price).toFixed(2) }}</span>
 						</div>
-						<Paymethod style="width: 100%;" @select="selectPayMethod" :defaultPayMethod="form.type"></Paymethod>
 						<!-- tips -->
 						<p class="tips">
 							<span>有效期：1年（2017-02-10 至 2018-02-10）</span>
@@ -75,11 +74,23 @@
 						<Button @click="onSubmit" type="error" :disabled="!isAgree">立即购买</Button>
 					</div>
 					<!-- 支付方式Tabs -->
-					<Tabs type="card" id='pay-tabs'>
-						<Tab-pane label="线上支付">标签一的内容</Tab-pane>
-						<Tab-pane label="线下支付">标签二的内容</Tab-pane>
-						<Tab-pane label="余额支付">标签三的内容</Tab-pane>
-					</Tabs>
+					<el-tabs id="pay-tabs" v-model="form.type" type="card">
+						<el-tab-pane label="线上支付" name="1">
+							<div class="common-tabs__content">
+
+							</div>
+						</el-tab-pane>
+						<el-tab-pane label="线下支付" name="2">
+							<div class="common-tabs__content">
+
+							</div>
+						</el-tab-pane>
+						<el-tab-pane label="余额支付" name="3">
+							<div class="common-tabs__content">
+
+							</div>
+						</el-tab-pane>
+					</el-tabs>
 				</div>
 			</Card>
 		</div>
@@ -88,12 +99,8 @@
 
 <script>
 	import { mapActions } from 'vuex'
-	import Paymethod from '../../components/item/paymethod.vue'
 	import moment from 'moment'
 	export default {
-		components: {
-			Paymethod,
-		},
 		data () {
 			return {
 				lowGrade:{
@@ -110,7 +117,7 @@
 					edition: 2,
 					quantity: 1,
 					price: 4990,
-					type: 1,
+					type: '1',
 				},
 				req_lock: true,
 				time: 0,	// 测试用
@@ -137,15 +144,12 @@
 			},
 			onSubmit () {
 				if(this.req_lock){
-					this.createConsume(this.form).then(() => {
+					this.createConsume(this.form).then(res => {
 
-					}).catch(() => {
+					}).catch(err => {
 
 					})
 				}
-			},
-			selectPayMethod (result){
-				this.form.type = result;
 			},
 		},
 		watch: {
