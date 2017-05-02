@@ -45,39 +45,27 @@
 							<p class="footer">(包含免费版所有功能)</p>
 						</div>
 					</div>
-					<div class="form">
-						<div class='message'>
-							<p class="label">收费标准：</p>
-							<span class="focus">{{ form.price }}</span>
-							<p>元/年  (专业版)</p>
-						</div>
-						<div class='message'>
-							<p class="label">购买年限：</p>
-							<p class="form-contrl">
-								<Input-number @on-change='changeQuantity' style="width:64px" v-model="form.quantity" :max="99" :min="1" :step="1"></Input-number>
-							</p>
-							<p>年  （有效期限：{{ time }} 至 {{ fTime }}）</p>
-						</div>
-						<div class='message'>
-							<p class="label">总价：</p>
-							<span class="focus">￥ {{ (form.quantity * form.price).toFixed(2) }}</span>
-						</div>
-						<!-- tips -->
-						<p class="tips">
-							<span>有效期：1年（2017-02-10 至 2018-02-10）</span>
-							<span>注：若当前版本未到期，剩余版本余额可抵用升级版本相应金额（如，专业版剩余3个月，则可抵扣1/4*4990=1247.5元。）；有效期于升级日期起计算。</span>
-							<span>发票：订单对应可开发票的类型和抬头为您在用户中心-发票信息管理中设置的信息</span>
-							<span class="tips-box">
-								<Checkbox v-model="isAgree"><a href="#">《 彩虹云直播平台服务条款 》</a></Checkbox>
-							</span>
-						</p>
-						<Button @click="onSubmit" type="error" :disabled="!isAgree">立即购买</Button>
-					</div>
 					<!-- 支付方式Tabs -->
 					<el-tabs id="pay-tabs" v-model="form.type" type="card">
 						<el-tab-pane label="线上支付" name="1">
 							<div class="common-tabs__content">
-
+								<div class="pay-logo"><img src="../../assets/images/account/alipayLogo.png" height="22" width="63"></div>
+								<div class='message'>
+									<p class="label">收费标准：</p>
+									<span class="focus">{{ form.price }}</span>
+									<p>元/年  (专业版)</p>
+								</div>
+								<div class='message'>
+									<p class="label">购买年限：</p>
+									<p class="form-contrl">
+										<el-input-number @change="changeQuantity" v-model="form.quantity" :step="1" size="small" :max="99" :min="1"></el-input-number>
+									</p>
+									<p>年  （有效期限：{{ time }} 至 {{ fTime }}）</p>
+								</div>
+								<div class='message'>
+									<p class="label">总价：</p>
+									<span class="focus">￥ {{ (form.quantity * form.price).toFixed(2) }}</span>
+								</div>
 							</div>
 						</el-tab-pane>
 						<el-tab-pane label="线下支付" name="2">
@@ -91,6 +79,16 @@
 							</div>
 						</el-tab-pane>
 					</el-tabs>
+					<!-- tips -->
+					<p class="tips">
+						<span>有效期：1年（2017-02-10 至 2018-02-10）</span>
+						<span>注：若当前版本未到期，剩余版本余额可抵用升级版本相应金额（如，专业版剩余3个月，则可抵扣1/4*4990=1247.5元。）；有效期于升级日期起计算。</span>
+						<span>发票：订单对应可开发票的类型和抬头为您在用户中心-发票信息管理中设置的信息</span>
+						<span class="tips-box" v-if="form.type != 2">
+							<Checkbox v-model="isAgree"><a href="#">《 彩虹云直播平台服务条款 》</a></Checkbox>
+						</span>
+					</p>
+					<Button v-if="form.type != 2" @click="onSubmit" type="error" :disabled="!isAgree">立即购买</Button>
 				</div>
 			</Card>
 		</div>
@@ -119,10 +117,11 @@
 					price: 4990,
 					type: '1',
 				},
+				quantity: 1,
 				req_lock: true,
 				time: 0,	// 测试用
 				fTime: 0,	// 测试用
-				isAgree: false,
+				isAgree: true,
 			}
 		},
 		mounted () {
@@ -138,22 +137,29 @@
 					this.form[key] = version[key];
 				}
 			},
-			changeQuantity () {
-				this.form.quantity = Math.round(this.form.quantity); //	确保数量是整数
+			changeQuantity (res) {
+				this.form.quantity = Math.floor(this.form.quantity);
 				this.fTime = moment(this.time).add(this.form.quantity, 'years').format('YYYY-MM-DD HH:mm:ss');
 			},
 			onSubmit () {
-				if(this.req_lock){
-					this.createConsume(this.form).then(res => {
+				console.log(this.form.quantity)
+				// if(this.req_lock){
+				// 	this.createConsume(this.form).then(res => {
 
-					}).catch(err => {
+				// 	}).catch(err => {
 
-					})
-				}
+				// 	})
+				// }
 			},
 		},
-		watch: {
-		},
+		// watch: {
+		// 	quantity () {
+		// 		if( this.quantity * 10 % 10 !== 0 ){
+		// 			this.quantity = this.quantity.toFixed(0);
+		// 		}
+
+		// 	}
+		// },
 		computed: {
 		},
 	}

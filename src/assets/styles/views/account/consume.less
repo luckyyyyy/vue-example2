@@ -18,6 +18,7 @@
 .select-box {
 	display: flex;
 	justify-content: flex-start;
+	margin-bottom: 37px;
 	.high-grade {
 		box-shadow: 0 0 10px 2px rgba(223, 109, 172, 0.4);
 		.title {
@@ -80,34 +81,41 @@
 		}
 	}
 }
-.form {
-	margin: 24px 0 15px;
+.message {
 	display: flex;
-	flex-direction: column;
-	align-items: center;
-	.message {
-		display: flex;
-		margin-bottom: 15px;
-		padding: 10px;
-		width: 100%;
-		line-height: 26px;
-		border-radius: 6px;
-		background-color: #f2f3f7;
-		.label {
-			width: 80px;
-			text-align: right;
-		}
-		.focus {
-			margin: 0 15px 0 10px;
-			font-size: 18px;
-			font-weight: 500;
-			color: #ff4949;
-		}
-		.form-contrl {
-			margin: 0 15px 0 10px;
-		}
-
+	padding: 10px 0;
+	width: 100%;
+	line-height: 30px;
+	border-radius: 6px;
+	.label {
+		width: 72px;
+		text-align: right;
+		margin-right: 15px;
+		color: #999999;
 	}
+	.focus {
+		margin-right: 15px;
+		font-size: 18px;
+		font-weight: 500;
+		color: #ff4949;
+	}
+	.form-contrl {
+		margin-right: 15px;
+		height: 30px;
+	}
+	&:not(:last-child) {
+		margin-bottom: 5px;
+	}
+}
+.pay-logo {
+	margin-bottom: 5px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	width: 130px;
+	height: 40px;
+	border-radius: 4px;
+	background-color: #f2f3f7;
 }
 .tips {
 	margin: 20px 0 10px;
