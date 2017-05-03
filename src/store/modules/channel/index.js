@@ -1,35 +1,32 @@
 /*
 * @Author: William Chan
 * @Date:   2017-03-19 03:49:11
-* @Last Modified by:   Webster
-* @Last Modified time: 2017-04-29 17:30:30
+* @Last Modified by:   William Chan
+* @Last Modified time: 2017-05-03 11:41:51
 */
 
 'use strict';
 
 import cookie from 'js-cookie'
 import { isDevelop } from '@/utils/util'
-import { channel_query, channel_update } from '../../api/channel'
-import { CHANNEL } from '../../types'
-import router from '../../../router'
+import * as api from '@/store/api/channel'
+import { CHANNEL } from '@/store/types'
+
 const state = {
 	channel: null,
+	data: [],
+	total: 0
 }
 
 const getters = {
 	channel: state => {
 		return state.channel;
-		// if (state.channel && state.channel.channelId == cookie.get('channelID')) {
-		// 	return state.channel;
-		// } else {
-		// 	return null;
-		// }
 	},
 }
 
 const actions = {
 	[CHANNEL.GET] ({ commit }, id) {
-		return channel_query(id).then(res => {
+		return api.channel_query(id).then(res => {
 			commit(CHANNEL.SELECT, res.data);
 		}).catch(() => {
 			commit(CHANNEL.SELECT, null);
@@ -47,7 +44,7 @@ const actions = {
 	},
 	[CHANNEL.UPDATE] ({ getters, dispatch, commit }, ...args) {
 		return new Promise((resolve, reject) => {
-			channel_update(...args).then(res => {
+			api.channel_update(...args).then(res => {
 				commit(CHANNEL.UPDATE, res.data);
 				resolve(res.data);
 			}).catch(err => {
@@ -55,6 +52,36 @@ const actions = {
 			})
 		})
 	},
+	[CHANNEL.FIND_REQUEST] ({ commit }, ...args) {
+		commit(CHANNEL.FIND_REQUEST);
+		return new Promise((resolve, reject) => {
+			api.channel_find(...args).then(res => {
+				commit(CHANNEL.FIND_SUCCESS, res);
+				resolve(res.data);
+			}).catch(err => {
+				commit(CHANNEL.FIND_FAILURE, err);
+				reject();
+			})
+		})
+	},
+	[CHANNEL.DELETE] ({ commit }, ...args) {
+		return new Promise((resolve, reject) => {
+			api.channel_delete(...args).then(res => {
+				resolve();
+			}).catch(err => {
+				reject(err);
+			})
+		})
+	},
+	[CHANNEL.CREATE] ({ commit, dispatch }, ...args) {
+		return new Promise((resolve, reject) => {
+			api.channel_create(...args).then(res => {
+				resolve(res.data);
+			}).catch(err => {
+				reject();
+			})
+		})
+	}
 }
 
 const mutations = {
@@ -75,6 +102,18 @@ const mutations = {
 		if (state.id == data.channel.channelID) {
 			state.channel = data.channel;
 		}
+	},
+	[CHANNEL.FIND_REQUEST] (state) {
+		state.data  = [];
+		state.total = 0;
+	},
+	[CHANNEL.FIND_SUCCESS] (state, { data }) {
+		state.data  = data.channels;
+		state.total = data.total;
+	},
+	[CHANNEL.FIND_FAILURE] (state, err) {
+		state.data  = [];
+		state.total = 0;
 	},
 }
 export default {

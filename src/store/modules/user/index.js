@@ -2,13 +2,13 @@
 * @Author: Administrator
 * @Date:   2017-01-06 02:33:52
 * @Last Modified by:   William Chan
-* @Last Modified time: 2017-05-03 11:24:57
+* @Last Modified time: 2017-05-03 11:42:23
 */
 
 'use strict';
 
-import * as user from '../../api/user'
-import { USER, CHANNEL } from '../../types'
+import * as api from '@/store/api/user'
+import { USER, CHANNEL } from '@/store/types'
 
 const state = {
 	user: null,
@@ -32,7 +32,7 @@ const getters = {
 
 const actions = {
 	[USER.GET] ({ commit }, ...args) {
-		return user.get_user().then(data => {
+		return api.get_user().then(data => {
 			commit(USER.LOGIN, data.data);
 		}).catch(() => {
 			commit(USER.LOGOUT);
@@ -40,7 +40,7 @@ const actions = {
 	},
 	[USER.LOGOUT] ({ dispatch }, ...args) {
 		return new Promise((resolve, reject) => {
-			user.logout().then(() => {
+			api.logout().then(() => {
 				dispatch(USER.CLEAR);
 				resolve();
 			}).catch(() => {
@@ -55,7 +55,7 @@ const actions = {
 	},
 	[USER.LOGIN] ({ commit }, ...args) {
 		return new Promise((resolve, reject) => {
-			user.login(...args).then(res => {
+			api.login(...args).then(res => {
 				commit(USER.LOGIN, res.data);
 				commit(USER.LOGIN, res.data, { root: true });
 				resolve();
@@ -67,7 +67,7 @@ const actions = {
 	},
 	[USER.PASSWORD] ({ commit }, ...args) {
 		return new Promise((resolve, reject) => {
-			user.password(...args).then(res => {
+			api.password(...args).then(res => {
 				resolve();
 			}).catch(err => {
 				reject();
@@ -76,7 +76,7 @@ const actions = {
 	},
 	[USER.UPDATE] ({ commit }, ...args) {
 		return new Promise((resolve, reject) => {
-			user.update_user(...args).then(res => {
+			api.update_user(...args).then(res => {
 				commit(USER.UPDATE, res.data);
 				resolve();
 			}).catch(err => {
@@ -86,7 +86,7 @@ const actions = {
 	},
 	[USER.REGISTER] ({ commit }, ...args) {
 		return new Promise((resolve, reject) => {
-			user.register(...args).then(res => {
+			api.register(...args).then(res => {
 				resolve();
 			}).catch(err => {
 				reject();
@@ -95,7 +95,7 @@ const actions = {
 	},
 	[USER.REGISTER_CAPTCHA] (store, ...args) {
 		return new Promise(function(resolve, reject) {
-			user.register_captcha(...args).then(res => {
+			api.register_captcha(...args).then(res => {
 				resolve();
 			}).catch(err => {
 				reject(err);
@@ -104,7 +104,7 @@ const actions = {
 	},
 	[USER.RESETPWD_CAPTCHA] (store, ...args) {
 		return new Promise((resolve, reject) => {
-			user.reset_password_captcha(...args).then(res => {
+			api.reset_password_captcha(...args).then(res => {
 				resolve();
 			}).catch(err => {
 				reject(err);
@@ -113,7 +113,7 @@ const actions = {
 	},
 	[USER.RESETPWD] ({ commit }, ...args) {
 		return new Promise((resolve, reject) => {
-			user.reset_password(...args).then(res => {
+			api.reset_password(...args).then(res => {
 				resolve();
 			}).catch(err => {
 				reject();

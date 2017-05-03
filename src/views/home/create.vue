@@ -130,10 +130,8 @@
 			...mapActions('catalogs', {
 				getCatalogs: 'COMMODITY_CATALOGS_REQUEST'
 			}),
-			...mapActions('channel/create', {
-				createChannel: 'CHANNEL_CREATE'
-			}),
 			...mapActions('channel', {
+				createChannel: 'CHANNEL_CREATE',
 				selectChannel: 'CHANNEL_SELECT',
 				queryChannel: 'CHANNEL_QUERY'
 			}),

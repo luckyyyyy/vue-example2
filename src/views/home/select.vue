@@ -71,7 +71,7 @@
 			}
 		},
 		computed: {
-			...mapState('channel/find', {
+			...mapState('channel', {
 				total: state => state.total,
 				data: state  => state.data,
 			}),
@@ -84,13 +84,9 @@
 			this.onChange();
 		},
 		methods: {
-			...mapActions('channel/find', {
-				getChannel: 'CHANNEL_FIND_REQUEST'
-			}),
 			...mapActions('channel', {
+				getChannel: 'CHANNEL_FIND_REQUEST',
 				selectChannel: 'CHANNEL_SET',
-			}),
-			...mapActions('channel/delete', {
 				deleteChannel: 'CHANNEL_DELETE'
 			}),
 			onChange (currentPage) {

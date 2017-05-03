@@ -1,8 +1,8 @@
 /*
 * @Author: William Chan
 * @Date:   2016-12-03 19:24:59
-* @Last Modified by:   Webster
-* @Last Modified time: 2017-04-29 17:01:50
+* @Last Modified by:   William Chan
+* @Last Modified time: 2017-05-03 11:51:38
 */
 
 'use strict';
@@ -12,15 +12,18 @@ import cookie from 'js-cookie'
 // globle and common
 // import * as getters   from './getters'
 // import * as actions   from './actions'
-import * as mutations  from './mutations'
+import * as mutations  from '@/store/mutations'
 
-import userModule      from './modules/user'
-import channelModule   from './modules/channel'
-import liveModule      from './modules/live'
-import videoModule     from './modules/video'
-import orderModule     from './modules/order'
-import payModule       from './modules/pay'
-import { isDevelop }       from '../utils/util'
+import userModule      from '@/store/modules/user'
+import channelModule   from '@/store/modules/channel'
+import liveModule      from '@/store/modules/live'
+import videoModule     from '@/store/modules/video'
+import orderModule     from '@/store/modules/order'
+import payModule       from '@/store/modules/pay'
+import weChatModule    from '@/store/modules/weixin/auth_url'
+import commodityModule from '@/store/modules/commodity/catalogs'
+
+import { isDevelop }   from '@/utils/util'
 
 Vue.use(Vuex)
 const state = {}
@@ -34,12 +37,17 @@ export const store = new Vuex.Store({
 
 // Because the router, so register it.
 // See router beforeEach
-store.registerModule('user',    userModule);
+store.registerModule('user', userModule);
 store.registerModule('channel', channelModule);
-store.registerModule('live',    liveModule);
-store.registerModule('video',   videoModule);
-store.registerModule('order',   orderModule);
-store.registerModule('pay',     payModule);
+store.registerModule('live', liveModule);
+store.registerModule('video', videoModule);
+store.registerModule('order', orderModule);
+store.registerModule('pay', payModule);
+
+store.registerModule('weixin_auth', weChatModule);
+store.registerModule('catalogs', commodityModule);
+
+
 const module = {};
 export const registerModule = (path, module) => {
 	const name = typeof path == 'string' ? path : path.join('/');
