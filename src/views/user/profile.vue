@@ -80,8 +80,11 @@
 			this.user = Object.assign({}, this.info);
 		},
 		methods: {
-			...mapMutations('user', {
+			...mapActions('user', {
 				updateUser: 'USER_UPDATE',
+			}),
+			...mapMutations('user', {
+
 				updateUserAvatar: 'USER_UPDATE_AVATAR'
 			}),
 			avatar_progress (event) {
