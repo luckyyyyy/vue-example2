@@ -2,7 +2,7 @@
 * @Author: William Chan
 * @Date:   2017-03-06 22:30:36
 * @Last Modified by:   William Chan
-* @Last Modified time: 2017-03-08 15:39:53
+* @Last Modified time: 2017-05-03 12:02:42
 */
 
 'use strict';
@@ -13,9 +13,9 @@ export default [
 		meta: { requiresAuth: true },
 		redirect: { name: 'store_shop_list' },
 		components: {
-			sidebar: resolve => require(['../components/sidebar.vue'], resolve),
-			topbar:  resolve => require(['../components/topbar.vue'], resolve),
-			main:    resolve => require(['../components/main.vue'], resolve)
+			sidebar: resolve => import('@/components/sidebar.vue'),
+			topbar:  resolve => import('@/components/topbar.vue'),
+			main:    resolve => import('@/components/main.vue'),
 		},
 		children: [
 			{ // 保证在前面 先后顺序匹配

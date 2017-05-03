@@ -1,20 +1,20 @@
 /*
 * @Author: chuxiao
 * @Date:   2017-04-18 10:28:42
-* @Last Modified by:   chuxiao
-* @Last Modified time: 2017-04-24 14:51:17
+* @Last Modified by:   William Chan
+* @Last Modified time: 2017-05-03 12:05:38
 */
-import moment from 'moment'
 'use strict';
+import moment from 'moment'
 /**
  * 数量格式化
  * @param {number} value 数值
  * @returns {number} 格式化后的字符串
  */
 export const numberFormat = (value) => {
-	if(value >= 10000){
-		return (Math.round(value / 100) / 100 + 'W');
-	}else{
+	if (value >= 10000) {
+		return Math.round(value / 100) / 100 + 'W';
+	} else {
 		return value;
 	}
 }

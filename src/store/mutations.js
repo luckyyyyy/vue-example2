@@ -1,13 +1,13 @@
 /*
 * @Author: Administrator
 * @Date:   2017-01-06 02:42:21
-* @Last Modified by:   Webster
-* @Last Modified time: 2017-04-29 16:04:40
+* @Last Modified by:   William Chan
+* @Last Modified time: 2017-05-03 11:58:50
 */
 
 'use strict';
-import { USER } from './types'
-import router from '../router'
+import { USER } from '@/store/types'
+import router from '@/router'
 
 export const USER_LOGIN = (state) => {
 	const route = state.route;

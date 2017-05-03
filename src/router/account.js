@@ -1,8 +1,8 @@
 /*
 * @Author: William Chan
 * @Date:   2017-03-06 22:28:39
-* @Last Modified by:   chuxiao
-* @Last Modified time: 2017-04-28 14:50:06
+* @Last Modified by:   William Chan
+* @Last Modified time: 2017-05-03 11:59:22
 */
 
 'use strict';
@@ -14,9 +14,9 @@ export default [
 		meta: { requiresAuth: true },
 		redirect: { name: 'account_overview' },
 		components: {
-			sidebar: resolve => require(['../components/sidebar.vue'], resolve),
-			topbar:  resolve => require(['../components/topbar.vue'], resolve),
-			main:    resolve => require(['../components/main.vue'], resolve)
+			sidebar: resolve => import('@/components/sidebar.vue'),
+			topbar:  resolve => import('@/components/topbar.vue'),
+			main:    resolve => import('@/components/main.vue'),
 		},
 		children: [
 			{
