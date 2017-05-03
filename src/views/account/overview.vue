@@ -122,6 +122,7 @@
 </template>
 
 <script>
+	import { mapActions } from 'vuex'
 	import dashboard from '../../components/item/dashboard.vue'
 	import { numberFormat } from '../../filter'
 	export default {
@@ -296,6 +297,11 @@
 						imgURL: require('../../assets/error.png'),
 					},
 				],
+				form:{
+					page: 0,
+					start: 0,
+					limits: 20
+				}
 			}
 		},
 		mounted () {
@@ -304,8 +310,16 @@
 			numberFormat,
 		},
 		methods: {
+			...mapActions('order/order_find',{
+				orderFind: 'ORDER_FIND_REQUEST'
+			}),
 			selectPage (pageNum) {
 				console.log(pageNum);
+				this.orderFind(this.form).then(res => {
+
+				}).catch(err => {
+
+				})
 			},
 			routerJump (routerName) {
 

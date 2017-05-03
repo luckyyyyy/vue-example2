@@ -10,26 +10,50 @@
 			<Card class="commoon-card" :bordered="false" dis-hover>
 				<p slot="title" class="commoon-card__title">一元起充</p>
 				<!-- tips -->
-				<div class="content content-info">
-					<Input-number :min="1" :step="1" v-model="price" style="width:178px"></Input-number>
+				<div class="content">
+					<el-tabs id="pay-tabs" v-model="form.type" type="card">
+						<el-tab-pane label="线上支付" name="1">
+							<div class="common-tabs__content">
+								<div class='message'>
+									<p class="label">充值金额：</p>
+									<p class="input">
+										<el-input-number v-model="form.money" :step="1" size="small" :min="1"></el-input-number>
+										<span>元</span>
+									</p>
+								</div>
+							</div>
+						</el-tab-pane>
+						<el-tab-pane label="线下支付" name="2">
+							<div class="common-tabs__content">
+								<div class="offline-logo"><img src="../../assets/images/account/offlineLogo.png" height="30" width="103"></div>
+								<div class='message'>
+									<p class="label">开户名称：</p>：
+									<span>杭州艾草科技有限公司</span>
+								</div>
+								<div class='message'>
+									<p class="label">开户银行：</p>：
+									<span>上海浦东发展银行杭州钱塘支行</span>
+								</div>
+								<div class='message'>
+									<p class="label">银行账号：</p>：
+									<span class="focus">9509 0154 8000 04952</span>
+								</div>
+								<div class='message'>
+									<p class="label">联系电话：</p>：
+									<span>0571-22222222</span>
+								</div>
+							</div>
+						</el-tab-pane>
+					</el-tabs>
 					<p class="tips">
-						<span>注：起充金额 ≥ 1元；</span>
-						<span>流量单价 0.06 元/人/分钟。 观看费用 = 直播、点播累计观看时长 x 单价。</span>
-						<span>单人次不满1分钟不计费。</span>
-						<span class="tips-box">有效期：一年</span>
+						<span>有效期：1年（2017-02-10 至 2018-02-10）</span>
+						<span>注：若当前版本未到期，剩余版本余额可抵用升级版本相应金额（如，专业版剩余3个月，则可抵扣1/4*4990=1247.5元。）；有效期于升级日期起计算。</span>
+						<span>发票：订单对应可开发票的类型和抬头为您在用户中心-发票信息管理中设置的信息</span>
 						<span class="tips-box">
 							<Checkbox v-model="isAgree"><a href="#">《 彩虹云直播平台服务条款 》</a></Checkbox>
 						</span>
 					</p>
-					<p class="price-box">总价：<span class="price">￥ 0.00</span></p>
-				</div>
-				<!-- 支付方式 -->
-				<div class="content">
-				<Paymethod :balance='false' :defaultPayMethod='payMethod'></Paymethod>
-				</div>
-				<!-- 支付按钮 -->
-				<div class="content">
-					<Button type="error" class="pay-btn" :disabled='!isAgree' title='请确认同意《 彩虹云直播平台服务条款 》'>确认支付</Button>
+					<Button @click='onSubmit' type="error" class="submit" :disabled="!isAgree">立即购买</Button>
 				</div>
 			</Card>
 		</div>
@@ -37,21 +61,38 @@
 </template>
 
 <script>
-	import Paymethod from '../../components/item/paymethod.vue'
+import { mapActions } from 'vuex'
 	export default {
 		data () {
 			return {
-				payMethod: 1,
-				isAgree: false,
-				price: 1,
+				isAgree: true,
+				form: {
+					money: 1,
+					type: '1',
+				},
+				req_lock: true,
 			}
 		},
 		methods: {
+			...mapActions ('pay/recharge_create',{
+				createRecharge: 'PAY_CREATE_RECHARGE'
+			}),
+			onSubmit () {
+				if (this.req_lock) {
+					this.req_lock = false;
+					this.createRecharge(this.form).then(res => {
+						if (typeof res == 'string') {
+							window.open(res);
+						} else {
 
+						}
+						this.req_lock = true;
+					}).catch(err => {
+						this.req_lock = true;
+					})
+				}
+			}
 		},
-		components: {
-			Paymethod,
-		}
 	}
 </script>
 

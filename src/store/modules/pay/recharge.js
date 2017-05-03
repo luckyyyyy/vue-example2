@@ -2,7 +2,7 @@
 * @Author: chuxiao
 * @Date:   2017-04-28 11:50:49
 * @Last Modified by:   chuxiao
-* @Last Modified time: 2017-04-28 15:40:06
+* @Last Modified time: 2017-05-03 16:27:06
 */
 
 'use strict';
@@ -22,9 +22,9 @@ const actions = {
   [PAY_CREATE.RECHARGE] ({ commit }, params) {
     return new Promise((resolve, reject) => {
       pay_recharge_create(params).then(res => {
-        resolve();
+        resolve(res);
       }).catch(err => {
-        reject();
+        reject(err);
       })
     })
   }

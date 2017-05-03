@@ -4,14 +4,68 @@
 			<!-- 流量管理 -->
 			<Card class="commoon-card" :bordered="false" dis-hover>
 				<p slot="title" class="commoon-card__title">流量管理</p>
-				<p class="content">当前流量余额：<span class="count">¥ 0.00</span></p>
+				<p class="content">
+					<div class='message'>
+						<p class="label">流量余额：</p>
+						<span>¥ 0.00</span>
+					</div>
+				</p>
 			</Card>
 			<!-- 充值 -->
 			<Card class="commoon-card" :bordered="false" dis-hover>
 				<p slot="title" class="commoon-card__title">一元起充</p>
-				<!-- tips -->
-				<div class="content content-info">
-					<Input-number :min="1" :step="1" v-model="totalPrice" style="width:178px"></Input-number>
+				<!-- 支付方式 -->
+				<div class="content">
+					<el-tabs id="pay-tabs" v-model="form.type" type="card">
+						<el-tab-pane label="线上支付" name="1">
+							<div class="common-tabs__content">
+								<div class='message'>
+									<p class="label">充值金额：</p>
+									<p class="input">
+										<el-input-number v-model="form.money" :step="1" size="small" :min="1"></el-input-number>
+										<span>元</span>
+									</p>
+								</div>
+							</div>
+						</el-tab-pane>
+						<el-tab-pane label="线下支付" name="2">
+							<div class="common-tabs__content">
+								<div class="offline-logo"><img src="../../assets/images/account/offlineLogo.png" height="30" width="103"></div>
+								<div class='message'>
+									<p class="label">开户名称：</p>：
+									<span>杭州艾草科技有限公司</span>
+								</div>
+								<div class='message'>
+									<p class="label">开户银行：</p>：
+									<span>上海浦东发展银行杭州钱塘支行</span>
+								</div>
+								<div class='message'>
+									<p class="label">银行账号：</p>：
+									<span class="focus">9509 0154 8000 04952</span>
+								</div>
+								<div class='message'>
+									<p class="label">联系电话：</p>：
+									<span>0571-22222222</span>
+								</div>
+							</div>
+						</el-tab-pane>
+						<el-tab-pane label="余额支付" name="3">
+							<div class="common-tabs__content">
+								<div class='message balance'>
+									<p class="label">余额：</p>
+									<span class="focus">￥{{ form.money }}元</span>
+									<span class="err"> <i class="el-icon-information"></i> 余额不足</span>
+								</div>
+								<div class='message'>
+									<p class="label">充值金额：</p>
+									<p class="input">
+										<el-input-number v-model="form.money" :step="1" size="small" :min="1"></el-input-number>
+										<span>元</span>
+									</p>
+								</div>
+							</div>
+						</el-tab-pane>
+					</el-tabs>
 					<p class="tips">
 						<span>有效期：1年（2017-02-10 至 2018-02-10）</span>
 						<span>注：若当前版本未到期，剩余版本余额可抵用升级版本相应金额（如，专业版剩余3个月，则可抵扣1/4*4990=1247.5元。）；有效期于升级日期起计算。</span>
@@ -20,15 +74,7 @@
 							<Checkbox v-model="isAgree"><a href="#">《 彩虹云直播平台服务条款 》</a></Checkbox>
 						</span>
 					</p>
-					<p class="price-box">总价：<span class="price">￥ {{ totalPrice.toFixed(2) }}</span></p>
-				</div>
-				<!-- 支付方式 -->
-				<div class="content">
-					<Paymethod @select="selectPayMethod" :defaultPayMethod="payMethod"></Paymethod>
-				</div>
-				<!-- 确认按钮 -->
-				<div class="content">
-					<Button @click='onSubmit' type="error" class="pay-btn" :disabled="!isAgree">立即购买</Button>
+					<Button @click='onSubmit' type="error" class="submit" :disabled="!isAgree">立即购买</Button>
 				</div>
 			</Card>
 		</div>
@@ -36,30 +82,41 @@
 </template>
 
 <script>
-	import Paymethod from '../../components/item/paymethod.vue'
-
+import { mapActions } from 'vuex'
 	export default {
-		components: {
-			Paymethod,
-		},
 		data () {
 			return {
-				totalPrice: 1,
-				payMethod: 1,
-				isAgree: false,
+				isAgree: true,
+				form: {
+					money: 1,
+					type: '1'
+				},
+				req_lock: true,
 			}
 		},
 		methods: {
+			...mapActions ('pay/flow_create',{
+				createFlow: 'PAY_CREATE_FLOW'
+			}),
 			onSubmit () {
+				if (this.req_lock) {
+					this.req_lock = false;
+					this.createFlow(this.form).then(res => {
+						if (typeof res == 'string') {
+							window.open(res);
+						} else {
 
-			},
-			selectPayMethod (result){
-				this.payMethod = result;
+						}
+						this.req_lock = true;
+					}).catch(err => {
+						this.req_lock = true;
+					})
+				}
 			},
 		},
 	}
 </script>
 
-<style scoped lang='less'>
+<style scoped lang="less">
 	@import "../../assets/styles/views/account/flow.less";
 </style>

@@ -49,7 +49,7 @@
 					<el-tabs id="pay-tabs" v-model="form.type" type="card">
 						<el-tab-pane label="线上支付" name="1">
 							<div class="common-tabs__content">
-								<div class="pay-logo"><img src="../../assets/images/account/alipayLogo.png" height="22" width="63"></div>
+								<div class="alipay-logo"><img src="../../assets/images/account/alipayLogo.png" height="22" width="63"></div>
 								<div class='message'>
 									<p class="label">收费标准：</p>
 									<span class="focus">{{ form.price }}</span>
@@ -58,7 +58,7 @@
 								<div class='message'>
 									<p class="label">购买年限：</p>
 									<p class="form-contrl">
-										<el-input-number @change="changeQuantity" v-model="form.quantity" :step="1" size="small" :max="99" :min="1"></el-input-number>
+										<el-input-number v-model="quantity" :step="1" size="small" :min="1"></el-input-number>
 									</p>
 									<p>年  （有效期限：{{ time }} 至 {{ fTime }}）</p>
 								</div>
@@ -70,12 +70,48 @@
 						</el-tab-pane>
 						<el-tab-pane label="线下支付" name="2">
 							<div class="common-tabs__content">
-
+								<div class="offline-logo"><img src="../../assets/images/account/offlineLogo.png" height="30" width="103"></div>
+								<div class='message'>
+									<p class="label">开户名称：</p>：
+									<span>杭州艾草科技有限公司</span>
+								</div>
+								<div class='message'>
+									<p class="label">开户银行：</p>：
+									<span>上海浦东发展银行杭州钱塘支行</span>
+								</div>
+								<div class='message'>
+									<p class="label">银行账号：</p>：
+									<span class="focus">9509 0154 8000 04952</span>
+								</div>
+								<div class='message'>
+									<p class="label">联系电话：</p>：
+									<span>0571-22222222</span>
+								</div>
 							</div>
 						</el-tab-pane>
 						<el-tab-pane label="余额支付" name="3">
 							<div class="common-tabs__content">
-
+								<div class='message balance'>
+									<p class="label">余额：</p>
+									<span class="focus">￥{{ form.price }}元</span>
+									<span class="err"> <i class="el-icon-information"></i> 余额不足</span>
+								</div>
+								<div class='message'>
+									<p class="label">收费标准：</p>
+									<span class="focus">{{ form.price }}</span>
+									<p>元/年  (专业版)</p>
+								</div>
+								<div class='message'>
+									<p class="label">购买年限：</p>
+									<p class="form-contrl">
+										<el-input-number v-model="quantity" :step="1" size="small" :min="1"></el-input-number>
+									</p>
+									<p>年  （有效期限：{{ time }} 至 {{ fTime }}）</p>
+								</div>
+								<div class='message'>
+									<p class="label">总价：</p>
+									<span class="focus">￥ {{ (form.quantity * form.price).toFixed(2) }}</span>
+								</div>
 							</div>
 						</el-tab-pane>
 					</el-tabs>
@@ -88,7 +124,7 @@
 							<Checkbox v-model="isAgree"><a href="#">《 彩虹云直播平台服务条款 》</a></Checkbox>
 						</span>
 					</p>
-					<Button v-if="form.type != 2" @click="onSubmit" type="error" :disabled="!isAgree">立即购买</Button>
+					<Button class="submit" v-if="form.type != 2" @click="onSubmit" type="error" :disabled="!isAgree">立即购买</Button>
 				</div>
 			</Card>
 		</div>
@@ -98,7 +134,7 @@
 <script>
 	import { mapActions } from 'vuex'
 	import moment from 'moment'
-	export default {
+ 	export default {
 		data () {
 			return {
 				lowGrade:{
@@ -137,29 +173,31 @@
 					this.form[key] = version[key];
 				}
 			},
-			changeQuantity (res) {
-				this.form.quantity = Math.floor(this.form.quantity);
-				this.fTime = moment(this.time).add(this.form.quantity, 'years').format('YYYY-MM-DD HH:mm:ss');
-			},
 			onSubmit () {
-				console.log(this.form.quantity)
-				// if(this.req_lock){
-				// 	this.createConsume(this.form).then(res => {
+				if (this.req_lock) {
+						this.req_lock = false;
+						this.createConsume(this.form).then(res => {
+							if (typeof res == 'string') {
+								window.open(res);
+							} else {
 
-				// 	}).catch(err => {
-
-				// 	})
-				// }
+							}
+							this.req_lock = true;
+						}).catch(err => {
+							this.req_lock = true;
+						})
+				}
 			},
 		},
-		// watch: {
-		// 	quantity () {
-		// 		if( this.quantity * 10 % 10 !== 0 ){
-		// 			this.quantity = this.quantity.toFixed(0);
-		// 		}
-
-		// 	}
-		// },
+		watch: {
+			quantity () {
+				if( this.quantity * 10 % 10 !== 0 ){
+					this.quantity = this.quantity.toFixed(0);
+				}
+				this.form.quantity = this.quantity;
+				this.fTime = moment(this.time).add(this.form.quantity, 'years').format('YYYY-MM-DD HH:mm:ss');
+			}
+		},
 		computed: {
 		},
 	}

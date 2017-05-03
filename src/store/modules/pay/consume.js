@@ -2,7 +2,7 @@
 * @Author: chuxiao
 * @Date:   2017-04-28 11:50:26
 * @Last Modified by:   chuxiao
-* @Last Modified time: 2017-04-28 15:03:44
+* @Last Modified time: 2017-05-03 11:12:14
 */
 
 'use strict';
@@ -22,9 +22,9 @@ const actions = {
 	[PAY_CREATE.CONSUME] ({ commit }, params) {
 		return new Promise((resolve, reject) => {
 			pay_consume_create(params).then(res => {
-				resolve();
+				resolve(res);
 			}).catch(err => {
-				reject();
+				reject(err);
 			})
 		})
 	}

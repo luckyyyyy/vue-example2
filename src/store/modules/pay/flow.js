@@ -2,7 +2,7 @@
 * @Author: chuxiao
 * @Date:   2017-04-28 11:50:41
 * @Last Modified by:   chuxiao
-* @Last Modified time: 2017-04-28 15:46:46
+* @Last Modified time: 2017-05-03 15:18:52
 */
 
 'use strict';
@@ -22,9 +22,9 @@ const actions = {
 	[PAY_CREATE.FLOW] ({ commit }, params) {
 		return new Promise((resolve, reject) => {
 			pay_flow_create(params).then(res => {
-				resolve();
+				resolve(res);
 			}).catch(err => {
-				reject();
+				reject(err);
 			})
 		})
 	}
