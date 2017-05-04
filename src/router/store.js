@@ -1,11 +1,9 @@
 /*
 * @Author: William Chan
 * @Date:   2017-03-06 22:30:36
-* @Last Modified by:   William Chan
-* @Last Modified time: 2017-05-03 12:02:42
+* @Last Modified by:   Administrator
+* @Last Modified time: 2017-05-04 20:14:29
 */
-
-'use strict';
 
 export default [
 	{

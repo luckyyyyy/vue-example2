@@ -77,6 +77,7 @@
 <script>
 	import { mapState, mapActions } from 'vuex'
 	import iscroll from 'iscroll'
+
 	export default {
 		data () {
 			return {
@@ -85,19 +86,15 @@
 			}
 		},
 		computed: {
-			...mapState('video/find', ['data', 'lock']),
+			...mapState('video', ['data', 'lock']),
 		},
 		mounted () {
 			this.findVideoList(true);
 		},
 		methods: {
-			...mapActions('video/find', {
-				getVideoList: 'VIDEO_FIND_REQUEST'
-			}),
-			...mapActions('video/trash', {
-				trashVideo: 'VIDEO_TRASH'
-			}),
-			...mapActions('video/delete', {
+			...mapActions('video', {
+				getVideoList: 'VIDEO_FIND_REQUEST',
+				trashVideo: 'VIDEO_TRASH',
 				deleteVideo: 'VIDEO_DELETE'
 			}),
 			onStatusChange (val) {

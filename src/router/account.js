@@ -1,11 +1,10 @@
 /*
 * @Author: William Chan
 * @Date:   2017-03-06 22:28:39
-* @Last Modified by:   chuxiao
-* @Last Modified time: 2017-05-04 15:58:22
+* @Last Modified by:   Administrator
+* @Last Modified time: 2017-05-04 20:14:12
 */
 
-'use strict';
 import { registerModule } from '../store'
 
 export default [

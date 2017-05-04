@@ -81,6 +81,7 @@
 <script>
 	import { mapState, mapActions } from 'vuex'
 	import debounce from 'debounce'
+
 	export default {
 		data () {
 			return {
@@ -95,7 +96,7 @@
 			this.form.price = this.form.price / 100;
 		},
 		methods: {
-			...mapActions('video/detail', {
+			...mapActions('video', {
 				setAuth: 'VIDEO_AUTH'
 			}),
 			onChange () {

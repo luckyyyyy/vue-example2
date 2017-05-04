@@ -49,9 +49,11 @@
 </template>
 
 <script>
-	import Album from '../../components/item/album'
+
 	import { mapState, mapActions } from 'vuex'
 	import debounce from 'debounce'
+	import Album from '@/components/item/album'
+
 	export default {
 		components: {
 			Album
@@ -78,7 +80,7 @@
 			this.form = Object.assign({}, this.video.liveShare);
 		},
 		methods: {
-			...mapActions('video/detail', {
+			...mapActions('video', {
 				setShare: 'VIDEO_SHARE'
 			}),
 			selectAlbum (select, data) {

@@ -2,10 +2,9 @@
 * @Author: William Chan
 * @Date:   2017-03-23 13:14:53
 * @Last Modified by:   Administrator
-* @Last Modified time: 2017-05-04 16:35:43
+* @Last Modified time: 2017-05-04 20:14:14
 */
 
-'use strict';
 import { registerModule } from '../store'
 
 export default [

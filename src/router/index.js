@@ -1,11 +1,9 @@
 /*
 * @Author: William Chan
 * @Date:   2016-12-01 17:57:50
-* @Last Modified by:   William Chan
-* @Last Modified time: 2017-05-03 11:54:21
+* @Last Modified by:   Administrator
+* @Last Modified time: 2017-05-04 20:14:21
 */
-
-'use strict';
 
 import Vue       from 'vue'
 import VueRouter from 'vue-router'
