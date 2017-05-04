@@ -1,8 +1,8 @@
 /*
 * @Author: Administrator
 * @Date:   2017-01-06 02:33:52
-* @Last Modified by:   Administrator
-* @Last Modified time: 2017-04-25 11:46:38
+* @Last Modified by:   chuxiao
+* @Last Modified time: 2017-05-04 14:36:02
 */
 
 'use strict';
@@ -25,7 +25,7 @@ const actions = {
 		if (!state.lock || params.reload || state.status != params.status) {
 			commit(LIVE.FIND_REQUEST, params);
 			return new Promise((resolve, reject) => {
-				live_find(state).then(res => {
+					live_find(state).then(res => {
 					commit(LIVE.FIND_SUCCESS, res);
 					resolve();
 				}).catch(err => {

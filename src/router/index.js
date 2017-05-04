@@ -1,8 +1,8 @@
 /*
 * @Author: William Chan
 * @Date:   2016-12-01 17:57:50
-* @Last Modified by:   Webster
-* @Last Modified time: 2017-04-29 15:59:03
+* @Last Modified by:   William Chan
+* @Last Modified time: 2017-05-03 11:54:21
 */
 
 'use strict';
@@ -14,15 +14,15 @@ import NProgress from 'nprogress'
 import 'nprogress/nprogress.css'
 // import { LoadingBar } from 'iview' // 暂时不用
 
-import topRoute        from './top'
-import liveRoute       from './live'
-import VideoRoute      from './video'
-import homeRoute       from './home'
-import accountRoute    from './account'
+import topRoute        from '@/router/top'
+import liveRoute       from '@/router/live'
+import VideoRoute      from '@/router/video'
+import homeRoute       from '@/router/home'
+import accountRoute    from '@/router/account'
 // import storeRoute      from './store'
-import userRoute       from './user'
-import multimediaRoute from './multimedia'
-import channelRoute    from './channel'
+import userRoute       from '@/router/user'
+import multimediaRoute from '@/router/multimedia'
+import channelRoute    from '@/router/channel'
 
 import { getAuthorization, getCurrentChannel, store } from '../store'
 

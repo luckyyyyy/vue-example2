@@ -2,7 +2,7 @@
 * @Author: William Chan
 * @Date:   2017-03-06 22:28:39
 * @Last Modified by:   chuxiao
-* @Last Modified time: 2017-05-03 17:40:33
+* @Last Modified time: 2017-05-04 15:58:22
 */
 
 'use strict';
@@ -16,7 +16,7 @@ export default [
 		components: {
 			sidebar: resolve => import('@/components/sidebar.vue'),
 			topbar:  resolve => import('@/components/topbar.vue'),
-			main:    resolve => import('@/components/main.vue')
+			main:    resolve => import('@/components/main.vue'),
 		},
 		children: [
 			{
@@ -30,7 +30,7 @@ export default [
 					OverviewComponent,
 					OrderFindModule,
 				) => {
-					registerModule(['order', 'order_find'], OrderFindModule.default);
+					registerModule(['order', 'find'], OrderFindModule.default);
 					resolve(OverviewComponent);
 				})
 			},

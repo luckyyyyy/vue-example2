@@ -77,31 +77,20 @@
 					频道消费明细
 				</p>
 				<div class="content">
-					<ul class="table">
-						<li class='thead'>
-							<p>消费时间</p>
-							<p>购买项目</p>
-							<p>账单号</p>
-							<p>应付金额</p>
-							<p>支付状态</p>
-						</li>
-						<li class="tbody">
-							<p>消费时间</p>
-							<p>购买项目</p>
-							<p>账单号</p>
-							<p>应付金额</p>
-							<p>支付状态</p>
-						</li>
-						<li class="tbody">
-							<p>消费时间</p>
-							<p>购买项目</p>
-							<p>账单号</p>
-							<p>应付金额</p>
-							<p>支付状态</p>
-						</li>
-					</ul>
+					<el-table :data="orders" border resizable="false">
+						<el-table-column prop="createTime" label="消费时间" min-width="180"></el-table-column>
+						<el-table-column prop="editionName" label="购买项目" min-width="180"></el-table-column>
+						<el-table-column prop="sn" label="订单号" min-width="180"></el-table-column>
+						<el-table-column prop="money" label="金额" min-width="180"></el-table-column>
+						<el-table-column prop="status" label="支付状态" min-width="180"></el-table-column>
+					</el-table>
 					<div class="page">
-						<Page @on-change="selectPage" :total="25" show-elevator show-total :page-size='5'></Page>
+						<el-pagination
+							@current-change="selectPage"
+							:page-size="5"
+							layout="prev, pager, next, jumper"
+							:total="total">
+						</el-pagination>
 					</div>
 				</div>
 			</Card>
@@ -122,7 +111,7 @@
 </template>
 
 <script>
-	import { mapActions } from 'vuex'
+	import { mapActions, mapState } from 'vuex'
 	import dashboard from '../../components/item/dashboard.vue'
 	import { numberFormat } from '../../filter'
 	export default {
@@ -297,27 +286,25 @@
 						imgURL: require('../../assets/error.png'),
 					},
 				],
-				form:{
-					page: 0,
-					start: 0,
-					limits: 20
-				}
 			}
 		},
 		mounted () {
+			this.selectPage(1);
 		},
 		filters: {
 			numberFormat,
 		},
+		computed: {
+			...mapState('order/find', ['orders', 'total']),
+		},
 		methods: {
-			...mapActions('order/order_find',{
+			...mapActions('order/find',{
 				orderFind: 'ORDER_FIND_REQUEST'
 			}),
-			selectPage (pageNum) {
-				console.log(pageNum);
-				this.orderFind(this.form).then(res => {
+			selectPage (page) {
+				this.orderFind(page).then(() => {
 
-				}).catch(err => {
+				}).catch(() => {
 
 				})
 			},

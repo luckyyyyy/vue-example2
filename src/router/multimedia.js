@@ -2,12 +2,10 @@
 * @Author: William Chan
 * @Date:   2017-03-23 13:17:39
 * @Last Modified by:   William Chan
-* @Last Modified time: 2017-03-23 13:37:20
+* @Last Modified time: 2017-05-03 12:02:32
 */
 
 'use strict';
-
-import { registerModule } from '../store'
 
 export default [
 	{
@@ -15,31 +13,16 @@ export default [
 		meta: { requiresAuth: true },
 		redirect: { name: 'multimedia' },
 		components: {
-			sidebar: resolve => require(['../components/sidebar.vue'], resolve),
-			topbar:  resolve => require(['../components/topbar.vue'], resolve),
-			main:    resolve => require([
-				'../components/main.vue',
-			], (
-				MainComponent,
-			) => {
-				resolve(MainComponent)
-			})
+			sidebar: resolve => import('@/components/sidebar.vue'),
+			topbar:  resolve => import('@/components/topbar.vue'),
+			main:    resolve => import('@/components/main.vue'),
 		},
 		children: [
 			{
 				name: 'multimedia',
 				path: ':type?',
 				meta: { requiresAuth: true },
-				component: resolve => require([
-					'../views/multimedia/index.vue',
-					// '../store/modules/channel/delete'
-				], (
-					PreferencesComponent,
-					// ChannelFindModule,
-				) => {
-					// registerModule(['channel', 'delete'], ChannelDeleteModule.default);
-					resolve(PreferencesComponent);
-				})
+				component: resolve => import('@/views/multimedia/index.vue'),
 			},
 		]
 	},

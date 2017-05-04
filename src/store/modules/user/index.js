@@ -2,7 +2,7 @@
 * @Author: Administrator
 * @Date:   2017-01-06 02:33:52
 * @Last Modified by:   William Chan
-* @Last Modified time: 2017-05-03 11:42:23
+* @Last Modified time: 2017-05-03 16:34:07
 */
 
 'use strict';
@@ -14,15 +14,9 @@ const state = {
 	user: null,
 }
 
-const isEmpty = obj => {
-	for (const i in obj) {
-		return false;
-	}
-	return true;
-}
 const getters = {
 	user: state => {
-		if (state.user && !isEmpty(state.user)) {
+		if (state.user && Object.keys(state.user).length !== 0) {
 			return state.user;
 		} else {
 			return false;
