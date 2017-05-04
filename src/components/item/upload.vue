@@ -18,9 +18,10 @@
 	}
 </style>
 <script>
-	import { onResponse, onResponseError } from '../../store/api'
 	import { mapGetters } from 'vuex'
-	import { UPDATE_LIMIT_SIZE, UPDATE_LIMIT_COUNT } from '../../options'
+	import { onResponse, onResponseError } from '@/store/api'
+	import { UPDATE_LIMIT_SIZE, UPDATE_LIMIT_COUNT } from '@/options'
+
 	function getBody(xhr) {
 		const text = xhr.responseText || xhr.response;
 		if (!text) {

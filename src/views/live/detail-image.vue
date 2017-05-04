@@ -40,8 +40,9 @@
 </template>
 
 <script>
-	import Album from '../../components/item/album'
 	import { mapState, mapActions } from 'vuex'
+	import Album from '@/components/item/album'
+
 	export default {
 		components: {
 			Album
@@ -67,7 +68,7 @@
 			this.form = Object.assign({}, this.live.liveGuide);
 		},
 		methods: {
-			...mapActions('live/detail', {
+			...mapActions('live', {
 				setGuide: 'LIVE_GUIDE'
 			}),
 			selectAlbum (select, data) {

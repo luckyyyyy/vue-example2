@@ -120,9 +120,10 @@
 </template>
 <script>
 	import { mapState, mapActions } from 'vuex'
-	import { LIVE_CREATE_RULES } from '../../options/rules'
-	import { date } from '../../utils/util'
 	import iscroll from 'iscroll'
+	import { LIVE_CREATE_RULES } from '@/options/rules'
+	import { date } from '@/utils/util'
+
 	export default {
 		data () {
 			return {
@@ -138,26 +139,18 @@
 			}
 		},
 		computed: {
-			...mapState('live/find', ['data', 'lock']),
+			...mapState('live', ['data', 'lock']),
 		},
 		mounted () {
 			this.findLiveList(true);
 		},
 		methods: {
-			...mapActions('live/find', {
-				getLiveList: 'LIVE_FIND_REQUEST'
-			}),
-			...mapActions('live/create', {
-				createLive: 'LIVE_CREATE'
-			}),
-			...mapActions('live/trash', {
-				trashLive: 'LIVE_TRASH'
-			}),
-			...mapActions('live/delete', {
-				deleteLive: 'LIVE_DELETE'
-			}),
-			...mapActions('live/public', {
-				livePublic: 'LIVE_PUBLIC'
+			...mapActions('live', {
+				getLiveList: 'LIVE_FIND_REQUEST',
+				createLive: 'LIVE_CREATE',
+				trashLive: 'LIVE_TRASH',
+				deleteLive: 'LIVE_DELETE',
+				livePublic: 'LIVE_PUBLIC',
 			}),
 			onStatusChange (val) {
 				this.status = val;

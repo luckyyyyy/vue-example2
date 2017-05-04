@@ -85,15 +85,15 @@
 	</div>
 </template>
 <script>
-	import qrcodePopover from '../../components/item/qrcodePopover'
-	import chatroom from '../../components/live/chatroom'
-	import prismVideo from '../../components/live/video'
-	import message from '../../components/live/message'
-	import clipboardInput from '../../components/item/clipboardInput'
 	import qrcodejs from 'qrcodejs2'
 	import { mapState, mapActions, mapMutations } from 'vuex'
-	import { trim } from '../../utils/util'
-	import { LIVE_NOTICE_RULES } from '../../options/rules'
+	import qrcodePopover from '@/components/item/qrcodePopover'
+	import chatroom from '@/components/live/chatroom'
+	import prismVideo from '@/components/live/video'
+	import message from '@/components/live/message'
+	import clipboardInput from '@/components/item/clipboardInput'
+	import { trim } from '@/utils/util'
+	import { LIVE_NOTICE_RULES } from '@/options/rules'
 
 	export default {
 		components: {
@@ -150,15 +150,9 @@
 			}),
 			...mapMutations('live', {
 				updateLiveInfo: 'LIVE_QUERY',
-			}),
-			...mapActions('live/finish', {
-				liveFinish: 'LIVE_FINISH'
-			}),
-			...mapActions('live/notice', {
-				sendNotice: 'LIVE_NOTICE'
-			}),
-			...mapActions('live/query_stream', {
-				getStreamStatus: 'LIVE_QUERY_STREAM'
+				liveFinish: 'LIVE_FINISH',
+				sendNotice: 'LIVE_NOTICE',
+				getStreamStatus: 'LIVE_QUERY_STREAM',
 			}),
 			onJoinChatroom () {
 				const chatroomId         = this.live.liveChatRoom.roomid;

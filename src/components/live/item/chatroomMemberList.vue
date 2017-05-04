@@ -20,8 +20,8 @@
 </template>
 
 <script>
-	import chatroomName from './chatroomName'
-	import chatroomTag from './chatroomTag'
+	import chatroomName from '@/components/live/item/chatroomName'
+	import chatroomTag from '@/components/live/item/chatroomTag'
 	import { mapActions, mapState } from 'vuex'
 	export default {
 		components: {

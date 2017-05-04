@@ -95,7 +95,7 @@
 			this.form.price = this.form.price / 100;
 		},
 		methods: {
-			...mapActions('live/detail', {
+			...mapActions('live', {
 				setAuth: 'LIVE_AUTH'
 			}),
 			onChange () {

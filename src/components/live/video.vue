@@ -38,7 +38,7 @@
 			live: Object
 		},
 		computed: {
-			...mapState('live/query_stream', [
+			...mapState('live', [
 				'bitRateInfo', 'publishStreamInfo'
 			])
 		},
@@ -67,7 +67,7 @@
 			window.removeEventListener('resize', this.autoSetPlayerSize, false);
 		},
 		methods: {
-			...mapActions('live/query_stream', {
+			...mapActions('live', {
 				getStreamStatus: 'LIVE_QUERY_STREAM'
 			}),
 			playVideo () {

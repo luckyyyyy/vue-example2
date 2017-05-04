@@ -15,7 +15,7 @@
 </template>
 
 <script>
-import { numberFormat } from '../../filter'
+import { numberFormat } from '@/filter'
 export default {
 	filters: {
 		numberFormat,

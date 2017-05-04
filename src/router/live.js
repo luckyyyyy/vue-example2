@@ -2,11 +2,8 @@
 * @Author: William Chan
 * @Date:   2017-03-06 22:29:46
 * @Last Modified by:   Administrator
-* @Last Modified time: 2017-04-14 20:39:11
+* @Last Modified time: 2017-05-04 16:36:34
 */
-
-'use strict';
-import { registerModule } from '../store'
 
 export default [
 	{
@@ -15,18 +12,9 @@ export default [
 		meta: { requiresAuth: true },
 		redirect: { name: 'live_list' },
 		components: {
-			sidebar: resolve => require(['../components/sidebar.vue'], resolve),
-			topbar:  resolve => require(['../components/topbar.vue'], resolve),
-			main:    resolve => require([
-				'../components/main.vue',
-				'../store/modules/live/query',
-			], (
-				MainComponent,
-				LiveQueryModule,
-			) => {
-				registerModule(['live', 'query'], LiveQueryModule.default);
-				resolve(MainComponent)
-			})
+			sidebar: resolve => import('@/components/sidebar.vue'),
+			topbar:  resolve => import('@/components/topbar.vue'),
+			main:    resolve => import('@/components/main.vue'),
 		},
 		children: [
 			{
@@ -35,34 +23,13 @@ export default [
 				meta: { requiresAuth: true, breadcrumb: [
 					{ route: 'live_list', name: '直播列表' }
 				] },
-				component: resolve => require([
-					'../views/live/list.vue',
-					'../store/modules/live/find',
-					'../store/modules/live/create',
-					'../store/modules/live/delete',
-					'../store/modules/live/trash',
-					'../store/modules/live/public',
-				], (
-					LiveListComponent,
-					LiveFindModule,
-					LiveCreateModule,
-					LiveDeleteModule,
-					LiveTrashModule,
-					LivePublicModule,
-				) => {
-					registerModule(['live', 'find'], LiveFindModule.default);
-					registerModule(['live', 'create'], LiveCreateModule.default);
-					registerModule(['live', 'delete'], LiveDeleteModule.default);
-					registerModule(['live', 'trash'], LiveTrashModule.default);
-					registerModule(['live', 'public'], LivePublicModule.default);
-					resolve(LiveListComponent);
-				})
+				component: resolve => import('@/views/live/list.vue'),
 			},
 			{
 				name: 'live_template',
 				path: 'template',
 				meta: { requiresAuth: true },
-				component: resolve => require(['../views/live/template.vue'], resolve)
+				component: resolve => import('@/views/live/template.vue'),
 			},
 			{
 				name: 'live_control',
@@ -72,72 +39,45 @@ export default [
 					{ route: 'live_detail', name: '直播装修' },
 					{ name: '中控台' },
 				] },
-				component: resolve => require([
-					'../views/live/control.vue',
-					'../store/modules/im',
-					'../store/modules/live/stream',
-					'../store/modules/live/finish',
-					'../store/modules/live/notice',
-				], (
-					LiveControlComponent,
-					IMModule,
-					LiveStreamModule,
-					LiveFinishModule,
-					LiveNoticeModule,
-				) => {
-					registerModule('im', IMModule.default);
-					registerModule(['live', 'query_stream'], LiveStreamModule.default);
-					registerModule(['live', 'finish'], LiveFinishModule.default);
-					registerModule(['live', 'notice'], LiveNoticeModule.default);
-					resolve(LiveControlComponent);
-				})
+				component: resolve => import('@/views/live/control.vue'),
 			},
 
 			{
 				name: 'live_data',
 				path: 'data/:liveid',
 				meta: { requiresAuth: true, parent: 'live_list' },
-				component: resolve => require(['../views/live/data.vue'], resolve)
+				component: resolve => import('@/views/live/data.vue'),
 			},
 			{
 				name: 'live_detail',
 				path: 'detail',
 				meta: { requiresAuth: true, parent: 'live_list' },
 				redirect: { name: 'live_detail_countdown' },
-				component: resolve => require([
-					'../views/live/detail.vue',
-					'../store/modules/live/detail',
-				], (
-					LiveDetailComponent,
-					LiveDetailModule
-				) => {
-					registerModule(['live', 'detail'], LiveDetailModule.default);
-					resolve(LiveDetailComponent);
-				}),
+				component: resolve => import('@/views/live/detail.vue'),
 				children: [
 					{
 						name: 'live_detail_countdown',
 						path: 'countdown/:liveid',
 						meta: { requiresAuth: true },
-						component: resolve => require(['../views/live/detail-countdown.vue'], resolve)
+						component: resolve => import('@/views/live/detail-countdown.vue'),
 					},
 					{
 						name: 'live_detail_image',
 						path: 'image/:liveid',
 						meta: { requiresAuth: true },
-						component: resolve => require(['../views/live/detail-image.vue'], resolve)
+						component: resolve => import('@/views/live/detail-image.vue'),
 					},
 					{
 						name: 'live_detail_share',
 						path: 'share/:liveid',
 						meta: { requiresAuth: true },
-						component: resolve => require(['../views/live/detail-share.vue'], resolve)
+						component: resolve => import('@/views/live/detail-share.vue'),
 					},
 					{
 						name: 'live_detail_setting',
 						path: 'setting/:liveid',
 						meta: { requiresAuth: true },
-						component: resolve => require(['../views/live/detail-setting.vue'], resolve)
+						component: resolve => import('@/views/live/detail-setting.vue'),
 					},
 					// {
 					// 	name: 'live_detail_livebuy',
@@ -161,13 +101,13 @@ export default [
 						name: 'live_detail_watch',
 						path: 'watch/:liveid',
 						meta: { requiresAuth: true },
-						component: resolve => require(['../views/live/detail-watch.vue'], resolve)
+						component: resolve => import('@/views/live/detail-watch.vue'),
 					},
 					{
 						name: 'live_detail_authorize',
 						path: 'authorize/:liveid',
 						meta: { requiresAuth: true },
-						component: resolve => require(['../views/live/detail-authorize.vue'], resolve)
+						component: resolve => import('@/views/live/detail-authorize.vue'),
 					},
 				],
 			}

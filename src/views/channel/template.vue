@@ -126,8 +126,9 @@
 
 <script>
 	import { mapState, mapActions } from 'vuex'
-	import Album from '../../components/item/album'
 	import debounce from 'debounce'
+	import Album from '@/components/item/album'
+
 	export default{
 		components: {
 			Album,
@@ -145,7 +146,7 @@
 			...mapState('channel', {
 				info: state => state.channel
 			}),
-			...mapState('live/find', ['data', 'lock']),
+			...mapState('live', ['data', 'lock']),
 		},
 		mounted () {
 			this.channel = Object.assign({}, this.info);
@@ -155,7 +156,7 @@
 			...mapActions('channel', {
 				updateChannel: 'CHANNEL_UPDATE'
 			}),
-			...mapActions('live/find', {
+			...mapActions('live', {
 				getLiveList: 'LIVE_FIND_REQUEST'
 			}),
 			findLiveList (reload) {
