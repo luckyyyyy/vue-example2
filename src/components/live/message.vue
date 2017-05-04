@@ -25,10 +25,11 @@
 	</div>
 </template>
 <script>
-	import _L from '../../options/live/message'
-	import { date } from '../../utils/util'
 	import iScroll from 'iscroll'
 	import { mapState } from 'vuex'
+	import _L from '@/options/live/message'
+	import { date } from '@/utils/util'
+
 	export default {
 		computed: {
 			...mapState('im', ['service'])

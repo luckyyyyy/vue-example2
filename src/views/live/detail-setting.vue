@@ -38,9 +38,10 @@
 </template>
 
 <script>
-	import Album from '../../components/item/album'
 	import { mapState, mapActions } from 'vuex'
 	import debounce from 'debounce'
+	import Album from '@/components/item/album'
+
 	export default {
 		components: {
 			Album
@@ -59,7 +60,7 @@
 			this.form = Object.assign({}, this.live.liveInfo);
 		},
 		methods: {
-			...mapActions('live/detail', {
+			...mapActions('live', {
 				liveUpdate: 'LIVE_UPDATE'
 			}),
 			selectAlbum (select, data) {

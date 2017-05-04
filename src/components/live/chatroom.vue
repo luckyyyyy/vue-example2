@@ -53,12 +53,13 @@
 
 <script>
 	import { mapState, mapGetters } from 'vuex'
-	import chatroomName from './item/chatroomName'
-	import chatroomTag from './item/chatroomTag'
-	import chatroomNotification from './item/chatroomNotification'
-	import chatroomMemberList from './item/chatroomMemberList'
 	import iscroll from 'iscroll'
-	import { date } from '../../utils/util'
+	import chatroomName from '@/components/live/item/chatroomName'
+	import chatroomTag from '@/components/live/item/chatroomTag'
+	import chatroomNotification from '@/components/live/item/chatroomNotification'
+	import chatroomMemberList from '@/components/live/item/chatroomMemberList'
+	import { date } from '@/utils/util'
+
 	export default {
 		props: {
 			live: Object,

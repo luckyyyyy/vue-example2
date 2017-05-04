@@ -77,12 +77,12 @@
 					频道消费明细
 				</p>
 				<div class="content">
-					<el-table :data="orders" border resizable="false">
-						<el-table-column prop="createTime" label="消费时间" min-width="180"></el-table-column>
-						<el-table-column prop="editionName" label="购买项目" min-width="180"></el-table-column>
-						<el-table-column prop="sn" label="订单号" min-width="180"></el-table-column>
-						<el-table-column prop="money" label="金额" min-width="180"></el-table-column>
-						<el-table-column prop="status" label="支付状态" min-width="180"></el-table-column>
+					<el-table :data="orders" width="100%" border>
+						<el-table-column prop="createTime" label="消费时间" min-width="140px" :resizable="false"></el-table-column>
+						<el-table-column prop="editionName" label="购买项目" min-width="140px" :resizable="false"></el-table-column>
+						<el-table-column prop="sn" label="订单号" min-width="200px" :resizable="false"></el-table-column>
+						<el-table-column prop="money" label="金额" min-width="140px" :resizable="false"></el-table-column>
+						<el-table-column prop="status" label="支付状态" min-width="140px" :resizable="false"></el-table-column>
 					</el-table>
 					<div class="page">
 						<el-pagination
@@ -111,9 +111,10 @@
 </template>
 
 <script>
-	import { mapActions, mapState } from 'vuex'
+	import { mapActions, mapState, mapGetters } from 'vuex'
 	import dashboard from '../../components/item/dashboard.vue'
 	import { numberFormat } from '../../filter'
+	import moment from 'moment'
 	export default {
 		data () {
 			return {

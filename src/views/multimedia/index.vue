@@ -49,12 +49,9 @@
 <script>
 	import iscroll from 'iscroll'
 	import { mapState, mapActions, mapMutations } from 'vuex';
-	import upload from '../../components/item/upload'
-	import { MULTIMEDIA_UPLOAD } from '../../store/api'
-	import multimediaModule from '../../store/modules/multimedia/'
-	import { registerModule } from '../../store'
-	import { MULTIMEDIA_TYPE } from '../../options'
-	registerModule('multimedia', multimediaModule);
+	import upload from '@/components/item/upload'
+	import { MULTIMEDIA_UPLOAD } from '@/store/api'
+	import { MULTIMEDIA_TYPE } from '@/options'
 
 	export default {
 		components: {

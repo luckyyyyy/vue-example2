@@ -51,7 +51,7 @@
 			this.attentionWatchStatus = this.live.attentionWatchStatus;
 		},
 		methods: {
-			...mapActions('live/detail', {
+			...mapActions('live', {
 				setWatch: 'LIVE_WATCH'
 			}),
 			switchChange (enabled) {

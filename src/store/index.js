@@ -1,8 +1,8 @@
 /*
 * @Author: William Chan
 * @Date:   2016-12-03 19:24:59
-* @Last Modified by:   William Chan
-* @Last Modified time: 2017-05-03 11:51:38
+* @Last Modified by:   Administrator
+* @Last Modified time: 2017-05-04 16:26:18
 */
 
 'use strict';
@@ -14,16 +14,17 @@ import cookie from 'js-cookie'
 // import * as actions   from './actions'
 import * as mutations  from '@/store/mutations'
 
-import userModule      from '@/store/modules/user'
-import channelModule   from '@/store/modules/channel'
-import liveModule      from '@/store/modules/live'
-import videoModule     from '@/store/modules/video'
-import orderModule     from '@/store/modules/order'
-import payModule       from '@/store/modules/pay'
-import weChatModule    from '@/store/modules/weixin/auth_url'
-import commodityModule from '@/store/modules/commodity/catalogs'
-
-import { isDevelop }   from '@/utils/util'
+import userModule       from '@/store/modules/user'
+import channelModule    from '@/store/modules/channel'
+import liveModule       from '@/store/modules/live'
+import imModule         from '@/store/modules/im'
+import videoModule      from '@/store/modules/video'
+import orderModule      from '@/store/modules/order'
+import payModule        from '@/store/modules/pay'
+import weChatModule     from '@/store/modules/weixin/auth_url'
+import commodityModule  from '@/store/modules/commodity/catalogs'
+import multimediaModule from '@/store/modules/multimedia/'
+import { isDevelop }    from '@/utils/util'
 
 Vue.use(Vuex)
 const state = {}
@@ -40,13 +41,13 @@ export const store = new Vuex.Store({
 store.registerModule('user', userModule);
 store.registerModule('channel', channelModule);
 store.registerModule('live', liveModule);
+store.registerModule('im', imModule);
 store.registerModule('video', videoModule);
 store.registerModule('order', orderModule);
 store.registerModule('pay', payModule);
-
 store.registerModule('weixin_auth', weChatModule);
 store.registerModule('catalogs', commodityModule);
-
+store.registerModule('multimedia', multimediaModule);
 
 const module = {};
 export const registerModule = (path, module) => {

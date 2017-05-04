@@ -13,7 +13,7 @@
 
 <script>
 	import qrcodejs from 'qrcodejs2'
-	import clipboardInput from './clipboardInput'
+	import clipboardInput from '@/components/item/clipboardInput'
 	export default {
 		components: {
 			clipboardInput

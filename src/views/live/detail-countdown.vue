@@ -120,7 +120,7 @@
 			if (this.setInterval) clearInterval(this.setInterval);
 		},
 		methods: {
-			...mapActions('live/detail', {
+			...mapActions('live', {
 				setCountDown: 'LIVE_COUNTDOWN'
 			}),
 			onInterval () {

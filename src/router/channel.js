@@ -1,8 +1,8 @@
 /*
 * @Author: William Chan
 * @Date:   2017-03-23 13:14:53
-* @Last Modified by:   William Chan
-* @Last Modified time: 2017-05-03 11:46:47
+* @Last Modified by:   Administrator
+* @Last Modified time: 2017-05-04 16:35:43
 */
 
 'use strict';
@@ -36,16 +36,7 @@ export default [
 				name: 'channel_template',
 				path: 'template/:templateID',
 				meta: { requiresAuth: true, parent: 'channel' },
-				component: resolve => require([
-					'../views/channel/template.vue',
-					'../store/modules/live/find',
-				],(
-					TemplateComponent,
-					LiveFindModule,
-				) => {
-					registerModule(['live', 'find'], LiveFindModule.default);
-					resolve(TemplateComponent);
-				})
+				component: resolve => import('@/views/channel/template.vue'),
 			},
 		]
 	},

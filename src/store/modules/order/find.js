@@ -2,14 +2,14 @@
 * @Author: chuxiao
 * @Date:   2017-04-25 14:49:08
 * @Last Modified by:   chuxiao
-* @Last Modified time: 2017-05-04 16:06:02
+* @Last Modified time: 2017-05-04 17:57:38
 */
 
 'use strict';
 
 import { order_find } from '@/store/api/order'
 import { ORDER } from '@/store/types'
-
+import moment from 'moment'
 const state = {
 	start: 0,
 	page: 0,
@@ -18,7 +18,15 @@ const state = {
 	total: 0,
 }
 
-const getters = {}
+const getters = {
+	ordersFormat: state => {
+		let orders = state.orders;
+		for (let key in orders) {
+			orders[key].createTime = moment(orders[key].createTime).format('YYYY-MM-DD HH:mm:ss');
+		}
+		return orders;
+	}
+}
 
 const actions = {
 	[ORDER.FIND_REQUEST] ({ commit, state }, page) {

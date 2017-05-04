@@ -57,12 +57,12 @@
 	</div>
 </template>
 <script>
-	import { store } from '../store'
+	import { store } from '@/store'
 
 	const verifyParams = async (to, from, next) => {
 		let params;
 		if (to.params.liveid) {
-			 await store.dispatch('live/query/LIVE_QUERY', { id: to.params.liveid }).then(res => {
+			 await store.dispatch('live/LIVE_QUERY', { id: to.params.liveid }).then(res => {
 				// success
 			}).catch(err => {
 				if (from.matched.some(record => record.name == 'live')) {
