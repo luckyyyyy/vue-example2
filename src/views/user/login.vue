@@ -1,29 +1,28 @@
 <template>
 	<div>
 		<div class="view">
-			<iForm
+			<el-form
 				:model="login"
 				@submit.native.prevent
 				:rules="rules"
-				:label-width="50"
+				label-width="50px"
 				ref="login"
 				class="form"
 			>
 				<h1 class="title">登录／Login</h1>
-				<FormItem label="账号" prop="phone">
-					<iInput v-model="login.phone" placeholder="请输手机号码"></iInput>
-				</FormItem>
-				<FormItem label="密码" prop="password">
-					<iInput type="password" v-model="login.password" placeholder="请输入您的账户密码"></iInput>
-				</FormItem>
+				<el-form-item label="账号" prop="phone">
+					<el-input v-model="login.phone" placeholder="请输手机号码"></el-input>
+				</el-form-item>
+				<el-form-item label="密码" prop="password">
+					<el-input type="password" v-model="login.password" placeholder="请输入您的账户密码"></el-input>
+				</el-form-item>
 				<div class="button">
-					<iButton :loading="lock" size="large" htmlType="submit" type="primary" @click="submit_login">登录</iButton>
+					<el-button :loading="lock" size="large" htmlType="submit" type="primary" @click="submit_login">登录</el-button>
 				</div>
 				<div class="line">
 					<router-link class="resetpwd" :to="{ name: 'resetpwd' }">找回密码</router-link>
 				</div>
-
-			</iForm>
+			</el-form>
 		</div>
 		<ul class="tab">
 			<li><span>登录</span></li>
@@ -33,9 +32,9 @@
 </template>
 
 <script>
-
-	import { LOGIN_RULES } from '../../options/rules'
 	import { mapActions } from 'vuex'
+	import { LOGIN_RULES } from '@/options/rules'
+
 	export default {
 		data () {
 			return {

@@ -1,8 +1,8 @@
 /*
 * @Author: William Chan
 * @Date:   2016-12-02 11:31:24
-* @Last Modified by:   William Chan
-* @Last Modified time: 2017-05-02 23:51:51
+* @Last Modified by:   Administrator
+* @Last Modified time: 2017-05-05 12:46:37
 */
 
 // axios.request(config)
@@ -15,7 +15,7 @@
 
 
 'use strict';
-import { Modal, Notice } from 'iview'
+import { MessageBox, Notification } from 'element-ui';
 import axios from 'axios'
 import { clearAuthorization } from '@/store'
 import { isDevelop } from '@/utils/util'
@@ -37,9 +37,10 @@ if (localStorage.getItem('debug')) {
 			// 	'Error object: ' + JSON.stringify(error)
 			// ].join(' \n ');
 		// }
-		Modal.error({
-			content: msg,
-			title: 'JavaScript catch'
+		MessageBox({
+			message: msg,
+			title: 'JavaScript catch',
+			type: 'error',
 		})
 		return false;
 	};
@@ -61,9 +62,10 @@ export const onRequestError = error => {
 export const onResponse = res => {
 	if (res.data.retCode !== 0) {
 		if (!res.config || res.config && res.config.interceptors === true) {
-			Modal.error({
+			MessageBox({
 				title: res.data.retCode && `操作失败` || '错误',
-				content: res.data.retMsg || '数据格式异常'
+				type: 'error',
+				message: res.data.retMsg || '数据格式异常'
 			})
 		}
 		return Promise.reject(res);
@@ -74,9 +76,9 @@ export const onResponse = res => {
 
 export const onResponseError = error => {
 	if (!error.response) {
-		Notice.error({
+		Notification.error({
 			title: error.message,
-			desc: error.stack
+			message: error.stack
 		})
 	} else {
 		if (error.response.status === 401) {
@@ -84,9 +86,9 @@ export const onResponseError = error => {
 		} else {
 			// console.dir(error)
 			// TODO 500 必定显示 or 拦截器配置
-			Notice.error({
+			Notification.error({
 				title: `服务器错误 ${error.response.status}`,
-				desc: `${error.response.data.retMsg || '请求发生错误'}`
+				message: `${error.response.data.retMsg || '请求发生错误'}`
 			})
 		}
 	}
