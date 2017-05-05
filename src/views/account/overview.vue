@@ -77,19 +77,35 @@
 					频道消费明细
 				</p>
 				<div class="content">
-					<el-table :data="orders" width="100%" border>
-						<el-table-column prop="createTime" label="消费时间" min-width="140px" :resizable="false"></el-table-column>
-						<el-table-column prop="editionName" label="购买项目" min-width="140px" :resizable="false"></el-table-column>
-						<el-table-column prop="sn" label="订单号" min-width="200px" :resizable="false"></el-table-column>
-						<el-table-column prop="money" label="金额" min-width="140px" :resizable="false"></el-table-column>
-						<el-table-column prop="status" label="支付状态" min-width="140px" :resizable="false"></el-table-column>
-					</el-table>
-					<div class="page">
+					<div class="pagination">
+						<!-- 表格 -->
+						<el-table :data="orders" width="100%" border>
+							<el-table-column label="日期" min-width="200" :resizable="false">
+								<template scope="scope">
+									<span>{{ scope.row.createTime | dateFormat('YYYY-MM-DD HH:mm:ss') }}</span>
+								</template>
+							</el-table-column>
+							<el-table-column prop="editionName" label="购买项目" min-width="140" :resizable="false"></el-table-column>
+							<el-table-column prop="sn" label="订单号" min-width="200" :resizable="false"></el-table-column>
+							<el-table-column label="金额" min-width="140" :resizable="false">
+								<template scope="scope">
+									<span>{{ scope.row.money | moneyFormat }}</span>
+								</template>
+							</el-table-column>
+							<el-table-column label="支付状态" min-width="140" :resizable="false">
+								<template scope="scope">
+									<span v-if="scope.row.status" class="paid">已支付</span>
+									<span v-if="!scope.row.status" class="unpaid">未支付</span>
+								</template>
+							</el-table-column>
+						</el-table>
+						<!-- 页码 -->
 						<el-pagination
 							@current-change="selectPage"
 							:page-size="5"
 							layout="prev, pager, next, jumper"
-							:total="total">
+							:total="total"
+							class="page">
 						</el-pagination>
 					</div>
 				</div>
@@ -111,182 +127,15 @@
 </template>
 
 <script>
-	import { mapActions, mapState, mapGetters } from 'vuex'
-	import dashboard from '../../components/item/dashboard.vue'
-	import { numberFormat } from '../../filter'
-	import moment from 'moment'
+	import { mapActions, mapState } from 'vuex'
+	import dashboard from '@/components/item/dashboard.vue'
+	import { numberFormat, dateFormat, moneyFormat } from '@/filter'
+	import { lowEdition } from '@/options/edition'
 	export default {
 		data () {
 			return {
 				isOpen: false,
-				data: [
-					{
-						title: '流量时长',
-						main: '1000分钟',
-					},
-					{
-						title: '流量单价',
-						main: '0.06',
-					},
-					{
-						title: '媒体库',
-						main: '100GB',
-					},
-					{
-						titleList: { title1:'频道管理', title2:'频道创建' },
-						main: '限一个',
-					},
-					{
-						title: '流量时长',
-						titleList: { title1:'频道管理', title2:'频道创建' },
-						main: '1000分钟',
-						imgURL: require('../../assets/error.png'),
-					},
-					{
-						title: '流量时长',
-						titleList: { title1:'频道管理', title2:'频道创建' },
-						main: '1000分钟',
-						imgURL: require('../../assets/correct.png'),
-					},
-					{
-						title: '流量时长',
-						titleList: { title1:'频道管理', title2:'频道创建' },
-						main: '1000分钟',
-						imgURL: require('../../assets/correct.png'),
-					},
-					{
-						title: '流量时长',
-						titleList: { title1:'频道管理', title2:'频道创建' },
-						main: '1000分钟',
-						imgURL: require('../../assets/correct.png'),
-					},
-					{
-						title: '流量时长',
-						titleList: { title1:'频道管理', title2:'频道创建' },
-						main: '1000分钟',
-						imgURL: require('../../assets/error.png'),
-					},
-					{
-						title: '流量时长',
-						titleList: { title1:'频道管理', title2:'频道创建' },
-						main: '1000分钟',
-						imgURL: require('../../assets/correct.png'),
-					},
-					{
-						title: '流量时长',
-						titleList: { title1:'频道管理', title2:'频道创建' },
-						main: '1000分钟',
-						imgURL: require('../../assets/correct.png'),
-					},
-					{
-						title: '流量时长',
-						titleList: { title1:'频道管理', title2:'频道创建' },
-						main: '1000分钟',
-						imgURL: require('../../assets/correct.png'),
-					},
-					{
-						title: '流量时长',
-						titleList: { title1:'频道管理', title2:'频道创建' },
-						main: '1000分钟',
-						imgURL: require('../../assets/error.png'),
-					},
-					{
-						title: '流量时长',
-						titleList: { title1:'频道管理', title2:'频道创建' },
-						main: '1000分钟',
-						imgURL: require('../../assets/correct.png'),
-					},
-					{
-						title: '流量时长',
-						titleList: { title1:'频道管理', title2:'频道创建' },
-						main: '1000分钟',
-						imgURL: require('../../assets/correct.png'),
-					},
-					{
-						title: '流量时长',
-						titleList: { title1:'频道管理', title2:'频道创建' },
-						main: '1000分钟',
-						imgURL: require('../../assets/correct.png'),
-					},
-					{
-						title: '流量时长',
-						titleList: { title1:'频道管理', title2:'频道创建' },
-						main: '1000分钟',
-						imgURL: require('../../assets/error.png'),
-					},
-					{
-						title: '流量时长',
-						titleList: { title1:'频道管理', title2:'频道创建' },
-						main: '1000分钟',
-						imgURL: require('../../assets/correct.png'),
-					},
-					{
-						title: '流量时长',
-						titleList: { title1:'频道管理', title2:'频道创建' },
-						main: '1000分钟',
-						imgURL: require('../../assets/correct.png'),
-					},
-					{
-						title: '流量时长',
-						titleList: { title1:'频道管理', title2:'频道创建' },
-						main: '1000分钟',
-						imgURL: require('../../assets/correct.png'),
-					},
-					{
-						title: '流量时长',
-						titleList: { title1:'频道管理', title2:'频道创建' },
-						main: '1000分钟',
-						imgURL: require('../../assets/error.png'),
-					},
-					{
-						title: '流量时长',
-						titleList: { title1:'频道管理', title2:'频道创建' },
-						main: '1000分钟',
-						imgURL: require('../../assets/correct.png'),
-					},
-					{
-						title: '流量时长',
-						titleList: { title1:'频道管理', title2:'频道创建' },
-						main: '1000分钟',
-						imgURL: require('../../assets/correct.png'),
-					},
-					{
-						title: '流量时长',
-						titleList: { title1:'频道管理', title2:'频道创建' },
-						main: '1000分钟',
-						imgURL: require('../../assets/correct.png'),
-					},
-					{
-						title: '流量时长',
-						titleList: { title1:'频道管理', title2:'频道创建' },
-						main: '1000分钟',
-						imgURL: require('../../assets/error.png'),
-					},
-					{
-						title: '流量时长',
-						titleList: { title1:'频道管理', title2:'频道创建' },
-						main: '1000分钟',
-						imgURL: require('../../assets/correct.png'),
-					},
-					{
-						title: '流量时长',
-						titleList: { title1:'频道管理', title2:'频道创建' },
-						main: '1000分钟',
-						imgURL: require('../../assets/correct.png'),
-					},
-					{
-						title: '流量时长',
-						titleList: { title1:'频道管理', title2:'频道创建' },
-						main: '1000分钟',
-						imgURL: require('../../assets/correct.png'),
-					},
-					{
-						title: '流量时长',
-						titleList: { title1:'频道管理', title2:'频道创建' },
-						main: '1000分钟',
-						imgURL: require('../../assets/error.png'),
-					},
-				],
+				data: lowEdition,
 			}
 		},
 		mounted () {
@@ -294,6 +143,8 @@
 		},
 		filters: {
 			numberFormat,
+			dateFormat,
+			moneyFormat,
 		},
 		computed: {
 			...mapState('order/find', ['orders', 'total']),
@@ -319,7 +170,7 @@
 	}
 </script>
 
-<style scoped lang='less'>
+<style scoped lang="less">
 	@import "../../assets/styles/views/account/overview.less";
 </style>
 

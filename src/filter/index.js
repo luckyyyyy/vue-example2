@@ -1,8 +1,8 @@
 /*
 * @Author: chuxiao
 * @Date:   2017-04-18 10:28:42
-* @Last Modified by:   William Chan
-* @Last Modified time: 2017-05-03 12:05:38
+* @Last Modified by:   chuxiao
+* @Last Modified time: 2017-05-05 15:20:35
 */
 'use strict';
 import moment from 'moment'
@@ -26,4 +26,12 @@ export const numberFormat = (value) => {
  */
 export const dateFormat = (date, fmt) => {
 	return moment(date).format(fmt);
+}
+/**
+ * 金额格式化
+ * @param {number} money 价格
+ * @return {string} 格式化后的字符串
+ */
+export const moneyFormat = (money) => {
+  return `￥${ (money/100).toFixed(2) }`;
 }

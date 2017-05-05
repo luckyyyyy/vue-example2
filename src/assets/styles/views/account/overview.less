@@ -3,19 +3,19 @@
 	background: #f2f3f7;
 }
 
-.content-head{
+.content-head {
 	display: flex;
 	margin-bottom: 20px;
-	p{
+	p {
 		padding-right: 20px;
 	}
-	a{
+	a {
 		margin-left: 0;
 	}
 }
-.content-body{
+.content-body {
 	font-size: 0;
-	.content-card{
+	.content-card {
 		position: relative;
 		display: inline-block;
 		vertical-align: middle;
@@ -28,23 +28,23 @@
 		border-radius: 12px;
 		background-color: #4e546c;
 		font-size: 14px;
-		&:first-child{
+		&:first-child {
 			margin-left: 0;
 		}
-		.content-card-main{
+		.content-card-main {
 			display: flex;
 			justify-content: space-between;
 		}
-		.data{
+		.data {
 			display: flex;
 			flex-direction: column;
 			justify-content: space-between;
 			margin-top: 32px;
 			height: 54px;
 			color: #fff;
-			p{
+			p {
 				line-height: 18px;
-				&:first-child:before{
+				&:first-child:before {
 					content: '';
 					display: inline-block;
 					margin-right: 10px;
@@ -53,12 +53,12 @@
 					border-radius: 50%;
 					background: #31bedb;
 				}
-				&:last-child{
+				&:last-child {
 					span{
 						color: #f6a623;
 					}
 				}
-				&:last-child:before{
+				&:last-child:before {
 					content: '';
 					display: inline-block;
 					margin-right: 10px;
@@ -70,7 +70,7 @@
 			}
 		}
 	}
-	.content-card-large{
+	.content-card-large {
 		position: relative;
 		padding: 56px 24px 36px 32px;
 		width: 100%;
@@ -79,18 +79,18 @@
 		border-radius: 12px;
 		background-color: #4e546c;
 		font-size: 14px;
-		.collapse{
+		.collapse {
 			display: flex;
 			flex-wrap: wrap;
 			overflow: hidden;
 			max-height: 104px;
 			// height: 416px;
 			transition: all .2s ease-in-out;
-			&.open{
+			&.open {
 				max-height: 416px;
 			}
 		}
-		.item{
+		.item {
 			overflow: hidden;
 			margin-right: 8px;
 			margin-bottom: 8px;
@@ -101,7 +101,7 @@
 			border: solid 1px #fff;
 			font-size: 12px;
 			text-align: center;
-			.item-title{
+			.item-title {
 				display: flex;
 				flex-direction: column;
 				align-items: center;
@@ -112,20 +112,20 @@
 				background: #fff;
 				color: #4e546c;
 				box-shadow: inset 0 -3px 4px 0 rgba(0, 0, 0, 0.2);
-				.line{
+				.line {
 					margin: 6px 0 8px;
 					width: 10px;
 					height: 1px;
 					background: #4e546c;
 				}
 			}
-			.item-main{
+			.item-main {
 				color: #13ce66;
 				line-height: 31px;
 				font-weight: 500;
 			}
 		}
-		.collapse-btn{
+		.collapse-btn {
 			position: absolute;
 			bottom: 5px;
 			left: 50%;
@@ -134,12 +134,12 @@
 			height: 30px;
 			cursor: pointer;
 			transition: all .2s ease-in-out;
-			&.open{
+			&.open {
 				display: none;
 				// margin: 3px auto 0;
 				// transform: rotate( 180deg );
 			}
-			.icon{
+			.icon {
 				display:block;
 				content: '';
 				width: 0;
@@ -152,7 +152,7 @@
 			}
 		}
 	}
-	.content-card-title{
+	.content-card-title {
 			position: absolute;
 			top: 20px;
 			left: 32px;
@@ -165,26 +165,26 @@
 		}
 }
 
-.table{
+.table {
 	border: 1px solid #f2f3f7;
 }
-.thead{
+.thead {
 	display: flex;
 	justify-content: space-around;
 	height: 44px;
 	background: #f2f3f7;
-	p{
+	p {
 		padding-left: 18px;
 		flex-grow: 1;
 		line-height: 44px;
 	}
 }
-.tbody{
+.tbody {
 	display: flex;
 	justify-content: space-around;
 	height: 46px;
 	border-top: 1px solid #f2f3f7;
-	&:first-child{
+	&:first-child {
 		border-top: none;
 	}
 	p{
@@ -193,8 +193,33 @@
 		line-height: 45px;
 	}
 }
-.page{
-	margin-top: 15px;
+.pagination {
 	display: flex;
-	justify-content: flex-end;
+	min-height: 300px;
+	flex-direction: column;
+	justify-content: space-between;
+	.page {
+		margin-top: 15px;
+		align-self: flex-end;
+	}
+	.paid {
+		display: block;
+		color: #13ce66;
+	}
+	.unpaid {
+		display: block;
+		color: #ff4949;
+		cursor: pointer;
+	}
 }
+
+
+
+
+
+
+
+
+
+
+
