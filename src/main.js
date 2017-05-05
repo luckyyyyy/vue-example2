@@ -9,7 +9,7 @@ import { store } from '@/store'
 import router from '@/router'
 import 'animate.css'
 import '@/assets/styles/iview-theme/index.less'
-import 'element-ui/lib/theme-default/index.css'
+import '@/theme/index.css'
 import '@/assets/common.less'
 
 
