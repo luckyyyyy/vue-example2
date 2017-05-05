@@ -103,29 +103,24 @@ import { mapActions } from 'vuex'
 					this.req_lock = false;
 					this.createFlow(this.form).then(res => {
 						if (typeof res == 'string') {
+							window.open(res);
 							// 支付宝充值
 							this.$confirm('在新窗口为您打开充值界面，请按提示进行操作', '提示信息', {
 								confirmButtonText: '支付成功',
-								cancelButtonText: '取消',
-								type: 'warning',
+								type: 'info',
 								closeOnClickModal: false,
 							}).then(() => {
 								this.$router.push({ path: 'overview' });
 							}).catch(() => {
-								this.$message({
-									type: 'warning',
-									message: '已取消充值'
-								});
+								this.$message.warning('已取消充值');
 							});
-							window.open(res);
 						} else {
 							// 非支付宝充值
 							this.$alert('账户余额支付成功', '提示信息', {
-								confirmButtonText: '确定',
-								callback: action => {
-									this.$router.push({ path: 'overview' });
-								}
-							});
+								type: 'success',
+							}).then(() => {
+								this.$router.push({ path: 'overview' });
+							})
 						}
 						this.req_lock = true;
 					}).catch(err => {
