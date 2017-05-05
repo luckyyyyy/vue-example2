@@ -72,25 +72,24 @@
 				clearChannel: 'CHANNEL_SET'
 			}),
 			submit_logout () {
-				this.$Modal.confirm({
-					title: '提示',
-					content: '确定退出系统么？',
-					loading: true,
-					onOk: () => {
-						this.logout().then(() => {
-							this.$Modal.remove();
-						})
+				this.$confirm('确定退出系统么？', '提示', {
+					type: 'warning',
+					beforeClose: async (action, instance, done) => {
+						if (action === 'confirm') {
+							instance.confirmButtonLoading = true;
+							await this.logout();
+							instance.confirmButtonLoading = false;
+						}
+						done();
 					}
 				})
 			},
 			switchShop () {
-				this.$Modal.confirm({
-					title: '提示',
-					content: '确定切换频道么？',
-					onOk: () => {
-						this.clearChannel();
-					}
-				})
+				this.$confirm('确定切换频道么？', '提示', {
+					type: 'warning',
+				}).then(() => {
+					this.clearChannel();
+				});
 			},
 		}
 	}

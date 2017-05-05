@@ -4,22 +4,22 @@
 			<!-- 待定 -->
 			<img :src="channel.logoImageUrl + '/avatar'">
 		</div>
-		<Menu class="sidebar-menu" @on-select="onSelect" theme="dark" :activeName="active" mode="vertical" width="140px" :openNames="openNames">
+		<el-menu class="sidebar-menu" @select="onSelect" :router="false" theme="dark" :default-active="active" mode="vertical" width="140px">
 			<template v-for="item of sidebar">
 				<template v-if="item.sub">
-					<Submenu :name="item.name">
+					<el-submenu :index="item.name">
 						<span slot="title" v-html="item.item"></span>
-						<MenuItem :key="sub.name" v-for="sub of item.sub" :name="sub.name" v-html="sub.item"></MenuItem>
-					</Submenu>
+						<el-menuItem :key="sub.name" v-for="sub of item.sub" :index="sub.name" v-html="sub.item"></el-menuItem>
+					</el-submenu>
 				</template>
-				<MenuItem :class="{ line: item.line }" v-else :name="item.name" v-html="item.item"></MenuItem>
+				<el-menuItem :class="{ line: item.line }" v-else :index="item.name" v-html="item.item"></el-menuItem>
 			</template>
-		</Menu>
+		</el-menu>
 		<div style="text-align: center;padding: 10px;">
-			<iSwitch @on-change="enableDebug" v-model="debug">
+			<el-switch @on-change="enableDebug" v-model="debug">
 				<span slot="open">on</span>
 				<span slot="close">off</span>
-			</iSwitch>
+			</el-switch>
 		</div>
 	</div>
 </template>
@@ -75,18 +75,6 @@
 				})
 				return active;
 			},
-			openNames() {
-				let openNames = [];
-				for(let item of this.sidebar) {
-					for(let sub of item.sub || []) {
-						if(sub.name == this.active) {
-							openNames.push(item.name);
-							break;
-						}
-					}
-				}
-				return openNames;
-			},
 			...mapState('channel', ['channel'])
 		},
 		methods: {
@@ -105,6 +93,6 @@
 	}
 </script>
 
-<style lang="less" scoped>
+<style lang="less">
 	@import "../assets/styles/sidebar";
 </style>
