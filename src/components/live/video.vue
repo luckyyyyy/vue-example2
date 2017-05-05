@@ -1,12 +1,12 @@
 <template>
 	<div class="video" ref="video">
 		<div id='video' class='prism-player'></div>
-		<div class="video__info" v-if="play">
-			<p><span><strong>Live information</strong></span></p>
-			<p><span>BitRate:</span> {{ bitRateInfo.bitRate / 1000 | floor }} kbps</p>
-			<p><span>FPS:</span>  {{ bitRateInfo.videoFrameRate }}</p>
-			<p><span>AudioFrameRate:</span> {{ bitRateInfo.audioFrameRate }}</p>
-			<p><span>Time:</span>  {{ bitRateInfo.time | date }}</p>
+		<div class="video__info" v-if="play && bitRateInfo.time">
+			<p><span><strong>直播采样信息统计</strong></span></p>
+			<p><span>视频码率:</span> {{ bitRateInfo.bitRate / 1000 | floor }} kbps</p>
+			<p><span>视频FPS:</span>  {{ bitRateInfo.videoFrameRate }}</p>
+			<p><span>音频码率:</span> {{ bitRateInfo.audioFrameRate }}</p>
+			<p><span>统计时间:</span>  {{ bitRateInfo.time | date }}</p>
 		</div>
 		<div class="lock" v-show="!play || countdown.handel">
 			<img src="../../assets/toplogo.png" height="40" width="196">
@@ -38,9 +38,7 @@
 			live: Object
 		},
 		computed: {
-			...mapState('live', [
-				'bitRateInfo', 'publishStreamInfo'
-			])
+			...mapState('live', ['bitRateInfo'])
 		},
 		filters: {
 			date,

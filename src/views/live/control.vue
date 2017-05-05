@@ -46,7 +46,14 @@
 						<li>在线人数<span class="count">12345</span></li>
 					</ul>
 					<div class="live-info-status">
-						<div class="time">直播用时<span class="timeWrapper">00:00:00</span></div>
+						<div class="time">
+							<template v-if="play">
+								直播用时
+								<span class="timeWrapper">
+									{{ parseInt(publishTime.left / 3600 % 24) }}小时{{ parseInt(publishTime.left / 60 % 60) }}分{{ parseInt(publishTime.left % 60) }}秒
+								</span>
+							</template>
+						</div>
 						<Tooltip placement="top">
 							<div slot="content">
 								<p v-if="!live.publicStatus">只有至于【发布中】状态的直播才能结束。</p>
@@ -87,6 +94,7 @@
 <script>
 	import qrcodejs from 'qrcodejs2'
 	import { mapState, mapActions, mapMutations } from 'vuex'
+	import moment from 'moment'
 	import qrcodePopover from '@/components/item/qrcodePopover'
 	import chatroom from '@/components/live/chatroom'
 	import prismVideo from '@/components/live/video'
@@ -108,6 +116,10 @@
 				notice: {
 					text: ''
 				},
+				publishTime: {
+					left: 0,
+					interval: null,
+				},
 				play: false, // im更新
 				noticeDialog: false,
 				rules: LIVE_NOTICE_RULES,
@@ -116,7 +128,7 @@
 			}
 		},
 		computed: {
-			...mapState('live', [ 'live' ]),
+			...mapState('live', [ 'live', 'bitRateInfo' ]),
 			...mapState('im', {
 				chatroom_lock: state => state.lock,
 				chatroom_init: state => state.init,
@@ -138,6 +150,7 @@
 		},
 		beforeDestroy () {
 			this.imDisconnect();
+			this.clearInterval();
 		},
 		methods: {
 			...mapActions('im', {
@@ -148,8 +161,7 @@
 			...mapMutations('im', {
 				imOnDisconnect: 'IM_CHATROOM_INIT_LOCK'
 			}),
-			...mapMutations('live', {
-				updateLiveInfo: 'LIVE_QUERY',
+			...mapActions('live', {
 				liveFinish: 'LIVE_FINISH',
 				sendNotice: 'LIVE_NOTICE',
 				getStreamStatus: 'LIVE_QUERY_STREAM',
@@ -272,6 +284,22 @@
 						return false;
 					}
 				});
+			},
+			clearInterval () {
+				if (this.publishTime.interval) {
+					clearInterval(this.publishTime.interval);
+					this.publishTime.interval= null;
+				}
+			}
+		},
+		watch: {
+			play (val) {
+				this.clearInterval();
+				if (val) {
+					this.publishTime.interval = setInterval(() => {
+						this.publishTime.left = (moment().format('x') - this.bitRateInfo.publishTime) / 1000;
+					}, 1000);
+				}
 			}
 		}
 	}

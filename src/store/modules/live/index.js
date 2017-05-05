@@ -2,7 +2,7 @@
 * @Author: William Chan
 * @Date:   2017-03-19 14:48:07
 * @Last Modified by:   Administrator
-* @Last Modified time: 2017-05-04 16:40:00
+* @Last Modified time: 2017-05-05 12:21:45
 */
 
 'use strict';
@@ -18,7 +18,6 @@ const state = {
 	limits: 25,
 	status: 0,
 	bitRateInfo: {},
-	publishStreamInfo: {},
 }
 
 const getters = {}
@@ -187,8 +186,7 @@ const mutations = {
 		state.lock    = false;
 	},
 	[LIVE.QUERY_STREAM] (state, { data }) {
-		state.bitRateInfo       = data.bitRateInfo || {};
-		state.publishStreamInfo = data.publishStreamInfo || {};
+		state.bitRateInfo = data.bitRateInfo || {};
 	}
 }
 export default {
