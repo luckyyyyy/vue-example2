@@ -22,6 +22,7 @@
 </template>
 <script>
 	import { mapState, mapActions } from 'vuex';
+
 	export default {
 		computed: {
 			...mapState('user', [ 'user' ]),
@@ -34,16 +35,15 @@
 				logout: 'USER_LOGOUT'
 			}),
 			submit_logout () {
-				this.$Modal.confirm({
-					title: '提示',
-					content: '确定退出系统么？',
-					loading: true,
-					onOk: () => {
-						this.logout().then(() => {
-							this.$Modal.remove();
-						}).catch(() => {
-							this.$Modal.remove();
-						})
+				this.$confirm('确定退出系统么？', '提示', {
+					type: 'warning',
+					beforeClose: async (action, instance, done) => {
+						if (action === 'confirm') {
+							instance.confirmButtonLoading = true;
+							await this.logout();
+							instance.confirmButtonLoading = false;
+						}
+						done();
 					}
 				})
 			}

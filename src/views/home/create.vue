@@ -7,42 +7,37 @@
 		</div>
 		<div class="body">
 			<template v-if="active == 1">
-				<iForm class="form" @submit.native.prevent :rules="rules" :label-width="100" ref="create" :model="create">
-					<FormItem label="频道名称：" prop="name">
-						<iInput placeholder="请输入名称" v-model="create.name"></iInput>
-					</FormItem>
-					<FormItem label="直播商品：" prop="commodityCatalog">
-						<iSelect :disabled="option.length == 0" placeholder="请选择" v-model="create.commodityCatalog">
-							<iOption
+				<el-form class="form" @submit.native.prevent :rules="rules" label-width="100px" ref="create" :model="create">
+					<el-form-item label="频道名称：" prop="name">
+						<el-input placeholder="请输入名称" v-model="create.name"></el-input>
+					</el-form-item>
+					<el-form-item label="直播商品：" prop="commodityCatalog">
+						<el-select :disabled="option.length == 0" placeholder="请选择" v-model="create.commodityCatalog">
+							<el-option
+								filterable
 								v-for="item in option"
 								:key="item.label"
 								:label="item.label"
 								:value="item.value">
-							</iOption>
-						</iSelect>
-					</FormItem>
-					<FormItem label="联系地址：" prop="area">
-						<Cascader
-							class="cascader"
-							:data="area"
-							filterable
-							size="large"
-							v-model="create.area">
-						</Cascader>
-					</FormItem>
-					<FormItem>
-						<iInput class="address" placeholder="请填写具体地址" v-model="create.address"></iInput>
-					</FormItem>
-					<FormItem label="公司名称：">
-						<iInput placeholder="请输入营业执照上的公司全名" v-model="create.companyName"></iInput>
-					</FormItem>
-					<FormItem>
-						<Checkbox v-model="create.agree">我已阅读并同意 <a>彩虹云直播用户协议</a></Checkbox>
-					</FormItem>
-					<FormItem>
-						<iButton :disabled="!create.agree" :loading="lock" htmlType="submit" type="primary" @click="submit">创建频道</iButton>
-					</FormItem>
-				</iForm>
+							</el-option>
+						</el-select>
+					</el-form-item>
+					<el-form-item label="联系地址：" prop="area">
+						<el-cascader class="cascader" :options="area" v-model="create.area"></el-cascader>
+					</el-form-item>
+					<el-form-item>
+						<el-input class="address" placeholder="请填写具体地址" v-model="create.address"></el-input>
+					</el-form-item>
+					<el-form-item label="公司名称：">
+						<el-input placeholder="请输入营业执照上的公司全名" v-model="create.companyName"></el-input>
+					</el-form-item>
+					<el-form-item>
+						<el-checkbox v-model="create.agree">我已阅读并同意 <a>彩虹云直播用户协议</a></el-checkbox>
+					</el-form-item>
+					<el-form-item>
+						<el-button :disabled="!create.agree" :loading="lock" htmlType="submit" type="primary" @click="submit">创建频道</el-button>
+					</el-form-item>
+				</el-form>
 			</template>
 			<template v-if="active == 2">
 				<div class="logo">
@@ -51,7 +46,7 @@
 					<span>基于微信公众号直播 + 电商的全场景化应用解决方案</span>
 				</div>
 				<div class="button">
-					<iButton :disabled="!url" type="primary" size="large" @click="openWxUrl">{{ !url ? '正在获取微信授权' : '绑定微信公众号' }}</iButton>
+					<el-button :disabled="!url" type="primary" size="large" @click="openWxUrl">{{ !url ? '正在获取微信授权' : '绑定微信公众号' }}</el-button>
 					<a class="wx" target="_blank" href="https://www.baidu.com">还没有公众号？去申请吧 ></a>
 				</div>
 				<div class="tips">
@@ -61,9 +56,9 @@
 			</template>
 			<template v-if="active == 3">
 				<div class="success">
-					<Icon type="checkmark-circled"></Icon>
+					<i class="el-icon-circle-check"></i>
 					<p>恭喜，您的频道已创建成功！</p>
-					<iButton @click="onSelect" type="success" size="large">进入店铺管理后台</iButton>
+					<el-button @click="onSelect" type="success" size="large">进入店铺管理后台</el-button>
 				</div>
 			</template>
 		</div>
@@ -71,8 +66,8 @@
 </template>
 <script>
 	import { mapState, mapGetters, mapActions } from 'vuex';
-	import area from '../../options/area.json'
-	import { CHANNEL_CREATE_RULES } from '../../options/rules'
+	import area from '@/options/area.json'
+	import { CHANNEL_CREATE_RULES } from '@/options/rules'
 
 	export default {
 		data () {
@@ -102,13 +97,12 @@
 							} else if (err.data.retCode == -101) {
 								this.$router.push({ name: 'create_channel' })
 							} else {
-								this.$Modal.error({
-									okText: '重新获取',
-									content: err.data.retMsg,
-									onOk: () => {
-										window.location.reload();
-									}
-								})
+								this.$alert(err.data.retMsg, '错误', {
+									type: 'error',
+									confirmButtonText: '重新获取',
+								}).then(() => {
+									window.location.reload();
+								});
 							}
 						}
 					});
@@ -137,7 +131,6 @@
 			}),
 			submit () {
 				this.$refs.create.validate(valid => {
-					// BUG https://github.com/iview/iview/issues/431
 					if (valid) {
 						if (this.create.area) {
 							this.create.province = this.create.area[0];
@@ -152,31 +145,30 @@
 			},
 			openWxUrl () {
 				window.open(this.url);
-				this.$Modal.confirm({
-					title: '提示',
-					content: '请在弹出的页面中完成公众号绑定，如果未弹出请检查浏览器设置。',
-					okText: '已成功绑定',
-					cancelText: '绑定失败',
-					closable: false,
-					loading: true,
-					onOk: () => {
-						this.queryChannel(this.id).then(data => {
-							this.$Modal.remove();
-							if (data.channel.status == 2) {
-								this.success = true;
-							} else {
-								this.$Message.error('绑定未成功，请尝试重新打开连接绑定，或询问我们的客服。', 5);
-								// this.$Modal.error({
-								// 	title: '提示',
-								// 	content: '绑定未成功，请尝试重新打开连接绑定，或询问我们的客服。',
-								// })
-							}
-						});
-					},
-					onCancel: () => {
-						this.$Message.info('请尝试重新打开连接绑定，或询问我们的客服。', 5);
+				this.$confirm('请在弹出的页面中完成公众号绑定，如果未弹出请检查浏览器设置是否拦截。', '提示', {
+					confirmButtonText: '已成功绑定',
+					cancelButtonText: '绑定失败',
+					type: 'info',
+					closeOnPressEscape: false,
+					closeOnClickModal: false,
+					beforeClose: async (action, instance, done) => {
+						if (action === 'confirm') {
+							instance.confirmButtonLoading = true;
+							instance.confirmButtonText = '查询中';
+							await this.queryChannel(this.id).then(data => {
+								if (data.channel.status == 2) {
+									this.success = true;
+								} else {
+									this.$message.error('绑定未成功，请尝试重新打开连接绑定，或询问我们的客服。', 5);
+								}
+							})
+						} else {
+							this.$message.info('请尝试重新打开连接绑定，或询问我们的客服。', 5);
+						}
+						done();
+						instance.confirmButtonLoading = false;
 					}
-				});
+				})
 			},
 			onSelect () {
 				this.selectChannel(this.id);

@@ -49,7 +49,6 @@
 	export default {
 		data () {
 			const checkPassword = (rule, value, callback) => {
-				console.log(value)
 				if (value === '') {
 					callback(new Error('请再次输入密码'));
 				} else if (value !== this.register.password) {
@@ -104,20 +103,19 @@
 							this.lock_captcha = false;
 							if (err.data) {
 								if (err.data.retCode == -197) {
-									this.$Modal.confirm({
-										title: '提示',
-										content: '该用户已注册，是否立即登录？',
-										okText: '登录',
-										cancelText: '取消',
-										onOk: () => {
-											this.$router.push({ name: 'login' })
-										}
-									})
+									this.$confirm('该用户已注册，是否立即登录？', '提示', {
+										confirmButtonText: '登录',
+										cancelButtonText: '取消',
+										type: 'info',
+									}).then(() => {
+										this.$router.push({ name: 'login' });
+									});
 								} else {
-									this.$Modal.error({
-										content: err.data.retMsg,
-										title: '错误'
-									})
+									this.$msgbox({
+										message: err.data.retMsg,
+										title: '错误',
+										type: 'error',
+									});
 								}
 							}
 						});

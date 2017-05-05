@@ -1,22 +1,22 @@
 <template>
 	<div>
 		<div class="body">
-			<iForm @submit.native.prevent :rules="rules" :label-width="100" ref="user" :model="user">
-				<FormItem label="账号：">
+			<el-form @submit.native.prevent :rules="rules" label-width="100px" ref="user" :model="user">
+				<el-form-item label="账号：">
 					<span>{{ info.phone }} <router-link :to="{ name: 'password', query: { redirect: $route.query.redirect } }">修改密码</router-link></span>
-				</FormItem>
-				<FormItem label="昵称：" prop="nickName">
-					<iInput placeholder="请输入昵称" v-model="user.nickName"></iInput>
-				</FormItem>
-				<FormItem label="邮箱：" prop="email">
-					<iInput placeholder="请输入邮箱" v-model="user.email"></iInput>
-				</FormItem>
-				<FormItem label="性别：" prop="sex">
-					<RadioGroup v-model="user.sex">
-						<Radio v-for="item in sex" :key="item.label" :label="item.label">{{ item.name }}</Radio>
-					</RadioGroup>
-				</FormItem>
-				<FormItem label="头像：">
+				</el-form-item>
+				<el-form-item label="昵称：" prop="nickName">
+					<el-input placeholder="请输入昵称" v-model="user.nickName"></el-input>
+				</el-form-item>
+				<el-form-item label="邮箱：" prop="email">
+					<el-input placeholder="请输入邮箱" v-model="user.email"></el-input>
+				</el-form-item>
+				<el-form-item label="性别：" prop="sex">
+					<el-radio-group v-model="user.sex">
+						<el-radio v-for="item in sex" :key="item.label" :label="item.label">{{ item.name }}</el-radio>
+					</el-radio-group>
+				</el-form-item>
+				<el-form-item label="头像：">
 					<upload
 						class="avatar"
 						:method="option.method"
@@ -32,23 +32,23 @@
 						</div>
 						<img class="avatar__img" ref="avatar" :src="info.avatar + '/avatar'" height="80" width="80">
 					</upload>
-				</FormItem>
-				<FormItem label="个性签名：" prop="description">
-					<iInput type="textarea" v-model="user.description" resize="none"></iInput>
-				</FormItem>
-				<FormItem>
-					<iButton :loading="lock" htmlType="submit" type="primary" @click="submit">确认修改</iButton>
-					<iButton type="ghost" @click="backConsole">返回控制台</iButton>
-				</FormItem>
-			</iForm>
+				</el-form-item>
+				<el-form-item label="个性签名：" prop="description">
+					<el-input type="textarea" v-model="user.description" resize="none"></el-input>
+				</el-form-item>
+				<el-form-item>
+					<el-button :loading="lock" htmlType="submit" type="primary" @click="submit">确认修改</el-button>
+					<el-button type="ghost" @click="backConsole">返回控制台</el-button>
+				</el-form-item>
+			</el-form>
 		</div>
 	</div>
 </template>
 <script>
 	import { mapState, mapActions, mapMutations } from 'vuex';
-	import { USER_AVATAR } from '../../store/api'
-	import upload from '../../components/item/upload'
-	import { PROFILE_UPDATE_RULES } from '../../options/rules'
+	import { USER_AVATAR } from '@/store/api'
+	import upload from '@/components/item/upload'
+	import { PROFILE_UPDATE_RULES } from '@/options/rules'
 
 	export default {
 		components: {
@@ -84,7 +84,6 @@
 				updateUser: 'USER_UPDATE',
 			}),
 			...mapMutations('user', {
-
 				updateUserAvatar: 'USER_UPDATE_AVATAR'
 			}),
 			avatar_progress (event) {
@@ -107,7 +106,7 @@
 					if (valid) {
 						this.lock = true;
 						this.updateUser(this.user).then(() => {
-							this.$Message.success('个人资料更新成功');
+							this.$message.success('个人资料更新成功');
 							this.lock = false;
 						}).catch(() => {
 							this.lock = false;
@@ -134,10 +133,10 @@
 		justify-content: center;
 		align-items: center;
 		height: 100%;
-		.ivu-input-wrapper {
+		.el-input {
 			width: 240px;
 		}
-		.ivu-btn {
+		.el-button {
 			width: 100px;
 		}
 		.avatar {

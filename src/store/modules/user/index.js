@@ -1,8 +1,8 @@
 /*
 * @Author: Administrator
 * @Date:   2017-01-06 02:33:52
-* @Last Modified by:   William Chan
-* @Last Modified time: 2017-05-03 16:34:07
+* @Last Modified by:   Administrator
+* @Last Modified time: 2017-05-05 13:22:12
 */
 
 'use strict';
@@ -54,7 +54,6 @@ const actions = {
 				commit(USER.LOGIN, res.data, { root: true });
 				resolve();
 			}).catch(err => {
-				commit(USER.CLEAR, err, { root: true });
 				reject();
 			})
 		})

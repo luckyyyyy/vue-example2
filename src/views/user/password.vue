@@ -53,7 +53,7 @@
 					if (valid) {
 						this.lock = true;
 						this.setPassword(this.password).then(() => {
-							this.$Message.success('用户密码修改成功');
+							this.$message.success('用户密码修改成功');
 							this.lock = false;
 							this.password = {};
 						}).catch(() => {

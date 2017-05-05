@@ -1,8 +1,8 @@
 /*
 * @Author: William Chan
 * @Date:   2017-03-19 03:49:11
-* @Last Modified by:   William Chan
-* @Last Modified time: 2017-05-03 11:41:51
+* @Last Modified by:   Administrator
+* @Last Modified time: 2017-05-05 14:08:24
 */
 
 'use strict';
@@ -30,6 +30,15 @@ const actions = {
 			commit(CHANNEL.SELECT, res.data);
 		}).catch(() => {
 			commit(CHANNEL.SELECT, null);
+		})
+	},
+	[CHANNEL.QUERY] ({ commit }, id) {
+		return new Promise((resolve, reject) => {
+			api.channel_query(id).then(res => {
+				resolve(res.data);
+			}).catch(err => {
+				reject();
+			})
 		})
 	},
 	[CHANNEL.SET] ({ commit, dispatch }, id) {

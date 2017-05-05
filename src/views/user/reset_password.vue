@@ -91,14 +91,14 @@
 						this.lock = true;
 						this.resetPassword(this.reset_password).then(() => {
 							this.lock = false;
-							this.$Modal.success({
+							this.$msgbox({
+								type: 'success',
 								title: '提示',
-								content: '密码重置成功',
-								okText: '登录',
-								onOk: action => {
-									this.$router.push({ name: 'login' })
-								}
-							})
+								message: '密码重置成功',
+								confirmButtonText: '登录',
+							}).then(() => {
+								this.$router.push({ name: 'login' });
+							});
 						}).catch(() => {
 							this.lock = false;
 						})
