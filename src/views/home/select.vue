@@ -13,20 +13,19 @@
 			</div>
 			<div class="create">
 				<router-link :to="{ name: 'create_channel' }">
-					<iButton type="primary" class="menu-btn">创建新频道</iButton>
+					<el-button type="primary" class="menu-btn">创建新频道</el-button>
 				</router-link>
 			</div>
 		</header>
-		<div class="body">
-			<Spin size="large" fix v-if="lock"></Spin>
+		<div class="body" v-loading="lock">
 			<template v-if="!lock">
 				<div class="channel" v-if="total">
-					<Row class="list">
-						<iCol span="8" v-for="item in data" class="item" :key="item.channelId">
+					<el-row class="list">
+						<el-col span="8" v-for="item in data" class="item" :key="item.channelId">
 							<div class="border" @click="select(item.channelId)">
 								<div class="head">
 									<span>{{ item.name }}</span>
-									<Icon @click.native.stop="onDelete(item)" :size="20" type="android-delete"></Icon>
+									<i @click.stop="onDelete(item)" class="el-icon-delete"></i>
 								</div>
 								<div class="info">
 									<div class="logo">
@@ -43,18 +42,19 @@
 									</div>
 								</div>
 							</div>
-						</iCol>
-					</Row>
-					<Page
-						@on-change="onChange"
+						</el-col>
+					</el-row>
+					<el-pagination
+						@current-change="onChange"
 						:page-size="limits"
-						:current="current"
+						:current-page="current"
+						layout="prev, pager, next"
 						:total="total">
-					</Page>
+					</el-pagination>
 				</div>
 				<div class="empty" v-else>
 					<p>您还没有自己的频道</p>
-					<iButton size="large" type="primary" @click="toCreate">创建频道</iButton>
+					<el-button size="large" type="primary" @click="toCreate">创建频道</el-button>
 				</div>
 			</template>
 		</div>
@@ -111,15 +111,17 @@
 				this.$router.push({ name: 'create_channel' })
 			},
 			onDelete (channel) {
-				this.$Modal.confirm({
-					title: '提示',
-					content: '您确定删除频道吗？',
-					loading: true,
-					onOk: () => {
-						this.deleteChannel( channel.channelId).then(() => {
-							this.onChange();
-							this.$Modal.remove();
-						})
+				this.$confirm('您确定删除频道吗？', '提示', {
+					type: 'warning',
+					beforeClose: async (action, instance, done) => {
+						if (action === 'confirm') {
+							instance.confirmButtonLoading = true;
+							await this.deleteChannel( channel.channelId).then(() => {
+								this.onChange();
+							});
+							instance.confirmButtonLoading = false;
+						}
+						done();
 					}
 				});
 			}
