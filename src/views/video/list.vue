@@ -2,36 +2,33 @@
 	<div class="commoon-menu-view">
 		<div class="commoon-menu">
 			<div class="box">
-				<Menu :activeName="status" @on-select="onStatusChange" width="135px">
+				<el-menu :default-active="status" @select="onStatusChange">
 					<li class="title">
 						回放列表
 					</li>
-					<MenuItem name="finish">列表</MenuItem>
-					<MenuItem name="trash">回收站</MenuItem>
-				</Menu>
+					<el-menu-item index="finish">列表</el-menu-item>
+					<el-menu-item index="trash">回收站</el-menu-item>
+				</el-menu>
 			</div>
 		</div>
 		<div ref="list" class="commoon-view">
 			<!-- <Spin fix v-if="loading"></Spin> -->
-			<Row class="list" v-show="data.length">
-				<Col v-for="item in data" :key="item.id" className="item" :xs="12" :sm="12" :md="8" :lg="6">
+			<el-row class="list" v-if="data.length">
+				<el-col v-for="item in data" :key="item.id" class="item" :xs="12" :sm="12" :md="8" :lg="6">
 					<div class="box">
 						<div class="body">
-							<div class="top">
-								<div class="status">
-									<em :class="item.streamStatus">
-										{{ item.streamStatus == 'publish' ? '推流中' : '未推流' }}
-									</em>
-								</div>
-								<div class="active">
-									<template v-if="item.trashStatus">
-										<em @click="onChangeStatus(item.id, `您确定要恢复直播【${item.name}】`)">恢复</em>
-										<em @click="onChangeStatus(item.id, `您确定彻底要删除直播【${item.name}】<br>一旦删除，将彻底无法恢复。`, true)">彻底删除</em>
-									</template>
-									<template v-else>
-										<em @click="onChangeStatus(item.id, `您确定要删除直播【${item.name}】`)">删除</em>
-									</template>
-								</div>
+							<img src="../../assets/test.png">
+							<div class="status" :class="item.streamStatus">
+								{{ item.streamStatus == 'publish' ? '推流中' : '未推流' }}
+							</div>
+							<div class="active">
+								<template v-if="item.trashStatus">
+									<em @click="onChangeStatus(item.id, `您确定要恢复直播【${item.name}】`)">恢复</em>
+									<em @click="onChangeStatus(item.id, `您确定彻底要删除直播【${item.name}】<br>一旦删除，将彻底无法恢复。`, true)">彻底删除</em>
+								</template>
+								<template v-else>
+									<em @click="onChangeStatus(item.id, `您确定要删除直播【${item.name}】`)">删除</em>
+								</template>
 							</div>
 							<div class="title">
 								<span>{{ item.name }}</span>
@@ -63,10 +60,10 @@
 							</div>
 						</div>
 					</div>
-				</Col>
-			</Row>
-			<div v-show="!loading && !data.length" class="tips">
-				没有数据啦QAQ
+				</el-col>
+			</el-row>
+			<div v-else class="tips" v-loading="loading">
+				<template v-if="!data.length">没有数据啦QAQ</template>
 			</div>
 		</div>
 
@@ -102,13 +99,10 @@
 				this.findVideoList(true);
 				this.$router.push({ name: this.$route.name, params: { status: this.status } })
 			},
-			findVideoList (reload) {
+			async findVideoList (reload) {
 				if (!this.lock || reload && !this.loading) {
-					const msg = this.$Message.loading('正在加载中...', 0);
 					this.loading = true;
-					this.getVideoList({ reload, status: this.status }).then(() => {
-						this.loading = false;
-						msg();
+					await this.getVideoList({ reload, status: this.status }).then(() => {
 						if (!this.listScroll) {
 							this.listScroll = new iscroll(this.$refs.list, {
 								mouseWheel: true,
@@ -128,26 +122,24 @@
 							}
 							this.listScroll.refresh();
 						})
-					}).catch(() => {
-						this.loading = false;
-						msg();
 					});
+					this.loading = false;
 				}
 			},
-			onChangeStatus(id, content, confirmDelete) {
+			onChangeStatus(id, message, confirmDelete) {
 				const api = confirmDelete ? this.deleteVideo : this.trashVideo;
-				this.$Modal.confirm({
-					title: '直播',
-					content,
-					loading: true,
-					onOk: () => {
-						api({ id }).then(() => {
-							this.$Modal.remove();
-							this.findVideoList(true);
-						}).catch(() => {
-							this.$Modal.remove();
-						})
-					}
+				this.$confirm(message, '视频', {
+					type: 'warning',
+					beforeClose: async (action, instance, done) => {
+						if (action === 'confirm') {
+							instance.confirmButtonLoading = true;
+							await api({ id }).then(() => {
+								this.findLiveList(true);
+							});
+							instance.confirmButtonLoading = false;
+						}
+						done();
+					},
 				})
 			},
 		}

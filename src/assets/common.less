@@ -42,20 +42,27 @@ ul {
 				display: flex;
 				flex-direction: column;
 				align-items: center;
-				.ivu-btn {
+				.el-button {
 					margin: 10px 0;
 					width: 120px;
 				}
 			}
-			.ivu-menu-vertical.ivu-menu-light:after {
-				background: #EBECF0;
-			}
-			.ivu-menu {
+			.el-menu {
 				background: transparent;
-				.ivu-menu-item {
+				&-item {
 					border-color: transparent;
-					padding: 8px 0;
-					padding-left: 40px;
+					line-height: 40px;
+					height: 40px;
+					padding-left: 0;
+					text-align: center;
+					&:hover {
+						background: #fff;
+					}
+					&.is-active {
+						color: #39f;
+						// border-right: 2px solid #39f;
+						background: #fff;
+					}
 				}
 				.title {
 					color: #333;
@@ -67,11 +74,6 @@ ul {
 						font-size: 20px;
 					}
 				}
-			}
-			.ivu-menu-light.ivu-menu-vertical .ivu-menu-item-active:not(.ivu-menu-submenu) {
-				color: #39f;
-				// border-right: 2px solid #39f;
-				background: #fff;
 			}
 		}
 	}

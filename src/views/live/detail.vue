@@ -2,29 +2,29 @@
 	<div class="commoon-menu-view">
 		<div class="commoon-menu">
 			<div class="box">
-				<Menu :activeName="select" @on-select="onSelect" width="135px">
+				<el-menu :default-active="select" @select="onSelect">
 					<li class="title">
 						<i class="iconfont icon-video"></i>直播装修
 					</li>
-					<MenuItem name="live_detail_countdown">直播倒计时</MenuItem>
-					<MenuItem name="live_detail_image">直播引导图</MenuItem>
-					<MenuItem name="live_detail_share">分享设置</MenuItem>
-					<MenuItem name="live_detail_setting">直播间设置</MenuItem>
+					<el-menu-item index="live_detail_countdown">直播倒计时</el-menu-item>
+					<el-menu-item index="live_detail_image">直播引导图</el-menu-item>
+					<el-menu-item index="live_detail_share">分享设置</el-menu-item>
+					<el-menu-item index="live_detail_setting">直播间设置</el-menu-item>
 					<li class="title">
 						<i class="iconfont icon-video"></i>互动设置
 					</li>
-<!-- 					<MenuItem name="live_detail_livebuy">边看边买</MenuItem>
-					<MenuItem name="live_detail_liveshop">宝贝上屏</MenuItem>
-					<MenuItem name="live_detail_luckydraw">抽奖</MenuItem> -->
-					<!-- <MenuItem name="live_detail_watch">关注观看</MenuItem> -->
-					<MenuItem name="live_detail_authorize">授权观看</MenuItem>
-				</Menu>
+<!-- 					<el-menu-item index="live_detail_livebuy">边看边买</el-menu-item>
+					<el-menu-item index="live_detail_liveshop">宝贝上屏</el-menu-item>
+					<el-menu-item index="live_detail_luckydraw">抽奖</el-menu-item> -->
+					<!-- <el-menu-item index="live_detail_watch">关注观看</el-menu-item> -->
+					<el-menu-item index="live_detail_authorize">授权观看</el-menu-item>
+				</el-menu>
 				<div class="button">
 					<router-link :to="{ name: 'live_data', params: { liveid: $route.params.liveid } }" target="_blank">
-    					<iButton type="primary" class="menu-btn">直播数据</iButton>
+    					<el-button type="primary" class="menu-btn">直播数据</el-button>
     				</router-link>
     				<router-link :to="{ name: 'live_control', params: { liveid: $route.params.liveid } }" target="_blank">
-    					<iButton type="primary" class="menu-btn">中控台</iButton>
+    					<el-button type="primary" class="menu-btn">中控台</el-button>
     				</router-link>
 				</div>
 			</div>

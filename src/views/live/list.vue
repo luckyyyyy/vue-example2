@@ -2,47 +2,45 @@
 	<div class="commoon-menu-view">
 		<div class="commoon-menu">
 			<div class="box">
-				<Menu :activeName="status" @on-select="onStatusChange" width="135px">
+				<el-menu :default-active="status" @select="onStatusChange">
 					<li class="title">
 						直播列表
 					</li>
-					<MenuItem name="private">未发布</MenuItem>
-					<MenuItem name="public">已发布</MenuItem>
+					<el-menu-item index="private">未发布</el-menu-item>
+					<el-menu-item index="public">已发布</el-menu-item>
 					<li class="title"></li>
-					<MenuItem name="trash">回收站</MenuItem>
-				</Menu>
+					<el-menu-item index="trash">回收站</el-menu-item>
+				</el-menu>
 				<div class="button">
-    				<iButton @click="openCreateDialog" type="primary" class="menu-btn">新建直播<i class="iconfont icon-add"></i></iButton>
+    				<el-button @click="openCreateDialog" type="primary" class="menu-btn">
+    					新建直播<i class="iconfont icon-add"></i>
+    				</el-button>
 				</div>
 			</div>
 		</div>
 		<div ref="list" class="commoon-view">
-			<!-- <Spin fix v-if="loading"></Spin> -->
-			<Row class="list" v-show="data.length">
-				<Col v-for="item in data" :key="item.id" className="item" :xs="12" :sm="12" :md="8" :lg="6">
+			<el-row class="list" v-if="data.length">
+				<el-col v-for="item in data" :key="item.id" class="item" :xs="12" :sm="12" :md="8" :lg="6">
 					<div class="box">
 						<div class="body">
-							<div class="top">
-								<div class="status">
-									<em :class="item.streamStatus">
-										{{ item.streamStatus == 'publish' ? '推流中' : '未推流' }}
-									</em>
-								</div>
-								<div class="active">
-									<template v-if="item.trashStatus">
-										<em @click="onChangeStatus(item.id, `您确定要恢复直播【${item.name}】`)">恢复</em>
-										<em @click="onChangeStatus(item.id, `您确定彻底要删除直播【${item.name}】<br>一旦删除，将彻底无法恢复。`, true)">彻底删除</em>
+							<img src="../../assets/test.png">
+							<div class="status" :class="item.streamStatus">
+								{{ item.streamStatus == 'publish' ? '推流中' : '未推流' }}
+							</div>
+							<div class="active">
+								<template v-if="item.trashStatus">
+									<em @click="onChangeStatus(item.id, `您确定要恢复直播 ${item.name}`)">恢复</em>
+									<em @click="onChangeStatus(item.id, `您确定彻底要删除直播 ${item.name} 吗？一旦删除，将彻底无法恢复。`, true)">彻底删除</em>
+								</template>
+								<template v-else>
+									<template v-if="!item.publicStatus">
+										<em @click="onChangePublic(item.id, `您确定要发布直播 ${item.name} 吗？发布后在微信端公开展示给用户。`)">发布</em>
 									</template>
 									<template v-else>
-										<template v-if="!item.publicStatus">
-											<em @click="onChangePublic(item.id, `您确定要发布直播【${item.name}】<br>发布后在微信端公开展示给用户。`)">发布</em>
-										</template>
-										<template v-else>
-											<em @click="onChangePublic(item.id, `您确定要撤回直播【${item.name}】<br>撤回后微信端用户无法查看直播。`)">撤回</em>
-										</template>
-										<em @click="onChangeStatus(item.id, `您确定要删除直播【${item.name}】`)">删除</em>
+										<em @click="onChangePublic(item.id, `您确定要撤回直播 ${item.name} 吗？撤回后微信端用户无法查看直播。`)">撤回</em>
 									</template>
-								</div>
+									<em @click="onChangeStatus(item.id, `您确定要删除直播 ${item.name} 吗？`)">删除</em>
+								</template>
 							</div>
 							<div class="title">
 								<span>{{ item.name }}</span>
@@ -83,23 +81,17 @@
 							</div>
 						</div>
 					</div>
-				</Col>
-			</Row>
-			<div v-show="!loading && !data.length" class="tips">
-				没有数据啦QAQ
+				</el-col>
+			</el-row>
+			<div v-else class="tips" v-loading="loading">
+				<template v-if="!data.length">没有数据啦QAQ</template>
 			</div>
 		</div>
-		<Modal
-			:width="550"
-			title="新建直播"
-			v-model="openDialog"
-			:maskClosable="false"
-			className="createDialog"
-		>
-			<iForm ref="create" :rules="rules" label-position="left" :label-width="85" :model="create" @submit.native.prevent>
-				<FormItem label="直播标题" prop="name">
-					<iInput :autofocus="true" v-model="create.name" placeholder="请输入直播标题"></iInput>
-				</FormItem>
+		<el-dialog title="新建直播" :visible.sync="openDialog" :close-on-click-modal="false" custom-class="dialog">
+			<el-form ref="create" :rules="rules" label-position="left" label-width="85px" :model="create" @submit.native.prevent>
+				<el-form-item label="直播标题" prop="name">
+					<el-input autofocus v-model="create.name" placeholder="请输入直播标题"></el-input>
+				</el-form-item>
 				<div class="help">
 					<p>
 						说明：彩虹云直播严禁上传包括反动、暴力、色情、违法及侵权内容的文件。
@@ -108,14 +100,14 @@
 					</p>
 				</div>
 				<div style="display: none;">
-					<iButton :loading="lock_create" @click="onSubmit" htmlType="submit" type="primary" :disabled="!createAgree">创 建</iButton>
+					<el-button :loading="lock_create" @click="onSubmit" htmlType="submit" type="primary" :disabled="!createAgree">创 建</el-button>
 				</div>
-			</iForm>
+			</el-form>
 			<div slot="footer" class="footer">
-				<Checkbox v-model="createAgree">我已阅读</Checkbox>
-				<iButton :loading="lock_create" @click="onSubmit" type="primary" :disabled="!createAgree">创 建</iButton>
+				<el-checkbox v-model="createAgree">我已阅读</el-checkbox>
+				<el-button :loading="lock_create" @click="onSubmit" type="primary" :disabled="!createAgree">创 建</el-button>
 			</div>
-		</Modal>
+		</el-dialog>
 	</div>
 </template>
 <script>
@@ -157,13 +149,10 @@
 				this.findLiveList(true);
 				this.$router.push({ name: this.$route.name, params: { status: this.status } })
 			},
-			findLiveList (reload) {
+			async findLiveList (reload) {
 				if (!this.lock || reload && !this.loading) {
-					const msg = this.$Message.loading('正在加载中...', 0);
 					this.loading = true;
-					this.getLiveList({ reload, status: this.status }).then(() => {
-						this.loading = false;
-						msg();
+					await this.getLiveList({ reload, status: this.status }).then(() => {
 						if (!this.listScroll) {
 							this.listScroll = new iscroll(this.$refs.list, {
 								mouseWheel: true,
@@ -183,45 +172,43 @@
 							}
 							this.listScroll.refresh();
 						})
-					}).catch(() => {
-						this.loading = false;
-						msg();
-					});
+					})
+					this.loading = false;
 				}
 			},
 			openCreateDialog () {
 				this.openDialog  = true;
 				this.createAgree = true;
 			},
-			onChangePublic (id, content) {
-				this.$Modal.confirm({
-					title: '直播',
-					content,
-					loading: true,
-					onOk: () => {
-						this.livePublic({ id }).then(() => {
-							this.$Modal.remove();
-							this.findLiveList(true);
-						}).catch(() => {
-							this.$Modal.remove();
-						})
-					}
+			onChangePublic (id, message) {
+				this.$confirm(message, '直播', {
+					type: 'warning',
+					beforeClose: async (action, instance, done) => {
+						if (action === 'confirm') {
+							instance.confirmButtonLoading = true;
+							await this.livePublic({ id }).then(() => {
+								this.findLiveList(true);
+							});
+							instance.confirmButtonLoading = false;
+						}
+						done();
+					},
 				})
 			},
-			onChangeStatus(id, content, confirmDelete) {
+			onChangeStatus(id, message, confirmDelete) {
 				const api = confirmDelete ? this.deleteLive : this.trashLive;
-				this.$Modal.confirm({
-					title: '直播',
-					content,
-					loading: true,
-					onOk: () => {
-						api({ id }).then(() => {
-							this.$Modal.remove();
-							this.findLiveList(true);
-						}).catch(() => {
-							this.$Modal.remove();
-						})
-					}
+				this.$confirm(message, '直播', {
+					type: 'warning',
+					beforeClose: async (action, instance, done) => {
+						if (action === 'confirm') {
+							instance.confirmButtonLoading = true;
+							await api({ id }).then(() => {
+								this.findLiveList(true);
+							});
+							instance.confirmButtonLoading = false;
+						}
+						done();
+					},
 				})
 			},
 			onSubmit () {
@@ -249,4 +236,20 @@
 </script>
 <style lang="less" scoped>
 	@import "../../assets/styles/views/live/list";
+</style>
+<style lang="less">
+	.dialog {
+		width: 580px;
+		.help {
+			padding: 10px 10px 0;
+			font-size: 12px;
+			text-align: justify;
+		}
+
+		.footer {
+			display: flex;
+			justify-content: space-between;
+			align-items: center;
+		}
+	}
 </style>

@@ -52,15 +52,16 @@
 			}
 		}
 		.body {
-			height: 135px;
 			border-radius: 5px 5px 0 0;
-			padding: 10px 5px;
 			display: flex;
 			flex-direction: column;
 			justify-content: space-between;
 			color: white;
 			background: #1190BF;
 			position: relative;
+			img {
+				width: 100%;
+			}
 			&:after {
 				position: absolute;
 				background: url(../../../toplogo.png) no-repeat center center;
@@ -70,34 +71,60 @@
 				width: 100%;
 				height: 100%;
 			}
-			.top {
-				display: flex;
-				justify-content: space-between;
-				em {
-					position: relative;
-					cursor: pointer;
-					font-style: normal;
-					padding: 5px 10px;
-					font-size: 12px;
-					background: rgba(0, 0, 0, .3);
-					border-radius: 100px;
-					z-index: 1;
+			.status {
+				position: absolute;
+				left: 0;
+				top: 10px;
+				padding: 0 5px;
+				padding-left: 14px;
+				text-align: center;
+				background: rgba(0, 0, 0, .3);
+				&:before {
+					content: "";
+					width: 10px;
+					height: 10px;
+					position: absolute;
+					border-radius: 50%;
+					top: 50%;
+					left: 2px;
+					margin-top: -5px;
+					background: red;
 				}
-
-				.status {
-					em.publish {
+				&.publish {
+					&:before {
 						background: #0c6;
 					}
-
-					em.publish_done {
+				}
+				&.publish_done {
+					&:before {
 						background: #f50;
 					}
 				}
 			}
-
+			.active {
+				position: absolute;
+				width: 100%;
+				right: 10px;
+				top: 10px;
+				text-align: right;
+			}
+			em {
+				position: relative;
+				cursor: pointer;
+				font-style: normal;
+				padding: 5px 10px;
+				font-size: 12px;
+				background: rgba(0, 0, 0, .3);
+				border-radius: 100px;
+				z-index: 1;
+			}
 			.title {
 				line-height: 14px;
-				align-self: center;
+				text-align: center;
+				position: absolute;
+				bottom: 10px;
+				left: 0;
+				width: 100%;
 				span {
 					display: inline-block;
 					width: 150px;
@@ -169,19 +196,5 @@
 				}
 			}
 		}
-	}
-}
-
-.createDialog {
-	.help {
-		padding: 10px 20px 0;
-		font-size: 12px;
-		text-align: justify;
-	}
-
-	.footer {
-		display: flex;
-		justify-content: space-between;
-		align-items: center;
 	}
 }
