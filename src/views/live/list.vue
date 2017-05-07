@@ -84,7 +84,7 @@
 				</el-col>
 			</el-row>
 			<div v-else class="tips" v-loading="loading">
-				<template v-if="!data.length">没有数据啦QAQ</template>
+				<template v-if="!data.length && !loading">没有数据啦QAQ</template>
 			</div>
 		</div>
 		<el-dialog title="新建直播" :visible.sync="openDialog" :close-on-click-modal="false" custom-class="live-dialog">
