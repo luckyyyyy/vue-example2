@@ -38,12 +38,17 @@
 				this.$confirm('确定退出系统么？', '提示', {
 					type: 'warning',
 					beforeClose: async (action, instance, done) => {
-						if (action === 'confirm') {
-							instance.confirmButtonLoading = true;
-							await this.logout();
+						try {
+							if (action === 'confirm') {
+								instance.confirmButtonLoading = true;
+								await this.logout();
+							}
 							instance.confirmButtonLoading = false;
+							done();
+						} catch(e) {
+							instance.confirmButtonLoading = false;
+							done();
 						}
-						done();
 					}
 				})
 			}

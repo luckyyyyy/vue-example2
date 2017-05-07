@@ -16,10 +16,7 @@
 			</template>
 		</el-menu>
 		<div style="text-align: center;padding: 10px;">
-			<el-switch @on-change="enableDebug" v-model="debug">
-				<span slot="open">on</span>
-				<span slot="close">off</span>
-			</el-switch>
+			<el-switch @change="enableDebug" v-model="debug"></el-switch>
 		</div>
 	</div>
 </template>
@@ -27,7 +24,7 @@
 <script>
 	import { mapState } from 'vuex';
 	export default {
-		data() {
+		data () {
 			return {
 				debug: localStorage.getItem('debug') ? true : false,
 				sidebar: [
@@ -66,7 +63,7 @@
 			}
 		},
 		computed: {
-			active() {
+			active () {
 				let active = this.$route.name;
 				this.$route.matched.some(record => {
 					if(record.meta.parent) {
@@ -78,7 +75,7 @@
 			...mapState('channel', ['channel'])
 		},
 		methods: {
-			enableDebug(val) {
+			enableDebug (val) {
 				if(val) {
 					localStorage.setItem('debug', true);
 				} else {
@@ -86,7 +83,7 @@
 				}
 				window.location.reload();
 			},
-			onSelect(name) {
+			onSelect (name) {
 				this.$router.push({ name })
 			}
 		}

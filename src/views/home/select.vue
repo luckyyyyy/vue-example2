@@ -114,14 +114,19 @@
 				this.$confirm('您确定删除频道吗？', '提示', {
 					type: 'warning',
 					beforeClose: async (action, instance, done) => {
-						if (action === 'confirm') {
-							instance.confirmButtonLoading = true;
-							await this.deleteChannel( channel.channelId).then(() => {
-								this.onChange();
-							});
+						try {
+							if (action === 'confirm') {
+								instance.confirmButtonLoading = true;
+								await this.deleteChannel( channel.channelId).then(() => {
+									this.onChange();
+								});
+							}
 							instance.confirmButtonLoading = false;
+							done();
+						} catch(e) {
+							instance.confirmButtonLoading = false;
+							done();
 						}
-						done();
 					}
 				});
 			}

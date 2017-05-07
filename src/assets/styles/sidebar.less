@@ -32,8 +32,17 @@
 			height: 44px;
 			line-height: 24px;
 		}
-		.el-menu-item.line {
-			margin-top: 44px;
+		.el-menu-item {
+			&.line {
+				margin-top: 44px;
+			}
+			&.is-active, &:hover {
+				background: #f2f3f7 !important;
+				color: black;
+			}
+			&.is-active {
+				border-left: 4px solid #00C1DE;
+			}
 		}
 		.el-submenu .el-menu {
 			background: darken(#343647, 5%);
@@ -44,15 +53,8 @@
 		.iconfont {
 			margin-right: 10px;
 		}
-		.el-menu-item.is-active {
-			background: #f2f3f7 !important;
-			color: black !important;
-			border: none !important;
-			border-left: 4px solid #00C1DE !important;
-		}
-		// .ivu-menu-submenu-title-active:not(.ivu-menu-submenu)
 	}
-	.sidebar-menu{
+	.sidebar-menu {
 	   background-color: #343647;
 	}
 }

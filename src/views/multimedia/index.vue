@@ -2,12 +2,12 @@
 	<div class="commoon-menu-view">
 		<div class="commoon-menu">
 			<div class="box">
-				<Menu :activeName="menu" @on-select="onStatusChange" width="135px">
+				<el-menu :default-active="menu" @select="onStatusChange">
 					<li class="title">
 						<i class="iconfont icon-video"></i>素材管理
 					</li>
-					<MenuItem v-for="(value, key) in typeClass" :key="key" :name="key | number">{{ value }}</MenuItem>
-				</Menu>
+					<el-menu-item v-for="(value, key) in typeClass" :key="key" :index="key">{{ value }}</el-menu-item>
+				</el-menu>
 				<div class="button">
 		 			<upload
 		 				:classType="menu"
@@ -19,29 +19,31 @@
 						@fail="fail"
 						@progress="progress"
 					>
-						<iButton :loading="upload ? true : false" type="primary">上传图片</iButton>
+						<el-button :loading="!!upload" type="primary">上传图片</el-button>
 					</upload>
 				</div>
 			</div>
 		</div>
 		<div ref="list" class="commoon-view">
-			<Row class="list" v-show="data.length">
-				<Col className="item" v-for="item of data" :key="item.id" :title="item.name" :xs="8" :sm="6" :md="6" :lg="4">
+			<el-row class="list" v-show="data.length">
+				<el-col class="item" v-for="item of data" :key="item.id" :title="item.name" :xs="8" :sm="8" :md="6" :lg="4">
 					<div class="head">
-						<img :src="item.url + '/multimedia'">
+						<img :src="item.url">
 						<div class="delete">
-							<Icon @click.native="onDelete(item.id)" title="删除" :size="30" type="android-delete"></Icon>
+							<i @click="onDelete(item.id)" title="删除" class="el-icon-delete"></i>
 							<div class="name">{{ item.name }}</div>
 						</div>
 					</div>
-				</Col>
-			</Row>
+				</el-col>
+			</el-row>
 		</div>
-		<div class="tips" v-if="!loading && !data.length && !upload">
-			没有数据啦QAQ
-		</div>
-		<div class="tips" v-if="upload">
-			{{ upload }}
+		<div class="tips" v-if="loading || upload || !loading && !data.length" v-loading="!!upload" :element-loading-text="upload">
+			<template v-if="loading">
+				正在加载中
+			</template>
+			<template v-else-if="!loading && !data.length">
+				没有数据啦
+			</template>
 		</div>
 	</div>
 </template>
@@ -62,7 +64,7 @@
 				option: MULTIMEDIA_UPLOAD,
 				upload: false,
 				loading: false,
-				menu: parseInt(this.$route.params.type) || 1,
+				menu: this.$route.params.type || '1',
 				typeClass: MULTIMEDIA_TYPE,
 				delete: false,
 			}
@@ -82,17 +84,15 @@
 				multimediaInsert: 'MULTIMEDIA_INSERT',
 			}),
 			onStatusChange (val) {
-				this.menu = parseInt(val);
+				this.menu = val;
 				this.$router.push({ name: this.$route.name, params: { type: this.menu } })
 				this.getImages(true);
 			},
-			getImages (reload) {
+			async getImages (reload) {
 				if (!this.lock || reload && !this.loading) {
-					const msg = this.$Message.loading('正在加载中...', 0);
 					const type = this.menu;
 					this.loading = true;
-					this.getMultimedia({ type, reload }).then(data => {
-						msg();
+					await this.getMultimedia({ type, reload }).then(data => {
 						this.loading = false;
 						if (!this.listScroll) {
 							this.listScroll = new iscroll(this.$refs.list, {
@@ -110,15 +110,14 @@
 							});
 						}
 						this.$nextTick(() => {
+							console.log(123)
 							if (reload) {
 								this.listScroll.scrollTo(0, 0);
 							}
 							this.listScroll.refresh();
 						})
-					}).catch(() => {
-						msg();
-						this.loading = false;
 					})
+					this.loading = false;
 				}
 			},
 			success (data) {
@@ -139,23 +138,22 @@
 				this.upload = `上传中${Math.floor(p.percent)}%`;
 			},
 			onDelete (id) {
-				this.$Modal.confirm({
-					title: '删除',
-					content: '确定要删除这张图片吗？',
-					loading: true,
-					onOk: () => {
-						this.deleteMultimedia({ id }).then(() => {
-							this.$Modal.remove();
-						}).catch(() => {
-							this.$Modal.remove();
-						})
+				this.$confirm('确定要删除这张图片吗？', '删除', {
+					type: 'warning',
+					beforeClose: async (action, instance, done) => {
+						try {
+							instance.confirmButtonLoading = true;
+							if (action === 'confirm') {
+								await this.deleteMultimedia(id);
+							}
+							instance.confirmButtonLoading = false;
+							done();
+						} catch(e) {
+							instance.confirmButtonLoading = false;
+							done();
+						}
 					}
 				})
-			}
-		},
-		filters: {
-			number (val) {
-				return parseInt(val);
 			}
 		},
 	}

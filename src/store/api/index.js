@@ -2,7 +2,7 @@
 * @Author: William Chan
 * @Date:   2016-12-02 11:31:24
 * @Last Modified by:   Administrator
-* @Last Modified time: 2017-05-05 12:46:37
+* @Last Modified time: 2017-05-07 16:28:13
 */
 
 // axios.request(config)
@@ -15,7 +15,7 @@
 
 
 'use strict';
-import { MessageBox, Notification } from 'element-ui';
+import { MessageBox, Message, Notification } from 'element-ui';
 import axios from 'axios'
 import { clearAuthorization } from '@/store'
 import { isDevelop } from '@/utils/util'
@@ -62,11 +62,13 @@ export const onRequestError = error => {
 export const onResponse = res => {
 	if (res.data.retCode !== 0) {
 		if (!res.config || res.config && res.config.interceptors === true) {
-			MessageBox({
-				title: res.data.retCode && `操作失败` || '错误',
-				type: 'error',
-				message: res.data.retMsg || '数据格式异常'
-			})
+			Message.error(res.data.retMsg || '数据格式异常');
+			// MessageBox({
+			// 	title: res.data.retCode && `操作失败` || '错误',
+			// 	type: 'error',
+			// 	message: res.data.retMsg || '数据格式异常'
+			// })
+
 		}
 		return Promise.reject(res);
 	}
@@ -78,7 +80,8 @@ export const onResponseError = error => {
 	if (!error.response) {
 		Notification.error({
 			title: error.message,
-			message: error.stack
+			message: '请求失败',
+			// message: error.stack
 		})
 	} else {
 		if (error.response.status === 401) {

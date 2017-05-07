@@ -184,14 +184,19 @@
 				this.$confirm(message, '直播', {
 					type: 'warning',
 					beforeClose: async (action, instance, done) => {
-						if (action === 'confirm') {
-							instance.confirmButtonLoading = true;
-							await this.livePublic({ id }).then(() => {
-								this.findLiveList(true);
-							});
+						try {
+							if (action === 'confirm') {
+								instance.confirmButtonLoading = true;
+								await this.livePublic({ id }).then(() => {
+									this.findLiveList(true);
+								});
+							}
 							instance.confirmButtonLoading = false;
+							done();
+						} catch(e) {
+							instance.confirmButtonLoading = false;
+							done();
 						}
-						done();
 					},
 				})
 			},
@@ -200,14 +205,19 @@
 				this.$confirm(message, '直播', {
 					type: 'warning',
 					beforeClose: async (action, instance, done) => {
-						if (action === 'confirm') {
-							instance.confirmButtonLoading = true;
-							await api({ id }).then(() => {
-								this.findLiveList(true);
-							});
+						try {
+							if (action === 'confirm') {
+								instance.confirmButtonLoading = true;
+								await api({ id }).then(() => {
+									this.findLiveList(true);
+								});
+							}
 							instance.confirmButtonLoading = false;
+							done();
+						} catch(e) {
+							instance.confirmButtonLoading = false;
+							done();
 						}
-						done();
 					},
 				})
 			},
