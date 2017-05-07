@@ -68,7 +68,6 @@
 				</div>
 			</div>
 		</el-dialog>
-		{{ value }}
 		<slot></slot>
 	</div>
 </template>
