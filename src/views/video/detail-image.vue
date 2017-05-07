@@ -12,7 +12,7 @@
 				<p class="tips">此图片显示在进入直播页面之前，用于展示直播相关介绍内容。</p>
 				<div class="action">
 					<div class="form">
-						<Album class="upload" @submit="selectAlbum" v-model="openAlbum" :type="1">
+						<Album class="upload" @submit="selectAlbum" v-model="openAlbum" type="1">
 							<iButton type="ghost" @click="openAlbum = true">
 								<Icon type="ios-upload-outline" class="icon"></Icon> 上传图片
 							</iButton>

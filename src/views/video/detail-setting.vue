@@ -13,7 +13,7 @@
 						<iInput @on-change="onDebounce" v-model="form.nickName" placeholder="不超过10个字符"></iInput>
 					</FormItem>
 					<FormItem label="直播头像">
-						<Album class="upload" @submit="selectAlbum" v-model="openAlbum" :type="3">
+						<Album class="upload" @submit="selectAlbum" v-model="openAlbum" type="3">
 							<iButton type="ghost" @click="openAlbum = true">点击上传图片</iButton>
 							<p class="tips">
 								<Icon type="android-warning"></Icon> 400 x 400

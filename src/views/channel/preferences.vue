@@ -17,13 +17,13 @@
 							</FormItem>
 							<template v-if="info.wxAccountType != 2">
 								<FormItem label="频道二维码：">
-									<Album @submit="onSelectQrcode" v-model="openQrcodeAlbum" :type="4">
+									<Album @submit="onSelectQrcode" v-model="openQrcodeAlbum" type="4">
 										<img @click="openQrcodeAlbum = true" :src="channel.wxAvatarUrl" class="img">
 									</Album>
 								</FormItem>
 							</template>
 							<FormItem label="频道LOGO：" class="img">
-								<Album @submit="onSelectLogo" v-model="openLogoAlbum" :type="5">
+								<Album @submit="onSelectLogo" v-model="openLogoAlbum" type="5">
 									<img @click="openLogoAlbum = true" :src="channel.logoImageUrl + '/avatar'" class="img">
 								</Album>
 							</FormItem>

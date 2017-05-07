@@ -1,27 +1,24 @@
 <template>
 	<div>
-		<Modal
-			className="albumModal"
-			v-model="visible"
-			:mask-closable="false"
-			:closable="false"
-			:width="820"
-			:title="find.length ? `已选择${find.length}张图片` : '我的图库'"
+		<el-dialog
+			custom-class="album-dialog"
+			:visible.sync="visible"
+			:close-on-press-escape="false"
+			@close="onClose"
 		>
-			<div class="content">
-				<div class="loading" v-if="upload_lock">
-					<Spin fix>
-						<Icon type="load-c" size=18 class="spin-icon-load"></Icon>
-						<p>{{ upload_lock }}</p>
-					</Spin>
+			<span slot="title" class="dialog-title">
+				{{ find.length ? `已选择${find.length}张图片` : '我的图库' }}
+			</span>
+
+			<div class="album-content" v-loading="upload_lock" :element-loading-text="upload_lock">
+
+				<div class="album-content__menu" ref="menu">
+					<el-menu :default-active="menu" @select="onSelectMenu">
+						<el-menu-item v-for="(value, key) in typeClass" :key="key" :index="key">{{ value }}</el-menu-item>
+					</el-menu>
 				</div>
 
-				<div class="menu" ref="menu">
-					<Menu class="album__menu" theme="dark" :activeName="menu" width="110px" @on-select="onSelectMenu">
-						<MenuItem v-for="(value, key) in typeClass" :key="key" :name="key | number">{{ value }}</MenuItem>
-					</Menu>
-				</div>
-				<div class="list" ref="list" v-show="data.length > 0">
+				<div class="album-content__list" ref="list" v-show="data.length > 0">
 					<ul>
 						<li
 							v-for="item of data"
@@ -37,17 +34,19 @@
 						</li>
 					</ul>
 				</div>
-				<div v-show="!data.length || loading" class="empty">
+
+				<div v-show="!data.length || loading" class="album-content__empty">
 					<div v-if="!loading">
-						<Icon type="images" :size="40"></Icon>
+						<i class="el-icon-picture"></i>
 						<p>还没有图片呢，点击左下角上传吧。</p>
 					</div>
 					<div v-else>
-						<Icon type="load-c" :size="24" class="spin-icon-load"></Icon>
+						<i class="el-icon-loading"></i>
 						<p>图片加载中</p>
 					</div>
 				</div>
 			</div>
+
 			<div slot="footer" class="dialog-footer">
 				<div class="left">
 		 			<upload
@@ -60,15 +59,16 @@
 						@fail="fail"
 						@progress="progress"
 					>
-						<iButton :loading="upload_lock ? true : false" type="primary">上传图片</iButton>
+						<el-button :loading="upload_lock ? true : false" type="primary">上传图片</el-button>
 					</upload>
 				</div>
 				<div class="right">
-					<iButton @click="close">取 消</iButton>
-					<iButton :disabled="find.length == 0" type="primary" @click="onSubmit">选择</iButton>
+					<el-button @click="onClose">取 消</el-button>
+					<el-button :disabled="find.length == 0" type="primary" @click="onSubmit">选择</el-button>
 				</div>
 			</div>
-		</Modal>
+		</el-dialog>
+		{{ value }}
 		<slot></slot>
 	</div>
 </template>
@@ -86,7 +86,7 @@
 		},
 		props: {
 			type: {
-				type: Number,
+				type: String,
 				default: 1,
 			},
 			value: {
@@ -151,7 +151,7 @@
 				} else {
 					this.$emit('submit', ...this.find, this.select[Object.keys(this.select)]);
 				}
-				this.close();
+				this.onClose();
 			},
 			onSelect (item, selected) {
 				if (selected) {
@@ -206,7 +206,7 @@
 					})
 				}
 			},
-			close () {
+			onClose () {
 				this.visible = false;
 				this.$emit('input', false);
 			}
@@ -214,21 +214,21 @@
 		watch: {
 			value (val) {
 				if (val) {
-					if (!this.menuScroll) {
-						this.menuScroll = new iscroll(this.$refs.menu, {
-							mouseWheel: true,
-							preventDefaultException: {
-								tagName: /^(LI)$/
-							},
-							scrollbars: true,
-							fadeScrollbars: true,
-							interactiveScrollbars: true,
-							shrinkScrollbars: 'clip'
-						})
-						this.$nextTick(() => { // 不知道什么BUG
+					this.$nextTick(() => {
+						if (!this.menuScroll) {
+							this.menuScroll = new iscroll(this.$refs.menu, {
+								mouseWheel: true,
+								preventDefaultException: {
+									tagName: /^(LI)$/
+								},
+								scrollbars: true,
+								fadeScrollbars: true,
+								interactiveScrollbars: true,
+								shrinkScrollbars: 'clip'
+							})
 							this.menuScroll.refresh();
-						})
-					}
+						}
+					})
 					this.find = [];
 					this.getImages(true);
 				}
@@ -239,12 +239,7 @@
 				this.getImages(true);
 			}
 		},
-		filters: {
-			number (val) {
-				return parseInt(val);
-			}
-		},
-    }
+	};
 </script>
 <style lang="less">
 	@import url('../../assets/styles/components/album.less');

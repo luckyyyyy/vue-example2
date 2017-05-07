@@ -2,7 +2,7 @@
 * @Author: William Chan
 * @Date:   2017-03-06 22:29:46
 * @Last Modified by:   Administrator
-* @Last Modified time: 2017-05-04 16:36:34
+* @Last Modified time: 2017-05-07 12:30:06
 */
 
 export default [
@@ -97,12 +97,6 @@ export default [
 					// 	meta: { requiresAuth: true },
 					// 	component: resolve => require(['../views/live/detail-luckydraw.vue'], resolve)
 					// },
-					{
-						name: 'live_detail_watch',
-						path: 'watch/:liveid',
-						meta: { requiresAuth: true },
-						component: resolve => import('@/views/live/detail-watch.vue'),
-					},
 					{
 						name: 'live_detail_authorize',
 						path: 'authorize/:liveid',

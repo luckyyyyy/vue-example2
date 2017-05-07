@@ -87,12 +87,12 @@
 				<template v-if="!data.length">没有数据啦QAQ</template>
 			</div>
 		</div>
-		<el-dialog title="新建直播" :visible.sync="openDialog" :close-on-click-modal="false" custom-class="dialog">
+		<el-dialog title="新建直播" :visible.sync="openDialog" :close-on-click-modal="false" custom-class="live-dialog">
 			<el-form ref="create" :rules="rules" label-position="left" label-width="85px" :model="create" @submit.native.prevent>
 				<el-form-item label="直播标题" prop="name">
 					<el-input autofocus v-model="create.name" placeholder="请输入直播标题"></el-input>
 				</el-form-item>
-				<div class="help">
+				<div class="live-dialog__help">
 					<p>
 						说明：彩虹云直播严禁上传包括反动、暴力、色情、违法及侵权内容的文件。
 						平台有义务配合有关部门将上传违规文件的用户信息保存，并保留因配合调
@@ -103,7 +103,7 @@
 					<el-button :loading="lock_create" @click="onSubmit" htmlType="submit" type="primary" :disabled="!createAgree">创 建</el-button>
 				</div>
 			</el-form>
-			<div slot="footer" class="footer">
+			<div slot="footer" class="live-dialog__footer">
 				<el-checkbox v-model="createAgree">我已阅读</el-checkbox>
 				<el-button :loading="lock_create" @click="onSubmit" type="primary" :disabled="!createAgree">创 建</el-button>
 			</div>
@@ -238,15 +238,15 @@
 	@import "../../assets/styles/views/live/list";
 </style>
 <style lang="less">
-	.dialog {
+	.live-dialog {
 		width: 580px;
-		.help {
+		&__help {
 			padding: 10px 10px 0;
 			font-size: 12px;
 			text-align: justify;
 		}
 
-		.footer {
+		&__footer {
 			display: flex;
 			justify-content: space-between;
 			align-items: center;

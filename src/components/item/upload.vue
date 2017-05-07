@@ -54,7 +54,6 @@
 	export default {
 		props: {
 			classType: {
-				type: Number,
 				default: 2
 			},
 			accept: {
@@ -93,7 +92,7 @@
 			},
 			snedImages () {
 				if (this.size > UPDATE_LIMIT_SIZE) {
-					this.$Message.error('您一次性上传的图片总大小超过最大限制，请控制在15MB。');
+					this.$message.error('您一次性上传的图片总大小超过最大限制，请控制在15MB。');
 					console.log(this.size / 1024e3);
 					this.$emit('fail');
 					return this.clearQueue();
@@ -130,7 +129,7 @@
 				const input = this.$refs.fileInput;
 				const files = input.files;
 				if (files.length > UPDATE_LIMIT_COUNT) {
-					this.$Message.error(`一次最多只能同时上传${UPDATE_LIMIT_COUNT}张图片，您选择了${files.length}张照片。`, 5);
+					this.$message.error(`一次最多只能同时上传${UPDATE_LIMIT_COUNT}张图片，您选择了${files.length}张照片。`, 5);
 					// this.clearQueue();
 				} else {
 					this.length = files.length;

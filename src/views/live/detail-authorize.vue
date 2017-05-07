@@ -7,40 +7,40 @@
 			<p class="tips">授权观看需要什么什么什么什么大文件第五批几大块为契机哦</p>
 			<div class="action">
 				<div class="form">
-					<RadioGroup @on-change="onChange" v-model="form.authWatchStatus">
-						<Radio :label="1">
+					<el-radio-group @change="onChange" v-model="form.authWatchStatus">
+						<el-radio :label="1">
 							<span>无限制</span>
-						</Radio>
-						<Radio :label="2">
+						</el-radio>
+						<el-radio :label="2">
 							<span>关注观看</span>
-						</Radio>
-						<Radio :label="3">
+						</el-radio>
+						<el-radio :label="3">
 							<span>验证码观看</span>
-						</Radio>
-						<Radio :label="4" disabled>
+						</el-radio>
+						<el-radio :label="4" disabled>
 							<span>付费观看</span>
-						</Radio>
-					</RadioGroup>
+						</el-radio>
+					</el-radio-group>
 					<div class="setting">
 						<template v-if="form.authWatchStatus == 3">
-							<iForm label-position="left" ref="form" :model="form" :label-width="100">
-								<FormItem label="提示文字：">
-									<iInput @on-change="onDebounce" v-model="form.authCodeHints" placeholder="不超过10个字符"></iInput>
-								</FormItem>
-								<FormItem label="验证码：">
-									<iInput @on-change="onDebounce" v-model="form.authCode" placeholder="六位验证码"></iInput>
-								</FormItem>
-							</iForm>
+							<el-form label-position="left" ref="form" :model="form" label-width="100px">
+								<el-form-item label="提示文字：">
+									<el-input @change="onDebounce" v-model="form.authCodeHints" placeholder="不超过10个字符"></el-input>
+								</el-form-item>
+								<el-form-item label="验证码：">
+									<el-input @change="onDebounce" v-model="form.authCode" :maxlength="6" placeholder="六位验证码"></el-input>
+								</el-form-item>
+							</el-form>
 						</template>
 						<template v-if="form.authWatchStatus == 4">
-							<iForm label-position="left" ref="form" :model="form" :label-width="100">
-								<FormItem label="提示文字：">
-									<iInput @on-change="onDebounce" v-model="form.chargeHints" placeholder="不超过10个字符"></iInput>
-								</FormItem>
-								<FormItem label="观看价格：">
-									<iInput @on-change="onDebounce" v-model="form.price" placeholder="请输入价格"></iInput>
-								</FormItem>
-							</iForm>
+							<el-form label-position="left" ref="form" :model="form" :label-width="100">
+								<el-form-item label="提示文字：">
+									<el-input @change="onDebounce" v-model="form.chargeHints" placeholder="不超过10个字符"></el-input>
+								</el-form-item>
+								<el-form-item label="观看价格：">
+									<el-input @change="onDebounce" v-model="form.price" placeholder="请输入价格"></el-input>
+								</el-form-item>
+							</el-form>
 						</template>
 					</div>
 				</div>

@@ -2,22 +2,20 @@
 	<div class="view">
 		<div class="switch">
 			<p>直播引导图：</p>
-			<iSwitch size="large" @on-change="onChange" v-model="enable">
-				<span slot="open">开启</span>
-				<span slot="close">关闭</span>
-			</iSwitch>
+			<el-switch :width="60" on-text="开启" off-text="关闭" size="large" @change="onChange" v-model="enable"></el-switch>
 		</div>
 		<div class="body">
 			<template v-if="enable">
 				<p class="tips">此图片显示在进入直播页面之前，用于展示直播相关介绍内容。</p>
 				<div class="action">
 					<div class="form">
-						<Album class="upload" @submit="selectAlbum" v-model="openAlbum" :type="1">
-							<iButton type="ghost" @click="openAlbum = true">
-								<Icon type="ios-upload-outline" class="icon"></Icon> 上传图片
-							</iButton>
+						<Album class="upload" @submit="selectAlbum" v-model="openAlbum" type="1">
+							<el-button type="ghost" @click="openAlbum = true">
+								<i class="el-icon-upload"></i> 上传图片
+							</el-button>
 							<p class="tips">
-								<Icon type="android-warning" class="warning"></Icon> 因手机机型众多，为保证图片正常展示，请严格按照 1080*1740 像素上传图片。图片大小4M以内支持扩展名：.png .jpg .jpeg
+								<i class="el-icon-warning warning"></i>
+								因手机机型众多，为保证图片正常展示，请严格按照 1080*1740 像素上传图片。图片大小4M以内支持扩展名：.png .jpg .jpeg
 							</p>
 						</Album>
 					</div>

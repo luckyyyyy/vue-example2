@@ -2,36 +2,32 @@
 	<div class="view">
 		<div class="switch">
 			<p>倒计时开关：</p>
-			<iSwitch size="large" @on-change="onChange" v-model="enable">
-				<span slot="open">开启</span>
-				<span slot="close">关闭</span>
-			</iSwitch>
+			<el-switch :width="60" on-text="开启" off-text="关闭" size="large" @change="onChange" v-model="enable"></el-switch>
 		</div>
 		<div class="body">
 			<template v-if="enable">
 				<p class="tips">如果关闭，将影响用户点击进入直播间的效果，同时没有提醒观看的功能。</p>
 				<div class="action">
-					<iForm label-position="left" ref="form" :model="form" :label-width="100" class="form">
-						<FormItem label="提示文字：">
-							<iInput @on-change="onDebounce" v-model="form.liveHint" placeholder="不超过10个字符"></iInput>
-						</FormItem >
-						<FormItem label="直播开始时间：">
+					<el-form label-position="left" ref="form" :model="form" label-width="100px" class="form">
+						<el-form-item label="提示文字">
+							<el-input @change="onDebounce" v-model="form.liveHint" placeholder="不超过10个字符"></el-input>
+						</el-form-item >
+						<el-form-item label="直播开始时间">
 							<div class="block">
-								<DatePicker
+								<el-date-picker
 									type="datetime"
 									format="yyyy-MM-dd HH:mm"
 									placeholder="选择日期时间"
 									v-model="form.liveBeginTime"
-									:options="pickerOptions"
-									@on-ok="onChange"
+									:picker-options="pickerOptions"
+									@change="onChange"
 									:editable="false"
 									:clearable="false"
-									:confirm="false"
-									size="large"
-								></DatePicker>
+								></el-date-picker>
 							</div>
-						</FormItem>
-						<p class="datetime">倒计时剩余时间：
+						</el-form-item>
+						<p class="datetime">
+							倒计时剩余时间
 							<template v-if="countDown.start">
 								开始时间大于当前时间，直播已开始。
 							</template>
@@ -42,7 +38,7 @@
 								<span class="seconds">{{ countDown.s }}</span>秒
 							</template>
 						</p>
-					</iForm>
+					</el-form>
 					<div class="iPhone-bg">
 						<div class="iPhone-view">
 							<!-- 包裹文本 -->
@@ -78,8 +74,9 @@
 
 <script>
 	import moment from 'moment'
-	import { mapState, mapActions } from 'vuex'
 	import debounce from 'debounce'
+	import { mapState, mapActions } from 'vuex'
+
 	export default {
 		data () {
 			return {

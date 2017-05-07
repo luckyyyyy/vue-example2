@@ -1,30 +1,35 @@
-.albumModal {
-	// z-index: 99999;
-	.spin-icon-load {
-		animation: ani-spin 1s linear infinite;
+.album-dialog {
+	width: 820px;
+	border-radius: 5px;
+	.el-dialog__header {
+		padding: 10px;
+		.dialog-title {
+			font-size: 16px;
+			position: relative;
+			padding-left: 15px;
+			&:before {
+				width: 10px;
+				height: 10px;
+				background: #1fbedb;
+				border-radius: 50%;
+				position: absolute;
+				left: 0;
+				top: 50%;
+				margin-top: -5px;
+				content: "";
+			}
+		}
 	}
-	@keyframes ani-spin {
-		from { transform: rotate(0deg)   }
-		50%  { transform: rotate(180deg) }
-		to   { transform: rotate(360deg) }
-	}
-	.ivu-modal-body {
+	.el-dialog__body {
 		padding: 0;
 	}
-	.content {
+	.album-content {
 		position: relative;
 		height: 410px;
 		display: flex;
 		background: #edf1f5;
 		overflow: auto;
-		.loading {
-			position: absolute;
-			// background: #fff;
-			height: 100%;
-			width: 100%;
-			z-index: 2;
-		}
-		.menu {
+		.album-content__menu {
 			z-index: 1;
 			width: 110px;
 			height: 410px;
@@ -32,21 +37,21 @@
 			overflow: hidden;
 			background: #464c5b;
 			user-select: none;
-		}
-		.album__menu {
-			// position: relative;
-			// height: 0;
-			// overflow: hidden;
-			.ivu-menu-item {
-				padding: 10px 20px;
+			.el-menu {
+				background: transparent;
+				.el-menu-item {
+					height: 40px;
+					color: white;
+					line-height: 40px;
+					&.is-active, &:hover {
+						background: #edf1f5;
+						border: none;
+						color: #444;
+					}
+				}
 			}
-			.ivu-menu-item-active:not(.ivu-menu-submenu) {
-				background: #edf1f5;
-				border: none;
-				color: #444;
-			}
 		}
-		.empty {
+		.album-content__empty {
 			position: absolute;
 			height: 100%;
 			width: 100%;
@@ -59,8 +64,11 @@
 			text-align: center;
 			left: 0;
 			top: 0;
+			.el-icon-picture, .el-icon-loading {
+				font-size: 40px;
+			}
 		}
-		.list {
+		.album-content__list {
 			position: relative;
 			flex:1;
 			max-height: 410px;

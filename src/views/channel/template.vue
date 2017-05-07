@@ -105,14 +105,14 @@
 							</div>
 							<div class="input-box">
 								<span class="label">频道背景：</span>
-								<Album @submit="onSelectCover" v-model="openCoverAlbum" :type="1">
+								<Album @submit="onSelectCover" v-model="openCoverAlbum" type="1">
 										<div @click="openCoverAlbum = true" class="icon"><i class="iconfont icon-upload"></i></div>
 										<span class="tips">750 * 300像素</span>
 								</Album>
 							</div>
 							<div class="input-box">
 								<span class="label">频道LOGO：</span>
-								<Album @submit="onSelectLogo" v-model="openLogoAlbum" :type="5">
+								<Album @submit="onSelectLogo" v-model="openLogoAlbum" type="5">
 										<div @click="openLogoAlbum = true" class="icon"><i class="iconfont icon-upload"></i></div>
 										<span class="tips">200 * 200像素</span>
 								</Album>
