@@ -2,7 +2,7 @@
 * @Author: Administrator
 * @Date:   2017-01-06 02:33:52
 * @Last Modified by:   Administrator
-* @Last Modified time: 2017-04-25 11:36:58
+* @Last Modified time: 2017-05-08 12:01:19
 */
 
 'use strict';
@@ -71,7 +71,7 @@ const mutations = {
 		state.data = data.multimedias.concat(state.data);
 		state.start = state.start + data.multimedias.length;
 	},
-	[MULTIMEDIA.DELETE] (state, { id }) {
+	[MULTIMEDIA.DELETE] (state, id) {
 		state.data.find((v, k) => {
 			if (v.id == id) {
 				state.data.splice(k, 1);
