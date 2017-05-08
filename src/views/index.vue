@@ -17,18 +17,18 @@
 					</div>
 					<div class="box">
 						<ul class="list">
-							<li>当前账户余额：<span class="content"><span>100.00元(赠送)</span><a class="link">充值</a></span></li>
+							<li>当前账户余额：<span class="content">100.00元(赠送)<a class="link">充值</a></span></li>
 							<!--<li>当前账户版本：<span class="content"><span>基础版</span><a class="link">升级</a></span></li>
 							<li>当前流量套餐：<span class="content"><span>无</span><a class="link">购买</a></span></li>-->
 							<li class="item">
-								<div class="desc d1">剩余充值流量(元)：<span class="content"><span>0.00</span></span></div>
-								<Progress :hide-info="true" :stroke-width="18" :percent="70"></Progress>
+								<div class="desc d1">剩余充值流量(元)：<span class="content">0.00</span></div>
+								<el-progress :stroke-width="18" :percentage="70"></el-progress>
 								<div class="right"><a class="link">充值</a></div>
 							</li>
 							<li class="item">
-								<div class="desc d2">剩余储存空间(GB)：<span class="content"><span>50.00</span></span></div>
-								<Progress :hide-info="true" :stroke-width="18" :percent="25"></Progress>
-								<div class="right"><span>200.00</span></div>
+								<div class="desc d2">剩余储存空间(GB)：<span class="content">50.00</span></div>
+								<el-progress :stroke-width="18" :percentage="25"></el-progress>
+								<div class="right">200.00</div>
 							</li>
 						</ul>
 					</div>
@@ -141,6 +141,7 @@
 
 <script>
 	import { mapState, mapActions } from 'vuex'
+
 	export default{
 		data() {
 			return{
@@ -148,7 +149,7 @@
 			}
 		},
 		computed: {
-			...mapState('channel',['channel']),
+			...mapState('channel', [ 'channel' ]),
 		},
 		mounted() {
 

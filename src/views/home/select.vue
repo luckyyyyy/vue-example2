@@ -21,7 +21,7 @@
 			<template v-if="!lock">
 				<div class="channel" v-if="total">
 					<el-row class="list">
-						<el-col span="8" v-for="item in data" class="item" :key="item.channelId">
+						<el-col :span="8" v-for="item in data" class="item" :key="item.channelId">
 							<div class="border" @click="select(item.channelId)">
 								<div class="head">
 									<span>{{ item.name }}</span>

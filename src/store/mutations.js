@@ -1,8 +1,8 @@
 /*
 * @Author: Administrator
 * @Date:   2017-01-06 02:42:21
-* @Last Modified by:   William Chan
-* @Last Modified time: 2017-05-03 11:58:50
+* @Last Modified by:   Administrator
+* @Last Modified time: 2017-05-08 14:55:51
 */
 
 'use strict';
@@ -45,7 +45,9 @@ export const CHANNEL_SELECT = (state, id) => {
 			}
 		} else {
 			if (route.meta.group != 'select' && route.meta.group != 'global') {
-				router.push({ name: 'select_channel', query: { redirect: route.fullPath } });
+				// router.push({ name: 'select_channel', query: { redirect: route.fullPath } });
+				// 主动clear不保留redirect
+				router.push({ name: 'select_channel' });
 			}
 		}
 	}

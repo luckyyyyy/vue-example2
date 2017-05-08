@@ -99,10 +99,11 @@
 				this.findVideoList(true);
 				this.$router.push({ name: this.$route.name, params: { status: this.status } })
 			},
-			async findVideoList (reload) {
+			findVideoList (reload) {
 				if (!this.lock || reload && !this.loading) {
 					this.loading = true;
-					await this.getVideoList({ reload, status: this.status }).then(() => {
+					this.getVideoList({ reload, status: this.status }).then(() => {
+						this.loading = false;
 						if (!this.listScroll) {
 							this.listScroll = new iscroll(this.$refs.list, {
 								mouseWheel: true,
@@ -122,8 +123,9 @@
 							}
 							this.listScroll.refresh();
 						})
+					}).catch(() => {
+						this.loading = false;
 					});
-					this.loading = false;
 				}
 			},
 			onChangeStatus(id, message, confirmDelete) {

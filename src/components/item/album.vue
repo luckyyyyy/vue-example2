@@ -5,11 +5,8 @@
 			:visible.sync="visible"
 			:close-on-press-escape="false"
 			@close="onClose"
+			:title="find.length ? `已选择${find.length}张图片` : '我的图库'"
 		>
-			<span slot="title" class="dialog-title">
-				{{ find.length ? `已选择${find.length}张图片` : '我的图库' }}
-			</span>
-
 			<div class="album-content" v-loading="upload_lock" :element-loading-text="upload_lock">
 
 				<div class="album-content__menu" ref="menu">

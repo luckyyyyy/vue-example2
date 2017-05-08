@@ -10,17 +10,15 @@
 						<button slot="reference" class="btn">下载直播工具</button>
 					</el-popover>
 					<el-popover placement="bottom" width="200" trigger="click" popper-class="popper-stream" :width="240">
-						<div class="tips">
-							<h3>方式一：使用APP扫码推流</h3>
-							<div class="qrcode" ref="qrcode"></div>
-						</div>
-						<div class="tips">
-							<h3>方式二：使用OBS等软件推流</h3>
-							<div class="stream">
+						<dl class="tips">
+							<dt>方式一：使用APP扫码推流</dt>
+							<dd class="qrcode" ref="qrcode"></dd>
+							<dt>方式二：使用OBS等软件推流</dt>
+							<dd class="stream">
 								<clipboardInput :text="live.liveStream.url">复制地址</clipboardInput>
 								<clipboardInput :text="live.liveStream.streamKey">复制秘钥</clipboardInput>
-							</div>
-						</div>
+							</dd>
+						</dl>
 						<button slot="reference" class="btn" type="ghost">推流地址</button>
 					</el-popover>
 					<qrcodePopover text="假的">
@@ -234,7 +232,7 @@
 						this.chatroom.text = '';
 						this.send = false;
 					}).catch(error => {
-						this.$Message.error(error.message);
+						this.$message.error(error.message);
 						this.send = false;
 					})
 				}
@@ -327,11 +325,11 @@
 	}
 	.popper-stream {
 		.tips {
-			padding: 5px;
-			h3 {
+			// padding: 5px;
+			dt {
 				text-align: center;
 				font-size: 14px;
-				// background: #eee;
+				font-weight: bold;
 			}
 			.qrcode {
 				display: flex;

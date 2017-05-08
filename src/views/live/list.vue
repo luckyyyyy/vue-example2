@@ -149,10 +149,10 @@
 				this.findLiveList(true);
 				this.$router.push({ name: this.$route.name, params: { status: this.status } })
 			},
-			async findLiveList (reload) {
+			findLiveList (reload) {
 				if (!this.lock || reload && !this.loading) {
 					this.loading = true;
-					await this.getLiveList({ reload, status: this.status }).then(() => {
+					this.getLiveList({ reload, status: this.status }).then(() => {
 						if (!this.listScroll) {
 							this.listScroll = new iscroll(this.$refs.list, {
 								mouseWheel: true,
@@ -172,8 +172,9 @@
 							}
 							this.listScroll.refresh();
 						})
+					}).catch(() => {
+						this.loading = false;
 					})
-					this.loading = false;
 				}
 			},
 			openCreateDialog () {
