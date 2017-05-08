@@ -31,7 +31,7 @@
 							<h2 class="head">{{ live.name || channel.name }}</h2>
 							<!-- 超级放大镜 -->
 							<div class="superMagnifier">
-								<h3 class="shareTitle">{{ form.shareTitle || channel.name }}</h3>
+								<div class="shareTitle">{{ form.shareTitle || channel.name }}</div>
 								<p class="shareContent">{{ form.shareContent || live.name }}</p>
 								<img class="shareImg" :src="live.liveShare.shareImageUrl">
 							</div>
