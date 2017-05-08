@@ -18,16 +18,16 @@
 					<div class="box">
 						<div class="body">
 							<img src="../../assets/test.png">
-							<div class="status" :class="item.streamStatus">
-								{{ item.streamStatus == 'publish' ? '推流中' : '未推流' }}
+							<div class="status" :class="{ done: !!item.transcodeStatus }">
+								{{ item.transcodeStatus === 1 ? '转码完成' : '转码中' }}
 							</div>
 							<div class="active">
 								<template v-if="item.trashStatus">
-									<em @click="onChangeStatus(item.id, `您确定要恢复直播【${item.name}】`)">恢复</em>
-									<em @click="onChangeStatus(item.id, `您确定彻底要删除直播【${item.name}】<br>一旦删除，将彻底无法恢复。`, true)">彻底删除</em>
+									<em @click="onChangeStatus(item.id, `您确定要恢复回放【${item.name}】`)">恢复</em>
+									<em @click="onChangeStatus(item.id, `您确定彻底要删除回放【${item.name}】<br>一旦删除，将彻底无法恢复。`, true)">彻底删除</em>
 								</template>
 								<template v-else>
-									<em @click="onChangeStatus(item.id, `您确定要删除直播【${item.name}】`)">删除</em>
+									<em @click="onChangeStatus(item.id, `您确定要删除回放【${item.name}】`)">删除</em>
 								</template>
 							</div>
 							<div class="title">
@@ -40,7 +40,7 @@
 								<template v-if="!item.trashStatus">
 									<router-link :to="{ name: 'video_detail', params: { videoid: item.id } }">
 										<i class="iconfont icon-paintfill"></i>
-										<span>直播装修</span>
+										<span>回放装修</span>
 									</router-link>
 								</template>
 								<!-- <router-link :to="{ name: 'video_detail_image', params: { videoid: item.id } }">
@@ -50,7 +50,7 @@
 
 								<router-link :to="{ name: 'video_data', params: { videoid: item.id } }">
 									<i class="iconfont icon-rankfill"></i>
-									<span>直播数据</span>
+									<span>回放数据</span>
 								</router-link>
 
 								<router-link :to="{ name: 'video_detail_play', params: { liveid: item.id } }">

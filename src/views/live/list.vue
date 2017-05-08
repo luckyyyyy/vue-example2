@@ -8,7 +8,7 @@
 					</li>
 					<el-menu-item index="private">未发布</el-menu-item>
 					<el-menu-item index="public">已发布</el-menu-item>
-					<li class="title"></li>
+					<!-- <li class="title"></li> -->
 					<el-menu-item index="trash">回收站</el-menu-item>
 				</el-menu>
 				<div class="button">
@@ -24,8 +24,8 @@
 					<div class="box">
 						<div class="body">
 							<img src="../../assets/test.png">
-							<div class="status" :class="item.streamStatus">
-								{{ item.streamStatus == 'publish' ? '推流中' : '未推流' }}
+							<div class="status" :class="{ done: item.streamStatus === 'publish' }">
+								{{ item.streamStatus === 'publish' ? '推流中' : '未推流' }}
 							</div>
 							<div class="active">
 								<template v-if="item.trashStatus">
