@@ -95,7 +95,7 @@
 							<el-table-column label="支付状态" min-width="140" :resizable="false">
 								<template scope="scope">
 									<span v-if="scope.row.status" class="paid">已支付</span>
-									<span v-if="!scope.row.status" class="unpaid">未支付</span>
+									<span v-if="!scope.row.status" class="unpaid" @click="openModal(scope.row.sn)">未支付</span>
 								</template>
 							</el-table-column>
 						</el-table>
@@ -107,6 +107,10 @@
 							:total="total"
 							class="page">
 						</el-pagination>
+						<!-- 支付模态框 -->
+						<div class="payModal" v-if="openModal">
+
+						</div>
 					</div>
 				</div>
 			</Card>
@@ -136,6 +140,7 @@
 			return {
 				isOpen: false,
 				data: lowEdition,
+				openModal: false,
 			}
 		},
 		mounted () {
@@ -160,8 +165,9 @@
 
 				})
 			},
-			routerJump (routerName) {
-
+			openModal (sn) {
+				console.log(sn);
+				this.openModal = true;
 			}
 		},
 		components: {
