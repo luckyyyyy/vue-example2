@@ -53,7 +53,7 @@
 									<span>直播数据</span>
 								</router-link>
 
-								<router-link :to="{ name: 'live_control', params: { liveid: item.id } }">
+								<router-link :to="{ name: 'video_detail_play', params: { liveid: item.id } }">
 									<i class="iconfont icon-videoplay"></i>
 									<span>播放</span>
 								</router-link>

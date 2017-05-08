@@ -1,8 +1,8 @@
 /*
 * @Author: William Chan
 * @Date:   2017-03-15 13:20:01
-* @Last Modified by:   Administrator
-* @Last Modified time: 2017-05-04 20:13:51
+* @Last Modified by:   William Chan
+* @Last Modified time: 2017-05-08 21:17:21
 */
 
 export default [
@@ -61,6 +61,12 @@ export default [
 						path: 'authorize/:videoid',
 						meta: { requiresAuth: true },
 						component: resolve => import('@/views/video/detail-authorize.vue'),
+					},
+					{
+						name: 'video_detail_play',
+						path: 'play/:videoid',
+						meta: { requiresAuth: true },
+						component: resolve => import('@/views/video/detail-play.vue'),
 					},
 				],
 			}

@@ -1,9 +1,9 @@
 <template>
 	<div class="card">
-		<div class="card-header">
+		<div class="card__header">
 			<slot name="title" >这是标题</slot>
 		</div>
-		<div class="card-body">
+		<div class="card__body">
 			<slot>这是内容</slot>
 		</div>
 	</div>
@@ -26,7 +26,7 @@
 	border-radius: 8px;
 	background-color: #ffffff;
 	overflow: hidden;
-	.card-header {
+	&__header {
 		display: flex;
 		align-items: center;
 		padding: 11px 27px 9px;
@@ -43,7 +43,7 @@
 			background-color: #31bedb;
 		}
 	}
-	.card-body {
+	&__body {
 		padding: 20px 27px;
 	}
 	.text-bold {

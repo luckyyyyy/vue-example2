@@ -17,6 +17,11 @@
 					<el-menu-item index="live_detail_luckydraw">抽奖</el-menu-item> -->
 					<!-- <el-menu-item index="live_detail_watch">关注观看</el-menu-item> -->
 					<el-menu-item index="video_detail_authorize">授权观看</el-menu-item>
+					<li class="title">
+						<i class="iconfont icon-video"></i>视频管理
+					</li>
+					<el-menu-item index="video_detail_play">回放视频</el-menu-item>
+
 				</el-menu>
 			</div>
 		</div>

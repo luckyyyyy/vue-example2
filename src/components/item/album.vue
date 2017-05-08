@@ -25,9 +25,7 @@
 						>
 							<img :src="item.url + '/album'">
 							<span>{{ item.name }}</span>
-							<div class="icon">
-								<Icon type="checkmark-circled"></Icon>
-							</div>
+							<i class="el-icon-circle-check"></i>
 						</li>
 					</ul>
 				</div>
@@ -64,6 +62,7 @@
 					<el-button :disabled="find.length == 0" type="primary" @click="onSubmit">选择</el-button>
 				</div>
 			</div>
+
 		</el-dialog>
 		<slot></slot>
 	</div>
