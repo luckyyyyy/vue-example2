@@ -2,17 +2,17 @@
 	<div><!-- 这里必须多套一层，否则高度不够的情况下背景有BUG -->
 		<div class="container">
 			<!-- 流量管理 -->
-			<Card class="commoon-card" :bordered="false" dis-hover>
-				<p slot="title" class="commoon-card__title">流量管理</p>
+			<Icard>
+				<p slot="title">流量管理</p>
 				<p class="content">
 					<div class='message'>
 						<p class="label">流量余额：</p>
 						<span>¥ 0.00</span>
 					</div>
 				</p>
-			</Card>
+			</Icard>
 			<!-- 充值 -->
-			<Card class="commoon-card" :bordered="false" dis-hover>
+			<Icard>
 				<p slot="title" class="commoon-card__title">一元起充</p>
 				<!-- 支付方式 -->
 				<div class="content">
@@ -76,7 +76,7 @@
 					</p>
 					<el-button @click='onSubmit' type="danger" class="submit" :disabled="!isAgree">立即购买</el-button>
 				</div>
-			</Card>
+			</Icard>
 		</div>
 	</div>
 </template>

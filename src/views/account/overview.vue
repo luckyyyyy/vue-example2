@@ -1,16 +1,16 @@
 <template>
 	<div>  <!-- 必须多套一层，不然背景颜色会出现问题 -->
 		<div class="wrapper">
-			<Card class="commoon-card" :bordered="false" dis-hover>
-				<p slot="title" class="commoon-card__title">
+			<Icard>
+				<p slot="title">
 					账户余额
 					<router-link class="link" :to="{ name: 'account_recharge' }">充值</router-link>
 					<a class="link" href="#">账户充值记录</a>
 				</p>
 				<p class="content">当前账户余额：<span class="text-bold">¥ 0.00</span></p>
-			</Card>
-			<Card class="commoon-card" :bordered="false" dis-hover>
-				<p slot="title" class="commoon-card__title">
+			</Icard>
+			<Icard>
+				<p slot="title">
 					当前频道
 					<a class="link" href="#">了解更多</a>
 				</p>
@@ -71,9 +71,9 @@
 						</div>
 					</div>
 				</div>
-			</Card>
-			<Card class="commoon-card" :bordered="false" dis-hover>
-				<p slot="title" class="commoon-card__title">
+			</Icard>
+			<Icard>
+				<p slot="title">
 					频道消费明细
 				</p>
 				<div class="content">
@@ -95,7 +95,7 @@
 							<el-table-column label="支付状态" min-width="140" :resizable="false">
 								<template scope="scope">
 									<span v-if="scope.row.status" class="paid">已支付</span>
-									<span v-if="!scope.row.status" class="unpaid" @click="openModal(scope.row.sn)">未支付</span>
+									<span v-if="!scope.row.status" class="unpaid" @click="openModal(scope.row.sn, scope.row.money, scope.row.editionName)">未支付</span>
 								</template>
 							</el-table-column>
 						</el-table>
@@ -108,46 +108,77 @@
 							class="page">
 						</el-pagination>
 						<!-- 支付模态框 -->
-						<el-dialog
-							title="继续支付"
-							:visible.sync="payModal"
-							size="tiny">
-							<template>
-								<el-menu default-active="2" class="el-menu-vertical-demo" theme="dark">
-									<el-submenu index="1">
-										<template slot="title">导航一</template>
-										<el-menu-item-group title="分组一">
-											<el-menu-item index="1-1">选项1</el-menu-item>
-											<el-menu-item index="1-2">选项2</el-menu-item>
-										</el-menu-item-group>
-										<el-menu-item-group title="分组2">
-											<el-menu-item index="1-3">选项3</el-menu-item>
-										</el-menu-item-group>
-										<el-submenu index="1-4">
-											<template slot="title">选项4</template>
-											<el-menu-item index="1-4-1">选项1</el-menu-item>
-										</el-submenu>
-									</el-submenu>
-									<el-menu-item index="2">导航二</el-menu-item>
-									<el-menu-item index="3">导航三</el-menu-item>
-								</el-menu>
-							</template>
+						<el-dialog class="pay-modal" title="继续支付" :visible.sync="payModal">
+							<el-menu @select="selectPayMethod" default-active="1" class="pay-menus" theme="dark">
+								<el-menu-item index="1">线上支付</el-menu-item>
+								<el-menu-item index="2">线下支付</el-menu-item>
+								<el-menu-item index="3">余额支付</el-menu-item>
+							</el-menu>
+							<ul class="modal-body">
+								<li class="pay-item" v-if="form.type == 1">
+									<div class="pay-logo"><img src="../../assets/images/account/alipay.png" height="43" width="125"></div>
+									<div class="message">
+										<p class="label">购买项目：</p>
+										<span class="focus">{{ form.name }}</span>
+									</div>
+									<div class="message">
+										<p class="label">应付金额：</p>
+										<span class="focus">{{ form.money | moneyFormat }}</span>
+									</div>
+								</li>
+								<li class="pay-item" v-if="form.type == 2">
+									<div class="pay-logo"><img src="../../assets/images/account/offline.png" height="43" width="125"></div>
+									<div class="message">
+										<p class="label">开户名称：</p>
+										<span>杭州艾草科技有限公司</span>
+									</div>
+									<div class="message">
+										<p class="label">开户银行：</p>
+										<span>上海浦东发展银行杭州钱塘支行</span>
+									</div>
+									<div class="message">
+										<p class="label">银行账号：</p>
+										<span class="focus">9509 0154 8000 04952</span>
+									</div>
+									<div class="message">
+										<p class="label">联系电话：</p>
+										<span>0571-22222222</span>
+									</div>
+								</li>
+								<li class="pay-item" v-if="form.type == 3">
+									<div class="message">
+										<p class="label">余额：</p>
+										<span class="focus">¥ 100.00元</span>
+									</div>
+									<div class="message">
+										<p class="label">购买项目：</p>
+										<span class="focus">{{ form.name }}</span>
+									</div>
+									<div class="message">
+										<p class="label">应付金额：</p>
+										<span class="focus">{{ form.money | moneyFormat }}</span>
+									</div>
+								</li>
+							</ul>
+							<div class="modal-foot">
+								<el-button type="primary">确认支付</el-button>
+							</div>
 						</el-dialog>
 					</div>
 				</div>
-			</Card>
-			<Card class="commoon-card" :bordered="false" dis-hover>
-				<p slot="title" class="commoon-card__title">
+			</Icard>
+			<Icard>
+				<p slot="title">
 					发票管理
 				</p>
 				<p class="content">发票管理暂时由人工管理   发票服务电话：<a href="tel:0571-81959767">0571-81959767</a></p>
-			</Card>
-			<Card class="commoon-card" :bordered="false" dis-hover>
-				<p slot="title" class="commoon-card__title">
+			</Icard>
+			<Icard>
+				<p slot="title">
 					优惠券
 				</p>
 				<p class="content">暂无优惠券信息</p>
-			</Card>
+			</Icard>
 		</div>
 	</div>
 </template>
@@ -164,9 +195,12 @@
 				data: lowEdition,
 				payModal: false,
 				dialogVisible: false,
+				payMethod: 1,
 				form: {
+					name: '',
 					sn: '',
 					type: 1,
+					money: 0,
 				}
 			}
 		},
@@ -192,8 +226,13 @@
 
 				})
 			},
-			openModal (sn) {
+			selectPayMethod (index) {
+				this.$set(this.form,'type',index);
+			},
+			openModal (sn, money, name) {
 				this.form.sn = sn;
+				this.form.name = name;
+				this.form.money = money;
 				this.payModal = true;
 			}
 		},

@@ -12,18 +12,22 @@ import '@/assets/styles/iview-theme/index.less'
 import '@/theme/index.css'
 import '@/assets/common.less'
 
+import Icard from '@/components/item/card'
 
 Vue.config.productionTip = false;
 sync(store, router) // done.
 Vue.use(iView);
 Vue.use(ElementUI);
+
+Vue.component('Icard', Icard);
+
 // create app
 new Vue({
 	router,
 	store,
 	el: '#app',
 	template: '<App/>',
-	components: { App },
+	components: { App,},
 })
 if (window.navigator.userAgent.indexOf('iPad') > -1) {
 	FastClick.attach(document.body);

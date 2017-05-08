@@ -1,8 +1,8 @@
 <template>
 	<div>
 		<div class="container">
-			<Card class="commoon-card" :bordered="false" dis-hover>
-				<p slot="title" class="commoon-card__title">
+			<Icard>
+				<p slot="title">
 					账户版本
 				</p>
 				<div class="content">
@@ -11,9 +11,9 @@
 						<p>有效期至：<span class="focus">2017-03-31  23:59:59</span></p>
 					</div>
 				</div>
-			</Card>
-			<Card class="commoon-card" :bordered="false" dis-hover>
-				<p slot="title" class="commoon-card__title">
+			</Icard>
+			<Icard>
+				<p slot="title">
 					升级版本选择
 				</p>
 				<div class="content">
@@ -126,7 +126,7 @@
 					</p>
 					<el-button class="submit" v-if="form.type != 2" @click="onSubmit" type="danger" :disabled="!isAgree">立即购买</el-button>
 				</div>
-			</Card>
+			</Icard>
 		</div>
 	</div>
 </template>

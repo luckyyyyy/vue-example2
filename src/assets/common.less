@@ -205,14 +205,99 @@ ul {
 	}
 }
 
-.payModal {
-	position: fixed;
-	top: 0;
-	right: 0;
-	bottom: 0;
-	left: 0;
-	background-color: rgba(0,0,0,.3);
-	z-index: 999;
+.pay-modal {
+	.el-dialog{
+		width: auto;
+		border-radius: 6px;
+		overflow: hidden;
+	}
+	.el-dialog__header {
+		padding: 0 20px;
+		height: 50px;
+		line-height: 50px;
+		.el-dialog__title {
+			font-size: 14px;
+			font-weight: 500;
+			&:before {
+				content: '';
+				margin-right: 10px;
+				display: inline-block;
+				width: 10px;
+				height: 10px;
+				text-align: middle;
+				background-color: #31bedb;
+				border-radius: 50%;
+			}
+		}
+	}
+	.el-dialog__body {
+		position: relative;
+		padding: 0;
+	}
+	.pay-menus {
+		position: absolute;
+		top: 0;
+		left: 0;
+		height: 360px;
+		width: 110px;
+		background-color: #4e546c;
+		.el-menu-item{
+			height: 44px;
+			line-height: 44px;
+			&:hover {
+				background-color: #f2f3f7 ;
+				color: #000;
+			}
+			&.is-active {
+				background-color: #f2f3f7;
+				color: #000;
+			}
+		}
+	}
+	.modal-body {
+		padding-left: 110px;
+		width: 812px;
+		height: 360px;
+		background-color: #f2f3f7;
+		.pay-item {
+			width: 100%;
+			height: 100%;
+			padding: 34px 56px;
+			.pay-logo {
+				margin-bottom: 18px;
+				img{
+					vertical-align: middle;
+				}
+			}
+			.message {
+				display: flex;
+				padding: 0 20px;
+				height: 42px;
+				line-height: 42px;
+				border-radius: 4px;
+				background-color: #ffffff;
+				.label {
+					width: 72px;
+					text-align: right;
+				}
+				.focus {
+					font-weight: 500;
+					color: #fc2f39;
+				}
+				&:not(:last-child) {
+					margin-bottom: 18px;
+				}
+			}
+		}
+	}
+	.modal-foot {
+		display: flex;
+		justify-content: flex-end;
+		padding: 7px 20px;
+		height: 50px;
+		line-height: 50px;
+		background-color: #fff;
+	}
 }
 
 
