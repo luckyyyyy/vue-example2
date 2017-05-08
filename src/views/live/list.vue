@@ -153,6 +153,7 @@
 				if (!this.lock || reload && !this.loading) {
 					this.loading = true;
 					this.getLiveList({ reload, status: this.status }).then(() => {
+						this.loading = false;
 						if (!this.listScroll) {
 							this.listScroll = new iscroll(this.$refs.list, {
 								mouseWheel: true,
