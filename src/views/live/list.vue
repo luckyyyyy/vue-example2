@@ -100,7 +100,7 @@
 					</p>
 				</div>
 				<div style="display: none;">
-					<el-button :loading="lock_create" @click="onSubmit" htmlType="submit" type="primary" :disabled="!createAgree">创 建</el-button>
+					<el-button :loading="lock_create" @click="onSubmit" native-type="submit" type="primary" :disabled="!createAgree">创 建</el-button>
 				</div>
 			</el-form>
 			<div slot="footer" class="live-dialog__footer">

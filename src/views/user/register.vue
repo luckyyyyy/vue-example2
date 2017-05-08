@@ -31,7 +31,7 @@
 					<el-input v-model="register.nickName" placeholder="输入个人昵称"></el-input>
 				</el-form-item>
 				<div class="button">
-					<el-button :loading="lock" htmlType="submit" type="primary" @click="submit_register">注册</el-button>
+					<el-button :loading="lock" native-type="submit" type="primary" @click="submit_register">注册</el-button>
 				</div>
 			</el-form>
 		</div>

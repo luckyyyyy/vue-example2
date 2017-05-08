@@ -1,16 +1,12 @@
 <template>
 	<ul>
 		<li class="form">
-			<Form inline @submit.native.prevent>
-				<FormItem>
-					<Input type="text" v-model="name" placeholder="请输入用户名">
-						<span slot="prepend">修改用户名</span>
-					</Input>
-				</FormItem>
-				<FormItem>
-					<Button @click="updateMemberInfo" htmlType="submit" type="primary">修改</Button>
-				</FormItem>
-			</Form>
+			<el-form inline @submit.native.prevent class="chatroom-edit-form">
+				<el-input type="text" v-model="name" placeholder="请输入用户名">
+					<span slot="prepend">用户名</span>
+					<el-button slot="append" @click="updateMemberInfo" native-type="submit" type="primary">修改</el-button>
+				</el-input>
+			</el-form>
 		</li>
 		<li v-for="item in members" class="item">
 			<chatroomTag :members="members" :account="item.account"></chatroomTag>
@@ -20,9 +16,10 @@
 </template>
 
 <script>
+	import { mapActions, mapState } from 'vuex'
 	import chatroomName from '@/components/live/item/chatroomName'
 	import chatroomTag from '@/components/live/item/chatroomTag'
-	import { mapActions, mapState } from 'vuex'
+
 	export default {
 		components: {
 			chatroomName, chatroomTag
@@ -58,10 +55,31 @@
 	}
 	.form {
 		padding: 10px 0;
-		form {
-			display: flex;
-			align-items: center;
-			justify-content: center;
+	}
+</style>
+
+<style lang="less">
+	.chatroom-edit-form {
+		.el-input__inner {
+			background-color: #343647;
+			border: none;
+			color: #fff;
+			box-shadow: none;
+			&:focus, &:hover {
+				background-color: lighten(#343647, 5%);
+			}
+		}
+		.el-input-group__append, .el-input-group__prepend {
+			border: 0;
+			background: lighten(#343647, 15%);
+			color: white;
+			button {
+				background: lighten(#343647, 15%);
+				border-color: lighten(#343647, 15%);
+			}
+		}
+		.el-input-group__prepend  {
+			background-color: lighten(#343647, 5%);
 		}
 	}
 </style>

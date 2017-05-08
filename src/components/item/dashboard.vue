@@ -1,7 +1,7 @@
 <template>
 	<div class="contain">
 		<div class="dashboard-wrap">
-				<div class="dashboard" :style="{ transform: angle, borderTopColor: color, borderRightColor: color }"></div>
+			<div class="dashboard" :style="{ transform: angle, borderTopColor: color, borderRightColor: color }"></div>
 		</div>
 		<div class="main-wrap">
 			<p class="number">{{ min | numberFormat }}</p>

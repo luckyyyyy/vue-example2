@@ -66,16 +66,3 @@
 <style scoped lang="less">
 	@import "../../assets/styles/components/live/message";
 </style>
-<style>
-/*	.iScrollLoneScrollbar {
-		width: 10px !important;
-		padding-left: 2px;
-	}
-	.iScrollIndicator {
-		border: none !important;
-		width: 5px !important;
-		opacity: 0.5 !important;
-		border-radius: 21px !important;
-		background-color: rgba(196, 198, 207, 0.4) !important;
-	}*/
-</style>

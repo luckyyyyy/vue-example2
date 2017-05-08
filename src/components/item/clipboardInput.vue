@@ -1,7 +1,11 @@
 <template>
 	<div class="clipboard">
-		<iInput :value="text" icon="ios-copy-outline" :readonly="true" size="small"></iInput>
-		<iButton @error="handleError" @success="handleSuccess" size="small" v-clipboard="text"><slot>复制</slot></iButton>
+		<el-input :value="text" :readonly="true" size="small">
+			<el-button slot="append" @error="handleError" @success="handleSuccess" size="small" v-clipboard="text">
+				<slot>复制</slot>
+			</el-button>
+		</el-input>
+
 	</div>
 </template>
 
@@ -29,10 +33,10 @@
 		},
 		methods: {
 			handleSuccess (e) {
-				this.$Message.success('复制成功');
+				this.$message.success('复制成功');
 			},
 			handleError (e) {
-				this.$Message.error('您的浏览器不支持自动复制，请连续点击三下左边的输入框按ctrl+c手动复制。', 5);
+				this.$message.error('您的浏览器不支持自动复制，请连续点击三下左边的输入框按ctrl+c手动复制。', 5);
 			}
 		}
 	}

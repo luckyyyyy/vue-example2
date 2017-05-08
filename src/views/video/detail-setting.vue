@@ -5,22 +5,24 @@
 		</div>
 		<div class="body">
 			<div class="action">
-				<iForm label-position="left" ref="form" :model="form" :label-width="100" class="form">
-					<FormItem label="直播间标题">
-						<iInput @on-change="onDebounce" v-model="form.name" placeholder="不超过10个字符"></iInput>
-					</FormItem>
-					<FormItem label="直播昵称">
-						<iInput @on-change="onDebounce" v-model="form.nickName" placeholder="不超过10个字符"></iInput>
-					</FormItem>
-					<FormItem label="直播头像">
+				<el-form label-position="left" ref="form" :model="form" label-width="100px" class="form">
+					<el-form-item label="直播间标题">
+						<el-input @change="onDebounce" v-model="form.name" placeholder="不超过10个字符"></el-input>
+					</el-form-item>
+					<el-form-item label="直播昵称">
+						<el-input @change="onDebounce" v-model="form.nickName" placeholder="不超过10个字符"></el-input>
+					</el-form-item>
+					<el-form-item label="直播头像">
 						<Album class="upload" @submit="selectAlbum" v-model="openAlbum" type="3">
-							<iButton type="ghost" @click="openAlbum = true">点击上传图片</iButton>
+							<el-button type="ghost" @click="openAlbum = true">
+								<i class="el-icon-upload"></i> 上传图片
+							</el-button>
 							<p class="tips">
-								<Icon type="android-warning"></Icon> 400 x 400
+								<i class="el-icon-warning warning"></i> 400 x 400
 							</p>
 						</Album>
-					</FormItem>
-				</iForm>
+					</el-form-item>
+				</el-form>
 				<div class="iPhone-bg">
 					<div class="iPhone-view">
 						<h2 class="head">{{ form.name || channel.name }}</h2>

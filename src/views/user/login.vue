@@ -17,7 +17,7 @@
 					<el-input type="password" v-model="login.password" placeholder="请输入您的账户密码"></el-input>
 				</el-form-item>
 				<div class="button">
-					<el-button :loading="lock" size="large" htmlType="submit" type="primary" @click="submit_login">登录</el-button>
+					<el-button :loading="lock" size="large" native-type="submit" type="primary" @click="submit_login">登录</el-button>
 				</div>
 				<div class="line">
 					<router-link class="resetpwd" :to="{ name: 'resetpwd' }">找回密码</router-link>

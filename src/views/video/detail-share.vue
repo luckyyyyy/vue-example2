@@ -2,38 +2,37 @@
 	<div class="view">
 		<div class="switch">
 			<p>分享设置：</p>
-			<iSwitch size="large" @on-change="onChange" v-model="enable">
-				<span slot="open">开启</span>
-				<span slot="close">关闭</span>
-			</iSwitch>
+			<el-switch :width="60" on-text="开启" off-text="关闭" size="large" @change="onChange" v-model="enable"></el-switch>
 		</div>
 		<div class="body">
 			<template v-if="enable">
 				<p class="tips">如果关闭，则分享默认是直播间名称和公众号头像。</p>
 				<div class="action">
-					<iForm label-position="left" ref="form" :model="form" :label-width="100" class="form">
-						<FormItem label="分享标题：">
-							<iInput @on-change="onDebounce" v-model="form.shareTitle" placeholder="不超过10个字符"></iInput>
-						</FormItem>
-						<FormItem label="分享文字：">
-							<iInput @on-change="onDebounce" v-model="form.shareContent" placeholder="aaaaa"></iInput>
-						</FormItem>
-						<FormItem label="分享小图：">
+					<el-form label-position="left" ref="form" :model="form" label-width="100px" class="form">
+						<el-form-item label="分享标题">
+							<el-input @change="onDebounce" v-model="form.shareTitle" placeholder="分享标题"></el-input>
+						</el-form-item>
+						<el-form-item label="分享文字">
+							<el-input @change="onDebounce" v-model="form.shareContent" placeholder="分享文字"></el-input>
+						</el-form-item>
+						<el-form-item label="分享小图">
 							<Album class="upload" @submit="selectAlbum" v-model="openAlbum">
-								<iButton type="ghost" @click="openAlbum = true">点击上传图片</iButton>
+								<el-button type="ghost" @click="openAlbum = true">
+									<i class="el-icon-upload"></i> 上传图片
+								</el-button>
 								<p class="tips">
-									<Icon type="android-warning"></Icon> 400 x 400
+									<i class="el-icon-warning warning"></i> 400 x 400
 								</p>
 							</Album>
-						</FormItem>
-					</iForm>
+						</el-form-item>
+					</el-form>
 					<div class="iPhone-bg">
-						<div class="iPhone-view">
-							<h2 class="head">{{ video.name }}</h2>
+					<div class="iPhone-view">
+							<h2 class="head">{{ video.name || channel.name }}</h2>
 							<!-- 超级放大镜 -->
 							<div class="superMagnifier">
-								<h3 class="shareTitle">{{ form.shareTitle }}</h3>
-								<p class="shareContent">{{ form.shareContent }}</p>
+								<h3 class="shareTitle">{{ form.shareTitle || channel.name }}</h3>
+								<p class="shareContent">{{ form.shareContent || video.name }}</p>
 								<img class="shareImg" :src="video.liveShare.shareImageUrl">
 							</div>
 							<img class="bgImg" src="../../assets/images/live/share.jpeg" height="100%" width="100%" alt="直播分享">
@@ -47,6 +46,7 @@
 		</div>
 	</div>
 </template>
+
 
 <script>
 
@@ -65,6 +65,7 @@
 			}
 		},
 		computed: {
+			...mapState('channel', ['channel']),
 			...mapState('video', ['video']),
 			enable: {
 				set (val) {
