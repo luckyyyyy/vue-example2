@@ -161,18 +161,15 @@
 			}),
 			findLiveList (reload) {
 				if(!this.lock || reload && !this.loading){
-					const msg = this.$Message.loading('正在加载中...', 0);
 					this.loading = true;
 					this.getLiveList({ reload, status: this.status }).then(() => {
 						this.loading = false;
-						msg();
 						if(!this.lock){
 							// 这里不能用滚动触发 分页请求，所以先一次性全加载完，不做滚动加载了
 							this.findLiveList();
 						}
 					}).catch(() => {
 						this.loading = false;
-						msg();
 					})
 				}
 			},
