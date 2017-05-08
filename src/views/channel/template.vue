@@ -1,8 +1,8 @@
 <template>
 	<div>
 		<div class="template">
-			<Card class="commoon-card" :bordered="false" dis-hover>
-				<p slot="title" class="commoon-card__title">频道编辑</p>
+			<Icard>
+				<p slot="title">频道编辑</p>
 				<div class="card-body">
 					<div class="template-box">
 						<!-- 顶部 -->
@@ -119,7 +119,7 @@
 						</div>
 					</div>
 				</div>
-			</Card>
+			</Icard>
 		</div>
 	</div>
 </template>

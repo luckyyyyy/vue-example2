@@ -2,8 +2,8 @@
 	<div>
 		<div class="container">
 			<div class="body">
-				<Card class="commoon-card" :bordered="false" dis-hover>
-					<p slot="title" class="commoon-card__title">频道主页</p>
+				<Icard>
+					<p slot="title">频道主页</p>
 					<div class="user">
 						<div class="avatar-box">
 							<img class="avatar" src="../../assets/images/live/share.jpeg" height="50" width="50">
@@ -20,9 +20,9 @@
 							</el-popover>
 						</div>
 					</div>
-				</Card>
-				<Card class="commoon-card" :bordered="false" dis-hover>
-					<p slot="title" class="commoon-card__title">选择模版</p>
+				</Icard>
+				<Icard>
+					<p slot="title">选择模版</p>
 					<el-radio-group class="wrap" v-model="template">
 						<div class="template-box">
 							<div class="template">
@@ -51,7 +51,7 @@
 							</div>
 						</div>
 					</el-radio-group>
-				</Card>
+				</Icard>
 			</div>
 		</div>
 	</div>
