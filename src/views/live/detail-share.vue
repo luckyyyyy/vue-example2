@@ -10,13 +10,13 @@
 				<div class="action">
 					<el-form label-position="left" ref="form" :model="form" label-width="100px" class="form">
 						<el-form-item label="分享标题">
-							<el-input @change="onDebounce" v-model="form.shareTitle" placeholder="不超过10个字符"></el-input>
+							<el-input @change="onDebounce" v-model="form.shareTitle" placeholder="分享标题"></el-input>
 						</el-form-item>
 						<el-form-item label="分享文字">
-							<el-input @change="onDebounce" v-model="form.shareContent" placeholder="aaaaa"></el-input>
+							<el-input @change="onDebounce" v-model="form.shareContent" placeholder="分享文字"></el-input>
 						</el-form-item>
 						<el-form-item label="分享小图">
-							<Album class="upload" @submit="selectAlbum" v-model="openAlbum">
+							<Album type="2" class="upload" @submit="selectAlbum" v-model="openAlbum">
 								<el-button type="ghost" @click="openAlbum = true">
 									<i class="el-icon-upload"></i> 上传图片
 								</el-button>
@@ -28,11 +28,11 @@
 					</el-form>
 					<div class="iPhone-bg">
 						<div class="iPhone-view">
-							<h2 class="head">{{ live.name }}</h2>
+							<h2 class="head">{{ live.name || channel.name }}</h2>
 							<!-- 超级放大镜 -->
 							<div class="superMagnifier">
-								<h3 class="shareTitle">{{ form.shareTitle }}</h3>
-								<p class="shareContent">{{ form.shareContent }}</p>
+								<h3 class="shareTitle">{{ form.shareTitle || channel.name }}</h3>
+								<p class="shareContent">{{ form.shareContent || live.name }}</p>
 								<img class="shareImg" :src="live.liveShare.shareImageUrl">
 							</div>
 							<img class="bgImg" src="../../assets/images/live/share.jpeg" height="100%" width="100%" alt="直播分享">
@@ -64,6 +64,7 @@
 			}
 		},
 		computed: {
+			...mapState('channel', ['channel']),
 			...mapState('live', ['live']),
 			enable: {
 				set (val) {

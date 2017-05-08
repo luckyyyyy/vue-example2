@@ -16,7 +16,7 @@
 			</template>
 			<template v-else>
 				<p>{{ lock ? `正在刷新直播状态` : '主播还未开始直播或断开连接，请尝试刷新' }}</p>
-				<iButton size="large" type="primary" :loading="lock" @click="checkStatus(true)">刷新</iButton>
+				<el-button type="primary" :loading="lock" @click="checkStatus(true)">刷新</el-button>
 			</template>
 		</div>
 	</div>
@@ -26,6 +26,7 @@
 	import { mapActions, mapState } from 'vuex'
 	import '@/assets/libs/prism/index-min.css'
 	import { isiPad, isDevelop, date } from '@/utils/util'
+
 	let prism;
 	if (isiPad()) {
 		import('@/assets/libs/prism/prism-h5-min.js').then(p => prism = p)
@@ -86,7 +87,7 @@
 					});
 					if (isDevelop()) {
 						this.player.on('play', () => {
-							this.$Message.info(`DEBUG: source ${source}`)
+							this.$message.info(`DEBUG: source ${source}`)
 						})
 					}
 					// this.player.on('play', () => {

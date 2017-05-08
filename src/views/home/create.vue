@@ -35,7 +35,7 @@
 						<el-checkbox v-model="create.agree">我已阅读并同意 <a>彩虹云直播用户协议</a></el-checkbox>
 					</el-form-item>
 					<el-form-item>
-						<el-button :disabled="!create.agree" :loading="lock" htmlType="submit" type="primary" @click="submit">创建频道</el-button>
+						<el-button :disabled="!create.agree" :loading="lock" native-type="submit" type="primary" @click="submit">创建频道</el-button>
 					</el-form-item>
 				</el-form>
 			</template>

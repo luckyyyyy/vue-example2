@@ -22,7 +22,7 @@
 					<el-input type="password" v-model="reset_password.password" placeholder="密码"></el-input>
 				</el-form-item>
 				<div class="button">
-					<el-button :loading="lock" htmlType="submit" type="primary" @click="submit_reset_password">确认修改</el-button>
+					<el-button :loading="lock" native-type="submit" type="primary" @click="submit_reset_password">确认修改</el-button>
 				</div>
 			</el-form>
 		</div>

@@ -5,41 +5,41 @@
 				<Card class="commoon-card wrap" :bordered="false" dis-hover>
 					<p slot="title" class="commoon-card__title">频道信息</p>
 					<div class="box">
-						<iForm class="form" @submit.native.prevent :rules="rules" :label-width="100" ref="channel" :model="channel">
-							<FormItem label="频道名称：" prop="name">
-								<iInput placeholder="请输入频道名称" v-model="channel.name"></iInput>
-							</FormItem>
-							<FormItem label="创建时间：">
+						<el-Form class="form" @submit.native.prevent :rules="rules" label-width="100px" ref="channel" :model="channel">
+							<el-form-item label="频道名称：" prop="name">
+								<el-input placeholder="请输入频道名称" v-model="channel.name"></el-input>
+							</el-form-item>
+							<el-form-item label="创建时间：">
 								<span>{{ channel.createTime | date('Y-MM-DD HH:mm') }}</span>
-							</FormItem>
-							<FormItem label="认证类型：">
-								<Tag type="dot" color="blue">{{ info.wxAccountType == 2 ? '服务号' : '订阅号' }}</Tag>
-							</FormItem>
+							</el-form-item>
+							<el-form-item label="认证类型：">
+								<el-tag type="gray">{{ info.wxAccountType == 2 ? '服务号' : '订阅号' }}</el-tag>
+							</el-form-item>
 							<template v-if="info.wxAccountType != 2">
-								<FormItem label="频道二维码：">
+								<el-form-item label="频道二维码：">
 									<Album @submit="onSelectQrcode" v-model="openQrcodeAlbum" type="4">
 										<img @click="openQrcodeAlbum = true" :src="channel.wxAvatarUrl" class="img">
 									</Album>
-								</FormItem>
+								</el-form-item>
 							</template>
-							<FormItem label="频道LOGO：" class="img">
+							<el-form-item label="频道LOGO：" class="img">
 								<Album @submit="onSelectLogo" v-model="openLogoAlbum" type="5">
 									<img @click="openLogoAlbum = true" :src="channel.logoImageUrl + '/avatar'" class="img">
 								</Album>
-							</FormItem>
-							<FormItem label="频道简介：" prop="description">
-								<iInput type="textarea" v-model="channel.description" resize="none"></iInput>
-							</FormItem>
-							<FormItem label="联系人：" prop="contacts">
-								<iInput placeholder="联系人：" v-model="channel.contacts"></iInput>
-							</FormItem>
-							<FormItem label="手机号：" prop="phone">
-								<iInput placeholder="手机号：" v-model="channel.phone"></iInput>
-							</FormItem>
-							<FormItem>
-								<iButton :loading="lock" htmlType="submit" type="primary" @click="onSubmit">确认修改</iButton>
-							</FormItem>
-						</iForm>
+							</el-form-item>
+							<el-form-item label="频道简介：" prop="description">
+								<el-input type="textarea" v-model="channel.description" resize="none"></el-input>
+							</el-form-item>
+							<el-form-item label="联系人：" prop="contacts">
+								<el-input v-model="channel.contacts"></el-input>
+							</el-form-item>
+							<el-form-item label="手机号：" prop="phone">
+								<el-input v-model="channel.phone"></el-input>
+							</el-form-item>
+							<el-form-item>
+								<el-button :loading="lock" native-type="submit" type="primary" @click="onSubmit">确认修改</el-button>
+							</el-form-item>
+						</el-Form>
 					</div>
 				</Card>
 			</div>
@@ -49,9 +49,10 @@
 
 <script>
 	import { mapState, mapActions } from 'vuex'
-	import Album from '../../components/item/album'
-	import { date } from '../../utils/util'
-	import { CHANNEL_PREFERENCES_RULES } from '../../options/rules'
+	import Album from '@/components/item/album'
+	import { date } from '@/utils/util'
+	import { CHANNEL_PREFERENCES_RULES } from '@/options/rules'
+
 	export default {
 		components: {
 			Album,
@@ -78,8 +79,8 @@
 				updateChannel: 'CHANNEL_UPDATE'
 			}),
 			onSelectLogo (select, data) {
-				this.channel.logoImageId  = select;;
-				this.channel.logoImageUrl = data.url;
+				this.channel.logoImageId  = select;
+				this.channel.logoImageUrl  = data.url
 			},
 			onSubmit ()  {
 				this.$refs.channel.validate((valid) => {
@@ -87,7 +88,7 @@
 						this.lock = true;
 						this.updateChannel(this.channel).then(() => {
 							this.lock = false;
-							this.$Message.success('资料更新成功');
+							this.$message.success('资料更新成功');
 						}).catch(() => {
 							this.lock = false;
 						})

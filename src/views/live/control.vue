@@ -3,30 +3,26 @@
 		<div class="top">
 			<div class="button-action">
 				<div class="line">
-					<Poptip placement="bottom" :width="200" trigger="click">
-						<template slot="content">
-							<p>扫码下载手机直播工具</p>
-							<div class="qrcode"></div>
-							<p>支持Android、iOS 下载</p>
-						</template>
-						<button class="btn">下载直播工具</button>
-					</Poptip>
-					<Poptip placement="bottom" width="200" trigger="click"  class="stream-url-popper" :width="240">
-						<template slot="content">
-							<div class="tips">
-								<h3>方式一：使用APP扫码推流</h3>
-								<div class="qrcode" ref="qrcode"></div>
+					<el-popover placement="bottom" :width="200" trigger="click">
+						<p>扫码下载手机直播工具</p>
+						<div class="qrcode"></div>
+						<p>支持Android、iOS 下载</p>
+						<button slot="reference" class="btn">下载直播工具</button>
+					</el-popover>
+					<el-popover placement="bottom" width="200" trigger="click" popper-class="popper-stream" :width="240">
+						<div class="tips">
+							<h3>方式一：使用APP扫码推流</h3>
+							<div class="qrcode" ref="qrcode"></div>
+						</div>
+						<div class="tips">
+							<h3>方式二：使用OBS等软件推流</h3>
+							<div class="stream">
+								<clipboardInput :text="live.liveStream.url">复制地址</clipboardInput>
+								<clipboardInput :text="live.liveStream.streamKey">复制秘钥</clipboardInput>
 							</div>
-							<div class="tips">
-								<h3>方式二：使用OBS等软件推流</h3>
-								<div class="stream">
-									<clipboardInput :text="live.liveStream.url">复制地址</clipboardInput>
-									<clipboardInput :text="live.liveStream.streamKey">复制秘钥</clipboardInput>
-								</div>
-							</div>
-						</template>
-						<button class="btn" type="ghost">推流地址</button>
-					</Poptip>
+						</div>
+						<button slot="reference" class="btn" type="ghost">推流地址</button>
+					</el-popover>
 					<qrcodePopover text="假的">
 						<p slot="tips">微信扫码观看直播</p>
 						<button class="btn" slot="reference">观看地址</button>
@@ -54,41 +50,37 @@
 								</span>
 							</template>
 						</div>
-						<Tooltip placement="top">
-							<div slot="content">
-								<p v-if="!live.publicStatus">只有至于【发布中】状态的直播才能结束。</p>
-								<p v-if="play">请先【停止推流】再结束直播。</p>
-								<p>本场直播结束将彻底不可恢复，请慎重考虑。</p>
+						<el-popover trigger="hover" placement="top">
+							<p v-if="!live.publicStatus">只有至于【发布中】状态的直播才能结束。</p>
+							<p v-if="play">请先【停止推流】再结束直播。</p>
+							<p>本场直播结束将彻底不可恢复，请慎重考虑。</p>
+							<div slot="reference">
+								<el-button :disabled="!live.publicStatus || play" @click="onFinish" type="danger">结束直播</el-button>
 							</div>
-							<iButton :disabled="!live.publicStatus || play" @click="onFinish"type="error">结束直播</iButton>
-						</Tooltip>
+						</el-popover>
 					</div>
 				</div>
-				<iForm class="chat-input" @submit.native.prevent :model="chatroom">
-					<iInput class="chatroom__input" v-model="chatroom.text" placeholder="请输入内容"></iInput>
-					<iButton :disabled="chatroom_lock || !chatroom_init" :loading="send" @click="chatroomSend" htmlType="submit" type="primary">发送</iButton>
-				</iForm>
+				<el-form class="chat-input" @submit.native.prevent :model="chatroom">
+					<el-input class="chatroom__input" v-model="chatroom.text" placeholder="请输入内容">
+						<el-button slot="append" :disabled="chatroom_lock || !chatroom_init" :loading="send" @click="chatroomSend" native-type="submit" type="primary">发送</el-button>
+					</el-input>
+				</el-form>
 			</div>
 		</div>
 
-		<Modal
-			:width="550"
-			title="公告"
-			v-model="noticeDialog"
-			:maskClosable="false"
-		>
-			<iForm ref="notice" :rules="rules" label-position="left" :label-width="85" :model="notice" @submit.native.prevent>
-				<FormItem label="公告内容" prop="text">
-					<iInput v-model="notice.text" placeholder="请输入公告内容"></iInput>
-				</FormItem>
+		<el-dialog custom-class="notice-dialog" title="发布公告" v-model="noticeDialog">
+			<el-form ref="notice" :rules="rules" label-position="left" label-width="85px" :model="notice" @submit.native.prevent>
+				<el-form-item label="公告内容" prop="text">
+					<el-input v-model="notice.text" placeholder="请输入公告内容"></el-input>
+				</el-form-item>
 				<div style="display: none;">
-					<iButton @click="onNoticeSubmit" :loading="lock" htmlType="submit" type="primary">发 送</iButton>
+					<el-button @click="onNoticeSubmit" :loading="lock" native-type="submit" type="primary">发 送</el-button>
 				</div>
-			</iForm>
+			</el-form >
 			<div slot="footer">
-				<iButton @click="onNoticeSubmit" :loading="lock" type="primary">发 送</iButton>
+				<el-button @click="onNoticeSubmit" :loading="lock" type="primary">发 送</el-button>
 			</div>
-		</Modal>
+		</el-dialog>
 	</div>
 </template>
 <script>
@@ -174,11 +166,11 @@
 				const im                 = this.live.liveImInfo;
 				this.imInit( { chatroomId, im, oncustomsysmsg, onCustomServiceMsg, ondisconnect }).then(() => {
 					// join success
+					// TODO welcome
 				}).catch(err => {
 					if (this.$route.name == 'live_control') {
-						this.$Modal.error({
-							title: '聊天室',
-							content: '初始化聊天室失败，请尝试刷新重新加入，初始化失败将会影响中控台部分功能的使用。'
+						this.$alert(msg || '初始化聊天室失败，请尝试刷新重新加入，初始化失败将会影响中控台部分功能的使用。', '聊天室', {
+							type: 'error',
 						});
 					}
 				})
@@ -206,10 +198,9 @@
 						this.imOnDisconnect();
 					}
 					if (error.code != 'logout') {
-						this.$Modal.error({
-							title: '聊天室',
-							content: msg || '聊天连接丢失，请尝试重新连接。'
-						})
+						this.$alert(msg || '聊天连接丢失，请尝试重新连接。', '聊天室', {
+							type: 'error',
+						});
 					}
 				}
 			},
@@ -253,17 +244,22 @@
 				this.notice.text = '';
 			},
 			onFinish () {
-				this.$Modal.confirm({
-					title: '确定要结束直播吗？',
-					content: '点击确定将彻底关闭直播，变更为回放状态，并且不可恢复。',
-					loading: true,
-					onOk: () => {
-						this.liveFinish(this.live).then(() => {
-							this.$Modal.remove();
-							this.$router.push({ name: 'live_list' })
-						}).catch(() => {
-							this.$Modal.remove();
-						})
+				this.$confirm('点击确定将彻底关闭直播，变更为回放状态，并且不可恢复。', '结束直播', {
+					type: 'warning',
+					beforeClose: async (action, instance, done) => {
+						try {
+							if (action === 'confirm') {
+								instance.confirmButtonLoading = true;
+								await this.liveFinish(this.live).then(() => {
+									this.$router.push({ name: 'live_list' })
+								});
+							}
+							instance.confirmButtonLoading = false;
+							done();
+						} catch(e) {
+							instance.confirmButtonLoading = false;
+							done();
+						}
 					}
 				})
 			},
@@ -309,17 +305,27 @@
 </style>
 <style lang="less">
 	.chatroom__input {
-		.ivu-input {
+		.el-input__inner {
 			background-color: #343647;
 			border: none;
-			color: #ccc;
+			color: #fff;
 			box-shadow: none;
 			&:focus, &:hover {
-				background-color: lighten(#343647, 2%);
+				background-color: lighten(#343647, 5%);
 			}
 		}
+		.el-input-group__append {
+			border: 0;
+			background: lighten(#343647, 15%);
+			button {
+				background: lighten(#343647, 15%);
+				border-color: lighten(#343647, 15%);
+				color: white;
+			}
+		}
+
 	}
-	.stream-url-popper {
+	.popper-stream {
 		.tips {
 			padding: 5px;
 			h3 {
@@ -337,5 +343,8 @@
 				}
 			}
 		}
+	}
+	.notice-dialog {
+		width: 550px
 	}
 </style>

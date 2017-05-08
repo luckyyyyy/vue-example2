@@ -50,10 +50,10 @@
 						<span>注：若当前版本未到期，剩余版本余额可抵用升级版本相应金额（如，专业版剩余3个月，则可抵扣1/4*4990=1247.5元。）；有效期于升级日期起计算。</span>
 						<span>发票：订单对应可开发票的类型和抬头为您在用户中心-发票信息管理中设置的信息</span>
 						<span class="tips-box">
-							<Checkbox v-model="isAgree"><a href="#">《 彩虹云直播平台服务条款 》</a></Checkbox>
+							<el-checkbox v-model="isAgree"><a href="#">《 彩虹云直播平台服务条款 》</a></el-checkbox>
 						</span>
 					</p>
-					<Button @click='onSubmit' type="error" class="submit" :disabled="!isAgree">立即购买</Button>
+					<el-button @click='onSubmit' type="danger" class="submit" :disabled="!isAgree">立即购买</el-button>
 				</div>
 			</Card>
 		</div>

@@ -12,7 +12,7 @@
 					<el-input placeholder="确认新密码" type="password" v-model="password.newPassword_confirm"></el-input>
 				</el-form-item>
 				<el-form-item>
-					<el-button :loading="lock" htmlType="submit" type="primary" @click="submit">确认修改</el-button>
+					<el-button :loading="lock" native-type="submit" type="primary" @click="submit">确认修改</el-button>
 					<el-button type="ghost" @click="backConsole">返回控制台</el-button>
 				</el-form-item>
 			</el-form>

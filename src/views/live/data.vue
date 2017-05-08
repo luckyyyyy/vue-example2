@@ -5,10 +5,10 @@
 				<Card :bordered="false" dis-hover class="border-r">
 					<p slot="title" class="title">直播概况</p>
 					<div class="content">
-							<p>观看人次（PV）：<span>1560人</span></p>
-							<p>用户量（UV）：<span>1000人</span></p>
-							<p>直播时长：<span>65分钟</span></p>
-							<p>观看时长：<span>65分钟</span></p>
+						<p>观看人次（PV）：<span>1560人</span></p>
+						<p>用户量（UV）：<span>1000人</span></p>
+						<p>直播时长：<span>65分钟</span></p>
+						<p>观看时长：<span>65分钟</span></p>
 					</div>
 				</Card>
 			</div>
