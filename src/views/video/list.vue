@@ -63,7 +63,7 @@
 				</el-col>
 			</el-row>
 			<div v-else class="tips" v-loading="loading">
-				<template v-if="!data.length">没有数据啦QAQ</template>
+				<template v-if="!data.length && !loading">没有数据啦QAQ</template>
 			</div>
 		</div>
 
