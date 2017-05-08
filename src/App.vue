@@ -1,6 +1,6 @@
 <template>
 	<div id="app">
-		<transition v-if="user" name="fade" mode="out-in">
+		<transition v-if="user" name="el-fade-in-linear" mode="out-in">
 			<div class="main">
 				<template v-if="channel">
 					<router-view name="topbar"></router-view>
@@ -10,7 +10,7 @@
 				<router-view name="home"></router-view>
 			</div>
 		</transition>
-		<transition v-else name="fade" mode="out-in">
+		<transition v-else name="el-fade-in-linear" mode="out-in">
 			<router-view name="user"></router-view>
 		</transition>
 	</div>

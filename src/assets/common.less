@@ -4,6 +4,16 @@
 * @Last Modified by:   William Chan
 * @Last Modified time: 2017-02-06 18:15:38
 */
+* {
+	box-sizing: border-box;
+}
+a {
+	text-decoration: none;
+	color: #31bedb;
+	&:hover {
+		color: darken(#31bedb, 10%);
+	}
+}
 button:disabled {
 	opacity: .4;
 	cursor: not-allowed !important;
@@ -12,11 +22,10 @@ body, html {
 	background: #fff;
 }
 body {
-	// overflow: auto;
 	font-size: 14px;
-	// color: #666;
-	// line-height: 1.5;
-	// font-family: "Helvetica Neue", Helvetica, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "微软雅黑", Arial, sans-serif;
+	color: #666;
+	line-height: 1.5;
+	font-family: "Helvetica Neue", Helvetica, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "微软雅黑", Arial, sans-serif;
 }
 ul {
 	list-style: none;

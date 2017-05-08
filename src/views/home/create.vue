@@ -118,7 +118,7 @@
 			}
 		},
 		methods: {
-			...mapActions('weixin_auth', {
+			...mapActions('wechat', {
 				getWechatAuthUrl: 'WEXIN_AUTH_URL'
 			}),
 			...mapActions('catalogs', {

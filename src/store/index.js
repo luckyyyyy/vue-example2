@@ -2,7 +2,7 @@
 * @Author: William Chan
 * @Date:   2016-12-03 19:24:59
 * @Last Modified by:   Administrator
-* @Last Modified time: 2017-05-04 16:26:18
+* @Last Modified time: 2017-05-08 14:52:26
 */
 
 'use strict';
@@ -36,18 +36,16 @@ export const store = new Vuex.Store({
 	mutations
 })
 
-// Because the router, so register it.
-// See router beforeEach
-store.registerModule('user', userModule);
-store.registerModule('channel', channelModule);
-store.registerModule('live', liveModule);
-store.registerModule('im', imModule);
-store.registerModule('video', videoModule);
-store.registerModule('order', orderModule);
-store.registerModule('pay', payModule);
-store.registerModule('weixin_auth', weChatModule);
-store.registerModule('catalogs', commodityModule);
-store.registerModule('multimedia', multimediaModule);
+store.registerModule('user',        userModule);
+store.registerModule('channel',     channelModule);
+store.registerModule('live',        liveModule);
+store.registerModule('im',          imModule);
+store.registerModule('video',       videoModule);
+store.registerModule('order',       orderModule);
+store.registerModule('pay',         payModule);
+store.registerModule('wechat',      weChatModule);
+store.registerModule('catalogs',    commodityModule);
+store.registerModule('multimedia',  multimediaModule);
 
 const module = {};
 export const registerModule = (path, module) => {

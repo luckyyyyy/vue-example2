@@ -4,11 +4,7 @@
 			<div class="logo">
 				<img src="../../assets/images/login/login.png" height="31" width="293">
 			</div>
-			<transition
-				class="view"
-				name="fade"
-				mode="out-in"
-			>
+			<transition class="view" name="el-fade-in-linear" mode="out-in">
 				<router-view></router-view>
 			</transition>
 			<div class="footer">
@@ -78,7 +74,7 @@
 		}
 		.view {
 			animation-duration: .5s;
-			height: 420px;
+			height: 440px;
 			.form {
 				padding: 20px;
 				width: 480px;
