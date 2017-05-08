@@ -2,12 +2,12 @@
 	<div><!-- 这里必须多套一层，否则高度不够的情况下背景有BUG -->
 		<div class="container">
 			<!-- 流量管理 -->
-			<Icard class="commoon-card" :bordered="false" dis-hover>
+			<ra-card class="commoon-card" :bordered="false" dis-hover>
 				<p slot="title">账户充值</p>
 				<p class="content">当前账户余额：<span class="count">0.00元</span></p>
-			</Icard>
+			</ra-card>
 			<!-- 充值 -->
-			<Icard>
+			<ra-card>
 				<p slot="title">一元起充</p>
 				<!-- tips -->
 				<div class="content">
@@ -55,7 +55,7 @@
 					</p>
 					<el-button @click='onSubmit' type="danger" class="submit" :disabled="!isAgree">立即购买</el-button>
 				</div>
-			</Icard>
+			</ra-card>
 		</div>
 	</div>
 </template>

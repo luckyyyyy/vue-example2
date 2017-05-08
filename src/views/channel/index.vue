@@ -2,7 +2,7 @@
 	<div>
 		<div class="container">
 			<div class="body">
-				<Icard>
+				<ra-card>
 					<p slot="title">频道主页</p>
 					<div class="user">
 						<div class="avatar-box">
@@ -20,8 +20,8 @@
 							</el-popover>
 						</div>
 					</div>
-				</Icard>
-				<Icard>
+				</ra-card>
+				<ra-card>
 					<p slot="title">选择模版</p>
 					<el-radio-group class="wrap" v-model="template">
 						<div class="template-box">
@@ -51,7 +51,7 @@
 							</div>
 						</div>
 					</el-radio-group>
-				</Icard>
+				</ra-card>
 			</div>
 		</div>
 	</div>

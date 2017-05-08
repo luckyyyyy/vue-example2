@@ -1,7 +1,7 @@
 <template>
 	<div>
 		<div class="container">
-			<Icard>
+			<ra-card>
 				<p slot="title">
 					账户版本
 				</p>
@@ -11,8 +11,8 @@
 						<p>有效期至：<span class="focus">2017-03-31  23:59:59</span></p>
 					</div>
 				</div>
-			</Icard>
-			<Icard>
+			</ra-card>
+			<ra-card>
 				<p slot="title">
 					升级版本选择
 				</p>
@@ -126,7 +126,7 @@
 					</p>
 					<el-button class="submit" v-if="form.type != 2" @click="onSubmit" type="danger" :disabled="!isAgree">立即购买</el-button>
 				</div>
-			</Icard>
+			</ra-card>
 		</div>
 	</div>
 </template>

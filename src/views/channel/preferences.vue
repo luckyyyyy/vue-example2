@@ -2,7 +2,7 @@
 	<div>
 		<div class="info-page">
 			<div class="body">
-				<Card class="commoon-card wrap" :bordered="false" dis-hover>
+				<ra-card>
 					<p slot="title" class="commoon-card__title">频道信息</p>
 					<div class="box">
 						<el-Form class="form" @submit.native.prevent :rules="rules" label-width="100px" ref="channel" :model="channel">
@@ -41,7 +41,7 @@
 							</el-form-item>
 						</el-Form>
 					</div>
-				</Card>
+				</ra-card>
 			</div>
 		</div>
 	</div>

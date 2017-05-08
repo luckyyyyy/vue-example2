@@ -1,15 +1,15 @@
 <template>
 	<div>  <!-- 必须多套一层，不然背景颜色会出现问题 -->
 		<div class="wrapper">
-			<Icard>
+			<ra-card>
 				<p slot="title">
 					账户余额
 					<router-link class="link" :to="{ name: 'account_recharge' }">充值</router-link>
 					<a class="link" href="#">账户充值记录</a>
 				</p>
 				<p class="content">当前账户余额：<span class="text-bold">¥ 0.00</span></p>
-			</Icard>
-			<Icard>
+			</ra-card>
+			<ra-card>
 				<p slot="title">
 					当前频道
 					<a class="link" href="#">了解更多</a>
@@ -71,8 +71,8 @@
 						</div>
 					</div>
 				</div>
-			</Icard>
-			<Icard>
+			</ra-card>
+			<ra-card>
 				<p slot="title">
 					频道消费明细
 				</p>
@@ -166,19 +166,19 @@
 						</el-dialog>
 					</div>
 				</div>
-			</Icard>
-			<Icard>
+			</ra-card>
+			<ra-card>
 				<p slot="title">
 					发票管理
 				</p>
 				<p class="content">发票管理暂时由人工管理   发票服务电话：<a href="tel:0571-81959767">0571-81959767</a></p>
-			</Icard>
-			<Icard>
+			</ra-card>
+			<ra-card>
 				<p slot="title">
 					优惠券
 				</p>
 				<p class="content">暂无优惠券信息</p>
-			</Icard>
+			</ra-card>
 		</div>
 	</div>
 </template>
@@ -188,6 +188,7 @@
 	import dashboard from '@/components/item/dashboard.vue'
 	import { numberFormat, dateFormat, moneyFormat } from '@/filter'
 	import { lowEdition } from '@/options/edition'
+
 	export default {
 		data () {
 			return {

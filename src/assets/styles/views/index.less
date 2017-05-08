@@ -5,80 +5,11 @@
 	background: #f2f3f7;
 }
 
-.body {
-	.wrap {
-		margin-top: 24px;
-		border-radius: 8px;
-		background: #fff;
-		&:first-child{
-			margin-top: 0;
+	.header {
+		.tag {
+			margin: 10px 0;
 		}
-		.head {
-			padding: 14px 25px;
-			border-bottom: 2px solid #f2f3f7;
-
-			.header {
-				margin: 7px 0 14px;
-				font-size: 0;
-
-				.header-title {
-					vertical-align: middle;
-					margin-right: 14px;
-					font-size: 18px;
-					font-weight: 500;
-					color: #000;
-				}
-
-				.tag-box {
-					display: inline-block;
-					vertical-align: middle;
-					font-size: 12px;
-
-					.tag {
-						display: inline-block;
-						padding: 5px 12px;
-						margin-right: 12px;
-						background-color: #e5e9f2;
-						border-radius: 4px;
-						cursor: pointer;
-
-						&.service {
-							color: #FF4949;
-							background-color: rgba(255, 73, 73, 0.1);
-						}
-					}
-				}
-			}
-
-			.title {
-				font-size: 14px;
-				color: #000;
-
-				.link {
-					font-size: 12px;
-					font-weight: 500;
-				}
-
-				&:before {
-					display: inline-block;
-					margin-right: 10px;
-					content: "";
-					width: 10px;
-					height: 10px;
-					border-radius: 50%;
-					background-color: #31bedb;
-				}
-			}
-		}
-
-		.box {
-			padding: 14px 25px;
-			font-size: 14px;
-		}
-	}
-
-	.account {
-		.list {
+		.info {
 			li {
 				margin-bottom: 15px;
 			}
@@ -116,74 +47,31 @@
 		}
 	}
 
-	.info {
-		.list {
+	.list {
+		text-align: center;
+		.el-col {
 			display: flex;
-
-			li {
-				display: flex;
-				flex-direction: column;
-				align-items: center;
-				justify-content: space-around;
-				flex: 1;
-				box-sizing: content-box;
-
-				p {
-					height: 32px;
-					line-height: 32px;
-					font-size: 26px;
-					font-weight: 500;
-					margin-bottom: 10px;
-
-					&.red {
-						color: #E85471;
-					}
-
-					&.blue {
-						color: #1190BF;
-					}
-				}
+			flex-direction: column;
+			em {
+				font-style: normal;
+				font-size: 26px;
+				line-height: 46px;
+				height: 46px;
 			}
 		}
 	}
 
 	.help {
-		.list {
-			display: flex;
-			justify-content: space-between;
-			margin-bottom: 16px;
-
-			&:first-child {
-				margin-top: 8px;
-			}
-
-			&:last-child {
-				margin-bottom: 8px;
-			}
-
-			li {
-				text-align: center;
-				flex: 1;
-				background: #F2F3F7;
+		text-align: center;
+		.el-col {
+			padding: 10px;
+			a {
 				border-radius: 8px;
-				margin-right: 32px;
-
-				&:last-child {
-					margin-right: 0;
-				}
-
-				a {
-					display: block;
-					width: 100%;
-					height: 46px;
-					line-height: 46px;
-					color: #666;
-					font-size: 14px;
-					&:hover {
-						color: #108EE9;
-					}
-				}
+				display: inline-block;
+				height: 46px;
+				line-height: 46px;
+				width: 100%;
+				background: #F2F3F7;
 			}
 		}
 	}
-}
