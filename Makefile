@@ -14,11 +14,11 @@ master-check:
 	git status | grep "On branch" > /dev/null 2>&1
 
 build: master-check
-	npm run build
+	yarn build
 	gulp publish
 
 update: master-check
-	npm install
+	yarn
 
 dev: master-check
-	npm run dev
+	yarn dev
