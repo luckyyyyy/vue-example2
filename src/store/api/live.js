@@ -1,8 +1,8 @@
 /*
 * @Author: Administrator
 * @Date:   2017-02-25 14:58:36
-* @Last Modified by:   William Chan
-* @Last Modified time: 2017-05-02 23:50:56
+* @Last Modified by:   Administrator
+* @Last Modified time: 2017-05-10 00:35:10
 */
 
 'use strict';
@@ -16,7 +16,7 @@ import { http } from '@/store/api'
 // POST /api/v1/live/create
 export const live_create = ({ name }) => {
 	console.log(name);
-	return http.post(`live/create`, { name })
+	return http.post(`live`, { name })
 }
 // GET /api/v1/live/find
 export const live_find = ({ start, limits, status }) => {
@@ -24,11 +24,11 @@ export const live_find = ({ start, limits, status }) => {
 }
 // GET /api/v1/live/query
 export const live_query = ({ id }) => {
-	return http.get(`live/query/${id}`)
+	return http.get(`live/${id}`)
 }
 // GET /api/v1/live/query/stream
 export const live_query_stream = ({ id }) => {
-	return http.get(`live/query/stream/${id}`)
+	return http.get(`live/stream/${id}`)
 }
 // PUT /api/v1/live/trash
 export const live_trash = ({ id }) => {

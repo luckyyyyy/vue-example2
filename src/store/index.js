@@ -1,14 +1,16 @@
 /*
 * @Author: William Chan
 * @Date:   2016-12-03 19:24:59
-* @Last Modified by:   chuxiao
-* @Last Modified time: 2017-05-09 15:10:53
+* @Last Modified by:   Administrator
+* @Last Modified time: 2017-05-10 00:37:32
 */
 
 'use strict';
 import Vue from 'vue'
 import Vuex from 'vuex'
 import cookie from 'js-cookie'
+
+import { isDevelop }    from '@/utils/util'
 // globle and common
 // import * as getters   from './getters'
 // import * as actions   from './actions'
@@ -21,11 +23,11 @@ import imModule         from '@/store/modules/im'
 import videoModule      from '@/store/modules/video'
 import orderModule      from '@/store/modules/order'
 import payModule        from '@/store/modules/pay'
-import weChatModule     from '@/store/modules/weixin/auth_url'
+import weChatModule     from '@/store/modules/wechat/auth_url'
 import commodityModule  from '@/store/modules/commodity/catalogs'
-import multimediaModule from '@/store/modules/multimedia/'
+import multimediaModule from '@/store/modules/multimedia'
 import walletModule     from '@/store/modules/wallet'
-import { isDevelop }    from '@/utils/util'
+
 
 Vue.use(Vuex)
 const state = {}

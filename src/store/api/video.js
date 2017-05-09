@@ -1,8 +1,8 @@
 /*
 * @Author: Administrator
 * @Date:   2017-02-25 14:58:36
-* @Last Modified by:   William Chan
-* @Last Modified time: 2017-05-02 23:51:21
+* @Last Modified by:   Administrator
+* @Last Modified time: 2017-05-10 00:35:50
 */
 
 'use strict';
@@ -19,7 +19,7 @@ export const video_find = ({ start, limits, status }) => {
 }
 // GET /api/v1/video/query
 export const video_query = ({ id }) => {
-  return http.get(`video/query/${id}`)
+  return http.get(`video/${id}`)
 }
 // PUT /api/v1/video/trash
 export const video_trash = ({ id }) => {
@@ -27,7 +27,7 @@ export const video_trash = ({ id }) => {
 }
 // DELETE /api/v1/video
 export const video_delete = ({ id }) => {
-  return http.delete(`video/delete/${id}`)
+  return http.delete(`video/${id}`)
 }
 // PUT /api/v1/video/guide/{id}
 export const video_guide = ({ id, guideStatus, guideImageId }) => {
