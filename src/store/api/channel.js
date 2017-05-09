@@ -1,8 +1,8 @@
 /*
 * @Author: Administrator
 * @Date:   2017-02-25 14:58:36
-* @Last Modified by:   Administrator
-* @Last Modified time: 2017-05-10 00:34:32
+* @Last Modified by:   William Chan
+* @Last Modified time: 2017-05-10 02:02:01
 */
 
 'use strict';
@@ -19,7 +19,7 @@ export const channel_create = ({ name, commodityCatalog, province, city, county,
 }
 // GET /api/v1/channel/find
 export const channel_find = ({ page, limits }) => {
-	return http.get(`channel/find`, { params: { page, limits } })
+	return http.get(`channel`, { params: { page, limits } })
 }
 // DELETE /api/v1/channel/{channel_id}
 export const channel_delete = (id) => {

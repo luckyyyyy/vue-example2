@@ -1,8 +1,8 @@
 /*
 * @Author: Administrator
 * @Date:   2017-02-25 14:58:36
-* @Last Modified by:   Administrator
-* @Last Modified time: 2017-05-10 00:35:10
+* @Last Modified by:   William Chan
+* @Last Modified time: 2017-05-10 02:02:10
 */
 
 'use strict';
@@ -20,7 +20,7 @@ export const live_create = ({ name }) => {
 }
 // GET /api/v1/live/find
 export const live_find = ({ start, limits, status }) => {
-	return http.get(`live/find/${status}`, { params: { start, limits } })
+	return http.get(`live/${status}`, { params: { start, limits } })
 }
 // GET /api/v1/live/query
 export const live_query = ({ id }) => {
