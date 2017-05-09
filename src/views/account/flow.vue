@@ -74,7 +74,7 @@
 							<el-checkbox v-model="isAgree"><a href="#">《 彩虹云直播平台服务条款 》</a></el-checkbox>
 						</span>
 					</p>
-					<el-button @click='onSubmit' type="danger" class="submit" :disabled="!isAgree">立即购买</el-button>
+					<el-button v-show="form.type != 2" @click='onSubmit' type="danger" class="submit" :disabled="!isAgree">立即购买</el-button>
 				</div>
 			</ra-card>
 		</div>

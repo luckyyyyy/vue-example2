@@ -1,8 +1,8 @@
 /*
 * @Author: William Chan
 * @Date:   2016-12-03 20:43:22
-* @Last Modified by:   Webster
-* @Last Modified time: 2017-04-29 15:35:41
+* @Last Modified by:   chuxiao
+* @Last Modified time: 2017-05-09 10:32:21
 */
 
 'use strict';
@@ -54,14 +54,12 @@ export const ORDER_RECHARGE = export_var('ORDER_RECHARGE',
 
 // pay
 export const PAY = export_var('PAY',
-	'NOTIFY'
+	'NOTIFY', 'ORDER'
 )
 export const PAY_CREATE = export_var('PAY_CREATE',
 	'CONSUME','FLOW','RECHARGE'
 )
-export const PAY_ORDER = export_var('PAY_ORDER',
-	'ALIPAY','DEPOSIT'
-)
+
 // live
 export const LIVE = export_var('LIVE',
 	'QUERY','CREATE', 'QUERY_STREAM', 'NOTICE',
@@ -88,6 +86,7 @@ export const IM = export_var('IM',
 	'DISCONNECT', 'ADDRESS',
 	'INIT_REQUEST', 'INIT_SUCCESS', 'INIT_FAILURE',
 );
+
 // 聊天室
 export const IM_CHATROOM = export_var('IM_CHATROOM',
 	'DISCONNECT', 'MEMBERS', 'GAG', 'COMMON', 'MANAGER', 'UPDATE_MY_INFO',
@@ -95,8 +94,10 @@ export const IM_CHATROOM = export_var('IM_CHATROOM',
 	'MSG_SEND', 'MSG_GET', 'MSG_HISTORY', 'MSG_SERVICE',
 );
 
-
-
+// 钱包wallet
+export const WALLET = export_var('WALLET',
+	'QUERY'
+)
 
 
 

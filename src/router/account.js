@@ -2,7 +2,7 @@
 * @Author: William Chan
 * @Date:   2017-03-06 22:28:39
 * @Last Modified by:   chuxiao
-* @Last Modified time: 2017-05-08 10:55:12
+* @Last Modified time: 2017-05-09 10:43:02
 */
 
 import { registerModule } from '../store'
@@ -24,12 +24,15 @@ export default [
 				meta: { requiresAuth: true },
 				component: resolve => require([
 					'../views/account/overview.vue',
-					'../store/modules/order/find.js'
+					'../store/modules/order/find.js',
+					'@/store/modules/pay/order.js',
 				],(
 					OverviewComponent,
 					OrderFindModule,
+					PayOrderModule,
 				) => {
 					registerModule(['order', 'find'], OrderFindModule.default);
+					registerModule(['pay', 'order'], PayOrderModule.default);
 					resolve(OverviewComponent);
 				})
 			},

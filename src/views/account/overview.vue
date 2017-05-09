@@ -77,9 +77,9 @@
 					频道消费明细
 				</p>
 				<div class="content">
-					<div class="pagination">
+					<div class="pagination" v-loading="loading">
 						<!-- 表格 -->
-						<el-table :data="orders" width="100%" border>
+						<el-table :data="orders" width="100%" border >
 							<el-table-column label="日期" min-width="200" :resizable="false">
 								<template scope="scope">
 									<span>{{ scope.row.createTime | dateFormat('YYYY-MM-DD HH:mm:ss') }}</span>
@@ -95,7 +95,7 @@
 							<el-table-column label="支付状态" min-width="140" :resizable="false">
 								<template scope="scope">
 									<span v-if="scope.row.status" class="paid">已支付</span>
-									<span v-if="!scope.row.status" class="unpaid" @click="openModal(scope.row.sn, scope.row.money, scope.row.editionName)">未支付</span>
+									<span v-if="!scope.row.status" class="unpaid" @click="openModal(scope.row)">未支付</span>
 								</template>
 							</el-table-column>
 						</el-table>
@@ -119,7 +119,7 @@
 									<div class="pay-logo"><img src="../../assets/images/account/alipay.png" height="43" width="125"></div>
 									<div class="message">
 										<p class="label">购买项目：</p>
-										<span class="focus">{{ form.name }}</span>
+										<span class="focus">{{ form.editionName }}</span>
 									</div>
 									<div class="message">
 										<p class="label">应付金额：</p>
@@ -161,7 +161,7 @@
 								</li>
 							</ul>
 							<div class="modal-foot">
-								<el-button type="primary">确认支付</el-button>
+								<el-button @click="onSubmit" type="primary" v-show="form.type != 2">确认支付</el-button>
 							</div>
 						</el-dialog>
 					</div>
@@ -195,13 +195,14 @@
 				isOpen: false,
 				data: lowEdition,
 				payModal: false,
-				dialogVisible: false,
-				payMethod: 1,
+				req_lock: true,
+				loading: false,
 				form: {
-					name: '',
+					editionName: '',
 					sn: '',
 					type: 1,
 					money: 0,
+					model: 0,
 				}
 			}
 		},
@@ -220,21 +221,57 @@
 			...mapActions('order/find',{
 				orderFind: 'ORDER_FIND_REQUEST'
 			}),
+			...mapActions('pay/order',{
+				payOrder: 'PAY_ORDER'
+			}),
 			selectPage (page) {
+				this.loading = true;
 				this.orderFind(page).then(() => {
-
+					this.loading = false;
 				}).catch(() => {
-
+					this.loading = false;
 				})
 			},
 			selectPayMethod (index) {
 				this.$set(this.form,'type',index);
 			},
-			openModal (sn, money, name) {
+			openModal ({sn, money, editionName,model}) {
 				this.form.sn = sn;
-				this.form.name = name;
+				this.form.editionName = editionName;
 				this.form.money = money;
+				this.form.model = model
 				this.payModal = true;
+			},
+			onSubmit () {
+				if (this.req_lock) {
+					this.payOrder(this.form).then(res => {
+						if(typeof res == 'string'){
+							// 支付宝充值
+							this.$confirm('在新窗口为您打开充值界面，请按提示进行操作', '提示信息', {
+								confirmButtonText: '支付成功',
+								type: 'info',
+								closeOnClickModal: false,
+							}).then(() => {
+								this.payModal = false;
+								this.selectPage();
+							}).catch(() => {
+								this.$message.warning('已取消支付');
+							});
+							window.open(res);
+						} else {
+							// 非支付宝充值
+							this.$alert('账户余额支付成功', '提示信息', {
+								type: 'success',
+							}).then(() => {
+								this.payModal = false;
+								this.selectPage();
+							})
+						}
+					}).catch(err => {
+
+					})
+
+				}
 			}
 		},
 		components: {

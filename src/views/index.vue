@@ -124,8 +124,20 @@
 		computed: {
 			...mapState('channel', [ 'channel' ]),
 		},
-		mounted() {
+		methods: {
+			...mapActions('wallet',{
+				walletQuery: 'WALLET_QUERY'
+			}),
+			queryWallet () {
+				this.walletQuery(this.channel.userId).then(res => {
 
+				}).catch(err => {
+
+				})
+			},
+		},
+		mounted() {
+			this.queryWallet();
 		}
 	}
 </script>

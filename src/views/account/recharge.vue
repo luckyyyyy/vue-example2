@@ -53,7 +53,7 @@
 							<el-checkbox v-model="isAgree"><a href="#">《 彩虹云直播平台服务条款 》</a></el-checkbox>
 						</span>
 					</p>
-					<el-button @click='onSubmit' type="danger" class="submit" :disabled="!isAgree">立即购买</el-button>
+					<el-button v-show="form.type != 2" @click='onSubmit' type="danger" class="submit" :disabled="!isAgree">立即购买</el-button>
 				</div>
 			</ra-card>
 		</div>
@@ -82,9 +82,24 @@ import { mapActions } from 'vuex'
 					this.req_lock = false;
 					this.createRecharge(this.form).then(res => {
 						if (typeof res == 'string') {
+							// 支付宝充值
+							this.$confirm('在新窗口为您打开充值界面，请按提示进行操作', '提示信息', {
+								confirmButtonText: '支付成功',
+								type: 'info',
+								closeOnClickModal: false,
+							}).then(() => {
+								this.$router.push({ path: 'overview' });
+							}).catch(() => {
+								this.$message.warning('已取消支付');
+							});
 							window.open(res);
 						} else {
-
+							// 非支付宝充值
+							this.$alert('账户余额支付成功', '提示信息', {
+								type: 'success',
+							}).then(() => {
+								this.$router.push({ path: 'overview' });
+							})
 						}
 						this.req_lock = true;
 					}).catch(err => {

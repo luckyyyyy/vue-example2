@@ -1,8 +1,8 @@
 /*
 * @Author: William Chan
 * @Date:   2016-12-03 19:24:59
-* @Last Modified by:   Administrator
-* @Last Modified time: 2017-05-08 14:52:26
+* @Last Modified by:   chuxiao
+* @Last Modified time: 2017-05-09 15:10:53
 */
 
 'use strict';
@@ -24,6 +24,7 @@ import payModule        from '@/store/modules/pay'
 import weChatModule     from '@/store/modules/weixin/auth_url'
 import commodityModule  from '@/store/modules/commodity/catalogs'
 import multimediaModule from '@/store/modules/multimedia/'
+import walletModule     from '@/store/modules/wallet'
 import { isDevelop }    from '@/utils/util'
 
 Vue.use(Vuex)
@@ -46,6 +47,7 @@ store.registerModule('pay',         payModule);
 store.registerModule('wechat',      weChatModule);
 store.registerModule('catalogs',    commodityModule);
 store.registerModule('multimedia',  multimediaModule);
+store.registerModule('wallet',      walletModule);
 
 const module = {};
 export const registerModule = (path, module) => {

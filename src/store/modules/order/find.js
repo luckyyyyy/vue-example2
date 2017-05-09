@@ -2,7 +2,7 @@
 * @Author: chuxiao
 * @Date:   2017-04-25 14:49:08
 * @Last Modified by:   chuxiao
-* @Last Modified time: 2017-05-05 14:44:16
+* @Last Modified time: 2017-05-09 11:28:37
 */
 
 'use strict';
@@ -38,8 +38,10 @@ const actions = {
 
 const mutations = {
 	[ORDER.FIND_REQUEST] (state, page) {
-		state.start  = (page - 1) * state.limits;
-		state.page   = page;
+		if(page !== undefined){
+			state.start  = (page - 1) * state.limits;
+			state.page   = page;
+		} //page 没有传入，则刷新原分页
 	},
 	[ORDER.FIND_SUCCESS] (state, { data }) {
 		state.orders = data.orders;
