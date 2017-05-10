@@ -2,7 +2,7 @@
 * @Author: Administrator
 * @Date:   2017-02-25 14:58:36
 * @Last Modified by:   William Chan
-* @Last Modified time: 2017-05-10 02:02:35
+* @Last Modified time: 2017-05-10 11:47:16
 */
 
 'use strict';
@@ -15,7 +15,7 @@ import { http } from '@/store/api'
 
 // GET /api/v1/video/find
 export const video_find = ({ start, limits, status }) => {
-	return http.get(`video/${status}`, { params: { start, limits } })
+	return http.get(`video/find/${status}`, { params: { start, limits } })
 }
 // GET /api/v1/video/query
 export const video_query = ({ id }) => {
