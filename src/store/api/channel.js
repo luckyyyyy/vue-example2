@@ -1,13 +1,8 @@
 /*
 * @Author: Administrator
 * @Date:   2017-02-25 14:58:36
-<<<<<<< HEAD
-* @Last Modified by:   chuxiao
-* @Last Modified time: 2017-05-10 18:12:10
-=======
 * @Last Modified by:   William Chan
-* @Last Modified time: 2017-05-10 11:47:25
->>>>>>> ccb197ab80db35d1dec060543ee9097721f73b46
+* @Last Modified time: 2017-05-10 19:25:10
 */
 
 'use strict';

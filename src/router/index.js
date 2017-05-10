@@ -1,8 +1,8 @@
 /*
 * @Author: William Chan
 * @Date:   2016-12-01 17:57:50
-* @Last Modified by:   chuxiao
-* @Last Modified time: 2017-05-10 11:17:05
+* @Last Modified by:   William Chan
+* @Last Modified time: 2017-05-10 19:22:33
 */
 
 import Vue       from 'vue'
@@ -10,7 +10,6 @@ import VueRouter from 'vue-router'
 
 import NProgress from 'nprogress'
 import 'nprogress/nprogress.css'
-// import { LoadingBar } from 'iview' // 暂时不用
 
 import topRoute        from '@/router/top'
 import liveRoute       from '@/router/live'
@@ -22,7 +21,7 @@ import userRoute       from '@/router/user'
 import multimediaRoute from '@/router/multimedia'
 import channelRoute    from '@/router/channel'
 
-import { getAuthorization, getCurrentChannel, store, getWallet } from '../store'
+import { getAuthorization, getCurrentChannel, store } from '../store'
 
 
 Vue.use(VueRouter);
