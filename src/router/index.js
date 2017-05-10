@@ -1,8 +1,8 @@
 /*
 * @Author: William Chan
 * @Date:   2016-12-01 17:57:50
-* @Last Modified by:   Administrator
-* @Last Modified time: 2017-05-04 20:14:21
+* @Last Modified by:   chuxiao
+* @Last Modified time: 2017-05-10 11:17:05
 */
 
 import Vue       from 'vue'
@@ -22,7 +22,7 @@ import userRoute       from '@/router/user'
 import multimediaRoute from '@/router/multimedia'
 import channelRoute    from '@/router/channel'
 
-import { getAuthorization, getCurrentChannel, store } from '../store'
+import { getAuthorization, getCurrentChannel, store, getWallet } from '../store'
 
 
 Vue.use(VueRouter);
@@ -55,6 +55,7 @@ router.beforeEach(async (to, from, next) => {
 	const requiresAuth = to.matched.some(record => record.meta.requiresAuth);
 	let params;
 	const user = await getAuthorization();
+
 	if (!user) {
 		if (to.name == '404' || to.fullPath == '/') {
 			params = { name: 'login' };

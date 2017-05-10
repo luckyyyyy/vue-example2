@@ -7,7 +7,7 @@
 					<router-link class="link" :to="{ name: 'account_recharge' }">充值</router-link>
 					<a class="link" href="#">账户充值记录</a>
 				</p>
-				<p class="content">当前账户余额：<span class="text-bold">¥ 0.00</span></p>
+				<p class="content">当前账户余额：<span class="text-bold">{{ user.wallet.money | moneyFormat }}</span></p>
 			</ra-card>
 			<ra-card>
 				<p slot="title">
@@ -17,7 +17,7 @@
 				<div class="content">
 					<div class="content-head">
 						<p>当前频道流量套餐：<span class="text-bold">基础版</span></p>
-						<p>有效期至：<span class="text-bold">2018.04.06</span></p>
+						<p>有效期至：<span class="text-bold">{{ channel.channelInfo.expireTime | dateFormat('YYYY-MM-DD') }}</span></p>
 						<router-link class="link" :to="{ name: 'account_consume' }">购买</router-link>
 					</div>
 					<div class="content-body">
@@ -148,7 +148,7 @@
 								<li class="pay-item" v-if="form.type == 3">
 									<div class="message">
 										<p class="label">余额：</p>
-										<span class="focus">¥ 100.00元</span>
+										<span class="focus">{{ user.wallet.money | moneyFormat }}</span>
 									</div>
 									<div class="message">
 										<p class="label">购买项目：</p>
@@ -195,7 +195,6 @@
 				isOpen: false,
 				data: lowEdition,
 				payModal: false,
-				req_lock: true,
 				loading: false,
 				form: {
 					editionName: '',
@@ -215,7 +214,9 @@
 			moneyFormat,
 		},
 		computed: {
-			...mapState('order/find', ['orders', 'total']),
+			...mapState('order/find', [ 'orders', 'total' ]),
+			...mapState('user',[ 'user' ]),
+			...mapState('channel', [ 'channel' ]),
 		},
 		methods: {
 			...mapActions('order/find',{
@@ -224,6 +225,16 @@
 			...mapActions('pay/order',{
 				payOrder: 'PAY_ORDER'
 			}),
+			...mapActions('user',{
+				getUser: 'USER_GET'
+			}),
+			...mapActions('channel',{
+				getChannel: 'CHANNEL_GET'
+			}),
+			updateInfo () {
+				this.getUser();
+				this.getChannel(this.channel.channelId);
+			},
 			selectPage (page) {
 				this.loading = true;
 				this.orderFind(page).then(() => {
@@ -241,37 +252,38 @@
 				this.form.money = money;
 				this.form.model = model
 				this.payModal = true;
+				console.log(this.user);
 			},
 			onSubmit () {
-				if (this.req_lock) {
-					this.payOrder(this.form).then(res => {
-						if(typeof res == 'string'){
-							// 支付宝充值
-							this.$confirm('在新窗口为您打开充值界面，请按提示进行操作', '提示信息', {
-								confirmButtonText: '支付成功',
-								type: 'info',
-								closeOnClickModal: false,
-							}).then(() => {
-								this.payModal = false;
-								this.selectPage();
-							}).catch(() => {
-								this.$message.warning('已取消支付');
-							});
-							window.open(res);
-						} else {
-							// 非支付宝充值
-							this.$alert('账户余额支付成功', '提示信息', {
-								type: 'success',
-							}).then(() => {
-								this.payModal = false;
-								this.selectPage();
-							})
-						}
-					}).catch(err => {
+				this.payOrder(this.form).then(res => {
+					if(typeof res == 'string'){
+						// 支付宝充值
+						this.$confirm('在新窗口为您打开充值界面，请按提示进行操作', '提示信息', {
+							confirmButtonText: '支付成功',
+							type: 'info',
+							closeOnClickModal: false,
+						}).then(() => {
+							this.payModal = false;
+							this.selectPage();
+							this.updateInfo();
+						}).catch(() => {
+							this.$message.warning('已取消支付');
+							this.updateInfo();
+						});
+						window.open(res);
+					} else {
+						// 非支付宝充值
+						this.$alert('账户余额支付成功', '提示信息', {
+							type: 'success',
+						}).then(() => {
+							this.payModal = false;
+							this.selectPage();
+							this.updateInfo();
+						})
+					}
+				}).catch(err => {
 
-					})
-
-				}
+				})
 			}
 		},
 		components: {

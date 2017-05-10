@@ -70,42 +70,53 @@ import { mapActions } from 'vuex'
 					money: 1,
 					type: '1',
 				},
-				req_lock: true,
 			}
+		},
+		computed: {
+
 		},
 		methods: {
 			...mapActions ('pay/recharge_create',{
 				createRecharge: 'PAY_CREATE_RECHARGE'
 			}),
+			...mapActions('user',{
+				getUser: 'USER_GET'
+			}),
+			...mapActions('channel',{
+				getChannel: 'CHANNEL_GET'
+			}),
+			updateInfo () {
+				this.getUser();
+				this.getChannel(this.channel.channelId);
+			},
 			onSubmit () {
-				if (this.req_lock) {
-					this.req_lock = false;
-					this.createRecharge(this.form).then(res => {
-						if (typeof res == 'string') {
-							// 支付宝充值
-							this.$confirm('在新窗口为您打开充值界面，请按提示进行操作', '提示信息', {
-								confirmButtonText: '支付成功',
-								type: 'info',
-								closeOnClickModal: false,
-							}).then(() => {
-								this.$router.push({ path: 'overview' });
-							}).catch(() => {
-								this.$message.warning('已取消支付');
-							});
-							window.open(res);
-						} else {
-							// 非支付宝充值
-							this.$alert('账户余额支付成功', '提示信息', {
-								type: 'success',
-							}).then(() => {
-								this.$router.push({ path: 'overview' });
-							})
-						}
-						this.req_lock = true;
-					}).catch(err => {
-						this.req_lock = true;
-					})
-				}
+				this.createRecharge(this.form).then(res => {
+					if (typeof res == 'string') {
+						// 支付宝充值
+						this.$confirm('在新窗口为您打开充值界面，请按提示进行操作', '提示信息', {
+							confirmButtonText: '支付成功',
+							type: 'info',
+							closeOnClickModal: false,
+						}).then(() => {
+							this.updateInfo();
+							this.$router.push({ path: 'overview' });
+						}).catch(() => {
+							this.updateInfo();
+							this.$message.warning('已取消支付');
+						});
+						window.open(res);
+					} else {
+						// 非支付宝充值
+						this.$alert('账户余额支付成功', '提示信息', {
+							type: 'success',
+						}).then(() => {
+							this.updateInfo();
+							this.$router.push({ path: 'overview' });
+						})
+					}
+				}).catch(err => {
+
+				})
 			}
 		},
 	}

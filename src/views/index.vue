@@ -15,7 +15,7 @@
 						<el-tag type="danger">标签六</el-tag>
 					</div>
 					<ul class="info">
-						<li>当前账户余额：<span class="content">100.00元(赠送)<a class="link">充值</a></span></li>
+						<li>当前账户余额：<span class="content">{{ user.wallet.money | moneyFormat }}<a class="link">充值</a></span></li>
 						<!--<li>当前账户版本：<span class="content"><span>基础版</span><a class="link">升级</a></span></li>
 						<li>当前流量套餐：<span class="content"><span>无</span><a class="link">购买</a></span></li>-->
 						<li class="item">
@@ -30,8 +30,6 @@
 						</li>
 					</ul>
 				</ra-card>
-				<!--频道概况-->
-
 				<!--最近直播-->
 				<ra-card>
 					<div slot="title">最近直播</div>
@@ -114,6 +112,7 @@
 
 <script>
 	import { mapState, mapActions } from 'vuex'
+		import { numberFormat, dateFormat, moneyFormat } from '@/filter'
 
 	export default{
 		data() {
@@ -123,21 +122,18 @@
 		},
 		computed: {
 			...mapState('channel', [ 'channel' ]),
+			...mapState('user',[ 'user' ])
 		},
 		methods: {
-			...mapActions('wallet',{
-				walletQuery: 'WALLET_QUERY'
-			}),
-			queryWallet () {
-				this.walletQuery(this.channel.userId).then(res => {
 
-				}).catch(err => {
-
-				})
-			},
 		},
 		mounted() {
-			this.queryWallet();
+
+		},
+		filters: {
+			numberFormat,
+			dateFormat,
+			moneyFormat,
 		}
 	}
 </script>
