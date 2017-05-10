@@ -2,7 +2,7 @@
 * @Author: Administrator
 * @Date:   2017-02-25 14:58:36
 * @Last Modified by:   William Chan
-* @Last Modified time: 2017-05-10 19:25:10
+* @Last Modified time: 2017-05-10 20:09:11
 */
 
 'use strict';
@@ -15,7 +15,7 @@ import { http } from '@/store/api'
 
 // POST /api/v1/channel/create
 export const channel_create = ({ name, commodityCatalog, province, city, county, address, companyName }) => {
-	return http.post(`channel`, { name, commodityCatalog, province, city, county, address, companyName })
+	return http.post(`channel/find`, { name, commodityCatalog, province, city, county, address, companyName })
 }
 // GET /api/v1/channel/find
 export const channel_find = ({ page, limits }) => {
