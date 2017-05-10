@@ -1,8 +1,8 @@
 /*
 * @Author: William Chan
 * @Date:   2016-12-02 11:31:24
-* @Last Modified by:   Administrator
-* @Last Modified time: 2017-05-07 16:28:13
+* @Last Modified by:   William Chan
+* @Last Modified time: 2017-05-10 13:26:00
 */
 
 // axios.request(config)
@@ -80,8 +80,7 @@ export const onResponseError = error => {
 	if (!error.response) {
 		Notification.error({
 			title: error.message,
-			message: '请求失败',
-			// message: error.stack
+			message: isDevelop() ? error.stack : '请求失败',
 		})
 	} else {
 		if (error.response.status === 401) {
@@ -89,10 +88,18 @@ export const onResponseError = error => {
 		} else {
 			// console.dir(error)
 			// TODO 500 必定显示 or 拦截器配置
-			Notification.error({
-				title: `服务器错误 ${error.response.status}`,
-				message: `${error.response.data.retMsg || '请求发生错误'}`
-			})
+			if (isDevelop()) {
+				Notification.error({
+					title: `调试信息 - 服务器错误 ${error.response.status}`,
+					message: JSON.stringify(error.config)
+
+				})
+			} else {
+				Notification.error({
+					title: '错误',
+					message: '您的请求发生错误，请稍后再试。',
+				})
+			}
 		}
 	}
 	return Promise.reject(error);
