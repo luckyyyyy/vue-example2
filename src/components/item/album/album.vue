@@ -1,69 +1,67 @@
 <template>
-	<div>
-		<el-dialog
-			custom-class="album-dialog"
-			:visible.sync="visible"
-			:close-on-press-escape="false"
-			@close="onClose"
-			:title="find.length ? `已选择${find.length}张图片` : '我的图库'"
-		>
-			<div class="album-content" v-loading="upload_lock" :element-loading-text="upload_lock">
+	<el-dialog
+		custom-class="album-dialog"
+		:visible.sync="visible"
+		:close-on-press-escape="false"
+		@close="onClose"
+		:title="find.length ? `已选择${find.length}张图片` : '我的图库'"
+	>
+		<div class="album-content" v-loading="upload_lock" :element-loading-text="upload_lock">
 
-				<div class="album-content__menu" ref="menu">
-					<el-menu :default-active="menu" @select="onSelectMenu">
-						<el-menu-item v-for="(value, key) in typeClass" :key="key" :index="key">{{ value }}</el-menu-item>
-					</el-menu>
-				</div>
-
-				<div class="album-content__list" ref="list" v-show="data.length > 0">
-					<ul>
-						<li
-							v-for="item of data"
-							:title="item.name"
-							@click="onSelect(item, !select[item.id])"
-							:class="{ select: select[item.id] }"
-						>
-							<img :src="item.url + '/album'">
-							<span>{{ item.name }}</span>
-							<i class="el-icon-circle-check"></i>
-						</li>
-					</ul>
-				</div>
-
-				<div v-show="!data.length || loading" class="album-content__empty">
-					<div v-if="!loading">
-						<i class="el-icon-picture"></i>
-						<p>还没有图片呢，点击左下角上传吧。</p>
-					</div>
-					<div v-else>
-						<i class="el-icon-loading"></i>
-						<p>图片加载中</p>
-					</div>
-				</div>
+			<div class="album-content__menu" ref="menu">
+				<el-menu :default-active="menu" @select="onSelectMenu">
+					<el-menu-item v-for="(value, key) in typeClass" :key="key" :index="key">{{ value }}</el-menu-item>
+				</el-menu>
 			</div>
 
-			<div slot="footer" class="dialog-footer">
-				<div class="left">
-		 			<upload
-		 				:classType="menu"
-						:method="option.method"
-						:action="option.action"
-						:acceptn="option.acceptn"
-						@success="success"
-						@queue="queue"
-						@fail="fail"
-						@progress="progress"
+			<div class="album-content__list" ref="list" v-show="data.length > 0">
+				<ul>
+					<li
+						v-for="item of data"
+						:title="item.name"
+						@click="onSelect(item, !select[item.id])"
+						:class="{ select: select[item.id] }"
 					>
-						<el-button :loading="upload_lock ? true : false" type="primary">上传图片</el-button>
-					</upload>
+						<img :src="item.url + '/album'">
+						<span>{{ item.name }}</span>
+						<i class="el-icon-circle-check"></i>
+					</li>
+				</ul>
+			</div>
+
+			<div v-show="!data.length || loading" class="album-content__empty">
+				<div v-if="!loading">
+					<i class="el-icon-picture"></i>
+					<p>还没有图片呢，点击左下角上传吧。</p>
 				</div>
-				<div class="right">
-					<el-button @click="onClose">取 消</el-button>
-					<el-button :disabled="find.length == 0" type="primary" @click="onSubmit">选择</el-button>
+				<div v-else>
+					<i class="el-icon-loading"></i>
+					<p>图片加载中</p>
 				</div>
 			</div>
-		</el-dialog>
-	</div>
+		</div>
+
+		<div slot="footer" class="dialog-footer">
+			<div class="left">
+	 			<upload
+	 				:classType="menu"
+					:method="option.method"
+					:action="option.action"
+					:acceptn="option.acceptn"
+					@success="success"
+					@queue="queue"
+					@fail="fail"
+					@progress="progress"
+				>
+					<el-button :loading="upload_lock ? true : false" type="primary">上传图片</el-button>
+				</upload>
+			</div>
+			<div class="right">
+				<el-button @click="onClose">取 消</el-button>
+				<el-button :disabled="find.length == 0" type="primary" @click="onSubmit">选择</el-button>
+			</div>
+		</div>
+	</el-dialog>
 </template>
 
 <script>
