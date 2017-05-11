@@ -13,14 +13,12 @@
 						<el-input @change="onDebounce" v-model="form.nickName" placeholder="不超过10个字符"></el-input>
 					</el-form-item>
 					<el-form-item label="直播头像">
-						<Album class="upload" @submit="selectAlbum" v-model="openAlbum" type="3">
-							<el-button type="ghost" @click="openAlbum = true">
-								<i class="el-icon-upload"></i> 上传图片
-							</el-button>
-							<p class="tips">
-								<i class="el-icon-warning warning"></i> 400 x 400
-							</p>
-						</Album>
+						<el-button type="ghost" @click="openAlbum">
+							<i class="el-icon-upload"></i> 上传图片
+						</el-button>
+						<p class="tips">
+							<i class="el-icon-warning warning"></i> 400 x 400
+						</p>
 					</el-form-item>
 				</el-form>
 				<div class="iPhone-bg">
@@ -51,7 +49,6 @@
 		},
 		data () {
 			return {
-				openAlbum: false,
 				form: {}
 			}
 		},
@@ -66,9 +63,11 @@
 			...mapActions('video', {
 				liveUpdate: 'VIDEO_UPDATE'
 			}),
-			selectAlbum (select, data) {
-				this.form.avatarImageId = select;
-				this.onChange()
+			openAlbum () {
+				Album('3', (select, data) => {
+					this.form.avatarImageId = select;
+					this.onChange()
+				});
 			},
 			onChange () {
 				const data = Object.assign({}, this.form);

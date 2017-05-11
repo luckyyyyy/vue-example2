@@ -17,15 +17,11 @@
 							</el-form-item>
 							<template v-if="info.wxAccountType != 2">
 								<el-form-item label="频道二维码：">
-									<Album @submit="onSelectQrcode" v-model="openQrcodeAlbum" type="4">
-										<img @click="openQrcodeAlbum = true" :src="channel.wxAvatarUrl" class="img">
-									</Album>
+									<img @click="openQrcodeAlbum" :src="channel.wxAvatarUrl" class="img">
 								</el-form-item>
 							</template>
 							<el-form-item label="频道LOGO：" class="img">
-								<Album @submit="onSelectLogo" v-model="openLogoAlbum" type="5">
-									<img @click="openLogoAlbum = true" :src="channel.logoImageUrl + '/avatar'" class="img">
-								</Album>
+								<img @click="openLogoAlbum" :src="channel.logoImageUrl + '/avatar'" class="img">
 							</el-form-item>
 							<el-form-item label="频道简介：" prop="description">
 								<el-input type="textarea" v-model="channel.description" resize="none"></el-input>
@@ -54,13 +50,8 @@
 	import { CHANNEL_PREFERENCES_RULES } from '@/options/rules'
 
 	export default {
-		components: {
-			Album,
-		},
 		data () {
 			return {
-				openQrcodeAlbum: false,
-				openLogoAlbum: false,
 				lock: false,
 				channel: {},
 				rules: CHANNEL_PREFERENCES_RULES
@@ -78,9 +69,16 @@
 			...mapActions('channel', {
 				updateChannel: 'CHANNEL_UPDATE'
 			}),
-			onSelectLogo (select, data) {
-				this.channel.logoImageId  = select;
-				this.channel.logoImageUrl  = data.url
+			openQrcodeAlbum () {
+				Album('4', (select, data) => {
+
+				})
+			},
+			openLogoAlbum () {
+				Album('5', (select, data) => {
+					this.channel.logoImageId  = select;
+					this.channel.logoImageUrl  = data.url
+				})
 			},
 			onSubmit ()  {
 				this.$refs.channel.validate((valid) => {

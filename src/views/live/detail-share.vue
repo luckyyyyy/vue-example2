@@ -16,14 +16,12 @@
 							<el-input @change="onDebounce" v-model="form.shareContent" placeholder="分享文字"></el-input>
 						</el-form-item>
 						<el-form-item label="分享小图">
-							<Album type="2" class="upload" @submit="selectAlbum" v-model="openAlbum">
-								<el-button type="ghost" @click="openAlbum = true">
-									<i class="el-icon-upload"></i> 上传图片
-								</el-button>
-								<p class="tips">
-									<i class="el-icon-warning warning"></i> 400 x 400
-								</p>
-							</Album>
+							<el-button type="ghost" @click="openAlbum">
+								<i class="el-icon-upload"></i> 上传图片
+							</el-button>
+							<p class="tips">
+								<i class="el-icon-warning warning"></i> 400 x 400
+							</p>
 						</el-form-item>
 					</el-form>
 					<div class="iPhone-bg">
@@ -54,12 +52,8 @@
 	import Album from '@/components/item/album'
 
 	export default {
-		components: {
-			Album
-		},
 		data () {
 			return {
-				openAlbum: false,
 				form: {}
 			}
 		},
@@ -83,9 +77,11 @@
 			...mapActions('live', {
 				setShare: 'LIVE_SHARE'
 			}),
-			selectAlbum (select, data) {
-				this.form.shareImageId = select;
-				this.onChange()
+			openAlbum () {
+				Album('2', (select, data) => {
+					this.form.shareImageId = select;
+					this.onChange()
+				});
 			},
 			onChange () {
 				const data = Object.assign({}, this.form);

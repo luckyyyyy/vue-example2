@@ -19,14 +19,14 @@ Vue.use(ElementUI);
 
 Vue.component('ra-card', card);
 
+if (window.navigator.userAgent.indexOf('iPad') > -1) {
+	FastClick.attach(document.body);
+}
 // create app
-new Vue({
+export default new Vue({
 	router,
 	store,
 	el: '#app',
 	template: '<App/>',
 	components: { App,},
 })
-if (window.navigator.userAgent.indexOf('iPad') > -1) {
-	FastClick.attach(document.body);
-}

@@ -62,46 +62,34 @@
 					<el-button :disabled="find.length == 0" type="primary" @click="onSubmit">选择</el-button>
 				</div>
 			</div>
-
 		</el-dialog>
-		<slot></slot>
 	</div>
 </template>
 
 <script>
 	import iscroll from 'iscroll'
 	import { mapState, mapActions, mapMutations } from 'vuex';
+	import { store } from '@/store'
 	import upload from '@/components/item/upload'
 	import { MULTIMEDIA_UPLOAD } from '@/store/api'
 	import { MULTIMEDIA_TYPE } from '@/options'
 
 	export default {
+		store,
 		components: {
 			upload
 		},
-		props: {
-			type: {
-				type: String,
-				default: 1,
-			},
-			value: {
-				type: Boolean,
-				default: false,
-			},
-			multiple: {
-				type: Number,
-				default: 1,
-			},
-		},
 		data () {
 			return {
-				visible: this.value,
+				multiple: false,
+				visible: false,
 				option: MULTIMEDIA_UPLOAD,
 				find: [],
 				upload_lock: false,
 				loading: false,
-				menu: this.type,
-				typeClass: MULTIMEDIA_TYPE
+				menu: '1',
+				typeClass: MULTIMEDIA_TYPE,
+				cb: null
 			}
 		},
 		computed : {
@@ -142,9 +130,13 @@
 			},
 			onSubmit () {
 				if (this.multiple > 1) {
-					this.$emit('submit', this.find, this.select);
+					if (this.cb) {
+						this.cb(this.find, this.select);
+					}
 				} else {
-					this.$emit('submit', ...this.find, this.select[Object.keys(this.select)]);
+					if (this.cb) {
+						this.cb(...this.find, this.select[Object.keys(this.select)]);
+					}
 				}
 				this.onClose();
 			},
@@ -207,7 +199,7 @@
 			}
 		},
 		watch: {
-			value (val) {
+			visible (val) {
 				if (val) {
 					this.$nextTick(() => {
 						if (!this.menuScroll) {
@@ -237,5 +229,5 @@
 	};
 </script>
 <style lang="less">
-	@import url('../../assets/styles/components/album.less');
+	@import url('../../../assets/styles/components/album.less');
 </style>

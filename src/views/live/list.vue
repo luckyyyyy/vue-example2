@@ -113,7 +113,6 @@
 </template>
 <script>
 	import { mapState, mapActions } from 'vuex'
-	import iscroll from 'iscroll'
 	import { LIVE_CREATE_RULES } from '@/options/rules'
 	import { date } from '@/utils/util'
 

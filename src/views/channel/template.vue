@@ -105,17 +105,13 @@
 						</div>
 						<div class="input-box">
 							<span class="label">频道背景：</span>
-							<Album @submit="onSelectCover" v-model="openCoverAlbum" type="1">
-								<div @click="openCoverAlbum = true" class="icon"><i class="iconfont icon-upload"></i></div>
-								<span class="tips">750 * 300像素</span>
-							</Album>
+							<div @click="openCoverAlbum" class="icon"><i class="iconfont icon-upload"></i></div>
+							<span class="tips">750 * 300像素</span>
 						</div>
 						<div class="input-box">
 							<span class="label">频道LOGO：</span>
-							<Album @submit="onSelectLogo" v-model="openLogoAlbum" type="5">
-								<div @click="openLogoAlbum = true" class="icon"><i class="iconfont icon-upload"></i></div>
-								<span class="tips">200 * 200像素</span>
-							</Album>
+							<div @click="openLogoAlbum" class="icon"><i class="iconfont icon-upload"></i></div>
+							<span class="tips">200 * 200像素</span>
 						</div>
 					</div>
 				</div>
@@ -130,13 +126,8 @@
 	import Album from '@/components/item/album'
 
 	export default{
-		components: {
-			Album,
-		},
 		data () {
 			return {
-				openLogoAlbum: false,
-				openCoverAlbum: false,
 				channel: {},
 				status: this.$route.params.status || 'public',
 				loading: false,
@@ -173,16 +164,19 @@
 					})
 				}
 			},
-			onSelectCover (select, data) {
-				console.log(select,data);
-				this.channel.coverImageId = select;
-				this.channel.coverImageUrl = data.url;
-				this.updateChannel(this.channel);
+			openCoverAlbum () {
+				Album('1', (select, data) => {
+					this.channel.coverImageId = select;
+					this.channel.coverImageUrl = data.url;
+					this.updateChannel(this.channel);
+				})
 			},
-			onSelectLogo (select, data) {
-				this.channel.logoImageId  = select;
-				this.channel.logoImageUrl = data.url;
-				this.updateChannel(this.channel);
+			openLogoAlbum () {
+				Album('5', (select, data) => {
+					this.channel.logoImageId = select;
+					this.channel.logoImageUrl = data.url;
+					this.updateChannel(this.channel);
+				})
 			},
 			onChange () {
 				this.updateChannel(this.channel);

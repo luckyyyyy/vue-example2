@@ -9,15 +9,16 @@
 				<p class="tips">此图片显示在进入直播页面之前，用于展示直播相关介绍内容。</p>
 				<div class="action">
 					<div class="form">
-						<Album class="upload" @submit="selectAlbum" v-model="openAlbum" type="1">
-							<el-button type="ghost" @click="openAlbum = true">
-								<i class="el-icon-upload"></i> 上传图片
-							</el-button>
-							<p class="tips">
-								<i class="el-icon-warning warning"></i>
-								因手机机型众多，为保证图片正常展示，请严格按照 1080*1740 像素上传图片。图片大小4M以内支持扩展名：.png .jpg .jpeg
-							</p>
-						</Album>
+
+						<el-button type="ghost" @click="openAlbum">
+							<i class="el-icon-upload"></i> 上传图片
+						</el-button>
+						<p class="tips">
+							<i class="el-icon-warning warning"></i>
+							因手机机型众多，为保证图片正常展示，请严格按照 1080*1740 像素上传图片。图片大小4M以内支持扩展名：.png .jpg .jpeg
+						</p>
+
+
 					</div>
 					<div class="iPhone-bg">
 						<div class="iPhone-view">
@@ -38,17 +39,14 @@
 </template>
 
 <script>
+import Vue from 'vue';
 	import { mapState, mapActions } from 'vuex'
 	import Album from '@/components/item/album'
 
 	export default {
-		components: {
-			Album
-		},
 		data () {
 			return {
 				form: {},
-				openAlbum: false,
 			}
 		},
 		computed: {
@@ -69,9 +67,11 @@
 			...mapActions('live', {
 				setGuide: 'LIVE_GUIDE'
 			}),
-			selectAlbum (select, data) {
-				this.form.guideImageId = select;
-				this.onChange()
+			openAlbum () {
+				Album('1', (select, data) => {
+					this.form.guideImageId = select;
+					this.onChange()
+				});
 			},
 			onChange () {
 				const data = Object.assign({}, this.form);
