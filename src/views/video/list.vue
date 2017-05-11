@@ -73,7 +73,6 @@
 
 <script>
 	import { mapState, mapActions } from 'vuex'
-	import iscroll from 'iscroll'
 
 	export default {
 		data () {
@@ -104,25 +103,6 @@
 					this.loading = true;
 					this.getVideoList({ reload, status: this.status }).then(() => {
 						this.loading = false;
-						if (!this.listScroll) {
-							this.listScroll = new iscroll(this.$refs.list, {
-								mouseWheel: true,
-								// preventDefault: false,
-								scrollbars: true,
-								fadeScrollbars: true,
-								interactiveScrollbars: true,
-								shrinkScrollbars: 'clip',
-							})
-							this.listScroll.on('scrollStart', () => {
-								this.findVideoList();
-							});
-						}
-						this.$nextTick(() => {
-							if (reload) {
-								this.listScroll.scrollTo(0, 0);
-							}
-							this.listScroll.refresh();
-						})
 					}).catch(() => {
 						this.loading = false;
 					});
