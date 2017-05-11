@@ -19,6 +19,7 @@ build: master-check
 
 update: master-check
 	yarn
+	yarn ele
 
 dev: master-check
 	yarn dev
