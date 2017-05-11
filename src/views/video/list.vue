@@ -116,7 +116,7 @@
 						if (action === 'confirm') {
 							instance.confirmButtonLoading = true;
 							await api({ id }).then(() => {
-								this.findLiveList(true);
+								this.findVideoList(true);
 							});
 							instance.confirmButtonLoading = false;
 						}
