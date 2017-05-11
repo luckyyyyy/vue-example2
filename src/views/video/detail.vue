@@ -25,7 +25,7 @@
 				</el-menu>
 			</div>
 		</div>
-		<transition name="fade" mode="out-in">
+		<transition name="el-fade-in-linear" mode="out-in">
 			<router-view class="commoon-view"></router-view>
 		</transition>
 	</div>

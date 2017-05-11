@@ -4,6 +4,13 @@
 * @Last Modified by:   William Chan
 * @Last Modified time: 2017-02-06 18:15:38
 */
+
+::selection {
+	text-shadow: 1px 1px 1px #000;
+	color: #fff;
+	background: #00a5f8;
+}
+
 *, *::after, *::before {
 	box-sizing: border-box;
 }
@@ -161,10 +168,21 @@ body {
 	}
 }
 
+@keyframes hue {
+	from {
+		filter: hue-rotate(0deg);
+	}
+	to {
+		filter: hue-rotate(-360deg);
+	}
+}
+
 #nprogress {
 	position: absolute;
 	z-index: 9999;
 	.bar {
+		background: linear-gradient(to right, #d0459d, #d55e6f);
+		// animation: hue 1s infinite linear;
 		background: linear-gradient(to right, #70DF00, #44BFFA) !important;
 		height: 3px !important;
 	}
