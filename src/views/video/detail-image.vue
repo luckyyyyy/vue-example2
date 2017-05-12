@@ -61,9 +61,6 @@
 		},
 		methods: {
 			...mapActions('video', {
-				queryVideo: 'VIDEO_QUERY'
-			}),
-			...mapActions('video', {
 				setGuide: 'VIDEO_GUIDE'
 			}),
 			openAlbum () {
