@@ -43,17 +43,15 @@
 										<span>回放装修</span>
 									</router-link>
 								</template>
-								<!-- <router-link :to="{ name: 'video_detail_image', params: { videoid: item.id } }">
+								<!-- <router-link :to="{ name: 'video_detail_image', params: { videoID: item.id } }">
 									<i class="iconfont icon-wefill"></i>
 									<span>互动设置</span>
 								</router-link> -->
-
 								<router-link :to="{ name: 'video_data', params: { videoid: item.id } }">
 									<i class="iconfont icon-rankfill"></i>
 									<span>回放数据</span>
 								</router-link>
-
-								<router-link :to="{ name: 'video_detail_play', params: { liveid: item.id } }">
+								<router-link :to="{ name: 'video_detail_play', params: { videoid: item.id } }">
 									<i class="iconfont icon-videoplay"></i>
 									<span>播放</span>
 								</router-link>

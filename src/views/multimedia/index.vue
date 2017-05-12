@@ -110,7 +110,6 @@
 							});
 						}
 						this.$nextTick(() => {
-							console.log(123)
 							if (reload) {
 								this.listScroll.scrollTo(0, 0);
 							}

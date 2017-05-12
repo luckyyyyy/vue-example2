@@ -202,7 +202,60 @@
 					type: 1,
 					money: 0,
 					model: 0,
-				}
+				},
+				total: 10,
+				orders: [
+					{
+						"createTime":1494410981000,
+						"editionName":"高级版",
+						"model":2,
+						"money":1,
+						"name":"购买：彩虹云直播版本购买",
+						"sn":"20170510653811150202",
+						"status":1,
+						"type":3
+					},
+					{
+						"createTime":1494410965000,
+						"editionName":"流量购买",
+						"model":3,
+						"money":100,
+						"name":"购买：彩虹云直播流量购买",
+						"sn":"20170510653647890203",
+						"status":1,
+						"type":3
+					},
+					{
+						"createTime":1494409386000,
+						"editionName":"普通版",
+						"model":2,
+						"money":1,
+						"name":"购买：彩虹云直播版本购买",
+						"sn":"20170510637861120202",
+						"status":1,
+						"type":3
+					},
+					{
+						"createTime":1494409373000,
+						"editionName":"普通版",
+						"model":2,
+						"money":1,
+						"name":"购买：彩虹云直播版本购买",
+						"sn":"20170510637733380202",
+						"status":1,
+						"type":3
+					},
+					{
+						"createTime":1494409164000,
+						"editionName":"普通版",
+						"model":2,
+						"money":1,
+						"name":"购买：彩虹云直播版本购买",
+						"sn":"20170510635636680202",
+						"status":0,
+						"type":0
+					}
+				]
 			}
 		},
 		mounted () {
@@ -214,7 +267,7 @@
 			moneyFormat,
 		},
 		computed: {
-			...mapState('order/find', [ 'orders', 'total' ]),
+			// ...mapState('order/find', [ 'orders', 'total' ]),
 			...mapState('user',[ 'user' ]),
 			...mapState('channel', [ 'channel' ]),
 		},
@@ -236,12 +289,12 @@
 				this.getChannel(this.channel.channelId);
 			},
 			selectPage (page) {
-				this.loading = true;
-				this.orderFind(page).then(() => {
-					this.loading = false;
-				}).catch(() => {
-					this.loading = false;
-				})
+				// this.loading = true;
+				// this.orderFind(page).then(() => {
+				// 	this.loading = false;
+				// }).catch(() => {
+				// 	this.loading = false;
+				// })
 			},
 			selectPayMethod (index) {
 				this.$set(this.form,'type',index);
@@ -252,38 +305,37 @@
 				this.form.money = money;
 				this.form.model = model
 				this.payModal = true;
-				console.log(this.user);
 			},
 			onSubmit () {
-				this.payOrder(this.form).then(res => {
-					if(typeof res == 'string'){
-						// 支付宝充值
-						this.$confirm('在新窗口为您打开充值界面，请按提示进行操作', '提示信息', {
-							confirmButtonText: '支付成功',
-							type: 'info',
-							closeOnClickModal: false,
-						}).then(() => {
-							this.payModal = false;
-							this.selectPage();
-							this.updateInfo();
-						}).catch(() => {
-							this.$message.warning('已取消支付');
-							this.updateInfo();
-						});
-						window.open(res);
-					} else {
-						// 非支付宝充值
-						this.$alert('账户余额支付成功', '提示信息', {
-							type: 'success',
-						}).then(() => {
-							this.payModal = false;
-							this.selectPage();
-							this.updateInfo();
-						})
-					}
-				}).catch(err => {
+				// this.payOrder(this.form).then(res => {
+				// 	if(typeof res == 'string'){
+				// 		// 支付宝充值
+				// 		this.$confirm('在新窗口为您打开充值界面，请按提示进行操作', '提示信息', {
+				// 			confirmButtonText: '支付成功',
+				// 			type: 'info',
+				// 			closeOnClickModal: false,
+				// 		}).then(() => {
+				// 			this.payModal = false;
+				// 			this.selectPage();
+				// 			this.updateInfo();
+				// 		}).catch(() => {
+				// 			this.$message.warning('已取消支付');
+				// 			this.updateInfo();
+				// 		});
+				// 		window.open(res);
+				// 	} else {
+				// 		// 非支付宝充值
+				// 		this.$alert('账户余额支付成功', '提示信息', {
+				// 			type: 'success',
+				// 		}).then(() => {
+				// 			this.payModal = false;
+				// 			this.selectPage();
+				// 			this.updateInfo();
+				// 		})
+				// 	}
+				// }).catch(err => {
 
-				})
+				// })
 			}
 		},
 		components: {

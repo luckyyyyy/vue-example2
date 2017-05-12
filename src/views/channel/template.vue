@@ -1,7 +1,7 @@
 <template>
 	<div>
 		<div class="template">
-			<Icard>
+			<ra-card>
 				<p slot="title">频道编辑</p>
 				<div class="card-body">
 					<div class="template-box">
@@ -115,7 +115,7 @@
 						</div>
 					</div>
 				</div>
-			</Icard>
+			</ra-card>
 		</div>
 	</div>
 </template>

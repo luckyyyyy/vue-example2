@@ -108,33 +108,33 @@ import { mapActions } from 'vuex'
 				this.getChannel(this.channel.channelId);
 			},
 			onSubmit () {
-				this.createFlow(this.form).then(res => {
-					if (typeof res == 'string') {
-						window.open(res);
-						// 支付宝充值
-						this.$confirm('在新窗口为您打开充值界面，请按提示进行操作', '提示信息', {
-							confirmButtonText: '支付成功',
-							type: 'info',
-							closeOnClickModal: false,
-						}).then(() => {
-							this.updateInfo();
-							this.$router.push({ path: 'overview' });
-						}).catch(() => {
-							this.updateInfo();
-							this.$message.warning('已取消充值');
-						});
-					} else {
-						// 非支付宝充值
-						this.$alert('账户余额支付成功', '提示信息', {
-							type: 'success',
-						}).then(() => {
-							this.updateInfo();
-							this.$router.push({ path: 'overview' });
-						})
-					}
-				}).catch(err => {
+				// this.createFlow(this.form).then(res => {
+				// 	if (typeof res == 'string') {
+				// 		window.open(res);
+				// 		// 支付宝充值
+				// 		this.$confirm('在新窗口为您打开充值界面，请按提示进行操作', '提示信息', {
+				// 			confirmButtonText: '支付成功',
+				// 			type: 'info',
+				// 			closeOnClickModal: false,
+				// 		}).then(() => {
+				// 			this.updateInfo();
+				// 			this.$router.push({ path: 'overview' });
+				// 		}).catch(() => {
+				// 			this.updateInfo();
+				// 			this.$message.warning('已取消充值');
+				// 		});
+				// 	} else {
+				// 		// 非支付宝充值
+				// 		this.$alert('账户余额支付成功', '提示信息', {
+				// 			type: 'success',
+				// 		}).then(() => {
+				// 			this.updateInfo();
+				// 			this.$router.push({ path: 'overview' });
+				// 		})
+				// 	}
+				// }).catch(err => {
 
-				})
+				// })
 			},
 		},
 	}

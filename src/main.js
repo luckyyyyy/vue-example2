@@ -11,11 +11,13 @@ import 'normalize.css'
 import '@/theme/index.css'
 import '@/assets/common.less'
 
+
 import card from '@/components/item/card'
 
 Vue.config.productionTip = false;
 sync(store, router) // done.
 Vue.use(ElementUI);
+
 
 Vue.component('ra-card', card);
 
