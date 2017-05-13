@@ -79,7 +79,7 @@
 		},
 		data () {
 			return {
-				multiple: false,
+				multiple: 1,
 				visible: false,
 				option: MULTIMEDIA_UPLOAD,
 				find: [],
