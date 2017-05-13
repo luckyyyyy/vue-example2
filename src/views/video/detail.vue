@@ -49,10 +49,6 @@
 	}
 </script>
 
-<!-- 			...mapActions('video', {
-				setGuide: 'VIDEO_GUIDE'
-			}),
-						this.queryVideo(this.$router.params.videoID); -->
 <style scoped lang="less">
 	@import "../../assets/styles/views/live/detail";
 </style>
