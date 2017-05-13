@@ -2,7 +2,7 @@
 * @Author: William Chan
 * @Date:   2017-05-11 16:34:04
 * @Last Modified by:   Administrator
-* @Last Modified time: 2017-05-13 21:29:29
+* @Last Modified time: 2017-05-13 21:41:31
 */
 // 单实例 不需要支持多实例
 
@@ -26,5 +26,5 @@ export default (options, cb) => {
 		data = options;
 	}
 	instance.vm.menu     = data.menu && data.menu.toString() || '1';
-	instance.vm.multiple = data.multiple || '1';
+	instance.vm.multiple = data.multiple || 1;
 }
