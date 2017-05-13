@@ -64,7 +64,7 @@
 				setGuide: 'VIDEO_GUIDE'
 			}),
 			openAlbum () {
-				Album('1', (select, data) => {
+				Album(1, (select, data) => {
 					this.form.guideImageId = select;
 					this.onChange()
 				});
