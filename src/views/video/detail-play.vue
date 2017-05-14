@@ -42,14 +42,18 @@
 			</template>
 		</el-row>
 		<h1>..测试</h1>
-		<div class="video-player">
-			<video ref="H5video":src="videoURL" controls="controls" width="100%" height="100%">
-				您的浏览器不支持 video 标签。
-			</video>
-			<div class="play-control">
-
+		<el-dialog
+		title="视频"
+		class="dialog--common"
+		:visible.sync="isOpen"
+		:before-close="modalClose">
+			<div class="video-player">
+				<video ref="H5video":src="videoURL" width="100%" height="100%">
+					您的浏览器不支持 video 标签。
+				</video>
 			</div>
-		</div>
+		</el-dialog>
+		<player></player>
 	</div>
 </template>
 
@@ -58,13 +62,14 @@
 
 	import { mapState, mapActions } from 'vuex'
 	import debounce from 'debounce'
-
+	import player from '@/components/item/player'
 	export default {
 		data () {
 			return {
 				form: {},
 				url: '',
 				videoURL: '',
+				isOpen: false,
 			}
 		},
 		computed: {
@@ -76,14 +81,23 @@
 		methods: {
 			playVideo (url) {
 				this.videoURL = url;
+				this.isOpen = true;
 				this.$nextTick(() => {
 					this.$refs.H5video.play();
 				});
-			}
+			},
+			modalClose () {
+				this.$refs.H5video.pause();
+				this.videoURL = '';
+				this.isOpen = false;
+			},
+		},
+		components: {
+			player,
 		}
 	}
 </script>
 
 <style scoped lang="less">
-	@import url('../../assets/styles/views/live/detail.less');
+	@import url(../../assets/styles/views/live/detail.less);
 </style>
