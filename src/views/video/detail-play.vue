@@ -53,7 +53,7 @@
 				</video>
 			</div>
 		</el-dialog>
-		<player></player>
+		<!-- <player></player> -->
 	</div>
 </template>
 
