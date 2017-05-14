@@ -1,8 +1,8 @@
 /*
 * @Author: William Chan
 * @Date:   2017-03-08 23:18:57
-* @Last Modified by:   William Chan
-* @Last Modified time: 2017-05-02 23:51:03
+* @Last Modified by:   Administrator
+* @Last Modified time: 2017-05-14 16:34:24
 */
 
 'use strict';
@@ -10,9 +10,7 @@
 import { NIM, Chatroom } from '@/assets/libs/NIM_Web_SDK/js/NIM_Web_SDK_v3.4.0'
 
 const IM_APP_KEY = '29b61d49c94875017bd9855f082a7ec9';
-let nim;
-let chatroom;
-
+const instance = {}
 export const im_init = init => {
 	return new Promise((resolve, reject) => {
 		init.appKey = IM_APP_KEY;
@@ -22,29 +20,28 @@ export const im_init = init => {
 		init.onerror = error => {
 			reject(error);
 		};
-		if (nim) {
-			nim.disconnect();
-			nim.setOptions(init);
-			nim.connect();
+		if (instance.nim) {
+			instance.nim.disconnect();
+			instance.nim.setOptions(init);
+			instance.nim.connect();
 		} else {
-			nim = NIM.getInstance(init);
+			instance.nim = NIM.getInstance(init);
 		}
 	})
 }
 
 export const im_disconnect = () => {
-	if (nim) {
-		nim.disconnect();
-		nim = undefined;
+	if (instance.nim) {
+		instance.nim.disconnect();
+		delete instance.nim;
 	}
 }
 export const im_chatroom_address = chatroomId => {
 	return new Promise((resolve, reject) => {
-		if (nim) {
-			nim.getChatroomAddress({
+		if (instance.nim) {
+			instance.nim.getChatroomAddress({
 				chatroomId,
 				done: (error, obj) => {
-					console.log(chatroomId);
 					error ? reject(error) : resolve(obj.address);
 				}
 			});
@@ -56,8 +53,8 @@ export const im_chatroom_address = chatroomId => {
 
 export const im_update_myinfo = nick => {
 	return new Promise((resolve, reject) => {
-		if (nim) {
-			nim.updateMyInfo({
+		if (instance.nim) {
+			instance.nim.updateMyInfo({
 				nick,
 				avatar: '',
 				done: (error, msg) => {
@@ -80,27 +77,27 @@ export const im_chatroom_init = init => {
 		init.onerror = error => {
 			reject(error);
 		};
-		if (chatroom) {
-			chatroom.disconnect();
-			chatroom.setOptions(init);
-			chatroom.connect();
+		if (instance.chatroom) {
+			instance.chatroom.disconnect();
+			instance.chatroom.setOptions(init);
+			instance.chatroom.connect();
 		} else {
-			chatroom = Chatroom.getInstance(init);
+			instance.chatroom = Chatroom.getInstance(init);
 		}
 	})
 }
 
 export const im_chatroom_disconnect = () => {
-	if (chatroom) {
-		chatroom.disconnect();
-		chatroom = undefined;
+	if (instance.chatroom) {
+		instance.chatroom.disconnect();
+		delete instance.chatroom;
 	}
 }
 
 export const im_chatroom_send = text => {
 	return new Promise((resolve, reject) => {
-		if (chatroom) {
-			chatroom.sendText({
+		if (instance.chatroom) {
+			instance.chatroom.sendText({
 				text,
 				done: (error, msg) => {
 					error ? reject(error) : resolve(msg);
@@ -114,8 +111,8 @@ export const im_chatroom_send = text => {
 
 export const im_chatroom_getHistory = () => {
 	return new Promise((resolve, reject) => {
-		if (chatroom) {
-			chatroom.getHistoryMsgs({
+		if (instance.chatroom) {
+			instance.chatroom.getHistoryMsgs({
 				limit: 100,
 				done: (error, obj) => {
 					error ? reject(error) : resolve(obj);
@@ -129,8 +126,8 @@ export const im_chatroom_getHistory = () => {
 
 export const im_chatroom_getMembers = guest => {
 	return new Promise((resolve, reject) => {
-		if (chatroom) {
-			chatroom.getChatroomMembers({
+		if (instance.chatroom) {
+			instance.chatroom.getChatroomMembers({
 				limit: 1000,
 				guest,
 				done: (error, obj) => {
@@ -145,8 +142,8 @@ export const im_chatroom_getMembers = guest => {
 
 export const im_chatroom_setGag = ({ account, isAdd }) => {
 	return new Promise((resolve, reject) => {
-		if (chatroom) {
-			chatroom.markChatroomGaglist({
+		if (instance.chatroom) {
+			instance.chatroom.markChatroomGaglist({
 				account, isAdd,
 				done: (error, obj) => {
 					error ? reject(error) : resolve(obj);
@@ -160,8 +157,8 @@ export const im_chatroom_setGag = ({ account, isAdd }) => {
 
 export const im_chatroom_setCommonMember = ({ account, level, isAdd }) => {
 	return new Promise((resolve, reject) => {
-		if (chatroom) {
-			chatroom.markChatroomCommonMember({
+		if (instance.chatroom) {
+			instance.chatroom.markChatroomCommonMember({
 				account, level, isAdd,
 				done: (error, obj) => {
 					error ? reject(error) : resolve(obj);
@@ -175,8 +172,8 @@ export const im_chatroom_setCommonMember = ({ account, level, isAdd }) => {
 
 export const im_chatroom_setManager = ({ account, isAdd }) => {
 	return new Promise((resolve, reject) => {
-		if (chatroom) {
-			chatroom.markChatroomManager({
+		if (instance.chatroom) {
+			instance.chatroom.markChatroomManager({
 				account, isAdd,
 				done: (error, obj) => {
 					error ? reject(error) : resolve(obj);
@@ -187,15 +184,12 @@ export const im_chatroom_setManager = ({ account, isAdd }) => {
 		}
 	})
 }
-// PUT /api/v1/live/update/chat_room_creator/{id}
-// export const im_chatroom_updateMyInfo = ({ name, id }) => {
-	// return http.put(`live/update/chat_room_creator/${id}`, { name })
-// }
+
 export const im_chatroom_updateMyInfo = ({ nick }) => {
 	return new Promise((resolve, reject) => {
-		if (chatroom) {
+		if (instance.chatroom) {
 			im_update_myinfo(nick).then(() => {
-				chatroom.updateMyChatroomMemberInfo({
+				instance.chatroom.updateMyChatroomMemberInfo({
 					member: { nick, avatar: '', custom: '' },
 					needNotify: true,
 					done: (error, obj) => {
