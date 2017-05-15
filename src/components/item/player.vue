@@ -19,10 +19,7 @@
 				<div class="ra-video__progress-bar"></div>
 				<div class="ra-video__progress-load"></div>
 				<div class="ra-video__progress-play" :style="{ width: percent + '%' }">
-					<div class="ra-video__progress-circle"
-					@mouseenter="handleMouseEnter"
-					@mouseleave="handleMouseLeave"
-					@mousedown="onButtonDown">
+					<div class="ra-video__progress-circle" @mousedown="onButtonDown">
 					</div>
 				</div>
 			</div>
@@ -38,8 +35,9 @@
 				playStatus: false,
 				totalTime: 0,
 				currentTime: 0,
-				timer: null,
 				loading: true,
+				lineWidth: 0,
+				isDragging: false,
 				url: 'https://p.racdn.com/58f1b4af01304db4b2c958683903350d/transcode_1491730234717/vosa2_0.mp4',
 			}
 		},
@@ -47,48 +45,59 @@
 			this.initPlayer();
 		},
 		methods: {
+//---------------------------------进度条拖动start--------------------------------
+			onButtonDown (event) {
+				this.isDragging = true;
+				event.preventDefault();
+				this.onDragStart(event);
+				window.addEventListener('mousemove',   this.onDragging);
+				window.addEventListener('mouseup',     this.onDragEnd);
+				window.addEventListener('contextmenu', this.onDragEnd);
+			},
+			onDragStart (event) {
+				// console.log('start',event.clientX);
+			},
+			onDragging (event) {
+				if (this.isDragging) {
+					this.lineWidth   = event.clientX - this.$refs.PROGRESS.getBoundingClientRect().left; // 按钮相对进度条水平坐标
+					this.lineWidth   = this.lineWidth < 0 ? 0 : this.lineWidth;
+					this.lineWidth   = this.lineWidth > this.progressWidth ? this.progressWidth : this.lineWidth;
+					this.currentTime = this.lineWidth / this.progressWidth * this.totalTime;
+				}	
+			},
+			onDragEnd () {		
+				if (this.isDragging) {
+					//	防止在 mouseup 后立即触发onSelect的click，导致滑块有几率产生一小段位移
+					//	这个坑，element源码是这样解决的
+					setTimeout(() => {					
+						this.isDragging = false;
+						this.jumpToTime();
+					}, 0);
+					window.removeEventListener('mousemove',   this.onDragging);
+					window.removeEventListener('mouseup',     this.onDragEnd);
+					window.removeEventListener('contextmenu', this.onDragEnd);
+				}
+			},
+//---------------------------------进度条拖动end---------------------------------
+
+//---------------------------------播放/跳转方法start-----------------------------
 			changePlayStatus () {
 				this.playStatus = !this.playStatus;
 			},
-//----------进度条拖动start-----------
-			handleMouseEnter() {
-				this.hovering = true;
+			jumpToTime () {
+				let percent = this.lineWidth / this.progressWidth;
+				let time    = percent * this.totalTime;
+				this.currentTime         = time;
+				this.H5video.currentTime = time;
 			},
-			handleMouseLeave() {
-				this.hovering = false;
+			onSelect (event) {
+				if (this.isDragging) return;
+				this.lineWidth = event.offsetX;
+				this.jumpToTime();
 			},
-			onButtonDown(event) {
-				// if (this.disabled) return;
-				event.preventDefault();
-				this.onDragStart(event);
-				window.addEventListener('mousemove', this.onDragging);
-				window.addEventListener('mouseup', this.onDragEnd);
-				window.addEventListener('contextmenu', this.onDragEnd);
-			},
-			onDragStart(event) {
-				console.log('start',event.clientX)
-			},
-			onDragging(event) {
-				let circleX = event.clientX - this.$refs.PROGRESS.getBoundingClientRect().left; // 按钮相对进度条水平坐标
-				circleX = circleX < 0 ? 0 : circleX;
-				circleX = circleX > this.progressWidth ? this.progressWidth : circleX;
-				console.log(circleX);
-			},
-			onDragEnd() {
-				window.removeEventListener('mousemove', this.onDragging);
-				window.removeEventListener('mouseup', this.onDragEnd);
-				window.removeEventListener('contextmenu', this.onDragEnd);
-			},
-//----------进度条拖动end-----------
-			jumpToTime (percent) {
-				let seconds = percent * this.totalTime;
-				this.currentTime = seconds;
-				this.H5video.currentTime = seconds;
-			},
-			onSelect (e) {
-				let percent = e.offsetX / this.progressWidth;
-				this.jumpToTime(percent);
-			},
+//---------------------------------播放跳转方法start-----------------------------
+
+//---------------------------------video事件绑定start----------------------------			
 			initPlayer () {
 				[
 					this.H5video.onloadstart,
@@ -117,21 +126,21 @@
 				this.currentTime = this.H5video.currentTime;
 			},
 			onPause () {
-
+				//TODO
 			},
 			onPlay () {
-
+				//TODO
 			},
 			onEnded () {
 				this.playStatus = false;
-				this.H5video.currentTime = 0;
 			},
 			onError () {
-
+				//TODO
 			},
 			onTimeupdate () {
 				this.currentTime = this.H5video.currentTime;
 			}
+//---------------------------------video事件绑定end---------------------------------
 		},
 		computed: {
 			H5video () {
@@ -228,15 +237,15 @@
 					}
 				}
 				&:hover {
-					.ra-video__progress-bg,
+					.ra-video__progress-bar,
 					.ra-video__progress-load,
 					.ra-video__progress-play {
 						height: 15px;
 					}
 					.ra-video__progress-circle{
-						margin-right: -7px;
-						height: 15px;
-						width: 15px;
+						margin-right: -8px;
+						height: 16px;
+						width: 16px;
 						opacity: 1;
 					}
 				}
