@@ -10,24 +10,24 @@
 </template>
 
 <script>
-	import Vue from 'vue'
-	import Clipboard from 'clipboard';
-	Vue.directive(
-		'clipboard', {
-			bind(el, binding, vnode, oldVnode) {
-				const clipboard = new Clipboard(el, {
-					text: () => binding.value
-				});
-				clipboard.on('success', function(e) {
-					vnode.child.$emit('success', e);
-				});
-				clipboard.on('error', function(e) {
-					vnode.child.$emit('error', e);
-				});
-			}
-		}
-	);
+	import Clipboard from 'clipboard'
+
 	export default {
+		directives: {
+			clipboard: {
+				bind(el, binding, vnode, oldVnode) {
+					const clipboard = new Clipboard(el, {
+						text: () => binding.value
+					});
+					clipboard.on('success', function(e) {
+						vnode.child.$emit('success', e);
+					});
+					clipboard.on('error', function(e) {
+						vnode.child.$emit('error', e);
+					});
+				}
+			}
+		},
 		props: {
 			text: String,
 		},
