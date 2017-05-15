@@ -1578,9 +1578,9 @@ element-theme-default@^1.3.0:
   version "1.3.1"
   resolved "http://registry.npm.taobao.org/element-theme-default/download/element-theme-default-1.3.1.tgz#70fca72f00e772164d49fe26f35cfb144a10f95b"
 
-element-ui@^1.3.2:
-  version "1.3.2"
-  resolved "http://registry.npm.taobao.org/element-ui/download/element-ui-1.3.2.tgz#0d417268c6bea69a1f69e99bb4b338774a282211"
+element-ui@^1.3.3:
+  version "1.3.3"
+  resolved "http://registry.npm.taobao.org/element-ui/download/element-ui-1.3.3.tgz#070e730497ec288a6a435e32065757fdb9e97515"
   dependencies:
     async-validator "^1.6.9"
     babel-helper-vue-jsx-merge-props "^2.0.0"
