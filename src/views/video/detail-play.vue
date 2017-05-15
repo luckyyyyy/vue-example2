@@ -42,18 +42,18 @@
 			</template>
 		</el-row>
 		<h1>..测试</h1>
-		<el-dialog
+		<!-- <el-dialog
 		title="视频"
 		class="dialog--common"
 		:visible.sync="isOpen"
 		:before-close="modalClose">
 			<div class="video-player">
-				<video ref="H5video":src="videoURL" width="100%" height="100%">
+				<video ref="H5video":src="videoURL" controls="controls" width="100%" height="100%">
 					您的浏览器不支持 video 标签。
 				</video>
 			</div>
-		</el-dialog>
-		<!-- <player></player> -->
+		</el-dialog> -->
+		<ra-player></ra-player>
 	</div>
 </template>
 
@@ -93,7 +93,7 @@
 			},
 		},
 		components: {
-			player,
+			"ra-player": player
 		}
 	}
 </script>

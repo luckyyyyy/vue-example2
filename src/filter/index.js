@@ -2,7 +2,7 @@
 * @Author: chuxiao
 * @Date:   2017-04-18 10:28:42
 * @Last Modified by:   chuxiao
-* @Last Modified time: 2017-05-05 15:20:35
+* @Last Modified time: 2017-05-15 12:00:18
 */
 'use strict';
 import moment from 'moment'
@@ -33,5 +33,24 @@ export const dateFormat = (date, fmt) => {
  * @return {string} 格式化后的字符串
  */
 export const moneyFormat = (money) => {
-  return `￥${ (money/100).toFixed(2) }`;
+	return `￥${ (money/100).toFixed(2) }`;
 }
+/**
+ * 时间格式化
+ * @param {number} second 秒
+ * @return {string} 格式化后的字符串
+ */
+export const secondsFormat = (time) => {
+	time = time || 0
+	let [h, m, s] = [
+		parseInt(time / 3600),
+		parseInt(time % 3600 / 60),
+		parseInt(time % 60)
+	]
+	h = h < 10 ? '0' + h : h
+	m = m < 10 ? '0' + m : m
+	s = s < 10 ? '0' + s : s
+	return `${h}:${m}:${s}`
+
+}
+
