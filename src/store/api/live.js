@@ -1,8 +1,8 @@
 /*
 * @Author: Administrator
 * @Date:   2017-02-25 14:58:36
-* @Last Modified by:   William Chan
-* @Last Modified time: 2017-05-10 11:47:38
+* @Last Modified by:   chuxiao
+* @Last Modified time: 2017-05-16 16:44:58
 */
 
 'use strict';
@@ -15,7 +15,6 @@ import { http } from '@/store/api'
 
 // POST /api/v1/live/create
 export const live_create = ({ name }) => {
-	console.log(name);
 	return http.post(`live`, { name })
 }
 // GET /api/v1/live/find

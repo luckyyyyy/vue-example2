@@ -52,7 +52,7 @@
 				</video>
 			</div>
 		</el-dialog>
-		<!-- <ra-player></ra-player> -->
+		<ra-player></ra-player>
 	</div>
 </template>
 
