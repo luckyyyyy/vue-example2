@@ -4,7 +4,11 @@
 			<video ref="VIDEO" :src.sync="url" :controls="false" width="100%" height="100%">
 				您的浏览器不支持 video 标签。
 			</video>
-			<div v-loading="loading" class="ra-video__musk" @click="changePlayStatus"></div>
+			<div v-loading="loading" class="ra-video__musk" @click="changePlayStatus">
+				<div v-show="!playStatus" class="ra-video__play-logo">
+					<div class="ra-video__play-triangle"></div>
+				</div>
+			</div>
 		</div>
 		<div class="ra-video__controls">
 			<div class="ra-video__box">
@@ -63,13 +67,13 @@
 					this.lineWidth   = this.lineWidth < 0 ? 0 : this.lineWidth;
 					this.lineWidth   = this.lineWidth > this.progressWidth ? this.progressWidth : this.lineWidth;
 					this.currentTime = this.lineWidth / this.progressWidth * this.totalTime;
-				}	
+				}
 			},
-			onDragEnd () {		
+			onDragEnd () {
 				if (this.isDragging) {
 					//	防止在 mouseup 后立即触发onSelect的click，导致滑块有几率产生一小段位移
 					//	这个坑，element源码是这样解决的
-					setTimeout(() => {					
+					setTimeout(() => {
 						this.isDragging = false;
 						this.jumpToTime();
 					}, 0);
@@ -85,8 +89,8 @@
 				this.playStatus = !this.playStatus;
 			},
 			jumpToTime () {
-				let percent = this.lineWidth / this.progressWidth;
-				let time    = percent * this.totalTime;
+				let percent              = this.lineWidth / this.progressWidth;
+				let time                 = percent * this.totalTime;
 				this.currentTime         = time;
 				this.H5video.currentTime = time;
 			},
@@ -97,7 +101,7 @@
 			},
 //---------------------------------播放跳转方法start-----------------------------
 
-//---------------------------------video事件绑定start----------------------------			
+//---------------------------------video事件绑定start----------------------------
 			initPlayer () {
 				[
 					this.H5video.onloadstart,
@@ -118,11 +122,11 @@
 				]
 			},
 			onLoadstart () {
-				this.loading = true;
+				this.loading     = true;
 			},
 			onCanplay () {
-				this.loading = false;
-				this.totalTime = this.H5video.duration;
+				this.loading     = false;
+				this.totalTime   = this.H5video.duration;
 				this.currentTime = this.H5video.currentTime;
 			},
 			onPause () {
@@ -132,13 +136,17 @@
 				//TODO
 			},
 			onEnded () {
-				this.playStatus = false;
+				this.playStatus  = false;
+				this.currentTime         = 0;
+				this.H5video.currentTime = 0;
 			},
 			onError () {
-				//TODO
+
 			},
 			onTimeupdate () {
-				this.currentTime = this.H5video.currentTime;
+				if (!this.isDragging) {
+					this.currentTime       = this.H5video.currentTime;
+				}
 			}
 //---------------------------------video事件绑定end---------------------------------
 		},
@@ -186,6 +194,52 @@
 				top: 0;
 				bottom: 0;
 				background: transparent;
+				.ra-video__play-logo {
+					position: absolute;
+					bottom: 30px;
+					left: 30px;
+					width: 85px;
+					height: 85px;
+					border: 4px solid #31bedb;
+					border-radius: 50%;
+					background: rgba(255,255,255,.1);
+					cursor: pointer;
+					box-shadow: 0px 0px 15px 1px rgba(255,255,255,0.4);
+					transition: all .2s linear;
+					&:hover {
+						box-shadow: 0px 0px 20px 1px rgba(255,255,255,0.6);
+					}
+					.ra-video__play-triangle {
+						position: absolute;
+						top: 50%;
+						left: 50%;
+						margin-top: -25px;
+						margin-left: -18px;
+						width: 8px;
+						height: 50px;
+						border-radius: 999px;
+						background: #31bedb;
+						&:after,&:before {
+							content: '';
+							display: block;
+							width: 8px;
+							height: 50px;
+							border-radius: 999px;
+							background: #31bedb;
+							transform-origin: 50% 4px;
+							position: absolute;
+							top: 0;
+							left: 0;
+						}
+						&:before {
+							transform-origin: 50% calc(100% - 4px);
+							transform: rotate(60deg);
+						}
+						&:after {
+							transform: rotate(-60deg);
+						}
+					}
+				}
 			}
 		}
 		&__controls {
@@ -219,9 +273,14 @@
 				&-bar {
 					width: 100%;
 					background-color: rgba(0,0,0,.5);
+					z-index: 10;
+				}
+				&-load {
+					z-index: 20;
 				}
 				&-play {
 					background-image: linear-gradient(left, #31bedb, #00FFFF 80%, #dee2da);
+					z-index: 30;
 					.ra-video__progress-circle {
 						position: absolute;
 						background-color: #fff;
@@ -234,6 +293,7 @@
 						right: 0;
 						box-shadow: -1px 0 5px #626262;
 						transition: all .2s linear;
+						z-index: 40;
 					}
 				}
 				&:hover {

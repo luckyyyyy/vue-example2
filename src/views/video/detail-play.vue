@@ -16,10 +16,10 @@
 								{{ video.liveInfo.name }}
 							</span>
 							<span class="video-list__time">
-								{{ item.hdPlayList[0].duration }}
+								{{ item.hdPlay.duration }}
 							</span>
 						</p>
-						<div class="video-list__musk" @click="playVideo(item.hdPlayList[0].file)">
+						<div class="video-list__musk" @click="playVideo(item.hdPlay.file)">
 							<i class="iconfont icon-videoplay"></i>
 						</div>
 					</div>
@@ -41,8 +41,7 @@
 				<h1>正在转码中...</h1>
 			</template>
 		</el-row>
-		<h1>..测试</h1>
-		<!-- <el-dialog
+		<el-dialog
 		title="视频"
 		class="dialog--common"
 		:visible.sync="isOpen"
@@ -52,8 +51,8 @@
 					您的浏览器不支持 video 标签。
 				</video>
 			</div>
-		</el-dialog> -->
-		<ra-player></ra-player>
+		</el-dialog>
+		<!-- <ra-player></ra-player> -->
 	</div>
 </template>
 
@@ -76,7 +75,7 @@
 			...mapState('video', [ 'video' ]),
 		},
 		mounted () {
-			// this.form = Object.assign({}, this.video.medias);
+			// this.videos = Object.assign({}, this.video.medias);
 		},
 		methods: {
 			playVideo (url) {
