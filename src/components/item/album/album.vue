@@ -8,28 +8,29 @@
 	>
 		<div class="album-content" v-loading="upload_lock" :element-loading-text="upload_lock">
 
-			<div class="album-content__menu" ref="menu">
+			<div class="album-menu" ref="menu">
 				<el-menu :default-active="menu" @select="onSelectMenu">
 					<el-menu-item v-for="(value, key) in typeClass" :key="key" :index="key">{{ value }}</el-menu-item>
 				</el-menu>
 			</div>
 
-			<div class="album-content__list" ref="list" v-show="data.length > 0">
+			<div class="album-list" ref="list" v-show="data.length > 0">
 				<ul>
 					<li
+						class="album-list-item"
 						v-for="item of data"
 						:title="item.name"
 						@click="onSelect(item, !select[item.id])"
 						:class="{ select: select[item.id] }"
 					>
-						<img :src="item.url + '/album'">
-						<span>{{ item.name }}</span>
-						<i class="el-icon-circle-check"></i>
+						<img class="album-list-item__img" :src="item.url + '/album'">
+						<span class="album-list-item__name">{{ item.name }}</span>
+						<i class="el-icon-circle-check album-list-item__checked"></i>
 					</li>
 				</ul>
 			</div>
 
-			<div v-show="!data.length || loading" class="album-content__empty">
+			<div v-show="!data.length || loading" class="album-empty">
 				<div v-if="!loading">
 					<i class="el-icon-picture"></i>
 					<p>还没有图片呢，点击左下角上传吧。</p>

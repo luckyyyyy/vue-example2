@@ -1,8 +1,8 @@
 /*
 * @Author: William Chan
 * @Date:   2017-05-11 16:34:04
-* @Last Modified by:   Administrator
-* @Last Modified time: 2017-05-13 21:41:31
+* @Last Modified by:   William Chan
+* @Last Modified time: 2017-05-17 13:36:18
 */
 // 单实例 不需要支持多实例
 
@@ -18,7 +18,7 @@ export default (options, cb) => {
 		document.body.appendChild(instance.vm.$el);
 	}
 	instance.vm.visible = true;
-	instance.vm.cb   = cb || null;
+	instance.vm.cb = cb || null;
 	let data = {};
 	if (typeof options !== 'object') {
 		data.menu = options;
