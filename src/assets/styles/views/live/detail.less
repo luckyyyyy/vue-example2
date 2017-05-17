@@ -237,9 +237,16 @@ img {
 		box-shadow: 0 1px 7px 0 rgba(0, 43, 59, 0.2);
 		.video-list__cover {
 			position: relative;
-			img{
+			width: 100%;
+			height:0 ;
+			padding-bottom: 60%;
+			overflow: hidden;
+			img {
 				width: 100%;
-				height: 100%;
+				position: absolute;
+				top: 50%;
+				left: 50%;
+				transform: perspective(1px) translate(-50%,-50%);
 			}
 			.video-list__detail {
 				display: flex;
@@ -266,15 +273,17 @@ img {
 				right: 0;
 				background-color: transparent;
 				cursor: pointer;
+				display: flex;
+				align-items: center;
+				justify-content: center;
 				i {
-					position: absolute;
-					left: 50%;
-					margin-left: -23px;
-					top: 50%;
-					margin-top: -23px;
-					line-height: 46px;
 					color: #fff;
 					font-size: 46px;
+					text-shadow: 0 0 10px #777;
+					transition: text-shadow .5s ease-in-out;
+					&:hover {
+						text-shadow: 0 0 20px #777
+					}
 				}
 			}
 		}

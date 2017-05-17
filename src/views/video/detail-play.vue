@@ -10,13 +10,18 @@
 			<template v-if="video.transcodeStatus == 1">
 				<el-col v-for="(item, index) in video.medias" :key="item.coverURL" class="video-list-box" :xs="12" :sm="12" :md="8" :lg="6">
 					<div class="video-list__cover">
-						<img src="../../assets/test.png" alt="videoCover">
+						<img :src="item.coverURL" alt="videoCover">
 						<p class="video-list__detail">
 							<span class="video-list__name">
 								{{ video.liveInfo.name }}
 							</span>
 							<span class="video-list__time">
-								{{ item.hdPlay.duration }}
+								<template v-if="item.hdPlay.duration > 60">
+									{{ Math.floor(item.hdPlay.duration / 60) }} 分 {{ item.hdPlay.duration % 60 }} 秒
+								</template>
+								<template v-else>
+									{{ item.hdPlay.duration }} 秒
+								</template>
 							</span>
 						</p>
 						<div class="video-list__musk" @click="playVideo(item.hdPlay.file)">
