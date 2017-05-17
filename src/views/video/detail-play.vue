@@ -8,7 +8,7 @@
 		</div>
 		<el-row class="video-list">
 			<template v-if="video.transcodeStatus == 1">
-				<el-col v-for="(item, index) in video.medias" :key="item.coverURL" class="video-list__box" :xs="12" :sm="12" :md="8" :lg="6">
+				<el-col v-for="(item, index) in video.medias" :key="item.coverURL" class="video-list-box" :xs="12" :sm="12" :md="8" :lg="6">
 					<div class="video-list__cover">
 						<img src="../../assets/test.png" alt="videoCover">
 						<p class="video-list__detail">
@@ -52,7 +52,7 @@
 				</video>
 			</div>
 		</el-dialog>
-		<ra-player></ra-player>
+		<!-- <ra-player></ra-player> -->
 	</div>
 </template>
 

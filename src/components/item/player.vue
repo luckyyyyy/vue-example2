@@ -1,27 +1,35 @@
 <template>
-	<div class="ra-video">
-		<div class="ra-video__wrap">
-			<video ref="VIDEO" :src.sync="url" :controls="false" width="100%" height="100%">
+	<div class="ra-video" ref="videoWrap">
+		<div class="ra-video__wrap" v-loading="loading">
+			<video id="video" ref="VIDEO" :src.sync="url" :controls="false" width="100%" height="100%">
 				您的浏览器不支持 video 标签。
 			</video>
-			<div v-loading="loading" class="ra-video__musk" @click="changePlayStatus">
+			<div class="ra-video__musk" @click="changePlayStatus">
 				<div v-show="!playStatus" class="ra-video__play-logo">
 					<div class="ra-video__play-triangle"></div>
 				</div>
 			</div>
 		</div>
-		<div class="ra-video__controls">
+		<div class="ra-video-controls">
 			<div class="ra-video__box">
-				<div class="ra-video__control" @click="changePlayStatus"><button>播放</button></div>
-				<div class="ra-video__control">{{ currentTime | secondsFormat }} / {{ totalTime | secondsFormat }}</div>
+				<div class="ra-video-control" @click="changePlayStatus"><button>播放</button></div>
+				<div class="ra-video-control">{{ currentTime | secondsFormat }} / {{ totalTime | secondsFormat }}</div>
 			</div>
 			<div class="ra-video__box">
-				<div class="ra-video__control">音量</div>
-				<div class="ra-video__control">缩放</div>
+				<div class="ra-video-control">
+					<div class="ra-video__volume-logo">喇叭</div>
+					<div class="ra-video__volume-progress" ref="volumeProgress" @click="valumeSelect($event)">
+						<div class="ra-video__volume-bar"></div>
+						<div class="ra-video__volume-play" :style="{ width: volume + '%' }">
+							<div class="ra-video__volume-circle" @mousedown="volumeDown"></div>
+						</div>
+					</div>
+				</div>
+				<div class="ra-video-control"><button @click="fullScreen">全屏</button></div>
 			</div>
 			<div class="ra-video__progress" @click="onSelect($event)" ref="PROGRESS">
 				<div class="ra-video__progress-bar"></div>
-				<div class="ra-video__progress-load"></div>
+				<div class="ra-video__progress-load" :style="{ width: loadPercent + '%' }"></div>
 				<div class="ra-video__progress-play" :style="{ width: percent + '%' }">
 					<div class="ra-video__progress-circle" @mousedown="onButtonDown">
 					</div>
@@ -36,12 +44,15 @@
 	export default {
 		data () {
 			return {
-				playStatus: false,
-				totalTime: 0,
-				currentTime: 0,
-				loading: true,
-				lineWidth: 0,
-				isDragging: false,
+				playStatus: false,  		// 播放状态
+				totalTime: 0,						// video总时长
+				currentTime: 0,					// 已播放时长
+				loadTime: 0,						// 已缓冲时长
+				loading: true,					// 是否正在加载
+				lineWidth: 0,						// 已播放长度
+				isDragging: false,  		// 是否正在拖放
+				volume: 100,						// 音量
+				isVolumeDrgging: false,	// 是否正在拖放音量
 				url: 'https://p.racdn.com/58f1b4af01304db4b2c958683903350d/transcode_1491730234717/vosa2_0.mp4',
 			}
 		},
@@ -83,8 +94,40 @@
 				}
 			},
 //---------------------------------进度条拖动end---------------------------------
-
-//---------------------------------播放/跳转方法start-----------------------------
+//---------------------------------音量条拖动start-------------------------------
+			volumeDown () {
+				this.isVolumeDrgging = true;
+				event.preventDefault();
+				this.valumeDragStart(event);
+				window.addEventListener('mousemove',   this.valumeDragging);
+				window.addEventListener('mouseup',     this.valumeDragEnd);
+				window.addEventListener('contextmenu', this.valumeDragEnd);
+			},
+			valumeDragStart (event) {
+				// todo
+			},
+			valumeDragging (event) {
+				if (this.isVolumeDrgging) {
+					this.volume   = event.clientX - this.$refs.volumeProgress.getBoundingClientRect().left; // 按钮相对进度条水平坐标
+					this.volume   = this.volume < 0 ? 0 : this.volume;
+					this.volume   = this.volume > this.volumeProgressWidth ? this.volumeProgressWidth : this.volume;
+					this.jumpToVolume();
+				}
+			},
+			valumeDragEnd () {
+				if (this.isVolumeDrgging) {
+					//	防止在 mouseup 后立即触发onSelect的click，导致滑块有几率产生一小段位移
+					//	这个坑，element源码是这样解决的
+					setTimeout(() => {
+						this.isVolumeDrgging = false;
+					}, 0);
+					window.removeEventListener('mousemove',   this.valumeDragging);
+					window.removeEventListener('mouseup',     this.valumeDragEnd);
+					window.removeEventListener('contextmenu', this.valumeDragEnd);
+				}
+			},
+//---------------------------------音量条拖动end---------------------------------
+//---------------------------------video控制方法start----------------------------
 			changePlayStatus () {
 				this.playStatus = !this.playStatus;
 			},
@@ -99,8 +142,26 @@
 				this.lineWidth = event.offsetX;
 				this.jumpToTime();
 			},
-//---------------------------------播放跳转方法start-----------------------------
-
+			jumpToVolume () {
+				this.H5video.volume = this.volume / 100;
+			},
+			valumeSelect (event) {
+				if (this.isVolumeDrgging) return;
+				this.volume = event.offsetX;
+				this.jumpToVolume();
+			},
+			fullScreen () {
+				if (this.$refs.videoWrap.requestFullscreen) {
+					return this.$refs.videoWrap.requestFullscreen()
+				}
+				if (this.$refs.videoWrap.mozRequestFullScreen) {
+					return this.$refs.videoWrap.mozRequestFullScreen()
+				}
+				if (this.$refs.videoWrap.webkitRequestFullscreen) {
+					return this.$refs.videoWrap.webkitRequestFullscreen()
+				}
+			},
+//---------------------------------播放/跳转方法end-----------------------------
 //---------------------------------video事件绑定start----------------------------
 			initPlayer () {
 				[
@@ -119,7 +180,8 @@
 					this.onEnded,
 					this.onError,
 					this.onTimeupdate
-				]
+				];
+				this.H5video.controls = false;
 			},
 			onLoadstart () {
 				this.loading     = true;
@@ -131,9 +193,11 @@
 			},
 			onPause () {
 				//TODO
+				this.playStatus  = false;
 			},
 			onPlay () {
 				//TODO
+				this.playStatus  = true;
 			},
 			onEnded () {
 				this.playStatus  = false;
@@ -146,19 +210,29 @@
 			onTimeupdate () {
 				if (!this.isDragging) {
 					this.currentTime       = this.H5video.currentTime;
+					this.loadTime          = this.H5video.buffered.end(0);
 				}
 			}
 //---------------------------------video事件绑定end---------------------------------
 		},
 		computed: {
 			H5video () {
-				return this.$refs.VIDEO;
+				return this.$refs.VIDEO
 			},
 			percent () {
-				return this.currentTime / this.totalTime * 100;
+				return this.currentTime / this.totalTime * 100
+			},
+			loadPercent () {
+				return	this.loadTime / this.totalTime * 100
 			},
 			progressWidth () {
-				return this.H5video.offsetWidth;
+				return this.H5video.offsetWidth
+			},
+			isMute () {
+				return this.volume == 0 ? true : false
+			},
+			volumeProgressWidth () {
+				return this.$refs.volumeProgress.offsetWidth
 			}
 		},
 		watch: {
@@ -242,7 +316,7 @@
 				}
 			}
 		}
-		&__controls {
+		&-controls {
 			display: flex;
 			position: relative;
 			justify-content: space-between;
@@ -251,8 +325,45 @@
 			line-height: 40px;
 			.ra-video__box {
 				display: flex;
-				.ra-video__control {
+				.ra-video-control {
+					display: flex;
 					margin: 0 10px;
+					.ra-video__volume-progress {
+						position: relative;
+						width: 100px;
+						height: 20px;
+						margin: 10px 15px;
+						background-color: red;
+						.ra-video__volume-bar {
+							position: absolute;
+							left: 0;
+							top: 50%;
+							margin-top: -1px;
+							width: 100px;
+							height: 2px;
+							background: black;
+							cursor: pointer;
+						}
+						.ra-video__volume-play {
+							position: absolute;
+							left: 0;
+							top: 50%;
+							margin-top: -1px;
+							height: 2px;
+							background: green;
+							.ra-video__volume-circle {
+								background-color: black;
+								height: 10px;
+								width: 10px;
+								border-radius: 50%;
+								position: absolute;
+								right: -5px;
+								top: -4px;
+								z-index: 5;
+								cursor: pointer;
+							}
+						}
+					}
 				}
 			}
 			.ra-video__progress {
@@ -277,6 +388,8 @@
 				}
 				&-load {
 					z-index: 20;
+					background: #828282;
+					opacity: 0.6;
 				}
 				&-play {
 					background-image: linear-gradient(left, #31bedb, #00FFFF 80%, #dee2da);
@@ -314,6 +427,10 @@
 
 			}
 		}
+	}
+	#video::-webkit-media-controls-enclosure {
+		/*禁用播放器控制栏的样式*/
+		display: none !important;
 	}
 </style>
 

@@ -1,8 +1,8 @@
 /*
 * @Author: William Chan
 * @Date:   2017-03-19 03:49:11
-* @Last Modified by:   Administrator
-* @Last Modified time: 2017-05-05 14:08:24
+* @Last Modified by:   chuxiao
+* @Last Modified time: 2017-05-17 17:28:54
 */
 
 'use strict';
@@ -15,7 +15,8 @@ import { CHANNEL } from '@/store/types'
 const state = {
 	channel: null,
 	data: [],
-	total: 0
+	total: 0,
+	live: {},
 }
 
 const getters = {
@@ -90,6 +91,16 @@ const actions = {
 				reject();
 			})
 		})
+	},
+	[CHANNEL.LIVE] ({ commit }) {
+		return new Promise((resolve, reject) => {
+			api.channel_live().then(res => {
+				commit(CHANNEL.LIVE, res.data);
+				resolve();
+			}).catch(err => {
+				reject();
+			})
+		})
 	}
 }
 
@@ -124,6 +135,10 @@ const mutations = {
 		state.data  = [];
 		state.total = 0;
 	},
+	[CHANNEL.LIVE] (state, data) {
+		state.live  = data;
+		console.log(data);
+	}
 }
 export default {
 	namespaced: true,

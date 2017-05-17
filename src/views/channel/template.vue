@@ -142,6 +142,7 @@
 		mounted () {
 			this.channel = Object.assign({}, this.info);
 			this.findLiveList(true);
+			this.getChannelLive();
 		},
 		methods: {
 			...mapActions('channel', {
@@ -149,6 +150,9 @@
 			}),
 			...mapActions('live', {
 				getLiveList: 'LIVE_FIND_REQUEST'
+			}),
+			...mapActions('channel', {
+				getChannelLive: 'CHANNEL_LIVE'
 			}),
 			findLiveList (reload) {
 				if(!this.lock || reload && !this.loading){

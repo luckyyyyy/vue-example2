@@ -2,7 +2,7 @@
 * @Author: William Chan
 * @Date:   2016-12-03 20:43:22
 * @Last Modified by:   chuxiao
-* @Last Modified time: 2017-05-09 10:32:21
+* @Last Modified time: 2017-05-17 17:13:37
 */
 
 'use strict';
@@ -26,7 +26,7 @@ export const COMMODITY_CATALOGS = export_var('COMMODITY_CATALOGS', 'REQUEST', 'S
 // channel
 export const CHANNEL = export_var('CHANNEL',
 	'GET', 'SET', 'SELECT', 'CLEAR', 'QUERY', 'CHECK', 'UPDATE',
-	'CREATE', 'DELETE', 'FIND_REQUEST', 'FIND_SUCCESS', 'FIND_FAILURE'
+	'CREATE', 'DELETE', 'FIND_REQUEST', 'FIND_SUCCESS', 'FIND_FAILURE', 'LIVE'
 );
 
 // multimedia

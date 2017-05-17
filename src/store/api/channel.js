@@ -1,8 +1,8 @@
 /*
 * @Author: Administrator
 * @Date:   2017-02-25 14:58:36
-* @Last Modified by:   William Chan
-* @Last Modified time: 2017-05-10 20:59:21
+* @Last Modified by:   chuxiao
+* @Last Modified time: 2017-05-17 17:11:50
 */
 
 'use strict';
@@ -34,8 +34,10 @@ export const channel_update = ({ channelId, contacts, description, logoImageId, 
 	return http.put(`channel/${channelId}`, { contacts, description, logoImageId, name, phone, coverImageId })
 }
 
-
-
+// GET /api/v1/channel-live
+export const channel_live = () => {
+  return http.get(`channel-live`)
+}
 
 
 
