@@ -22,7 +22,7 @@
 			line-height: 1.5;
 			font-family: "Helvetica Neue", Helvetica, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "\5FAE\8F6F\96C5\9ED1", Arial, sans-serif;
 		}
-		#load {
+		#vueload {
 			position: absolute;
 			left: 0;
 			top: 0;
@@ -32,31 +32,30 @@
 			align-items: center;
 			justify-content: center;
 			color: white;
-			background: linear-gradient(90deg, #00a5f8, #f01562);
-			font-size: 18px;
+			background: #4e546c;
+			font-size: 22px;
 			text-shadow: 1px 1px 1px #333;
 			flex-direction: column;
 			z-index: 0;
 		}
-		#load span {
+		#vueload span {
 			opacity: 1;
 			visibility: visible;
 			transition: opacity .5s;
 		}
-		#load.loaded span {
+		#vueload.loaded span {
 			visibility: hidden;
 			opacity: 0;
 		}
 	</style>
 	<script>
 		window._vueloaded = function () {
-			document.getElementById('load').className = 'loaded'
-			// document.body.removeChild(document.getElementById('load'));
+			document.getElementById('vueload').className = 'loaded';
 		}
 	</script>
 </head>
 <body>
-	<div id="load">
+	<div id="vueload">
 		<span>Welcome to RainbowStore</span>
 		<span>载入中</span>
 		<noscript>警告：你必须启用 JavaScript 以查看此页面。</noscript>
