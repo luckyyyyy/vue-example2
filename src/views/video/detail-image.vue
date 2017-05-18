@@ -17,13 +17,13 @@
 							因手机机型众多，为保证图片正常展示，请严格按照 1080*1740 像素上传图片。图片大小4M以内支持扩展名：.png .jpg .jpeg
 						</p>
 					</div>
-					<div class="iPhone-bg">
-						<div class="iPhone-view">
-							<h2 class="head">{{video.name}}</h2>
-							<div class="view">
-								<img :src="video.liveGuide.guideImageUrl" height="100%" width="100%" alt="直播引导图">
+					<div class="preview">
+						<div class="preview-box">
+							<h2 class="preview__head">{{ video.name }}</h2>
+							<div class="preview__view">
+								<img class="guide" :src="video.liveGuide.guideImageUrl" alt="直播引导图">
 							</div>
-							<img class="bgImg" src="../../assets/images/live/liveguide.png"></img>
+							<img class="preview__background" src="../../assets/images/live/liveguide.png">
 						</div>
 					</div>
 				</div>

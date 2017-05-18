@@ -24,16 +24,18 @@
 							</p>
 						</el-form-item>
 					</el-form>
-					<div class="iPhone-bg">
-						<div class="iPhone-view">
-							<h2 class="head">{{ live.name || channel.name }}</h2>
+					<div class="preview">
+						<div class="preview-box">
+							<h2 class="preview__head">{{ live.name || channel.name }}</h2>
 							<!-- 超级放大镜 -->
-							<div class="superMagnifier">
-								<div class="shareTitle">{{ form.shareTitle || channel.name }}</div>
-								<p class="shareContent">{{ form.shareContent || live.name }}</p>
-								<img class="shareImg" :src="live.liveShare.shareImageUrl">
+							<div class="preview__view">
+								<div class="superMagnifier">
+									<div class="shareTitle">{{ form.shareTitle || channel.name }}</div>
+									<p class="shareContent">{{ form.shareContent || live.name }}</p>
+									<img class="shareImg" :src="live.liveShare.shareImageUrl">
+								</div>
 							</div>
-							<img class="bgImg" src="../../assets/images/live/share.jpeg" height="100%" width="100%" alt="直播分享">
+							<img class="preview__background" src="../../assets/images/live/share.jpeg" alt="直播分享">
 						</div>
 					</div>
 				</div>

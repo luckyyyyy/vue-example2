@@ -44,29 +44,27 @@
 						</template>
 					</div>
 				</div>
-				<div class="iPhone-bg">
-					<div class="iPhone-view">
+				<div class="preview">
+					<div class="preview-box">
+						<h2 class="preview__head">{{ video.name }}</h2>
 						<template v-if="form.authWatchStatus == 1">
-							<h2 class="head">{{ video.name }}</h2>
-							<div class="view">
-								<img :src="video.liveGuide.guideImageUrl" height="100%" width="100%" alt="直播引导图">
+							<div class="preview__view">
+								<img class="guide" :src="video.liveGuide.guideImageUrl" alt="直播引导图">
 							</div>
-							<img class="bgImg" src="../../assets/images/live/liveguide.png"></img>
+							<img class="preview__background" src="../../assets/images/live/liveguide.png">
 						</template>
 						<template v-if="form.authWatchStatus == 2">
-							<h2 class="head">{{ video.name }}</h2>
-							<div class="view">
-								<img :src="video.liveGuide.guideImageUrl" height="100%" width="100%" alt="直播引导图">
+							<div class="preview__view">
+								<img class="guide" :src="video.liveGuide.guideImageUrl" alt="直播引导图">
 							</div>
-							<img class="bgImg" src="../../assets/images/live/QRcode.png"></img>
+							<img class="preview__background" src="../../assets/images/live/QRcode.png">
 						</template>
 						<template v-if="form.authWatchStatus == 3">
-							<h2 class="head">{{ video.name }}</h2>
-							<p class="authCodeHints">{{ form.authCodeHints }}</p>
-							<div class="view">
-								<img :src="video.liveGuide.guideImageUrl" height="100%" width="100%" alt="直播引导图">
+							<div class="preview__view">
+								<p class="authCodeHints">{{ form.authCodeHints }}</p>
+								<img class="guide" :src="video.liveGuide.guideImageUrl" alt="直播引导图">
 							</div>
-							<img class="bgImg" src="../../assets/images/live/test.png"></img>
+							<img class="preview__background" src="../../assets/images/live/test.png">
 						</template>
 						<template v-if="form.authWatchStatus == 4">
 							付费观看

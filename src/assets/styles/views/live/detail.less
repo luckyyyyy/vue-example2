@@ -61,7 +61,7 @@ img {
 				margin-top: 30px;
 			}
 		}
-		.iPhone-bg {
+		.preview {
 			position: absolute;
 			top: 20px;
 			left: 400px;
@@ -69,7 +69,7 @@ img {
 			height: 500px;
 			background-image: url(../../../images/live/iPhone7.png); //要换的
 			background-size: 100% 100%;
-			.iPhone-view {
+			.preview-box {
 				position: absolute;
 				top: 60px;
 				right: 18px;
@@ -77,18 +77,18 @@ img {
 				left: 17px;
 				text-align: center;
 				color: white;
-				background-image: url(../../../images/live/live.png);
-				background-repeat: no-repeat;
-				background-size: 100% 100%;
-				.bgImg{
+				.preview__background {
+					width: 100%;
 					position:absolute;
 					left: 0;
 					right: 0;
 					top: 0;
 					bottom: 0;
-					z-index:101;
+					z-index: 101;
+					user-select: none;
+					pointer-events: none;
 				}
-				.head {
+				.preview__head {
 					font-size: 12px;
 					font-weight: normal;
 					line-height: 12px;
@@ -103,122 +103,126 @@ img {
 					white-space: nowrap;
 					text-overflow: ellipsis;
 				}
-				.authCodeHints{
-					position:absolute;
-					z-index: 105;
-					left: 46px;
-					top: 275px;
-					width: 120px;
-					height: 36px;
-					text-align: left;
-					font-size: 12px;
-					overflow:hidden;
-					word-wrap: break-word;
-					text-overflow:ellipsis;
-				}
-				.title {
-					font-size: 16px;
-					padding-top: 162px;
-				}
-				.time {
-					font-size: 12px;
-					.datetime {
-						span {
-							font-size: 18px;
-							padding: 5px;
-							color: #b73d6a;
-						}
-					}
-				}
-				.view {
+				.preview__view {
 					position: absolute;
-					z-index: 100;
 					top: 37px;
 					right: 0;
 					bottom: 0;
 					left: 0;
-				}
-				.common-bg {
-					position: absolute;
-					z-index: 100;
-					top: 0;
-					left: 0;
-				}
-				.txt-box {
-					position: absolute;
-					z-index: 101;
-					top: 0;
-					left: 0;
-					width: 100%;
-				}
-				// 放大镜
-				.magnifier {
-					text-align:left;
-					position: absolute;
-					top: 30px;
-					left: 47px;
-					width: 165px;
-					height: 165px;
-					z-index:110;
-					.avatar {
+					overflow: hidden;
+					.guide {
+						z-index: 100;
+						height: 100%;
 						position: absolute;
-						top: 59px;
-						left: 3px;
-						width: 28px;
-						height: 28px;
-						border-radius: 50%;
+						top: 50%;
+						left: 50%;
+						-webkit-transform: perspective(1px) translate(-50%, -50%);
+						transform: perspective(1px) translate(-50%, -50%);
+						user-select: none;
+						pointer-events: none;
 					}
-					.nickName {
+					.authCodeHints {
+						position:absolute;
+						z-index: 105;
+						left: 46px;
+						top: 240px;
+						height: 35px;
+						line-height: 35px;
+						width: 120px;
+						text-align: left;
 						font-size: 12px;
-						font-weight: normal;
-						position: absolute;
-						top: 57px;
-						left: 41px;
-						width:120px;
+						overflow: hidden;
+						word-break: keep-all;
 						white-space: nowrap;
-						overflow:hidden;
-						text-overflow:ellipsis;
+						text-overflow: ellipsis;
 					}
-				}
-				// 超级放大镜
-				.superMagnifier {
-					position: absolute;
-					top: 139px;
-					left: 6px;
-					width: 200px;
-					height: 200px;
-					z-index:110;
-					.shareTitle {
-						font-size: 14px;
-						font-weight: normal;
+					.txt-box {
 						position: absolute;
-						top: 61px;
-						left: 18px;
-						overflow: hidden;
-						text-overflow:ellipsis;
-						white-space:nowrap;
-						width: 140px;
-						color: #444;
-						text-align: left;
+						z-index: 102;
+						top: 0;
+						left: 0;
+						width: 100%;
+						.title {
+							font-size: 16px;
+							padding-top: 130px;
+						}
+						.time {
+							font-size: 12px;
+							.datetime {
+								span {
+									font-size: 18px;
+									padding: 5px;
+									color: #b73d6a;
+								}
+							}
+						}
 					}
-					.shareContent {
-						font-size: 12px;
+					.magnifier {
+						text-align:left;
 						position: absolute;
-						top: 85px;
-						left: 18px;
-						overflow: hidden;
-						width: 132px;
-						height: 34px;
-						text-align: left;
-						word-wrap: break-word;
-						color: #999;
+						top: 0;
+						left: 47px;
+						z-index: 110;
+						.avatar {
+							position: absolute;
+							top: 52px;
+							left: 3px;
+							width: 28px;
+							height: 28px;
+							border-radius: 50%;
+						}
+						.nickName {
+							font-size: 12px;
+							font-weight: normal;
+							position: absolute;
+							top: 50px;
+							left: 41px;
+							width:120px;
+							white-space: nowrap;
+							overflow:hidden;
+							text-overflow:ellipsis;
+						}
 					}
-					.shareImg {
+
+					.superMagnifier {
 						position: absolute;
-						top: 84px;
-						left: 156px;
-						width: 40px;
-						height: 40px;
+						top: 103px;
+						left: 6px;
+						width: 200px;
+						height: 200px;
+						z-index:110;
+						.shareTitle {
+							font-size: 14px;
+							font-weight: normal;
+							position: absolute;
+							top: 61px;
+							left: 18px;
+							overflow: hidden;
+							text-overflow:ellipsis;
+							white-space:nowrap;
+							width: 140px;
+							color: #444;
+							text-align: left;
+						}
+						.shareContent {
+							font-size: 12px;
+							position: absolute;
+							top: 85px;
+							left: 18px;
+							overflow: hidden;
+							width: 132px;
+							height: 34px;
+							text-align: left;
+							word-wrap: break-word;
+							color: #999;
+						}
+						.shareImg {
+							position: absolute;
+							top: 84px;
+							left: 156px;
+							width: 40px;
+							height: 40px;
+						}
 					}
 				}
 			}

@@ -22,17 +22,21 @@
 
 					</el-form-item>
 				</el-form>
-				<div class="iPhone-bg">
-					<div class="iPhone-view">
-						<h2 class="head">{{ form.name || channel.name }}</h2>
-						<!-- 放大镜 -->
-						<div class="magnifier">
-							<h3 class="nickName">{{ form.nickName || channel.name }}</h3>
-							<img class="avatar" :src="live.liveInfo.avatarImageUrl" alt="头像">
+
+				<div class="preview">
+					<div class="preview-box">
+						<h2 class="preview__head">{{ live.name || channel.name }}</h2>
+						<!-- 超级放大镜 -->
+						<div class="preview__view">
+							<div class="magnifier">
+								<h3 class="nickName">{{ form.nickName || channel.name }}</h3>
+								<img class="avatar" :src="live.liveInfo.avatarImageUrl" alt="头像">
+							</div>
 						</div>
-						<img class="bgImg" src="../../assets/images/live/setting.png" height="100%" width="100%" alt="直播间设置">
+						<img class="preview__background" src="../../assets/images/live/setting.png" alt="直播间设置">
 					</div>
 				</div>
+
 			</div>
 		</div>
 	</div>
