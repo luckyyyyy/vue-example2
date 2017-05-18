@@ -2,7 +2,7 @@
 * @Author: William Chan
 * @Date:   2016-12-01 17:57:50
 * @Last Modified by:   William Chan
-* @Last Modified time: 2017-05-10 19:22:33
+* @Last Modified time: 2017-05-18 14:53:49
 */
 
 import Vue       from 'vue'
@@ -41,20 +41,24 @@ const router = new VueRouter({
 		return { x: 0, y: 0 }
 	}
 })
-// router.beforeResolve via 2.5.0+
-// In 2.5.0+ you can register a global guard with router.beforeResolve.
-// This is similar to router.beforeEach, with the difference that resolve guards will be called right before the navigation is confirmed,
-// after all in-component guards and async route components are resolved.
-// // router.onError = err => {
-// 	console.log(err)
-// }
+
+router.onReady((callback, errorCallback) => {
+	if (window._vueloaded) {
+		window._vueloaded();
+	}
+})
+// router.onError(cb => {
+// })
+router.beforeResolve((to, from, next) => {
+	next();
+	NProgress.done();
+})
 router.beforeEach(async (to, from, next) => {
 	NProgress.remove();
 	NProgress.start();
 	const requiresAuth = to.matched.some(record => record.meta.requiresAuth);
 	let params;
 	const user = await getAuthorization();
-
 	if (!user) {
 		if (to.name == '404' || to.fullPath == '/') {
 			params = { name: 'login' };
@@ -91,7 +95,7 @@ router.beforeEach(async (to, from, next) => {
 	if (!params) NProgress.done();
 	next(params);
 })
-router.afterEach(route => {
-	NProgress.done();
-})
+// router.afterEach(route => {
+// 	NProgress.done();
+// })
 export default router
