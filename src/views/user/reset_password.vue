@@ -21,6 +21,9 @@
 				<el-form-item label="设置密码" prop="password">
 					<el-input type="password" v-model="reset_password.password" placeholder="密码"></el-input>
 				</el-form-item>
+				<el-form-item label="确认密码" prop="password_confirm">
+					<el-input type="password" v-model="reset_password.password_confirm" placeholder="请确认密码"></el-input>
+				</el-form-item>
 				<div class="button">
 					<el-button :loading="lock" native-type="submit" type="primary" @click="submit_reset_password">确认修改</el-button>
 				</div>
@@ -39,9 +42,22 @@
 	import { RESET_PASSWORD_RULES } from '../../options/rules'
 	export default {
 		data () {
+			const checkPassword = (rule, value, callback) => {
+				if (value === '') {
+					callback(new Error('请再次输入密码'));
+				} else if (value !== this.reset_password.password) {
+					callback(new Error('两次输入密码不一致'));
+				} else {
+					callback();
+				}
+			};
 			return {
 				reset_password: {},
-				rules: RESET_PASSWORD_RULES,
+				rules: Object.assign(RESET_PASSWORD_RULES, {
+					password_confirm: [
+						{ required: true, validator: checkPassword }
+					]
+				}),
 				interval: null,
 				countdown: null,
 				lock: false,

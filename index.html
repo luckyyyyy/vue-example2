@@ -14,45 +14,13 @@
 	<!-- <link rel="dns-prefetch" href="//.racdn.com"> -->
 	<link rel="stylesheet" href="//at.alicdn.com/t/font_3whzk62a7gyqr529.css">
 
-	<script type="text/javascript"> if ("ActiveXObject" in window) location.href = '/support/browser-upgrade.html'; </script>
-	<style type="text/css">
-		body {
-			margin:0;
-			padding:0;
-			line-height: 1.5;
-			font-family: "Helvetica Neue", Helvetica, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "\5FAE\8F6F\96C5\9ED1", Arial, sans-serif;
-		}
-		#vueload {
-			position: absolute;
-			left: 0;
-			top: 0;
-			width: 100%;
-			height: 100%;
-			display: flex;
-			align-items: center;
-			justify-content: center;
-			color: white;
-			background: #4e546c;
-			font-size: 22px;
-			text-shadow: 1px 1px 1px #333;
-			flex-direction: column;
-			z-index: 0;
-		}
-		#vueload span {
-			opacity: 1;
-			visibility: visible;
-			transition: opacity .5s;
-		}
-		#vueload.loaded span {
-			visibility: hidden;
-			opacity: 0;
-		}
-	</style>
-	<script>
+	<script type="text/javascript">
+		if ("ActiveXObject" in window) location.href = '/support/browser-upgrade.html';
 		window._vueloaded = function () {
 			document.getElementById('vueload').className = 'loaded';
 		}
 	</script>
+	<style type="text/css">body{margin:0;padding:0;font-family:"Helvetica Neue",Helvetica,"PingFang SC","Hiragino Sans GB","Microsoft YaHei","\5FAE\8F6F\96C5\9ED1",Arial,sans-serif;line-height:1.5}#vueload{position:absolute;top:0;left:0;z-index:0;display:flex;width:100%;height:100%;background:#4e546c;color:#fff;text-shadow:1px 1px 1px #333;font-size:22px;align-items:center;justify-content:center;flex-direction:column}#vueload span{visibility:visible;opacity:1;transition:opacity .5s}#vueload.loaded span{visibility:hidden;opacity:0}</style>
 </head>
 <body>
 	<div id="vueload">
