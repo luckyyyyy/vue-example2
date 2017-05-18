@@ -42,17 +42,19 @@
 			</template>
 		</el-row>
 		<el-dialog
-		title="视频"
-		class="dialog--common"
-		:visible.sync="isOpen"
-		:before-close="modalClose">
+			title="视频"
+			class="dialog--common"
+			:visible.sync="isOpen"
+			@close="modalClose"
+			:close-on-click-modal="false"
+		>
 			<div class="video-player">
-				<video ref="H5video":src="videoURL" controls="controls" width="100%" height="100%">
+				<ra-player ref="$player">
 					您的浏览器不支持 video 标签。
-				</video>
+				</ra-player>
 			</div>
 		</el-dialog>
-		<ra-player></ra-player>
+
 	</div>
 </template>
 
@@ -62,47 +64,31 @@
 	import { mapState, mapActions } from 'vuex'
 	import debounce from 'debounce'
 	import { secondsFormat } from '@/filter'
-	import player from '@/components/item/player'
+	import raPlayer from '@/components/item/player'
+
 	export default {
+		components: {
+			raPlayer
+		},
 		data () {
 			return {
 				form: {},
-				url: '',
-				videoURL: '',
 				isOpen: false,
 			}
 		},
 		computed: {
 			...mapState('video', [ 'video' ]),
 		},
-		mounted () {
-			// this.videos = Object.assign({}, this.video.medias);
-		},
 		methods: {
 			playVideo (url) {
-				this.videoURL = url;
 				this.isOpen = true;
 				this.$nextTick(() => {
-					this.$refs.H5video.play().then(res => {
-
-					}).catch(err => {
-						this.$alert('视频源发生错误，请联系客服', `频道ID:${this.video.channelId} 直播ID:${this.video.id}`, {
-							confirmButtonText: '确定',
-							callback: () => {
-								this.isOpen = false;
-							}
-						});
-					});
+					this.$refs.$player.play(url);
 				});
 			},
 			modalClose () {
-				this.$refs.H5video.pause();
-				this.videoURL = '';
-				this.isOpen = false;
+				this.$refs.$player.pause();
 			},
-		},
-		components: {
-			"ra-player": player
 		},
 		filters: {
 			secondsFormat,

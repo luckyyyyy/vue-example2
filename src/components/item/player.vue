@@ -1,10 +1,25 @@
 <template>
 	<div class="player" ref="$player">
-		<video id="video" ref="$video" :src.sync="url" :controls="false" width="100%" height="100%">
+		<video
+			@play="onPlay"
+			@loadstart="onLoadstart"
+			@canplay="onCanplay"
+			@pause="onPause"
+			@ended="onEnded"
+			@error="onError"
+			@timeupdate="onTimeupdate"
+			id="video"
+			ref="$video"
+			:controls="false"
+			width="100%"
+			height="100%"
+			:src="src"
+			type="video/mp4"
+		>
 			您的浏览器不支持 video 标签。
 		</video>
-		<div class="player__musk" @click.self="changePlayStatus" @dblclick.self="fullScreen">
-			<div class="controls" :class="{ 'controls--show': isShowControls }">
+		<div class="player__mask" @click.self="changePlayStatus" @dblclick.self="fullScreen">
+			<div class="controls" v-show="isShowControls">
 				<div class="controls-box">
 					<div class="controls-item">
 						<div class="controls-item__button" @click="changePlayStatus">
@@ -21,7 +36,7 @@
 						<div class="controls-item__progress" ref="$volumeProgress" @click="valumeSelect($event)">
 							<div class="progress__bar"></div>
 							<div class="progress__play" :style="{ width: volume + '%' }">
-								<div class="progress__circle" @mousedown="volumeDown"></div>
+								<div class="progress__circle" @mousedown.prevent="volumeDown"></div>
 							</div>
 						</div>
 					</div>
@@ -35,7 +50,7 @@
 					<div class="progress__bar"></div>
 					<div class="progress__load" :style="{ width: loadPercent + '%' }"></div>
 					<div class="progress__play" :style="{ width: percent + '%' }">
-						<div class="progress__circle" @mousedown="onButtonDown">
+						<div class="progress__circle" @mousedown.prevent="onButtonDown">
 						</div>
 					</div>
 				</div>
@@ -49,29 +64,29 @@
 	export default {
 		data () {
 			return {
-				playStatus: false,  		// 播放状态
-				totalTime: 0,						// video总时长
-				currentTime: 0,					// 已播放时长
-				loadTime: 0,						// 已缓冲时长
-				loading: true,					// 是否正在加载
-				lineWidth: 0,						// 已播放长度
-				isDragging: false,  		// 是否正在拖放
-				volume: 100,						// 音量
-				volumeTem: 100,					// 暂存音量
+				src: null,
+				playStatus: false, // 播放状态
+				totalTime: 0, // video总时长
+				currentTime: 0, // 已播放时长
+				loadTime: 0, // 已缓冲时长
+				canPlay: false, // 是否正在加载
+				lineWidth: 0, // 已播放长度
+				isDragging: false, // 是否正在拖放
+				volume: 100, // 音量
+				volumeTem: 100, // 暂存音量
 				isVolumeDrgging: false,	// 是否正在拖放音量
-				isFullScreen: false,		// 是否全屏
-				isShowControls: false,	// 是否显示控制条
-				url: 'https://p.racdn.com/58f1b4af01304db4b2c958683903350d/transcode_1491730234717/vosa2_0.mp4',
+				isShowControls: true, // 是否显示控制条
 			}
 		},
 		mounted() {
-			this.initPlayer();
+			this.$nextTick(() => {
+				this.volume = this.$refs.$video.volume * 100;
+			});
 		},
 		methods: {
 //---------------------------------进度条拖动start--------------------------------
 			onButtonDown (event) {
 				this.isDragging = true;
-				event.preventDefault();
 				this.onDragStart(event);
 				window.addEventListener('mousemove',   this.onDragging);
 				window.addEventListener('mouseup',     this.onDragEnd);
@@ -81,11 +96,12 @@
 				// console.log('start',event.clientX);
 			},
 			onDragging (event) {
+				console.log(event)
 				if (this.isDragging) {
-					this.lineWidth   = event.clientX - this.$refs.$progress.getBoundingClientRect().left; // 按钮相对进度条水平坐标
-					this.lineWidth   = this.lineWidth < 0 ? 0 : this.lineWidth;
-					this.lineWidth   = this.lineWidth > this.progressWidth ? this.progressWidth : this.lineWidth;
-					this.currentTime = this.lineWidth / this.progressWidth * this.totalTime;
+					let val = event.clientX - this.$refs.$progress.getBoundingClientRect().left; // 按钮相对进度条水平坐标
+					val = val < 0 ? 0 : val;
+					val = val > this.$refs.$progress.offsetWidth ? this.$refs.$progress.offsetWidth : val;
+					this.lineWidth = val;
 				}
 			},
 			onDragEnd () {
@@ -94,7 +110,6 @@
 					//	这个坑，element源码是这样解决的
 					setTimeout(() => {
 						this.isDragging = false;
-						this.jumpToTime();
 					}, 0);
 					window.removeEventListener('mousemove',   this.onDragging);
 					window.removeEventListener('mouseup',     this.onDragEnd);
@@ -105,7 +120,6 @@
 //---------------------------------音量条拖动start-------------------------------
 			volumeDown () {
 				this.isVolumeDrgging = true;
-				event.preventDefault();
 				this.valumeDragStart(event);
 				window.addEventListener('mousemove',   this.valumeDragging);
 				window.addEventListener('mouseup',     this.valumeDragEnd);
@@ -116,10 +130,10 @@
 			},
 			valumeDragging (event) {
 				if (this.isVolumeDrgging) {
-					this.volume   = event.clientX - this.$refs.$volumeProgress.getBoundingClientRect().left; // 按钮相对进度条水平坐标
-					this.volume   = this.volume < 0 ? 0 : this.volume;
-					this.volume   = this.volume > this.volumeProgressWidth ? this.volumeProgressWidth : this.volume;
-					this.jumpToVolume();
+					let val = event.clientX - this.$refs.$volumeProgress.getBoundingClientRect().left;
+					val = val < 0 ? 0 : val;
+					val = val > this.$refs.$volumeProgress.offsetWidth ? this.$refs.$volumeProgress.offsetWidth : val;
+					this.volume = val;
 				}
 			},
 			valumeDragEnd () {
@@ -139,96 +153,74 @@
 			changePlayStatus () {
 				this.playStatus = !this.playStatus;
 			},
-			jumpToTime () {
-				let percent              = this.lineWidth / this.progressWidth;
-				let time                 = percent * this.totalTime;
-				this.currentTime         = time;
-				this.H5video.currentTime = time;
-			},
 			onSelect (event) {
 				if (this.isDragging) return;
 				this.lineWidth = event.offsetX;
-				this.jumpToTime();
-			},
-			jumpToVolume () {
-				this.H5video.volume = this.volume / 100;
 			},
 			valumeSelect (event) {
 				if (this.isVolumeDrgging) return;
 				this.volume = event.offsetX;
-				this.jumpToVolume();
 			},
 			valumeMute () {
 				if (!this.isMute) {
 					this.volumeTem = this.volume;
-					this.volume    = 0;
-					return this.jumpToVolume();
-				}
-				if (this.isMute) {
-					this.volume    = this.volumeTem;
-					return this.jumpToVolume();
+					this.volume = 0;
+				} else {
+					this.volume = this.volumeTem;
 				}
 			},
 			fullScreen () {
-				if(this.isFullScreen){
-					this.isFullScreen = false;
-					if (document.exitFullscreen) {
-						return document.exitFullscreen();
-					}
-					if (document.msExitFullscreen) {
-						return document.msExitFullscreen();
-					}
-					if (document.mozCancelFullScreen) {
-						return document.mozCancelFullScreen();
-					}
-					if (document.webkitExitFullscreen) {
-						return document.webkitExitFullscreen();
-					}
-				}
-				if (!this.isFullScreen){
-					this.isFullScreen = true;
-					if (this.$refs.$player.requestFullscreen) {
-						return this.$refs.$player.requestFullscreen()
-					}
-					if (this.$refs.$player.mozRequestFullscreen) {
-						return this.$refs.$player.mozRequestFullScreen()
-					}
-					if (this.$refs.$player.webkitRequestFullscreen) {
-						return this.$refs.$player.webkitRequestFullscreen()
-					}
-				}
+				const fullscreenElement =
+					document.fullscreenElement ||
+					document.mozFullScreenElement ||
+					document.webkitFullscreenElement;
 
+				if (fullscreenElement){
+					try {
+						['exitFullscreen', 'msExitFullscreen', 'mozCancelFullScreen', 'webkitExitFullscreen'].forEach(v => {
+							if (v in document) {
+								document[v]();
+								throw v;
+							}
+						});
+					} catch(e) {
+						console.log(e);
+					}
+				} else {
+					try {
+						['requestFullscreen', 'mozRequestFullscreen', 'webkitRequestFullscreen'].forEach(v => {
+							if (v in this.$refs.$player) {
+								this.$refs.$player[v]();
+								throw v;
+							}
+						});
+					} catch(e) {
+						console.log(e);
+					}
+				}
+			},
+			play (src) {
+				if (src != this.src) {
+					this.totalTime = 0;
+					this.currentTime = 0;
+					this.loadTime = 0;
+					this.src = src;
+				} else {
+					return this.$refs.$video.play();
+				}
+			},
+			pause () {
+				this.$refs.$video.pause();
 			},
 //---------------------------------播放/跳转方法end-----------------------------
 //---------------------------------video事件绑定start----------------------------
-			initPlayer () {
-				[
-					this.H5video.onloadstart,
-					this.H5video.oncanplay,
-					this.H5video.onpause,
-					this.H5video.onplay,
-					this.H5video.onended,
-					this.H5video.onerror,
-					this.H5video.ontimeupdate,
-				] = [
-					this.onLoadstart,
-					this.onCanplay,
-					this.onPause,
-					this.onPlay,
-					this.onEnded,
-					this.onError,
-					this.onTimeupdate
-				];
-				this.H5video.controls = false;
-				this.H5video.volume   = this.volume / 100;
-			},
 			onLoadstart () {
-				this.loading     = true;
+				this.canPlay = false;
 			},
 			onCanplay () {
-				this.loading     = false;
-				this.totalTime   = this.H5video.duration;
-				this.currentTime = this.H5video.currentTime;
+				this.canPlay = true;
+				this.totalTime   = this.$refs.$video.duration;
+				this.currentTime = this.$refs.$video.currentTime;
 			},
 			onPause () {
 				//TODO
@@ -240,46 +232,50 @@
 			},
 			onEnded () {
 				this.playStatus  = false;
-				this.currentTime         = 0;
-				this.H5video.currentTime = 0;
+				this.currentTime = 0;
+				this.$refs.$video.currentTime = 0;
 			},
-			onError () {
-
+			onError (e) {
+				this.$alert('视频源发生错误，请联系客服', '视频');
 			},
 			onTimeupdate () {
-				if (!this.isDragging) {
-					this.currentTime       = this.H5video.currentTime;
-					this.loadTime          = this.H5video.buffered.end(0);
+				if (!this.isDragging && this.$refs.$video.buffered.length > 0) {
+					this.currentTime = this.$refs.$video.currentTime;
+					this.loadTime = this.$refs.$video.buffered.end(0);
 				}
 			}
 //---------------------------------video事件绑定end---------------------------------
 		},
 		computed: {
-			H5video () {
-				return this.$refs.$video
-			},
 			percent () {
 				return this.currentTime / this.totalTime * 100
 			},
 			loadPercent () {
 				return	this.loadTime / this.totalTime * 100
 			},
-			progressWidth () {
-				return this.H5video.offsetWidth
-			},
 			isMute () {
-				return this.volume == 0 ? true : false
+				return !this.volume;
 			},
-			volumeProgressWidth () {
-				return this.$refs.$volumeProgress.offsetWidth
-			}
 		},
 		watch: {
 			playStatus (status) {
 				if (status) {
-					this.H5video.play();
+					this.$refs.$video.play();
 				} else {
-					this.H5video.pause();
+					this.$refs.$video.pause();
+				}
+			},
+			volume (val) {
+				this.$refs.$video.volume = this.volume / 100;
+			},
+			lineWidth (val) {
+				let percent = val / this.$refs.$video.offsetWidth * this.totalTime;
+				this.currentTime = percent;
+				this.$refs.$video.currentTime = percent;
+			},
+			canPlay (val) {
+				if (val) {
+					this.$refs.$video.play();
 				}
 			}
 		},

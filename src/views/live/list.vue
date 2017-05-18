@@ -23,7 +23,7 @@
 				<el-col v-for="item in data" :key="item.id" class="item" :xs="12" :sm="12" :md="8" :lg="6">
 					<div class="box">
 						<div class="body">
-							<img src="../../assets/test.png">
+							<img :src="item.coverImageUrl + '/live_cover'">
 							<div class="status" :class="{ done: item.streamStatus === 'publish' }">
 								{{ item.streamStatus === 'publish' ? '推流中' : '未推流' }}
 							</div>
