@@ -44,7 +44,7 @@
 							<template v-if="play">
 								直播用时
 								<span class="timeWrapper">
-									{{ parseInt(publishTime.left / 3600 % 24) }}小时{{ parseInt(publishTime.left / 60 % 60) }}分{{ parseInt(publishTime.left % 60) }}秒
+									{{ publishTime.left | secondsFormat }}
 								</span>
 							</template>
 						</div>
@@ -92,8 +92,12 @@
 	import clipboardInput from '@/components/item/clipboardInput'
 	import { trim } from '@/utils/util'
 	import { LIVE_NOTICE_RULES } from '@/options/rules'
+	import { secondsFormat } from '@/filter'
 
 	export default {
+		filters: {
+			secondsFormat,
+		},
 		components: {
 			clipboardInput,
 			qrcodePopover, chatroom, prismVideo, message

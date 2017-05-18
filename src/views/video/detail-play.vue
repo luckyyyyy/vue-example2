@@ -19,7 +19,7 @@
 								{{ item.hdPlay.duration | secondsFormat }}
 							</span>
 						</p>
-						<div class="video-list__musk" @click="playVideo(item.hdPlay.file, index)">
+						<div class="video-list__musk" @click="playVideo(item.hdPlay.file)">
 							<i class="iconfont icon-videoplay"></i>
 						</div>
 					</div>
@@ -84,9 +84,14 @@
 				this.isOpen = true;
 				this.$nextTick(() => {
 					this.$refs.H5video.play().then(res => {
-						alert(res);
+
 					}).catch(err => {
-						alert(err);
+						this.$alert('视频源发生错误，请联系客服', `频道ID:${this.video.channelId} 直播ID:${this.video.id}`, {
+							confirmButtonText: '确定',
+							callback: () => {
+								this.isOpen = false;
+							}
+						});
 					});
 				});
 			},
