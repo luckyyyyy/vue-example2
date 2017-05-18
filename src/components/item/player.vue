@@ -1,37 +1,32 @@
 <template>
-	<div class="ra-video" ref="videoWrap">
-		<div class="ra-video__wrap" v-loading="loading">
-			<video id="video" ref="VIDEO" :src.sync="url" :controls="false" width="100%" height="100%">
-				您的浏览器不支持 video 标签。
-			</video>
-			<div class="ra-video__musk" @click="changePlayStatus">
-				<div v-show="!playStatus" class="ra-video__play-logo">
-					<div class="ra-video__play-triangle"></div>
+	<div class="player" ref="videoWrap">
+		<video id="video" ref="VIDEO" :src.sync="url" :controls="false" width="100%" height="100%">
+			您的浏览器不支持 video 标签。
+		</video>
+		<div class="player__musk" @click.self="changePlayStatus" @dblclick.self="fullScreen">
+			<div class="controls">
+				<div class="controls-box">
+					<div class="controls-item" @click="changePlayStatus"><button>播放</button></div>
+					<div class="controls-item">{{ currentTime | secondsFormat }} / {{ totalTime | secondsFormat }}</div>
 				</div>
-			</div>
-		</div>
-		<div class="ra-video-controls">
-			<div class="ra-video__box">
-				<div class="ra-video-control" @click="changePlayStatus"><button>播放</button></div>
-				<div class="ra-video-control">{{ currentTime | secondsFormat }} / {{ totalTime | secondsFormat }}</div>
-			</div>
-			<div class="ra-video__box">
-				<div class="ra-video-control">
-					<div class="ra-video__volume-logo">喇叭</div>
-					<div class="ra-video__volume-progress" ref="volumeProgress" @click="valumeSelect($event)">
-						<div class="ra-video__volume-bar"></div>
-						<div class="ra-video__volume-play" :style="{ width: volume + '%' }">
-							<div class="ra-video__volume-circle" @mousedown="volumeDown"></div>
+				<div class="controls-box">
+					<div class="controls-item">
+						<div class="controls-item__volume">喇叭</div>
+						<div class="controls-item__progress" ref="volumeProgress" @click="valumeSelect($event)">
+							<div class="progress__bar"></div>
+							<div class="progress__play" :style="{ width: volume + '%' }">
+								<div class="progress__circle" @mousedown="volumeDown"></div>
+							</div>
 						</div>
 					</div>
+					<div class="controls-item"><button @click="fullScreen">全屏</button></div>
 				</div>
-				<div class="ra-video-control"><button @click="fullScreen">全屏</button></div>
-			</div>
-			<div class="ra-video__progress" @click="onSelect($event)" ref="PROGRESS">
-				<div class="ra-video__progress-bar"></div>
-				<div class="ra-video__progress-load" :style="{ width: loadPercent + '%' }"></div>
-				<div class="ra-video__progress-play" :style="{ width: percent + '%' }">
-					<div class="ra-video__progress-circle" @mousedown="onButtonDown">
+				<div class="player__progress" @click="onSelect($event)" ref="PROGRESS">
+					<div class="progress__bar"></div>
+					<div class="progress__load" :style="{ width: loadPercent + '%' }"></div>
+					<div class="progress__play" :style="{ width: percent + '%' }">
+						<div class="progress__circle" @mousedown="onButtonDown">
+						</div>
 					</div>
 				</div>
 			</div>
@@ -53,6 +48,7 @@
 				isDragging: false,  		// 是否正在拖放
 				volume: 100,						// 音量
 				isVolumeDrgging: false,	// 是否正在拖放音量
+				isFullScreen: false,		// 是否全屏
 				url: 'https://p.racdn.com/58f1b4af01304db4b2c958683903350d/transcode_1491730234717/vosa2_0.mp4',
 			}
 		},
@@ -151,15 +147,35 @@
 				this.jumpToVolume();
 			},
 			fullScreen () {
-				if (this.$refs.videoWrap.requestFullscreen) {
-					return this.$refs.videoWrap.requestFullscreen()
+				console.log('double')
+				if(this.isFullScreen){
+					this.isFullScreen = false;
+					if (document.exitFullscreen) {
+						return document.exitFullscreen();
+					}
+					if (document.msExitFullscreen) {
+						return document.msExitFullscreen();
+					}
+					if (document.mozCancelFullScreen) {
+						return document.mozCancelFullScreen();
+					}
+					if (document.webkitExitFullscreen) {
+						return document.webkitExitFullscreen();
+					}
 				}
-				if (this.$refs.videoWrap.mozRequestFullScreen) {
-					return this.$refs.videoWrap.mozRequestFullScreen()
+				if (!this.isFullScreen){
+					this.isFullScreen = true;
+					if (this.$refs.videoWrap.requestFullscreen) {
+						return this.$refs.videoWrap.requestFullscreen()
+					}
+					if (this.$refs.videoWrap.mozRequestFullscreen) {
+						return this.$refs.videoWrap.mozRequestFullScreen()
+					}
+					if (this.$refs.videoWrap.webkitRequestFullscreen) {
+						return this.$refs.videoWrap.webkitRequestFullscreen()
+					}
 				}
-				if (this.$refs.videoWrap.webkitRequestFullscreen) {
-					return this.$refs.videoWrap.webkitRequestFullscreen()
-				}
+
 			},
 //---------------------------------播放/跳转方法end-----------------------------
 //---------------------------------video事件绑定start----------------------------
@@ -182,6 +198,7 @@
 					this.onTimeupdate
 				];
 				this.H5video.controls = false;
+				this.H5video.volume   = this.volume / 100;
 			},
 			onLoadstart () {
 				this.loading     = true;
@@ -251,186 +268,6 @@
 </script>
 
 <style scoped lang="less">
-	.ra-video {
-		position: relative;
-		background-color: #f7f8fa;
-		overflow: hidden;
-		width: 720px;
-		&__wrap {
-			position: relative;
-			width: 720px;
-			height: 480px;
-			background-color: #000;
-			.ra-video__musk {
-				position: absolute;
-				left: 0;
-				right: 0;
-				top: 0;
-				bottom: 0;
-				background: transparent;
-				.ra-video__play-logo {
-					position: absolute;
-					bottom: 30px;
-					left: 30px;
-					width: 85px;
-					height: 85px;
-					border: 4px solid #31bedb;
-					border-radius: 50%;
-					background: rgba(255,255,255,.1);
-					cursor: pointer;
-					box-shadow: 0px 0px 15px 1px rgba(255,255,255,0.4);
-					transition: all .2s linear;
-					&:hover {
-						box-shadow: 0px 0px 20px 1px rgba(255,255,255,0.6);
-					}
-					.ra-video__play-triangle {
-						position: absolute;
-						top: 50%;
-						left: 50%;
-						margin-top: -25px;
-						margin-left: -18px;
-						width: 8px;
-						height: 50px;
-						border-radius: 999px;
-						background: #31bedb;
-						&:after,&:before {
-							content: '';
-							display: block;
-							width: 8px;
-							height: 50px;
-							border-radius: 999px;
-							background: #31bedb;
-							transform-origin: 50% 4px;
-							position: absolute;
-							top: 0;
-							left: 0;
-						}
-						&:before {
-							transform-origin: 50% calc(100% - 4px);
-							transform: rotate(60deg);
-						}
-						&:after {
-							transform: rotate(-60deg);
-						}
-					}
-				}
-			}
-		}
-		&-controls {
-			display: flex;
-			position: relative;
-			justify-content: space-between;
-			padding: 0 20px;
-			height: 40px;
-			line-height: 40px;
-			.ra-video__box {
-				display: flex;
-				.ra-video-control {
-					display: flex;
-					margin: 0 10px;
-					.ra-video__volume-progress {
-						position: relative;
-						width: 100px;
-						height: 20px;
-						margin: 10px 15px;
-						background-color: red;
-						.ra-video__volume-bar {
-							position: absolute;
-							left: 0;
-							top: 50%;
-							margin-top: -1px;
-							width: 100px;
-							height: 2px;
-							background: black;
-							cursor: pointer;
-						}
-						.ra-video__volume-play {
-							position: absolute;
-							left: 0;
-							top: 50%;
-							margin-top: -1px;
-							height: 2px;
-							background: green;
-							.ra-video__volume-circle {
-								background-color: black;
-								height: 10px;
-								width: 10px;
-								border-radius: 50%;
-								position: absolute;
-								right: -5px;
-								top: -4px;
-								z-index: 5;
-								cursor: pointer;
-							}
-						}
-					}
-				}
-			}
-			.ra-video__progress {
-				position: absolute;
-				cursor: pointer;
-				top: -15px;
-				left: 0;
-				height: 15px;
-				width: 100%;
-				background-color: transparent;
-				&-bar, &-load, &-play {
-					position: absolute;
-					bottom: 0;
-					left: 0;
-					height: 2px;
-					transition: height .2s linear;
-				}
-				&-bar {
-					width: 100%;
-					background-color: rgba(0,0,0,.5);
-					z-index: 10;
-				}
-				&-load {
-					z-index: 20;
-					background: #828282;
-					opacity: 0.6;
-				}
-				&-play {
-					background-image: linear-gradient(left, #31bedb, #00FFFF 80%, #dee2da);
-					z-index: 30;
-					.ra-video__progress-circle {
-						position: absolute;
-						background-color: #fff;
-						border-radius: 50%;
-						cursor: pointer;
-						height: 0;
-						width: 0;
-						opacity: 0;
-						top: 0;
-						right: 0;
-						box-shadow: -1px 0 5px #626262;
-						transition: all .2s linear;
-						z-index: 40;
-					}
-				}
-				&:hover {
-					.ra-video__progress-bar,
-					.ra-video__progress-load,
-					.ra-video__progress-play {
-						height: 15px;
-					}
-					.ra-video__progress-circle{
-						margin-right: -8px;
-						height: 16px;
-						width: 16px;
-						opacity: 1;
-					}
-				}
-			}
-			.ra-video__slider {
-
-			}
-		}
-	}
-	#video::-webkit-media-controls-enclosure {
-		/*禁用播放器控制栏的样式*/
-		display: none !important;
-	}
+	@import url(../../assets/styles/components/player.less);
 </style>
 

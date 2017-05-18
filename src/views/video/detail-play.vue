@@ -16,12 +16,7 @@
 								{{ video.liveInfo.name }}
 							</span>
 							<span class="video-list__time">
-								<template v-if="item.hdPlay.duration > 60">
-									{{ Math.floor(item.hdPlay.duration / 60) }} 分 {{ item.hdPlay.duration % 60 }} 秒
-								</template>
-								<template v-else>
-									{{ item.hdPlay.duration }} 秒
-								</template>
+								{{ item.hdPlay.duration | secondsFormat }}
 							</span>
 						</p>
 						<div class="video-list__musk" @click="playVideo(item.hdPlay.file)">
@@ -57,7 +52,7 @@
 				</video>
 			</div>
 		</el-dialog>
-		<!-- <ra-player></ra-player> -->
+		<ra-player></ra-player>
 	</div>
 </template>
 
@@ -66,6 +61,7 @@
 
 	import { mapState, mapActions } from 'vuex'
 	import debounce from 'debounce'
+	import { secondsFormat } from '@/filter'
 	import player from '@/components/item/player'
 	export default {
 		data () {
@@ -98,6 +94,9 @@
 		},
 		components: {
 			"ra-player": player
+		},
+		filters: {
+			secondsFormat,
 		}
 	}
 </script>
