@@ -1,27 +1,37 @@
 <template>
-	<div class="player" ref="videoWrap">
-		<video id="video" ref="VIDEO" :src.sync="url" :controls="false" width="100%" height="100%">
+	<div class="player" ref="$player">
+		<video id="video" ref="$video" :src.sync="url" :controls="false" width="100%" height="100%">
 			您的浏览器不支持 video 标签。
 		</video>
 		<div class="player__musk" @click.self="changePlayStatus" @dblclick.self="fullScreen">
-			<div class="controls">
+			<div class="controls" :class="{ 'controls--show': isShowControls }">
 				<div class="controls-box">
-					<div class="controls-item" @click="changePlayStatus"><button>播放</button></div>
+					<div class="controls-item">
+						<div class="controls-item__button" @click="changePlayStatus">
+							<i class="iconfont" :class="{ 'icon-video-play': !playStatus, 'icon-video-pause': playStatus }"></i>
+						</div>
+					</div>
 					<div class="controls-item">{{ currentTime | secondsFormat }} / {{ totalTime | secondsFormat }}</div>
 				</div>
 				<div class="controls-box">
 					<div class="controls-item">
-						<div class="controls-item__volume">喇叭</div>
-						<div class="controls-item__progress" ref="volumeProgress" @click="valumeSelect($event)">
+						<div class="controls-item__button" @click="valumeMute">
+							<i class="iconfont" :class="{ 'icon-video-volume': !isMute, 'icon-video-mute': isMute }"></i>
+						</div>
+						<div class="controls-item__progress" ref="$volumeProgress" @click="valumeSelect($event)">
 							<div class="progress__bar"></div>
 							<div class="progress__play" :style="{ width: volume + '%' }">
 								<div class="progress__circle" @mousedown="volumeDown"></div>
 							</div>
 						</div>
 					</div>
-					<div class="controls-item"><button @click="fullScreen">全屏</button></div>
+					<div class="controls-item">
+						<div class="controls-item__button" @click="fullScreen">
+							<i class="iconfont icon-video-fullscreen"></i>
+						</div>
+					</div>
 				</div>
-				<div class="player__progress" @click="onSelect($event)" ref="PROGRESS">
+				<div class="player__progress" @click="onSelect($event)" ref="$progress">
 					<div class="progress__bar"></div>
 					<div class="progress__load" :style="{ width: loadPercent + '%' }"></div>
 					<div class="progress__play" :style="{ width: percent + '%' }">
@@ -47,8 +57,10 @@
 				lineWidth: 0,						// 已播放长度
 				isDragging: false,  		// 是否正在拖放
 				volume: 100,						// 音量
+				volumeTem: 100,					// 暂存音量
 				isVolumeDrgging: false,	// 是否正在拖放音量
 				isFullScreen: false,		// 是否全屏
+				isShowControls: false,	// 是否显示控制条
 				url: 'https://p.racdn.com/58f1b4af01304db4b2c958683903350d/transcode_1491730234717/vosa2_0.mp4',
 			}
 		},
@@ -70,7 +82,7 @@
 			},
 			onDragging (event) {
 				if (this.isDragging) {
-					this.lineWidth   = event.clientX - this.$refs.PROGRESS.getBoundingClientRect().left; // 按钮相对进度条水平坐标
+					this.lineWidth   = event.clientX - this.$refs.$progress.getBoundingClientRect().left; // 按钮相对进度条水平坐标
 					this.lineWidth   = this.lineWidth < 0 ? 0 : this.lineWidth;
 					this.lineWidth   = this.lineWidth > this.progressWidth ? this.progressWidth : this.lineWidth;
 					this.currentTime = this.lineWidth / this.progressWidth * this.totalTime;
@@ -104,7 +116,7 @@
 			},
 			valumeDragging (event) {
 				if (this.isVolumeDrgging) {
-					this.volume   = event.clientX - this.$refs.volumeProgress.getBoundingClientRect().left; // 按钮相对进度条水平坐标
+					this.volume   = event.clientX - this.$refs.$volumeProgress.getBoundingClientRect().left; // 按钮相对进度条水平坐标
 					this.volume   = this.volume < 0 ? 0 : this.volume;
 					this.volume   = this.volume > this.volumeProgressWidth ? this.volumeProgressWidth : this.volume;
 					this.jumpToVolume();
@@ -146,8 +158,18 @@
 				this.volume = event.offsetX;
 				this.jumpToVolume();
 			},
+			valumeMute () {
+				if (!this.isMute) {
+					this.volumeTem = this.volume;
+					this.volume    = 0;
+					return this.jumpToVolume();
+				}
+				if (this.isMute) {
+					this.volume    = this.volumeTem;
+					return this.jumpToVolume();
+				}
+			},
 			fullScreen () {
-				console.log('double')
 				if(this.isFullScreen){
 					this.isFullScreen = false;
 					if (document.exitFullscreen) {
@@ -165,14 +187,14 @@
 				}
 				if (!this.isFullScreen){
 					this.isFullScreen = true;
-					if (this.$refs.videoWrap.requestFullscreen) {
-						return this.$refs.videoWrap.requestFullscreen()
+					if (this.$refs.$player.requestFullscreen) {
+						return this.$refs.$player.requestFullscreen()
 					}
-					if (this.$refs.videoWrap.mozRequestFullscreen) {
-						return this.$refs.videoWrap.mozRequestFullScreen()
+					if (this.$refs.$player.mozRequestFullscreen) {
+						return this.$refs.$player.mozRequestFullScreen()
 					}
-					if (this.$refs.videoWrap.webkitRequestFullscreen) {
-						return this.$refs.videoWrap.webkitRequestFullscreen()
+					if (this.$refs.$player.webkitRequestFullscreen) {
+						return this.$refs.$player.webkitRequestFullscreen()
 					}
 				}
 
@@ -234,7 +256,7 @@
 		},
 		computed: {
 			H5video () {
-				return this.$refs.VIDEO
+				return this.$refs.$video
 			},
 			percent () {
 				return this.currentTime / this.totalTime * 100
@@ -249,7 +271,7 @@
 				return this.volume == 0 ? true : false
 			},
 			volumeProgressWidth () {
-				return this.$refs.volumeProgress.offsetWidth
+				return this.$refs.$volumeProgress.offsetWidth
 			}
 		},
 		watch: {

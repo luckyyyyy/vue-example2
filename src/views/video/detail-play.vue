@@ -83,7 +83,16 @@
 				this.videoURL = url;
 				this.isOpen = true;
 				this.$nextTick(() => {
-					this.$refs.H5video.play();
+					this.$refs.H5video.play().then(res => {
+
+					}).catch(err => {
+						this.$alert('视频源发生错误，请联系客服', `频道ID:${this.video.channelId} 直播ID:${this.video.id}`, {
+							confirmButtonText: '确定',
+							callback: () => {
+								this.isOpen = false;
+							}
+						});
+					});
 				});
 			},
 			modalClose () {
