@@ -6,12 +6,18 @@
 		<div class="player__musk" @click.self="changePlayStatus" @dblclick.self="fullScreen">
 			<div class="controls">
 				<div class="controls-box">
-					<div class="controls-item" @click="changePlayStatus"><button>播放</button></div>
+					<div class="controls-item">
+						<div class="controls-item__button" @click="changePlayStatus">
+							<i class="iconfont" :class="{ 'icon-video-play': !playStatus, 'icon-video-pause': playStatus }"></i>
+						</div>
+					</div>
 					<div class="controls-item">{{ currentTime | secondsFormat }} / {{ totalTime | secondsFormat }}</div>
 				</div>
 				<div class="controls-box">
 					<div class="controls-item">
-						<div class="controls-item__volume">喇叭</div>
+						<div class="controls-item__button" @click="valumeMute">
+							<i class="iconfont" :class="{ 'icon-video-volume': !isMute, 'icon-video-mute': isMute }"></i>
+						</div>
 						<div class="controls-item__progress" ref="volumeProgress" @click="valumeSelect($event)">
 							<div class="progress__bar"></div>
 							<div class="progress__play" :style="{ width: volume + '%' }">
@@ -19,7 +25,11 @@
 							</div>
 						</div>
 					</div>
-					<div class="controls-item"><button @click="fullScreen">全屏</button></div>
+					<div class="controls-item">
+						<div class="controls-item__button" @click="fullScreen">
+							<i class="iconfont icon-video-fullscreen"></i>
+						</div>
+					</div>
 				</div>
 				<div class="player__progress" @click="onSelect($event)" ref="PROGRESS">
 					<div class="progress__bar"></div>
@@ -47,6 +57,7 @@
 				lineWidth: 0,						// 已播放长度
 				isDragging: false,  		// 是否正在拖放
 				volume: 100,						// 音量
+				volumeTem: 100,						// 暂存音量
 				isVolumeDrgging: false,	// 是否正在拖放音量
 				isFullScreen: false,		// 是否全屏
 				url: 'https://p.racdn.com/58f1b4af01304db4b2c958683903350d/transcode_1491730234717/vosa2_0.mp4',
@@ -146,8 +157,18 @@
 				this.volume = event.offsetX;
 				this.jumpToVolume();
 			},
+			valumeMute () {
+				if (!this.isMute) {
+					this.volumeTem = this.volume;
+					this.volume    = 0;
+					return this.jumpToVolume();
+				}
+				if (this.isMute) {
+					this.volume    = this.volumeTem;
+					return this.jumpToVolume();
+				}
+			},
 			fullScreen () {
-				console.log('double')
 				if(this.isFullScreen){
 					this.isFullScreen = false;
 					if (document.exitFullscreen) {

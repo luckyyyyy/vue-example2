@@ -19,7 +19,7 @@
 								{{ item.hdPlay.duration | secondsFormat }}
 							</span>
 						</p>
-						<div class="video-list__musk" @click="playVideo(item.hdPlay.file)">
+						<div class="video-list__musk" @click="playVideo(item.hdPlay.file, index)">
 							<i class="iconfont icon-videoplay"></i>
 						</div>
 					</div>
@@ -83,7 +83,11 @@
 				this.videoURL = url;
 				this.isOpen = true;
 				this.$nextTick(() => {
-					this.$refs.H5video.play();
+					this.$refs.H5video.play().then(res => {
+						alert(res);
+					}).catch(err => {
+						alert(err);
+					});
 				});
 			},
 			modalClose () {
