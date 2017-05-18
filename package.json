@@ -7,7 +7,7 @@
   "scripts": {
     "dev": "node build/dev-server.js",
     "build": "node build/build.js",
-    "oss": "gulp publish",
+    "oss": "gulp publish && scp dist/store.html admin:/data/wwwroot/rainbowcloud",
     "ele": "et -o src/theme"
   },
   "dependencies": {
