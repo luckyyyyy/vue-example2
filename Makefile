@@ -15,7 +15,7 @@ master-check:
 
 build: master-check
 	yarn build
-	gulp publish
+	yarn oss
 
 update: master-check
 	yarn
