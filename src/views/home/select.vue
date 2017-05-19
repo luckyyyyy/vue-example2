@@ -29,7 +29,7 @@
 								</div>
 								<div class="info">
 									<div class="logo">
-										<img :src="item.logoImageUrl">
+										<img :src="item.logoImageUrl + '/avatar'">
 									</div>
 									<div class="wechat">
 										<template v-if="item.status == 2">
@@ -77,9 +77,6 @@
 			}),
 			...mapState('user', [ 'user' ])
 		},
-		// beforeRouteUpdate (to, from, next) { //待研究
-		// 	next();
-		// },
 		mounted () {
 			this.onChange();
 		},
