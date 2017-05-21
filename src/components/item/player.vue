@@ -96,7 +96,6 @@
 				// console.log('start',event.clientX);
 			},
 			onDragging (event) {
-				console.log(event)
 				if (this.isDragging) {
 					let val = event.clientX - this.$refs.$progress.getBoundingClientRect().left; // 按钮相对进度条水平坐标
 					val = val < 0 ? 0 : val;
@@ -174,8 +173,7 @@
 					document.fullscreenElement ||
 					document.mozFullScreenElement ||
 					document.webkitFullscreenElement;
-
-				if (fullscreenElement){
+				if (fullscreenElement) {
 					try {
 						['exitFullscreen', 'msExitFullscreen', 'mozCancelFullScreen', 'webkitExitFullscreen'].forEach(v => {
 							if (v in document) {
