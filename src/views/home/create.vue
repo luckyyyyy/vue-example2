@@ -126,7 +126,7 @@
 			}),
 			...mapActions('channel', {
 				createChannel: 'CHANNEL_CREATE',
-				selectChannel: 'CHANNEL_SELECT',
+				selectChannel: 'CHANNEL_SET',
 				queryChannel: 'CHANNEL_QUERY'
 			}),
 			submit () {
