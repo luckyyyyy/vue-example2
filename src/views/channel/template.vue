@@ -1,6 +1,6 @@
 <template>
 	<div>
-		<!-- <div class="template">
+		<!-- div class="template">
 			<ra-card>
 				<p slot="title">频道编辑</p>
 				<div class="card-body">
@@ -141,10 +141,15 @@
 						<div class="temp-item__head">－ 正在直播 －</div>
 						<div class="temp-box">
 							<div class="temp-box__head">
-
+								<img src="../../assets/images/live/live.png" alt="头像">
+								<p>直播昵称</p>
 							</div>
 							<div class="temp-box__content">
-
+								<img src="../../assets/images/play.png" height="52" width="52" class="play-btn">
+								<div class="info-box">
+									<div class="button-info">直播中</div>
+									<div class="info-count">3232人 在看</div>
+								</div>
 							</div>
 						</div>
 					</div>
