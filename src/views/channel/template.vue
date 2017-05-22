@@ -1,15 +1,15 @@
 <template>
 	<div>
-		<div class="template">
+		<!-- <div class="template">
 			<ra-card>
 				<p slot="title">频道编辑</p>
 				<div class="card-body">
 					<div class="template-box">
-						<!-- 顶部 -->
+
 						<div class="header">
 							{{ channel.wxAppName }}
 						</div>
-						<!-- 频道设置	 -->
+
 						<div class="content">
 							<div class="content-bg">
 								<img :src="channel.coverImageUrl" width="100%" height="100%">
@@ -21,7 +21,7 @@
 								</div>
 							</div>
 						</div>
-						<!-- 直播封面 -->
+
 						<div class="live-wrap">
 							<h2 class="live-head">－ 正在直播 －</h2>
 							<div class="live-body">
@@ -52,7 +52,7 @@
 								</div>
 							</div>
 						</div>
-						<!-- 精彩回放 -->
+
 						<div class="live-wrap">
 							<h2 class="live-head">－ 精彩回放 －</h2>
 							<div class="live-body">
@@ -94,10 +94,10 @@
 								</div>
 							</div>
 						</div>
-						<!-- 底部 -->
+
 						<div class="footer"></div>
 					</div>
-					<!-- 气泡框 设置 -->
+
 					<div class="pop-box">
 						<div class="input-box">
 							<span class="label">频道名称：</span>
@@ -112,6 +112,40 @@
 							<span class="label">频道LOGO：</span>
 							<div @click="openLogoAlbum" class="icon"><i class="iconfont icon-upload"></i></div>
 							<span class="tips">200 * 200像素</span>
+						</div>
+					</div>
+				</div>
+			</ra-card>
+		</div> -->
+		<div class="template">
+			<ra-card>
+				<p slot="title">频道编辑</p>
+				<div class="temp-wrap">
+					<div class="temp-wrap__channel">
+						<div class="channel__head">
+							<p>{{ channel.wxAppName }}</p>
+						</div>
+						<div class="channel__content">
+							<img class="channel__bg" :src="channel.coverImageUrl">
+							<div class="channel__bar">
+								<img :src="channel.logoImageUrl + '/avatar'" alt="avatar" class="channel__avatar">
+								<p class="channel__title">{{ channel.name }}</p>
+								<div class="channel__follow">
+									<div class="button-follow">关注</div>
+									<div class="info-count">42万 粉丝</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="temp-item">
+						<div class="temp-item__head">－ 正在直播 －</div>
+						<div class="temp-box">
+							<div class="temp-box__head">
+
+							</div>
+							<div class="temp-box__content">
+
+							</div>
 						</div>
 					</div>
 				</div>
