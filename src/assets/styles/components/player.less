@@ -26,18 +26,33 @@
 		background: transparent;
 		z-index: 1;
 	}
+	.palyer__logo {
+		position: absolute;
+		left: 0;
+		right: 0;
+		top: 0;
+		bottom: 0;
+		margin: auto;
+		height: 96px;
+		width: 96px;
+		cursor: pointer;
+	}
 	.controls {
 		display: flex;
 		position: absolute;
 		justify-content: space-between;
 		left: 0;
-		bottom: 0;
+		bottom: -40px;
 		padding: 0 15px;
 		width: 100%;
 		height: 40px;
 		line-height: 40px;
 		z-index: 5;
 		background: rgba(26,26,26,.8);
+		transition: all .2s ease-in-out;
+		&.controls--show {
+			bottom: 0;
+		}
 		.controls-box {
 			display: flex;
 			.controls-item {

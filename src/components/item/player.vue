@@ -18,8 +18,8 @@
 		>
 			您的浏览器不支持 video 标签。
 		</video>
-		<div class="player__mask" @click.self="changePlayStatus" @dblclick.self="fullScreen">
-			<div class="controls" v-show="isShowControls">
+		<div class="player__mask" @mousemove="showControls" @click.self="changePlayStatus" @dblclick.self="fullScreen">
+			<div class="controls" :class="{ 'controls--show': isShowControls }">
 				<div class="controls-box">
 					<div class="controls-item">
 						<div class="controls-item__button" @click="changePlayStatus">
@@ -55,6 +55,7 @@
 					</div>
 				</div>
 			</div>
+			<img v-if="!playStatus" class="palyer__logo" @click="changePlayStatus" src="../../assets/images/play.png" alt="点击播放">
 		</div>
 	</div>
 </template>
@@ -75,7 +76,8 @@
 				volume: 100, // 音量
 				volumeTem: 100, // 暂存音量
 				isVolumeDrgging: false,	// 是否正在拖放音量
-				isShowControls: true, // 是否显示控制条
+				isShowControls: false, // 是否显示控制条
+				timer: null,
 			}
 		},
 		mounted() {
@@ -210,7 +212,17 @@
 			pause () {
 				this.$refs.$video.pause();
 			},
-//---------------------------------播放/跳转方法end-----------------------------
+			showControls () {
+				if (this.timer) {
+					clearTimeout(this.timer);
+					this.timer = null;
+				}
+				this.isShowControls = true;
+				this.timer = setTimeout(() => {
+					this.isShowControls = false;
+				}, 2000);
+			},
+//---------------------------------video控制方法end-----------------------------
 //---------------------------------video事件绑定start----------------------------
 			onLoadstart () {
 				this.canPlay = false;
@@ -286,4 +298,3 @@
 <style scoped lang="less">
 	@import url(../../assets/styles/components/player.less);
 </style>
-
