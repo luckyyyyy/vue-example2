@@ -184,7 +184,7 @@
 							}
 						});
 					} catch(e) {
-						console.log(e);
+						// console.log(e);
 					}
 				} else {
 					try {
@@ -195,7 +195,7 @@
 							}
 						});
 					} catch(e) {
-						console.log(e);
+						// console.log(e);
 					}
 				}
 			},
