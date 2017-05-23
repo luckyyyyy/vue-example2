@@ -19,7 +19,7 @@
 			您的浏览器不支持 video 标签。
 		</video>
 		<div class="player__mask" @mousemove="showControls" @click.self="changePlayStatus" @dblclick.self="fullScreen">
-			<div class="controls" :class="{ 'controls--show': isShowControls }">
+			<div class="controls" :class="{ 'controls--show': isShowControls || !playStatus }">
 				<div class="controls-box">
 					<div class="controls-item">
 						<div class="controls-item__button" @click="changePlayStatus">
@@ -215,7 +215,7 @@
 			showControls () {
 				if (this.timer) {
 					clearTimeout(this.timer);
-					this.timer = null;
+					delete this.timer;
 				}
 				this.isShowControls = true;
 				this.timer = setTimeout(() => {
