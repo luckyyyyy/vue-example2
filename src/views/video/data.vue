@@ -2,7 +2,7 @@
 	<div class="container">
 		<div class="container-wrap">
 			<div class="overview-box">
-				<Card :bordered="false" dis-hover class="border-r">
+				<ra-card :bordered="false" dis-hover class="border-r">
 					<p slot="title" class="title">直播概况</p>
 					<div class="content">
 						<p>观看人次（PV）：<span>1560人</span></p>
@@ -10,23 +10,23 @@
 						<p>直播时长：<span>65分钟</span></p>
 						<p>观看时长：<span>65分钟</span></p>
 					</div>
-				</Card>
+				</ra-card>
 			</div>
 			<div class="overview-box">
-				<Card :bordered="false" dis-hover class="border-r">
+				<ra-card :bordered="false" dis-hover class="border-r">
 					<p slot="title" class="title">在线人数分布曲线</p>
 					<div>
 						<highcharts :options="count_data" ref="highcharts"></highcharts>
 					</div>
-				</Card>
+				</ra-card>
 			</div>
 			<div class="overview-box">
-				<Card :bordered="false" dis-hover class="border-r">
+				<ra-card :bordered="false" dis-hover class="border-r">
 					<p slot="title" class="title">观众地域分布</p>
 					<div>
 						<highmaps :options="territory_data"></highmaps>
 					</div>
-				</Card>
+				</ra-card>
 			</div>
 		</div>
 	</div>
