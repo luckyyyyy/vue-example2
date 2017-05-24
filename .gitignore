@@ -5,3 +5,4 @@ dist/
 npm-debug.log
 .idea
 yarn-error.log
+.oss-cache-test
