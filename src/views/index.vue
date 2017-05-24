@@ -20,12 +20,12 @@
 						<li>当前流量套餐：<span class="content"><span>无</span><a class="link">购买</a></span></li>-->
 						<li class="item">
 							<div class="desc d1">剩余充值流量(元)：<span class="content">0.00</span></div>
-							<el-progress :stroke-width="18" :percentage="70"></el-progress>
+							<el-progress :text-inside="true" :stroke-width="18" :percentage="70"></el-progress>
 							<div class="right"><a class="link">充值</a></div>
 						</li>
 						<li class="item">
 							<div class="desc d2">剩余储存空间(GB)：<span class="content">50.00</span></div>
-							<el-progress :stroke-width="18" :percentage="25"></el-progress>
+							<el-progress :text-inside="true" :stroke-width="18" :percentage="25"></el-progress>
 							<div class="right">200.00</div>
 						</li>
 					</ul>
