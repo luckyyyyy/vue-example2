@@ -6,9 +6,7 @@
 					<li class="title">
 						直播列表
 					</li>
-					<el-menu-item index="private">未发布</el-menu-item>
-					<el-menu-item index="public">已发布</el-menu-item>
-					<!-- <li class="title"></li> -->
+					<el-menu-item index="public">列表</el-menu-item>
 					<el-menu-item index="trash">回收站</el-menu-item>
 				</el-menu>
 				<div class="button">
@@ -33,12 +31,6 @@
 									<em @click="onChangeStatus(item.id, `您确定彻底要删除直播 ${item.name} 吗？一旦删除，将彻底无法恢复。`, true)">彻底删除</em>
 								</template>
 								<template v-else>
-									<template v-if="!item.publicStatus">
-										<em @click="onChangePublic(item.id, `您确定要发布直播 ${item.name} 吗？发布后在微信端公开展示给用户。`)">发布</em>
-									</template>
-									<template v-else>
-										<em @click="onChangePublic(item.id, `您确定要撤回直播 ${item.name} 吗？撤回后微信端用户无法查看直播。`)">撤回</em>
-									</template>
 									<em @click="onChangeStatus(item.id, `您确定要删除直播 ${item.name} 吗？`)">删除</em>
 								</template>
 							</div>
@@ -125,7 +117,7 @@
 				rules: LIVE_CREATE_RULES,
 				openDialog: false,
 				createAgree: true,
-				status: this.$route.params.status || 'private',
+				status: this.$route.params.status || 'public',
 				loading: false,
 				lock_create: false,
 			}
@@ -210,7 +202,7 @@
 						this.lock_create = true;
 						this.createLive(this.create).then(() => {
 							this.onCloseDialog();
-							this.status      == 'private' ? this.findLiveList(true) : this.onStatusChange('private');
+							this.status == 'public' ? this.findLiveList(true) : this.onStatusChange('public');
 						}).catch(() => {
 							this.lock_create = false;
 						})

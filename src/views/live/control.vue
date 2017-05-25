@@ -49,11 +49,10 @@
 							</template>
 						</div>
 						<el-popover trigger="hover" placement="top">
-							<p v-if="!live.publicStatus">只有至于【发布中】状态的直播才能结束。</p>
 							<p v-if="play">请先【停止推流】再结束直播。</p>
 							<p>本场直播结束将彻底不可恢复，请慎重考虑。</p>
 							<div slot="reference">
-								<el-button :disabled="!live.publicStatus || play" @click="onFinish" type="danger">结束直播</el-button>
+								<el-button :disabled="play" @click="onFinish" type="danger">结束直播</el-button>
 							</div>
 						</el-popover>
 					</div>
