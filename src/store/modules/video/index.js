@@ -1,8 +1,8 @@
 /*
 * @Author: William Chan
 * @Date:   2017-03-19 14:48:07
-* @Last Modified by:   chuxiao
-* @Last Modified time: 2017-05-13 10:51:25
+* @Last Modified by:   cx
+* @Last Modified time: 2017-05-26 14:14:20
 */
 
 'use strict';
@@ -101,6 +101,15 @@ const actions = {
 				resolve();
 			}).catch(err => {
 				reject();
+			})
+		})
+	},
+	[VIDEO.MEDIA_DELETE] ({ commit }, params) {
+		return new Promise((resolve, reject) => {
+			api.video_media_delete(params).then(res => {
+				resolve();
+			}).catch(err => {
+				rejcet();
 			})
 		})
 	}

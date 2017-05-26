@@ -1,8 +1,8 @@
 /*
 * @Author: Administrator
 * @Date:   2017-02-25 14:58:36
-* @Last Modified by:   William Chan
-* @Last Modified time: 2017-05-10 11:47:16
+* @Last Modified by:   cx
+* @Last Modified time: 2017-05-26 14:32:53
 */
 
 'use strict';
@@ -45,7 +45,10 @@ export const video_update = ({ id, name, nickName, avatarImageId }) => {
 export const video_auth_watch = ({ id, authWatchStatus, chargeHints, price, authCode, authCodeHints }) => {
   return http.put(`video/auth-watch/${id}`, { authWatchStatus, chargeHints, price, authCode, authCodeHints })
 }
-
+// DELETE /api/v1/video/media/{id}
+export const video_media_delete = ({ id }) => {
+	return http.delete(`video/media/${id}`)
+}
 
 
 

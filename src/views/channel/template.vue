@@ -122,12 +122,14 @@
 				<p slot="title">频道编辑</p>
 				<div class="wrap">
 					<div class="temp">
-						<div class="temp__head">频道主页</div>
-						<div class="temp__body">
-							<div class="iphone__head">
+						<div class="temp__main">
+							<div class="phone__title">
+								<p>频道主页</p>
+							</div>
+							<div class="phone__head">
 								{{ channel.wxAppName }}
 							</div>
-							<div class="iphone__iScroll" ref="iScrollWrap1">
+							<div class="phone__iScroll" ref="iScrollWrap1">
 								<ul class="temp-list">
 									<li class="temp-list__head">
 										<img class="channel-bg" :src="channel.coverImageUrl" alt="频道封面">
@@ -192,66 +194,71 @@
 									</li>
 								</ul>
 							</div>
-							<div class="iphone__foot">
+							<div class="phone__foot">
 								<img src="../../assets/images/bottombar@2x.png" width="100%" height="100%">
 							</div>
 						</div>
-						<ul class="temp__pop">
-							<li class="control-box">
-								<div class="control-box__title">页面标题：</div>
-								<el-input
-									size="small"
-									placeholder="请输入内容"
-									v-model="text">
-								</el-input>
-							</li>
-							<li class="control-box">
-								<div class="control-box__title">页面描述：</div>
-								<el-input
-									class="textarea"
-									type="textarea"
-									:rows="2"
-									placeholder="请输入内容"
-									v-model="text">
-								</el-input>
-							</li>
-							<li class="control-box">
-								<div class="control-box__title">频道名称：</div>
-								<el-input
-									size="small"
-									placeholder="请输入内容"
-									v-model="text">
-								</el-input>
-							</li>
-							<li class="control-box">
-								<div class="control-box__title">频道背景：</div>
-								<a class="control-box__album" href="javascript:;">
-									<img :src="channel.coverImageUrl">
-								</a>
-								<p class="control-box__tip">750 * 300像素</p>
-							</li>
-							<li class="control-box">
-								<div class="control-box__title">频道LOGO：</div>
-								<a class="control-box__album" href="javascript:;">
-									<img :src="channel.coverImageUrl">
-								</a>
-								<p class="control-box__tip">200 * 200像素</p>
-							</li>
-						</ul>
+						<div class="temp__popwrap">
+							<ul class="temp__pop">
+								<li class="control-box">
+									<div class="control-box__title">页面标题：</div>
+									<el-input
+										size="small"
+										placeholder="请输入内容"
+										v-model="text">
+									</el-input>
+								</li>
+								<li class="control-box">
+									<div class="control-box__title">页面描述：</div>
+									<el-input
+										class="textarea"
+										type="textarea"
+										:rows="2"
+										:maxlength="20"
+										placeholder="请输入内容"
+										v-model="text">
+									</el-input>
+								</li>
+								<li class="control-box">
+									<div class="control-box__title">频道名称：</div>
+									<el-input
+										size="small"
+										placeholder="请输入内容"
+										v-model="text">
+									</el-input>
+								</li>
+								<li class="control-box">
+									<div class="control-box__title">频道背景：</div>
+									<a class="control-box__album" href="javascript:;">
+										<img :src="channel.coverImageUrl">
+									</a>
+									<p class="control-box__tip">750 * 300像素</p>
+								</li>
+								<li class="control-box">
+									<div class="control-box__title">频道LOGO：</div>
+									<a class="control-box__album" href="javascript:;">
+										<img :src="channel.coverImageUrl">
+									</a>
+									<p class="control-box__tip">200 * 200像素</p>
+								</li>
+							</ul>
+						</div>				
 					</div>
 					<div class="temp">
-						<div class="temp__head">频道主页</div>
-						<div class="temp__body">
-							<div class="iphone__head">
+						<div class="temp__main">
+							<div class="phone__title">
+								<p>正在直播</p>
+								<p>频道主页</p>
+								<p>精彩回放</p>
+							</div>
+							<div class="phone__head">
 								{{ channel.wxAppName }}
 							</div>
-							<div class="iphone__iScroll" ref="iScrollWrap2">
+							<div class="phone__iScroll" ref="iScrollWrap2">
 								<ul class="temp-list">
 									<li class="temp-list-item">
 										<div class="item__head">
-											<div class="line"></div>
-											<p class="text">正在直播</p>
-											<a class="link" href="javascript:;">更多></a>
+											<p class="title">正在直播</p>
 										</div>
 										<div class="item__body">
 											<div class="topbar">
@@ -266,52 +273,38 @@
 									</li>
 								</ul>
 							</div>
-							<div class="iphone__foot">
+							<div class="phone__foot">
 								<img src="../../assets/images/bottombar@2x.png" width="100%" height="100%">
 							</div>
 						</div>
-						<ul class="temp__pop">
-							<li class="control-box">
-								<div class="control-box__title">页面标题：</div>
-								<el-input
-									size="small"
-									placeholder="请输入内容"
-									v-model="text">
-								</el-input>
-							</li>
-							<li class="control-box">
-								<div class="control-box__title">页面描述：</div>
-								<el-input
-									class="textarea"
-									type="textarea"
-									:rows="2"
-									placeholder="请输入内容"
-									v-model="text">
-								</el-input>
-							</li>
-							<li class="control-box">
-								<div class="control-box__title">频道名称：</div>
-								<el-input
-									size="small"
-									placeholder="请输入内容"
-									v-model="text">
-								</el-input>
-							</li>
-							<li class="control-box">
-								<div class="control-box__title">频道背景：</div>
-								<a class="control-box__album" href="javascript:;">
-									<img :src="channel.coverImageUrl">
-								</a>
-								<p class="control-box__tip">750 * 300像素</p>
-							</li>
-							<li class="control-box">
-								<div class="control-box__title">频道LOGO：</div>
-								<a class="control-box__album" href="javascript:;">
-									<img :src="channel.coverImageUrl">
-								</a>
-								<p class="control-box__tip">750 * 300像素</p>
-							</li>
-						</ul>
+						<div class="temp__popwrap">
+							<ul class="temp__pop temp__pop--small">
+								<li class="radio-box" >
+									<el-radio v-model="radio" :label="1">默认顺序</el-radio>
+									<el-radio v-model="radio" :label="2">自定义首位</el-radio>
+								</li>
+							</ul>
+							<ul class="temp__pop temp__pop--add">
+								<li>
+									<a href="javascript:;" class="button"></a>
+									<ul class="select-box">
+										<li class="select-box-item">
+											<img :src="channel.coverImageUrl" width="100%" height="100%">
+											<div class="item__musk item__musk--active"></div>
+										</li>
+										<li class="select-box-item">
+											<img :src="channel.coverImageUrl" width="100%" height="100%">
+											<div class="item__musk"></div>
+										</li>
+										<li class="select-box-item">
+											<img :src="channel.coverImageUrl" width="100%" height="100%">
+											<div class="item__musk"></div>
+										</li>
+									</ul>
+									<a href="javascript:;" class="button"></a>
+								</li>
+							</ul>
+						</div>
 					</div>
 				</div>
 			</ra-card>
@@ -332,6 +325,7 @@
 				status: this.$route.params.status || 'public',
 				loading: false,
 				text: '',
+				radio: 1,
 			}
 		},
 		computed: {
@@ -417,4 +411,5 @@
 		max-height: 54px;
 	}
 }
+
 </style>

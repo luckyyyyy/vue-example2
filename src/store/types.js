@@ -1,8 +1,8 @@
 /*
 * @Author: William Chan
 * @Date:   2016-12-03 20:43:22
-* @Last Modified by:   chuxiao
-* @Last Modified time: 2017-05-17 17:13:37
+* @Last Modified by:   cx
+* @Last Modified time: 2017-05-26 14:02:43
 */
 
 'use strict';
@@ -71,7 +71,7 @@ export const LIVE = export_var('LIVE',
 // VIDEO
 export const VIDEO = export_var('VIDEO',
 	'QUERY',
-	'DELETE', 'TRASH',
+	'DELETE', 'TRASH', 'MEDIA_DELETE',
 	'FIND_REQUEST', 'FIND_SUCCESS', 'FIND_FAILURE',
 	'COUNTDOWN', 'GUIDE', 'SHARE', 'UPDATE', 'AUTH',
 );
