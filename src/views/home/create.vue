@@ -88,8 +88,8 @@
 				if (this.success) {
 					return 3;
 				} else if (this.id) {
-					this.getWechatAuthUrl({ channelID: this.id }).then(url => {
-						this.url = url;
+					this.getWechatAuthUrl({ channelID: this.id }).then(res => {
+						this.url = res.data.url;
 					}).catch(err =>{
 						if (err.data) {
 							if (err.data.retCode == -100) {

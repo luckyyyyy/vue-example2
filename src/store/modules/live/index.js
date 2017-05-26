@@ -2,7 +2,7 @@
 * @Author: William Chan
 * @Date:   2017-03-19 14:48:07
 * @Last Modified by:   Administrator
-* @Last Modified time: 2017-05-05 12:21:45
+* @Last Modified time: 2017-05-26 18:06:42
 */
 
 'use strict';
@@ -23,27 +23,15 @@ const state = {
 const getters = {}
 
 const actions = {
-	[LIVE.CREATE] ({ commit }, ...args) {
-		return new Promise((resolve, reject) => {
-			api.live_create(...args).then(res => {
-				resolve();
-			}).catch(err => {
-				reject();
-			})
-		})
+	[LIVE.CREATE] ({ commit }, params) {
+		return api.live_create(params);
 	},
-	[LIVE.DELETE] ({ commit }, ...args) {
-		return new Promise((resolve, reject) => {
-			api.live_delete(...args).then(res => {
-				resolve();
-			}).catch(err => {
-				reject();
-			})
-		})
+	[LIVE.DELETE] ({ commit }, params) {
+		return api.live_delete(params);
 	},
-	[LIVE.COUNTDOWN] ({ commit }, ...args) {
+	[LIVE.COUNTDOWN] ({ commit }, params) {
 		return new Promise((resolve, reject) => {
-			api.live_count_down(...args).then(res => {
+			api.live_count_down(params).then(res => {
 				commit(LIVE.QUERY, res.data);
 				resolve(res.data);
 			}).catch(err => {
@@ -51,9 +39,9 @@ const actions = {
 			})
 		})
 	},
-	[LIVE.GUIDE] ({ commit }, ...args) {
+	[LIVE.GUIDE] ({ commit }, params) {
 		return new Promise((resolve, reject) => {
-			api.live_guide(...args).then(res => {
+			api.live_guide(params).then(res => {
 				commit(LIVE.QUERY, res.data);
 				resolve(res.data);
 			}).catch(err => {
@@ -61,9 +49,9 @@ const actions = {
 			})
 		})
 	},
-	[LIVE.SHARE] ({ commit }, ...args) {
+	[LIVE.SHARE] ({ commit }, params) {
 		return new Promise((resolve, reject) => {
-			api.live_share(...args).then(res => {
+			api.live_share(params).then(res => {
 				commit(LIVE.QUERY, res.data);
 				resolve(res.data);
 			}).catch(err => {
@@ -71,9 +59,9 @@ const actions = {
 			})
 		})
 	},
-	[LIVE.UPDATE] ({ commit }, ...args) {
+	[LIVE.UPDATE] ({ commit }, params) {
 		return new Promise((resolve, reject) => {
-			api.live_update(...args).then(res => {
+			api.live_update(params).then(res => {
 				commit(LIVE.QUERY, res.data);
 				resolve(res.data);
 			}).catch(err => {
@@ -81,9 +69,9 @@ const actions = {
 			})
 		})
 	},
-	[LIVE.AUTH] ({ commit }, ...args) {
+	[LIVE.AUTH] ({ commit }, params) {
 		return new Promise((resolve, reject) => {
-			api.live_auth_watch(...args).then(res => {
+			api.live_auth_watch(params).then(res => {
 				commit(LIVE.QUERY, res.data);
 				resolve(res.data);
 			}).catch(err => {
@@ -105,32 +93,14 @@ const actions = {
 			})
 		}
 	},
-	[LIVE.FINISH] ({ commit }, ...args) {
-		return new Promise((resolve, reject) => {
-			api.live_finish(...args).then(res => {
-				resolve(res.data);
-			}).catch(err => {
-				reject();
-			})
-		})
+	[LIVE.FINISH] ({ commit }, params) {
+		return api.live_finish(params);
 	},
-	[LIVE.NOTICE] ({ commit }, ...args) {
-		return new Promise((resolve, reject) => {
-			api.live_notice(...args).then(res => {
-				resolve(res.data);
-			}).catch(err => {
-				reject();
-			})
-		})
+	[LIVE.NOTICE] ({ commit }, params) {
+		return api.live_notice(params);
 	},
-	[LIVE.PUBLIC] ({ commit }, ...args) {
-		return new Promise((resolve, reject) => {
-			api.live_public(...args).then(res => {
-				resolve(res.data);
-			}).catch(err => {
-				reject();
-			})
-		})
+	[LIVE.PUBLIC] ({ commit }, params) {
+		return api.live_public(params);
 	},
 	[LIVE.QUERY] ({ commit }, params) {
 		return new Promise((resolve, reject) => {
@@ -152,14 +122,8 @@ const actions = {
 			})
 		})
 	},
-	[LIVE.TRASH] ({ commit }, ...args) {
-		return new Promise((resolve, reject) => {
-			api.live_trash(...args).then(res => {
-				resolve();
-			}).catch(err => {
-				reject();
-			})
-		})
+	[LIVE.TRASH] ({ commit }, params) {
+		return api.live_trash(params);
 	}
 }
 

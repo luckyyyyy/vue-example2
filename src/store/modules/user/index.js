@@ -2,7 +2,7 @@
 * @Author: Administrator
 * @Date:   2017-01-06 02:33:52
 * @Last Modified by:   Administrator
-* @Last Modified time: 2017-05-05 13:22:12
+* @Last Modified time: 2017-05-26 18:03:31
 */
 
 'use strict';
@@ -58,14 +58,8 @@ const actions = {
 			})
 		})
 	},
-	[USER.PASSWORD] ({ commit }, ...args) {
-		return new Promise((resolve, reject) => {
-			api.password(...args).then(res => {
-				resolve();
-			}).catch(err => {
-				reject();
-			})
-		})
+	[USER.PASSWORD] ({ commit }, params) {
+		return api.password(params);
 	},
 	[USER.UPDATE] ({ commit }, ...args) {
 		return new Promise((resolve, reject) => {
@@ -77,41 +71,17 @@ const actions = {
 			})
 		});
 	},
-	[USER.REGISTER] ({ commit }, ...args) {
-		return new Promise((resolve, reject) => {
-			api.register(...args).then(res => {
-				resolve();
-			}).catch(err => {
-				reject();
-			})
-		})
+	[USER.REGISTER] ({ commit }, params) {
+		return api.register(params);
 	},
-	[USER.REGISTER_CAPTCHA] (store, ...args) {
-		return new Promise(function(resolve, reject) {
-			api.register_captcha(...args).then(res => {
-				resolve();
-			}).catch(err => {
-				reject(err);
-			})
-		})
+	[USER.REGISTER_CAPTCHA] (store, params) {
+		return api.register_captcha(params);
 	},
-	[USER.RESETPWD_CAPTCHA] (store, ...args) {
-		return new Promise((resolve, reject) => {
-			api.reset_password_captcha(...args).then(res => {
-				resolve();
-			}).catch(err => {
-				reject(err);
-			})
-		})
+	[USER.RESETPWD_CAPTCHA] (store, params) {
+		return api.reset_password_captcha(params)
 	},
-	[USER.RESETPWD] ({ commit }, ...args) {
-		return new Promise((resolve, reject) => {
-			api.reset_password(...args).then(res => {
-				resolve();
-			}).catch(err => {
-				reject();
-			})
-		})
+	[USER.RESETPWD] ({ commit }, params) {
+		return api.reset_password(params);
 	}
 }
 

@@ -1,8 +1,8 @@
 /*
 * @Author: William Chan
 * @Date:   2017-03-19 14:48:07
-* @Last Modified by:   cx
-* @Last Modified time: 2017-05-26 14:14:20
+* @Last Modified by:   Administrator
+* @Last Modified time: 2017-05-26 18:01:37
 */
 
 'use strict';
@@ -22,14 +22,8 @@ const state = {
 const getters = {}
 
 const actions = {
-	[VIDEO.DELETE] ({ commit }, ...args) {
-		return new Promise((resolve, reject) => {
-			api.video_delete(...args).then(res => {
-				resolve();
-			}).catch(err => {
-				reject();
-			})
-		})
+	[VIDEO.DELETE] ({ commit }, params) {
+		return api.video_delete(params);
 	},
 	[VIDEO.GUIDE] ({ commit }, ...args) {
 		return new Promise((resolve, reject) => {
@@ -95,14 +89,8 @@ const actions = {
 			})
 		})
 	},
-	[VIDEO.TRASH] ({ commit }, ...args) {
-		return new Promise((resolve, reject) => {
-			api.video_trash(...args).then(res => {
-				resolve();
-			}).catch(err => {
-				reject();
-			})
-		})
+	[VIDEO.TRASH] ({ commit }, params) {
+		return api.video_trash(params);
 	},
 	[VIDEO.MEDIA_DELETE] ({ commit }, params) {
 		return new Promise((resolve, reject) => {

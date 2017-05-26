@@ -1,8 +1,8 @@
 /*
 * @Author: William Chan
 * @Date:   2017-03-19 03:49:11
-* @Last Modified by:   chuxiao
-* @Last Modified time: 2017-05-17 17:28:54
+* @Last Modified by:   Administrator
+* @Last Modified time: 2017-05-26 18:08:20
 */
 
 'use strict';
@@ -34,13 +34,7 @@ const actions = {
 		})
 	},
 	[CHANNEL.QUERY] ({ commit }, id) {
-		return new Promise((resolve, reject) => {
-			api.channel_query(id).then(res => {
-				resolve(res.data);
-			}).catch(err => {
-				reject();
-			})
-		})
+		return api.channel_query(id);
 	},
 	[CHANNEL.SET] ({ commit, dispatch }, id) {
 		if (id) {
@@ -74,23 +68,11 @@ const actions = {
 			})
 		})
 	},
-	[CHANNEL.DELETE] ({ commit }, ...args) {
-		return new Promise((resolve, reject) => {
-			api.channel_delete(...args).then(res => {
-				resolve();
-			}).catch(err => {
-				reject(err);
-			})
-		})
+	[CHANNEL.DELETE] ({ commit }, params) {
+		return api.channel_delete(params);
 	},
-	[CHANNEL.CREATE] ({ commit, dispatch }, ...args) {
-		return new Promise((resolve, reject) => {
-			api.channel_create(...args).then(res => {
-				resolve(res.data);
-			}).catch(err => {
-				reject();
-			})
-		})
+	[CHANNEL.CREATE] ({ commit, dispatch }, params) {
+		return api.channel_create(params);
 	},
 	[CHANNEL.LIVE] ({ commit }) {
 		return new Promise((resolve, reject) => {
