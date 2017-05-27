@@ -280,30 +280,32 @@
 						<div class="temp__popwrap">
 							<ul class="temp__pop temp__pop--small">
 								<li class="radio-box" >
-									<el-radio v-model="radio" :label="1">默认顺序</el-radio>
-									<el-radio v-model="radio" :label="2">自定义首位</el-radio>
+									<el-radio v-model="labelSelect" :label="0">默认顺序</el-radio>
+									<el-radio v-model="labelSelect" :label="1">自定义首位</el-radio>
 								</li>
 							</ul>
-							<ul class="temp__pop temp__pop--add">
-								<li>
-									<a href="javascript:;" class="button"></a>
-									<ul class="select-box">
-										<li class="select-box-item">
-											<img :src="channel.coverImageUrl" width="100%" height="100%">
-											<div class="item__musk item__musk--active"></div>
-										</li>
-										<li class="select-box-item">
-											<img :src="channel.coverImageUrl" width="100%" height="100%">
-											<div class="item__musk"></div>
-										</li>
-										<li class="select-box-item">
-											<img :src="channel.coverImageUrl" width="100%" height="100%">
-											<div class="item__musk"></div>
-										</li>
-									</ul>
-									<a href="javascript:;" class="button"></a>
-								</li>
-							</ul>
+							<transition name="fade">
+								<ul class="temp__pop temp__pop--add" v-if="labelSelect == 1">
+									<li>
+										<a href="javascript:;" class="button"><i class="iconfont icon-btn-up"></i></a>
+										<ul class="select-box">
+											<li class="select-box-item">
+												<img :src="channel.coverImageUrl" width="100%" height="100%">
+												<div class="item__musk item__musk--active"></div>
+											</li>
+											<li class="select-box-item">
+												<img :src="channel.coverImageUrl" width="100%" height="100%">
+												<div class="item__musk"></div>
+											</li>
+											<li class="select-box-item">
+												<img :src="channel.coverImageUrl" width="100%" height="100%">
+												<div class="item__musk"></div>
+											</li>
+										</ul>
+										<a href="javascript:;" class="button"><i class="iconfont icon-btn-down"></i></a>
+									</li>
+								</ul>
+							</transition>	
 						</div>
 					</div>
 				</div>
@@ -325,7 +327,7 @@
 				status: this.$route.params.status || 'public',
 				loading: false,
 				text: '',
-				radio: 1,
+				labelSelect: 0,
 			}
 		},
 		computed: {
@@ -411,5 +413,4 @@
 		max-height: 54px;
 	}
 }
-
 </style>

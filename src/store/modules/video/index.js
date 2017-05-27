@@ -1,8 +1,8 @@
 /*
 * @Author: William Chan
 * @Date:   2017-03-19 14:48:07
-* @Last Modified by:   Administrator
-* @Last Modified time: 2017-05-26 18:01:37
+* @Last Modified by:   cx
+* @Last Modified time: 2017-05-27 10:57:53
 */
 
 'use strict';
@@ -95,7 +95,8 @@ const actions = {
 	[VIDEO.MEDIA_DELETE] ({ commit }, params) {
 		return new Promise((resolve, reject) => {
 			api.video_media_delete(params).then(res => {
-				resolve();
+				commit(VIDEO.QUERY, res.data);
+				resolve(res.data);
 			}).catch(err => {
 				rejcet();
 			})

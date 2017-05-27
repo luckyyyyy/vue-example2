@@ -36,6 +36,7 @@
 						</div>
 					</div>
 				</el-col>
+				<h1 v-if="video.medias.length == 0">已经没有视频啦</h1>
 			</template>
 			<template v-else>
 				<h1>正在转码中...</h1>
