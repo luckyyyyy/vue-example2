@@ -284,7 +284,7 @@
 									<el-radio v-model="labelSelect" :label="1">自定义首位</el-radio>
 								</li>
 							</ul>
-							<transition name="fade">
+							<transition name="el-zoom-in-center">
 								<ul class="temp__pop temp__pop--add" v-if="labelSelect == 1">
 									<li>
 										<a href="javascript:;" class="button"><i class="iconfont icon-btn-up"></i></a>
