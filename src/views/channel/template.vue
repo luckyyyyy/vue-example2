@@ -149,7 +149,7 @@
 										</div>
 										<div class="item__body">
 											<div class="topbar">
-												<img :src="channel.coverImageUrl + '/avatar'">
+												<img :src="channel.logoImageUrl + '/avatar'">
 												{{ channel.name }}
 											</div>
 											<div class="content">
@@ -205,6 +205,7 @@
 									<el-input
 										size="small"
 										placeholder="请输入内容"
+										@change="onDebounce" 
 										v-model="text">
 									</el-input>
 								</li>
@@ -215,7 +216,7 @@
 										type="textarea"
 										:rows="2"
 										:maxlength="20"
-										placeholder="请输入内容"
+										placeholder="用户通过微信分享时，会显示页面描述(20)"
 										v-model="text">
 									</el-input>
 								</li>
@@ -224,20 +225,21 @@
 									<el-input
 										size="small"
 										placeholder="请输入内容"
-										v-model="text">
+										@change="onDebounce" 
+										v-model="channel.name">
 									</el-input>
 								</li>
 								<li class="control-box">
 									<div class="control-box__title">频道背景：</div>
-									<a class="control-box__album" href="javascript:;">
+									<a @click="openCoverAlbum" class="control-box__album" href="javascript:;">
 										<img :src="channel.coverImageUrl">
 									</a>
 									<p class="control-box__tip">750 * 300像素</p>
 								</li>
 								<li class="control-box">
 									<div class="control-box__title">频道LOGO：</div>
-									<a class="control-box__album" href="javascript:;">
-										<img :src="channel.coverImageUrl">
+									<a @click="openLogoAlbum" class="control-box__album" href="javascript:;">
+										<img :src="channel.logoImageUrl + '/avatar'">
 									</a>
 									<p class="control-box__tip">200 * 200像素</p>
 								</li>
@@ -305,7 +307,7 @@
 										<a href="javascript:;" class="button"><i class="iconfont icon-btn-down"></i></a>
 									</li>
 								</ul>
-							</transition>	
+							</transition>
 						</div>
 					</div>
 				</div>
