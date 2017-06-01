@@ -206,7 +206,7 @@
 										size="small"
 										placeholder="请输入内容"
 										@change="onDebounce" 
-										v-model="text">
+										v-model="channel.title">
 									</el-input>
 								</li>
 								<li class="control-box">
@@ -216,8 +216,9 @@
 										type="textarea"
 										:rows="2"
 										:maxlength="20"
+										@change="onDebounce"
 										placeholder="用户通过微信分享时，会显示页面描述(20)"
-										v-model="text">
+										v-model="channel.description">
 									</el-input>
 								</li>
 								<li class="control-box">
@@ -254,7 +255,7 @@
 								<p>精彩回放</p>
 							</div>
 							<div class="phone__head">
-								{{ channel.wxAppName }}
+								{{ channel.title }}
 							</div>
 							<div class="phone__iScroll" ref="iScrollWrap2">
 								<ul class="temp-list">

@@ -1,8 +1,8 @@
 /*
 * @Author: Administrator
 * @Date:   2017-02-25 14:58:36
-* @Last Modified by:   chuxiao
-* @Last Modified time: 2017-05-17 17:11:50
+* @Last Modified by:   cx
+* @Last Modified time: 2017-06-01 10:41:24
 */
 
 'use strict';
@@ -30,8 +30,8 @@ export const channel_query = (id) => {
 	return http.get(`channel/${id}`)
 }
 // PUT /api/v1/channel/{channel_id}
-export const channel_update = ({ channelId, contacts, description, logoImageId, name, phone, coverImageId }) => {
-	return http.put(`channel/${channelId}`, { contacts, description, logoImageId, name, phone, coverImageId })
+export const channel_update = ({ channelId, address, brief, contacts, coverImageId, description, logoImageId, name, phone, qrcodeImageId, title }) => {
+	return http.put(`channel/${channelId}`, { address, brief, contacts, coverImageId, description, logoImageId, name, phone, qrcodeImageId, title })
 }
 
 // GET /api/v1/channel-live
