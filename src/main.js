@@ -30,5 +30,5 @@ export default new Vue({
 	store,
 	el: '#app',
 	template: '<App/>',
-	components: { App,},
+	components: { App },
 })

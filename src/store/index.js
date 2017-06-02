@@ -1,20 +1,20 @@
 /*
 * @Author: William Chan
 * @Date:   2016-12-03 19:24:59
-* @Last Modified by:   chuxiao
-* @Last Modified time: 2017-05-12 09:56:40
+* @Last Modified by:   cx
+* @Last Modified time: 2017-06-02 16:51:34
 */
 
 'use strict';
-import Vue from 'vue'
-import Vuex from 'vuex'
+import Vue    from 'vue'
+import Vuex   from 'vuex'
 import cookie from 'js-cookie'
 
 import { isDevelop }    from '@/utils/util'
 // globle and common
 // import * as getters   from './getters'
 // import * as actions   from './actions'
-import * as mutations  from '@/store/mutations'
+import * as mutations   from '@/store/mutations'
 
 import userModule       from '@/store/modules/user'
 import channelModule    from '@/store/modules/channel'
@@ -76,4 +76,3 @@ export const getCurrentChannel = async () => {
 	}
 	return store.getters['channel/channel'];
 }
-
