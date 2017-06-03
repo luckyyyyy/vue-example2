@@ -226,7 +226,7 @@
 			this.channel = Object.assign({}, this.info);
 			this.findLiveList(true);
 			this.getChannelLive();
-			this.iScrollInit();
+			this.iScrollInit();		
 		},
 		methods: {
 			...mapActions('channel', {
