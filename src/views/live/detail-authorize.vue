@@ -88,7 +88,7 @@
 		computed: {
 			...mapState('live', ['live']),
 		},
-		mounted () {
+		created () {
 			this.form = Object.assign({}, this.live.liveAuthWatch);
 			this.form.price = this.form.price / 100;
 		},
@@ -97,6 +97,7 @@
 				setAuth: 'LIVE_AUTH'
 			}),
 			onChange () {
+				console.log(123)
 				const data = Object.assign({}, this.form);
 				data.id = this.live.id;
 				data.price = this.form.price * 100;

@@ -1,7 +1,7 @@
 <template>
 	<div>
 		<router-view class="commoon"></router-view>
-		<div class="help">
+<!-- 		<div class="help">
 			<div class="head">
 				<div class="logo">
 					<img src="../assets/helpLogo.png" height="20" alt="彩虹云直播"/>
@@ -53,7 +53,7 @@
 					</li>
 				</ul>
 			</div>
-		</div>
+		</div> -->
 	</div>
 </template>
 <script>

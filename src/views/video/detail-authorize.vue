@@ -89,7 +89,7 @@
 		computed: {
 			...mapState('video', ['video']),
 		},
-		mounted () {
+		created () {
 			this.form = Object.assign({}, this.video.liveAuthWatch);
 			this.form.price = this.form.price / 100;
 		},

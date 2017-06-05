@@ -109,7 +109,7 @@
 				}
 			}
 		},
-		mounted () {
+		created () {
 			this.form = Object.assign({}, this.live.liveCountDown);
 			this.form.liveBeginTime = moment(this.form.liveBeginTime).toDate();
 			this.setInterval = setInterval(this.onInterval, 1000);
