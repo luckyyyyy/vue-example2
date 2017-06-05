@@ -12,7 +12,7 @@
 							<div class="phone__head">
 								{{ channel.title || '页面标题' }}
 							</div>
-							<div class="phone__iScroll" ref="iScrollWrap1">
+							<div class="phone__body">
 								<ul class="temp-list">
 									<li class="temp-list__head">
 										<img class="channel-bg" :src="channel.coverImageUrl" alt="频道封面">
@@ -38,6 +38,7 @@
 											<div class="content">
 												<img class="content__bg" :src="channel.coverImageUrl">
 												<div class="content__musk"></div>
+												<!-- <div class="content__musk" :style="{ background: 'url(' + channel.coverImageUrl + ') no-repeat center' }"></div> -->
 											</div>
 										</div>
 									</li>
@@ -88,7 +89,7 @@
 									<el-input
 										size="small"
 										placeholder="请输入内容"
-										@change="onDebounce" 
+										@change="onDebounce"
 										v-model="channel.title">
 									</el-input>
 								</li>
@@ -109,7 +110,7 @@
 									<el-input
 										size="small"
 										placeholder="请输入内容"
-										@change="onDebounce" 
+										@change="onDebounce"
 										v-model="channel.name">
 									</el-input>
 								</li>
@@ -128,41 +129,9 @@
 									<p class="control-box__tip">200 * 200像素</p>
 								</li>
 							</ul>
-						</div>				
+						</div>
 					</div>
 					<div class="temp">
-						<div class="temp__main">
-							<div class="phone__title">
-								<p>正在直播</p>
-								<p>频道主页</p>
-								<p>精彩回放</p>
-							</div>
-							<div class="phone__head">
-								{{ channel.title || '页面标题' }}
-							</div>
-							<div class="phone__iScroll" ref="iScrollWrap2">
-								<ul class="temp-list">
-									<li class="temp-list-item">
-										<div class="item__head">
-											<p class="title">正在直播</p>
-										</div>
-										<div class="item__body">
-											<div class="topbar">
-												<img :src="channel.coverImageUrl + '/avatar'">
-												{{ channel.name }}
-											</div>
-											<div class="content">
-												<img class="content__bg" :src="channel.coverImageUrl">
-												<div class="content__musk"></div>
-											</div>
-										</div>
-									</li>
-								</ul>
-							</div>
-							<div class="phone__foot">
-								<img src="../../assets/images/bottombar@2x.png" width="100%" height="100%">
-							</div>
-						</div>
 						<div class="temp__popwrap">
 							<ul class="temp__pop temp__pop--small">
 								<li class="radio-box" >
@@ -201,7 +170,6 @@
 </template>
 
 <script>
-	import iScroll from 'iscroll'
 	import { mapState, mapActions } from 'vuex'
 	import debounce from 'debounce'
 	import Album from '@/components/item/album'
@@ -226,7 +194,6 @@
 			this.channel = Object.assign({}, this.info);
 			this.findLiveList(true);
 			this.getChannelLive();
-			this.iScrollInit();
 		},
 		methods: {
 			...mapActions('channel', {
@@ -275,16 +242,6 @@
 				}
 				this.debounce();
 			},
-			iScrollInit () {
-				this.scroll1 = new iScroll(this.$refs.iScrollWrap1,{
-					mouseWheel: true,
-					scrollbars: true, 
-				})
-				this.scroll2 = new iScroll(this.$refs.iScrollWrap2,{
-					mouseWheel: true,
-					scrollbars: true, 
-				})
-			}
 		},
 	}
 </script>
