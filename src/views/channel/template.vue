@@ -38,7 +38,7 @@
 											<div class="content">
 												<img class="content__bg" :src="channel.coverImageUrl">
 												<div class="content__musk"></div>
-												<!-- <div class="content__musk" :style="{ background: 'url(' + channel.coverImageUrl + ') no-repeat center' }"></div> -->
+												<!-- <div class="content__musk"  :style="{ background: 'url(' + channel.coverImageUrl + ') no-repeat center' }"></div> -->
 											</div>
 										</div>
 									</li>

@@ -97,7 +97,6 @@
 				setAuth: 'LIVE_AUTH'
 			}),
 			onChange () {
-				console.log(123)
 				const data = Object.assign({}, this.form);
 				data.id = this.live.id;
 				data.price = this.form.price * 100;
