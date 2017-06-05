@@ -72,7 +72,7 @@
 			}
 
 		},
-		mounted () {
+		created () {
 			this.form = Object.assign({}, this.live.liveShare);
 		},
 		methods: {

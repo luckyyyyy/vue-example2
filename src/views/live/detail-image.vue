@@ -57,7 +57,7 @@ import Vue from 'vue';
 				}
 			}
 		},
-		mounted () {
+		created () {
 			this.form = Object.assign({}, this.live.liveGuide);
 		},
 		methods: {

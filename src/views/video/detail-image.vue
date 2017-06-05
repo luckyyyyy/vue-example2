@@ -56,7 +56,7 @@
 				}
 			}
 		},
-		mounted () {
+		created () {
 			this.form = Object.assign({}, this.video.liveGuide);
 		},
 		methods: {

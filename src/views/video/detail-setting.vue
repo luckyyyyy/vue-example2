@@ -58,7 +58,7 @@
 			...mapState('video', ['video']),
 			...mapState('channel', ['channel']),
 		},
-		mounted () {
+		created () {
 			this.form = Object.assign({}, this.video.liveInfo);
 		},
 		methods: {

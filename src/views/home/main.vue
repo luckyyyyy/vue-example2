@@ -16,7 +16,7 @@
 				</div>
 			</div>
 			<router-view class="box"></router-view>
-			<div class="footer">© rainbowbr.cn</div>
+			<!-- <div class="footer">© rainbowbr.cn</div> -->
 		</div>
 	</div>
 </template>

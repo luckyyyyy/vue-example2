@@ -39,8 +39,6 @@
 				return this.$route.name;
 			}
 		},
-		mounted() {
-		},
 		methods: {
 			onSelect (val) {
 				this.$router.push({ name: val, params: this.$route.params })
