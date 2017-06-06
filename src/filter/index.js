@@ -54,4 +54,3 @@ export const secondsFormat = (time) => {
 	return `${h}:${m}:${s}`
 
 }
-
