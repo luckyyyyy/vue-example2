@@ -24,9 +24,9 @@
 				</div>
 			</div>
 		</div>
-		<div ref="list" class="commoon-view">
+		<div class="commoon-view">
 			<el-row class="list" v-show="data.length">
-				<el-col class="item" v-for="item of data" :key="item.id" :title="item.name" :xs="8" :sm="8" :md="6" :lg="4">
+				<el-col class="item" v-for="item of data" :key="item.id" :xs="8" :sm="8" :md="6" :lg="4">
 					<div class="head">
 						<img :src="item.url">
 						<div class="delete">
@@ -49,7 +49,6 @@
 </template>
 
 <script>
-	import iscroll from 'iscroll'
 	import { mapState, mapActions, mapMutations } from 'vuex';
 	import upload from '@/components/item/upload'
 	import { MULTIMEDIA_UPLOAD } from '@/store/api'
@@ -94,27 +93,6 @@
 					this.loading = true;
 					await this.getMultimedia({ type, reload }).then(data => {
 						this.loading = false;
-						if (!this.listScroll) {
-							this.listScroll = new iscroll(this.$refs.list, {
-								mouseWheel: true,
-								preventDefaultException: {
-									tagName: /^(LI)$/
-								},
-								scrollbars: true,
-								fadeScrollbars: true,
-								interactiveScrollbars: true,
-								shrinkScrollbars: 'clip',
-							})
-							this.listScroll.on('scrollStart', () => {
-								this.getImages();
-							});
-						}
-						this.$nextTick(() => {
-							if (reload) {
-								this.listScroll.scrollTo(0, 0);
-							}
-							this.listScroll.refresh();
-						})
 					})
 					this.loading = false;
 				}
@@ -122,10 +100,6 @@
 			success (data) {
 				this.multimediaInsert(data);
 				this.upload = false;
-				this.$nextTick(() => {
-					this.listScroll.scrollTo(0, 0, 100);
-					this.listScroll.refresh();
-				})
 			},
 			fail () {
 				this.upload = false;
