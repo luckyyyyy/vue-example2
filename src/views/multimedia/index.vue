@@ -24,7 +24,7 @@
 				</div>
 			</div>
 		</div>
-		<div class="commoon-view">
+		<div class="commoon-view" @scroll="getImages()">
 			<el-row class="list" v-show="data.length">
 				<el-col class="item" v-for="item of data" :key="item.id" :xs="8" :sm="8" :md="6" :lg="4">
 					<div class="head">
