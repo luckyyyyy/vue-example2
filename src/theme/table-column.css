@@ -205,7 +205,8 @@
     outline: none;
     position: absolute;
     margin: 0;
-    visibility: hidden;
+    width: 0;
+    height: 0;
     left: -999px;
 }
 .el-checkbox__label{

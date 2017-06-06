@@ -193,6 +193,7 @@
     cursor: pointer;
     background: #fff;
     border: 1px solid rgb(191, 210, 217);
+    border-color: #c4c4c4;
     color: rgb(31, 53, 61);
     -webkit-appearance: none;
     text-align: center;
@@ -582,6 +583,10 @@
 
 .el-dropdown .el-button-group{
     display: block;
+}
+
+.el-dropdown .el-button-group .el-button{
+    float: none;
 }
 
 .el-dropdown .el-dropdown__caret-button{

@@ -490,9 +490,6 @@
 .el-time-spinner.has-seconds .el-time-spinner__wrapper {
     width: 33%;
 }
-.el-time-spinner.has-seconds .el-time-spinner__wrapper .el-scrollbar__wrap:not(.el-scrollbar__wrap--hidden-default) {
-    padding-bottom: 15px;
-}
 .el-time-spinner.has-seconds .el-time-spinner__wrapper:nth-child(2) {
     margin-left: 1%;
 }
@@ -503,6 +500,9 @@
     width: 50%;
     vertical-align: top;
     position: relative;
+}
+.el-time-spinner__wrapper .el-scrollbar__wrap:not(.el-scrollbar__wrap--hidden-default) {
+    padding-bottom: 15px;
 }
 .el-time-spinner__list {
     padding: 0;
@@ -1713,7 +1713,7 @@
     border: 1px solid rgb(191, 210, 217);
     box-sizing: border-box;
     color: rgb(31, 53, 61);
-    display: block;
+    display: inline-block;
     font-size: inherit;
     height: 36px;
     line-height: 1;
@@ -1803,7 +1803,7 @@
     border: 1px solid rgb(191, 210, 217);
     border-radius: 4px;
     padding: 0 10px;
-    width: 1%;
+    width: 1px;
     white-space: nowrap;
 }
 .el-input-group__append .el-select, .el-input-group__append .el-button, .el-input-group__prepend .el-select, .el-input-group__prepend .el-button {

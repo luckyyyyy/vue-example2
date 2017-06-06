@@ -1,8 +1,8 @@
 /*
 * @Author: William Chan
 * @Date:   2016-12-03 20:43:22
-* @Last Modified by:   cx
-* @Last Modified time: 2017-05-26 14:02:43
+* @Last Modified by:   WilliamChan
+* @Last Modified time: 2017-06-06 14:44:08
 */
 
 'use strict';
@@ -34,31 +34,11 @@ export const MULTIMEDIA = export_var('MULTIMEDIA',
 	'INSERT', 'DELETE',
 	'FIND_REQUEST', 'FIND_SUCCESS', 'FIND_FAILURE'
 );
-
-// ORDER
-export const ORDER = export_var('ORDER',
-	'QUERY',
-	'FIND_REQUEST', 'FIND_SUCCESS', 'FIND_FAILURE',
+export const ACCOUNT = export_var('ACCOUNT',
+	'ORDER_FIND', 'ORDER_PAY',
+	'BUY_FLOW', 'BUY_EDITION',
+	'RECHARGE'
 );
-export const ORDER_CONSUME = export_var('ORDER_CONSUME',
-	'CREATE',
-	'QUERY'
-);
-export const ORDER_FLOW = export_var('ORDER_FLOW',
-	'CREATE',
-	'QUERY'
-);
-export const ORDER_RECHARGE = export_var('ORDER_RECHARGE',
-	'QUERY'
-);
-
-// pay
-export const PAY = export_var('PAY',
-	'NOTIFY', 'ORDER'
-)
-export const PAY_CREATE = export_var('PAY_CREATE',
-	'CONSUME','FLOW','RECHARGE'
-)
 
 // live
 export const LIVE = export_var('LIVE',

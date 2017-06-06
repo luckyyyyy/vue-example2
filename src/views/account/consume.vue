@@ -164,8 +164,8 @@
 			this.fTime=moment(this.time).add(this.form.quantity, 'years').format('YYYY-MM-DD');
 		},
 		methods: {
-			...mapActions('pay/consume_create', {
-				createConsume: 'PAY_CREATE_CONSUME'
+			...mapActions('account', {
+				buyEdition: 'ACCOUNT_BUY_EDITION'
 			}),
 			...mapActions('user',{
 				getUser: 'USER_GET'
@@ -183,7 +183,7 @@
 				}
 			},
 			onSubmit () {
-				this.createConsume(this.form).then(res => {
+				this.buyEdition(this.form).then(res => {
 					if (typeof res == 'string') {
 						// 支付宝充值
 						this.$confirm('在新窗口为您打开充值界面，请按提示进行操作', '提示信息', {

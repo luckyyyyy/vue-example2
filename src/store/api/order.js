@@ -22,8 +22,8 @@ export const order_flow_create = (money) => {
 	return http.post('order/flow/create', { money })
 }
 //	GET /api/v1/order/find/consume
-export const order_find = ({ page, start, limits }) => {
-	return http.get(`order/find?start=${start}&limits=${limits}`, { page, start, limits })
+export const order_find = ({ page, limits }) => {
+	return http.get(`order/find?start=${start}&limits=${limits}`, { page, limits })
 }
 //	GET /api/v1/order/find/recharge
 export const order_find_recharge = ({ page, start, limits }) => {

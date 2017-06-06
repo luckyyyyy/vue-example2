@@ -76,18 +76,14 @@ import { mapActions } from 'vuex'
 
 		},
 		methods: {
-			...mapActions ('pay/recharge_create',{
-				createRecharge: 'PAY_CREATE_RECHARGE'
+			...mapActions ('account',{
+				createRecharge: 'ACCOUNT_RECHARGE'
 			}),
 			...mapActions('user',{
 				getUser: 'USER_GET'
 			}),
-			...mapActions('channel',{
-				getChannel: 'CHANNEL_GET'
-			}),
 			updateInfo () {
 				this.getUser();
-				this.getChannel(this.channel.channelId);
 			},
 			onSubmit () {
 				this.createRecharge(this.form).then(res => {
@@ -99,7 +95,7 @@ import { mapActions } from 'vuex'
 							closeOnClickModal: false,
 						}).then(() => {
 							this.updateInfo();
-							this.$router.push({ path: 'overview' });
+							this.$router.push({ name: 'account_overview' });
 						}).catch(() => {
 							this.updateInfo();
 							this.$message.warning('已取消支付');
@@ -111,7 +107,7 @@ import { mapActions } from 'vuex'
 							type: 'success',
 						}).then(() => {
 							this.updateInfo();
-							this.$router.push({ path: 'overview' });
+							this.$router.push({ name: 'account_overview' });
 						})
 					}
 				}).catch(err => {

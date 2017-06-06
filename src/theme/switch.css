@@ -116,9 +116,9 @@
     color: rgb(251, 254, 254) !important
 }
 
-.el-switch.is-disabled .el-switch__input:checked + .el-switch__core{
-    border-color: rgb(228, 235, 241);
-    background-color: rgb(228, 235, 241);
+.el-switch.is-checked .el-switch__core{
+    border-color: #1fbedb;
+    background-color: #1fbedb;
 }
 
 .el-switch.is-disabled{}
@@ -162,11 +162,6 @@
 
 .el-switch__input{
     display: none
-}
-
-.el-switch__input:checked + .el-switch__core{
-    border-color: #1fbedb;
-    background-color: #1fbedb
 }
 
 .el-switch__core{

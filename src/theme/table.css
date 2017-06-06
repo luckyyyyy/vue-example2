@@ -205,7 +205,8 @@
     outline: none;
     position: absolute;
     margin: 0;
-    visibility: hidden;
+    width: 0;
+    height: 0;
     left: -999px;
 }
 .el-checkbox__label{
@@ -960,12 +961,12 @@
 
 .el-table--striped .el-table__body{}
 
-.el-table--striped .el-table__body tr:nth-child(2n) td{
+.el-table--striped .el-table__body tr.el-table__row--striped td{
     background: #FAFAFA;
     background-clip: padding-box;
 }
 
-.el-table--striped .el-table__body tr:nth-child(2n).current-row td{
+.el-table--striped .el-table__body tr.el-table__row--striped.current-row td{
     background: rgb(237, 250, 252);
 }
 

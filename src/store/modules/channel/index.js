@@ -46,9 +46,9 @@ const actions = {
 			commit(CHANNEL.SELECT, null, { root: true });
 		}
 	},
-	[CHANNEL.UPDATE] ({ getters, dispatch, commit }, ...args) {
+	[CHANNEL.UPDATE] ({ getters, dispatch, commit }, params) {
 		return new Promise((resolve, reject) => {
-			api.channel_update(...args).then(res => {
+			api.channel_update(params).then(res => {
 				commit(CHANNEL.UPDATE, res.data);
 				resolve(res.data);
 			}).catch(err => {
@@ -56,10 +56,10 @@ const actions = {
 			})
 		})
 	},
-	[CHANNEL.FIND_REQUEST] ({ commit }, ...args) {
+	[CHANNEL.FIND_REQUEST] ({ commit }, params) {
 		commit(CHANNEL.FIND_REQUEST);
 		return new Promise((resolve, reject) => {
-			api.channel_find(...args).then(res => {
+			api.channel_find(params).then(res => {
 				commit(CHANNEL.FIND_SUCCESS, res);
 				resolve(res.data);
 			}).catch(err => {

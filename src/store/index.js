@@ -21,8 +21,7 @@ import channelModule    from '@/store/modules/channel'
 import liveModule       from '@/store/modules/live'
 import imModule         from '@/store/modules/im'
 import videoModule      from '@/store/modules/video'
-import orderModule      from '@/store/modules/order'
-import payModule        from '@/store/modules/pay'
+import accountModule    from '@/store/modules/account'
 import weChatModule     from '@/store/modules/wechat/auth_url'
 import commodityModule  from '@/store/modules/commodity/catalogs'
 import multimediaModule from '@/store/modules/multimedia'
@@ -43,20 +42,10 @@ store.registerModule('channel',     channelModule);
 store.registerModule('live',        liveModule);
 store.registerModule('im',          imModule);
 store.registerModule('video',       videoModule);
-store.registerModule('order',       orderModule);
-store.registerModule('pay',         payModule);
+store.registerModule('account',     accountModule);
 store.registerModule('wechat',      weChatModule);
 store.registerModule('catalogs',    commodityModule);
 store.registerModule('multimedia',  multimediaModule);
-
-const module = {};
-export const registerModule = (path, module) => {
-	const name = typeof path == 'string' ? path : path.join('/');
-	if (!module[name]) {
-		store.registerModule(path, module);
-		module[name] = true;
-	}
-}
 
 export const getAuthorization = async () => {
 	if (!store.state.user.user) {

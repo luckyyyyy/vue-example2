@@ -5,8 +5,6 @@
 * @Last Modified time: 2017-05-09 10:43:02
 */
 
-import { registerModule } from '../store'
-
 export default [
 	{
 		path: '/account',
@@ -22,66 +20,26 @@ export default [
 				name: 'account_overview',
 				path: 'overview',
 				meta: { requiresAuth: true },
-				component: resolve => require([
-					'../views/account/overview.vue',
-					'../store/modules/order/find.js',
-					'@/store/modules/pay/order.js',
-				],(
-					OverviewComponent,
-					OrderFindModule,
-					PayOrderModule,
-				) => {
-					registerModule(['order', 'find'], OrderFindModule.default);
-					registerModule(['pay', 'order'], PayOrderModule.default);
-					resolve(OverviewComponent);
-				})
+				component: resolve => import('@/views/account/overview.vue'),
 			},
 			{
 				name: 'account_recharge',
 				path: 'overview/recharge',
 				meta: { requiresAuth: true, parent: 'account_overview'},
-				component: resolve => require([
-					'../views/account/recharge.vue',
-					'../store/modules/pay/recharge.js',
-				],(
-					RechargeComponent,
-					PayRechargeModule,
-				) => {
-					registerModule(['pay', 'recharge_create'], PayRechargeModule.default);
-					resolve(RechargeComponent);
-				})
+				component: resolve => import('@/views/account/recharge.vue'),
 			},
 			{
 				name: 'account_flow',
 				path: 'flow',
 				meta: { requiresAuth: true },
-				component: resolve => require([
-					'../views/account/flow.vue',
-					'../store/modules/pay/flow.js',
-				], (
-					FlowComponent,
-					PayFlowModule,
-				) => {
-					registerModule(['pay', 'flow_create'], PayFlowModule.default);
-					resolve(FlowComponent);
-				})
+				component: resolve => import('@/views/account/flow.vue'),
 			},
-
 			{
 				name: 'account_consume',
 				path: 'consume',
 				meta: { requiresAuth: true },
-				component: resolve => require([
-					'../views/account/consume.vue',
-					'../store/modules/pay/consume.js',
-				], (
-					ConsumeComponent,
-					PayConsumeModule,
-				) => {
-					registerModule(['pay', 'consume_create'], PayConsumeModule.default);
-					resolve(ConsumeComponent);
-				})
-			},
+				component: resolve => import('@/views/account/consume.vue'),
+			}
 		],
 	},
 ]

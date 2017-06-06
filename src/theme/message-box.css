@@ -220,6 +220,7 @@
   cursor: pointer;
   background: #fff;
   border: 1px solid rgb(191, 210, 217);
+  border-color: #c4c4c4;
   color: rgb(31, 53, 61);
   -webkit-appearance: none;
   text-align: center;
@@ -725,7 +726,7 @@
   border: 1px solid rgb(191, 210, 217);
   box-sizing: border-box;
   color: rgb(31, 53, 61);
-  display: block;
+  display: inline-block;
   font-size: inherit;
   height: 36px;
   line-height: 1;
@@ -815,7 +816,7 @@
   border: 1px solid rgb(191, 210, 217);
   border-radius: 4px;
   padding: 0 10px;
-  width: 1%;
+  width: 1px;
   white-space: nowrap;
 }
 .el-input-group__append .el-select, .el-input-group__append .el-button, .el-input-group__prepend .el-select, .el-input-group__prepend .el-button{
@@ -937,26 +938,30 @@
   padding: 20px 20px 0;
 }
 
+.el-message-box__headerbtn{
+  position: absolute;
+  top: 19px;
+  right: 20px;
+  background: transparent;
+  border: none;
+  outline: none;
+  padding: 0;
+  cursor: pointer;
+}
+
+.el-message-box__headerbtn .el-message-box__close {
+  color: #999;
+}
+
+.el-message-box__headerbtn:focus .el-message-box__close, .el-message-box__headerbtn:hover .el-message-box__close{
+  color: #1fbedb;
+}
+
 .el-message-box__content{
   padding: 30px 20px;
   color: rgb(72, 96, 106);
   font-size: 14px;
   position: relative;
-}
-
-.el-message-box__close{
-  display: inline-block;
-  position: absolute;
-  top: 19px;
-  right: 20px;
-  color: #999;
-  cursor: pointer;
-  line-height: 20px;
-  text-align: center;
-}
-
-.el-message-box__close:hover{
-  color: #1fbedb;
 }
 
 .el-message-box__input{

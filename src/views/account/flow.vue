@@ -94,8 +94,8 @@ import { mapActions } from 'vuex'
 			}
 		},
 		methods: {
-			...mapActions ('pay/flow_create',{
-				createFlow: 'PAY_CREATE_FLOW'
+			...mapActions ('account',{
+				createFlow: 'ACCOUNT_BUY_FLOW'
 			}),
 			...mapActions('user',{
 				getUser: 'USER_GET'

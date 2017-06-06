@@ -131,7 +131,7 @@
     border: 1px solid rgb(191, 210, 217);
     box-sizing: border-box;
     color: rgb(31, 53, 61);
-    display: block;
+    display: inline-block;
     font-size: inherit;
     height: 36px;
     line-height: 1;
@@ -241,7 +241,7 @@
     border: 1px solid rgb(191, 210, 217);
     border-radius: 4px;
     padding: 0 10px;
-    width: 1%;
+    width: 1px;
     white-space: nowrap
 }
 

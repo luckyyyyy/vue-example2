@@ -712,7 +712,7 @@
     border: 1px solid rgb(191, 210, 217);
     box-sizing: border-box;
     color: rgb(31, 53, 61);
-    display: block;
+    display: inline-block;
     font-size: inherit;
     height: 36px;
     line-height: 1;
@@ -802,7 +802,7 @@
     border: 1px solid rgb(191, 210, 217);
     border-radius: 4px;
     padding: 0 10px;
-    width: 1%;
+    width: 1px;
     white-space: nowrap;
 }
 .el-input-group__append .el-select, .el-input-group__append .el-button, .el-input-group__prepend .el-select, .el-input-group__prepend .el-button {
@@ -1975,11 +1975,18 @@
 .el-dialog__header {
     padding: 20px 20px 0;
 }
-.el-dialog__close {
+.el-dialog__headerbtn {
+    float: right;
+    background: transparent;
+    border: none;
+    outline: none;
+    padding: 0;
     cursor: pointer;
+}
+.el-dialog__headerbtn .el-dialog__close {
     color: rgb(191, 210, 217);
 }
-.el-dialog__close:hover {
+.el-dialog__headerbtn:focus .el-dialog__close, .el-dialog__headerbtn:hover .el-dialog__close {
     color: #1fbedb;
 }
 .el-dialog__title {
@@ -1992,9 +1999,6 @@
     padding: 30px 20px;
     color: rgb(72, 96, 106);
     font-size: 14px;
-}
-.el-dialog__headerbtn {
-    float: right;
 }
 .el-dialog__footer {
     padding: 10px 20px 15px;
@@ -2154,7 +2158,7 @@
     border: 1px solid rgb(191, 210, 217);
     box-sizing: border-box;
     color: rgb(31, 53, 61);
-    display: block;
+    display: inline-block;
     font-size: inherit;
     height: 36px;
     line-height: 1;
@@ -2244,7 +2248,7 @@
     border: 1px solid rgb(191, 210, 217);
     border-radius: 4px;
     padding: 0 10px;
-    width: 1%;
+    width: 1px;
     white-space: nowrap;
 }
 .el-input-group__append .el-select, .el-input-group__append .el-button, .el-input-group__prepend .el-select, .el-input-group__prepend .el-button {
@@ -2815,6 +2819,7 @@
     cursor: pointer;
     background: #fff;
     border: 1px solid rgb(191, 210, 217);
+    border-color: #c4c4c4;
     color: rgb(31, 53, 61);
     -webkit-appearance: none;
     text-align: center;
@@ -3202,6 +3207,9 @@
 }
 .el-dropdown .el-button-group {
     display: block;
+}
+.el-dropdown .el-button-group .el-button {
+    float: none;
 }
 .el-dropdown .el-dropdown__caret-button {
     padding-right: 5px;
@@ -3647,7 +3655,7 @@
     border: 1px solid rgb(191, 210, 217);
     box-sizing: border-box;
     color: rgb(31, 53, 61);
-    display: block;
+    display: inline-block;
     font-size: inherit;
     height: 36px;
     line-height: 1;
@@ -3737,7 +3745,7 @@
     border: 1px solid rgb(191, 210, 217);
     border-radius: 4px;
     padding: 0 10px;
-    width: 1%;
+    width: 1px;
     white-space: nowrap;
 }
 .el-input-group__append .el-select, .el-input-group__append .el-button, .el-input-group__prepend .el-select, .el-input-group__prepend .el-button {
@@ -3950,7 +3958,7 @@
     border: 1px solid rgb(191, 210, 217);
     box-sizing: border-box;
     color: rgb(31, 53, 61);
-    display: block;
+    display: inline-block;
     font-size: inherit;
     height: 36px;
     line-height: 1;
@@ -4040,7 +4048,7 @@
     border: 1px solid rgb(191, 210, 217);
     border-radius: 4px;
     padding: 0 10px;
-    width: 1%;
+    width: 1px;
     white-space: nowrap;
 }
 .el-input-group__append .el-select, .el-input-group__append .el-button, .el-input-group__prepend .el-select, .el-input-group__prepend .el-button {
@@ -4218,7 +4226,6 @@
 }
 .el-input-number {
     display: inline-block;
-    overflow: hidden;
     width: 180px;
     position: relative;
 }
@@ -4968,7 +4975,8 @@
     outline: none;
     position: absolute;
     margin: 0;
-    visibility: hidden;
+    width: 0;
+    height: 0;
     left: -999px;
 }
 .el-checkbox__label {
@@ -5179,9 +5187,9 @@
 .el-switch.is-disabled .el-switch__core ~ .el-switch__label * {
     color: rgb(251, 254, 254) !important;
 }
-.el-switch.is-disabled .el-switch__input:checked + .el-switch__core {
-    border-color: rgb(228, 235, 241);
-    background-color: rgb(228, 235, 241);
+.el-switch.is-checked .el-switch__core {
+    border-color: #1fbedb;
+    background-color: #1fbedb;
 }
 .el-switch.is-disabled {}
 .el-switch.is-disabled .el-switch__core, .el-switch.is-disabled .el-switch__label {
@@ -5218,10 +5226,6 @@
 }
 .el-switch__input {
     display: none;
-}
-.el-switch__input:checked + .el-switch__core {
-    border-color: #1fbedb;
-    background-color: #1fbedb;
 }
 .el-switch__core {
     margin: 0;
@@ -5608,7 +5612,7 @@
     border: 1px solid rgb(191, 210, 217);
     box-sizing: border-box;
     color: rgb(31, 53, 61);
-    display: block;
+    display: inline-block;
     font-size: inherit;
     height: 36px;
     line-height: 1;
@@ -5698,7 +5702,7 @@
     border: 1px solid rgb(191, 210, 217);
     border-radius: 4px;
     padding: 0 10px;
-    width: 1%;
+    width: 1px;
     white-space: nowrap;
 }
 .el-input-group__append .el-select, .el-input-group__append .el-button, .el-input-group__prepend .el-select, .el-input-group__prepend .el-button {
@@ -6552,6 +6556,7 @@
     cursor: pointer;
     background: #fff;
     border: 1px solid rgb(191, 210, 217);
+    border-color: #c4c4c4;
     color: rgb(31, 53, 61);
     -webkit-appearance: none;
     text-align: center;
@@ -7138,7 +7143,8 @@
     outline: none;
     position: absolute;
     margin: 0;
-    visibility: hidden;
+    width: 0;
+    height: 0;
     left: -999px;
 }
 .el-checkbox__label {
@@ -7831,11 +7837,11 @@
 }
 .el-table--striped {}
 .el-table--striped .el-table__body {}
-.el-table--striped .el-table__body tr:nth-child(2n) td {
+.el-table--striped .el-table__body tr.el-table__row--striped td {
     background: #FAFAFA;
     background-clip: padding-box;
 }
-.el-table--striped .el-table__body tr:nth-child(2n).current-row td {
+.el-table--striped .el-table__body tr.el-table__row--striped.current-row td {
     background: rgb(237, 250, 252);
 }
 .el-table__body tr.hover-row > td {
@@ -8080,7 +8086,8 @@
     outline: none;
     position: absolute;
     margin: 0;
-    visibility: hidden;
+    width: 0;
+    height: 0;
     left: -999px;
 }
 .el-checkbox__label {
@@ -9013,9 +9020,6 @@
 .el-time-spinner.has-seconds .el-time-spinner__wrapper {
     width: 33%;
 }
-.el-time-spinner.has-seconds .el-time-spinner__wrapper .el-scrollbar__wrap:not(.el-scrollbar__wrap--hidden-default) {
-    padding-bottom: 15px;
-}
 .el-time-spinner.has-seconds .el-time-spinner__wrapper:nth-child(2) {
     margin-left: 1%;
 }
@@ -9026,6 +9030,9 @@
     width: 50%;
     vertical-align: top;
     position: relative;
+}
+.el-time-spinner__wrapper .el-scrollbar__wrap:not(.el-scrollbar__wrap--hidden-default) {
+    padding-bottom: 15px;
 }
 .el-time-spinner__list {
     padding: 0;
@@ -10236,7 +10243,7 @@
     border: 1px solid rgb(191, 210, 217);
     box-sizing: border-box;
     color: rgb(31, 53, 61);
-    display: block;
+    display: inline-block;
     font-size: inherit;
     height: 36px;
     line-height: 1;
@@ -10326,7 +10333,7 @@
     border: 1px solid rgb(191, 210, 217);
     border-radius: 4px;
     padding: 0 10px;
-    width: 1%;
+    width: 1px;
     white-space: nowrap;
 }
 .el-input-group__append .el-select, .el-input-group__append .el-button, .el-input-group__prepend .el-select, .el-input-group__prepend .el-button {
@@ -11770,9 +11777,6 @@
 .el-time-spinner.has-seconds .el-time-spinner__wrapper {
     width: 33%;
 }
-.el-time-spinner.has-seconds .el-time-spinner__wrapper .el-scrollbar__wrap:not(.el-scrollbar__wrap--hidden-default) {
-    padding-bottom: 15px;
-}
 .el-time-spinner.has-seconds .el-time-spinner__wrapper:nth-child(2) {
     margin-left: 1%;
 }
@@ -11783,6 +11787,9 @@
     width: 50%;
     vertical-align: top;
     position: relative;
+}
+.el-time-spinner__wrapper .el-scrollbar__wrap:not(.el-scrollbar__wrap--hidden-default) {
+    padding-bottom: 15px;
 }
 .el-time-spinner__list {
     padding: 0;
@@ -12103,7 +12110,7 @@
     border: 1px solid rgb(191, 210, 217);
     box-sizing: border-box;
     color: rgb(31, 53, 61);
-    display: block;
+    display: inline-block;
     font-size: inherit;
     height: 36px;
     line-height: 1;
@@ -12193,7 +12200,7 @@
     border: 1px solid rgb(191, 210, 217);
     border-radius: 4px;
     padding: 0 10px;
-    width: 1%;
+    width: 1px;
     white-space: nowrap;
 }
 .el-input-group__append .el-select, .el-input-group__append .el-button, .el-input-group__prepend .el-select, .el-input-group__prepend .el-button {
@@ -13031,6 +13038,7 @@
     cursor: pointer;
     background: #fff;
     border: 1px solid rgb(191, 210, 217);
+    border-color: #c4c4c4;
     color: rgb(31, 53, 61);
     -webkit-appearance: none;
     text-align: center;
@@ -13536,7 +13544,7 @@
     border: 1px solid rgb(191, 210, 217);
     box-sizing: border-box;
     color: rgb(31, 53, 61);
-    display: block;
+    display: inline-block;
     font-size: inherit;
     height: 36px;
     line-height: 1;
@@ -13626,7 +13634,7 @@
     border: 1px solid rgb(191, 210, 217);
     border-radius: 4px;
     padding: 0 10px;
-    width: 1%;
+    width: 1px;
     white-space: nowrap;
 }
 .el-input-group__append .el-select, .el-input-group__append .el-button, .el-input-group__prepend .el-select, .el-input-group__prepend .el-button {
@@ -13743,24 +13751,27 @@
     position: relative;
     padding: 20px 20px 0;
 }
+.el-message-box__headerbtn {
+    position: absolute;
+    top: 19px;
+    right: 20px;
+    background: transparent;
+    border: none;
+    outline: none;
+    padding: 0;
+    cursor: pointer;
+}
+.el-message-box__headerbtn .el-message-box__close {
+    color: #999;
+}
+.el-message-box__headerbtn:focus .el-message-box__close, .el-message-box__headerbtn:hover .el-message-box__close {
+    color: #1fbedb;
+}
 .el-message-box__content {
     padding: 30px 20px;
     color: rgb(72, 96, 106);
     font-size: 14px;
     position: relative;
-}
-.el-message-box__close {
-    display: inline-block;
-    position: absolute;
-    top: 19px;
-    right: 20px;
-    color: #999;
-    cursor: pointer;
-    line-height: 20px;
-    text-align: center;
-}
-.el-message-box__close:hover {
-    color: #1fbedb;
 }
 .el-message-box__input {
     padding-top: 15px;
@@ -15271,7 +15282,7 @@
     border: 1px solid rgb(191, 210, 217);
     box-sizing: border-box;
     color: rgb(31, 53, 61);
-    display: block;
+    display: inline-block;
     font-size: inherit;
     height: 36px;
     line-height: 1;
@@ -15361,7 +15372,7 @@
     border: 1px solid rgb(191, 210, 217);
     border-radius: 4px;
     padding: 0 10px;
-    width: 1%;
+    width: 1px;
     white-space: nowrap;
 }
 .el-input-group__append .el-select, .el-input-group__append .el-button, .el-input-group__prepend .el-select, .el-input-group__prepend .el-button {
@@ -15539,7 +15550,6 @@
 }
 .el-input-number {
     display: inline-block;
-    overflow: hidden;
     width: 180px;
     position: relative;
 }
@@ -20942,7 +20952,7 @@
     border: 1px solid rgb(191, 210, 217);
     box-sizing: border-box;
     color: rgb(31, 53, 61);
-    display: block;
+    display: inline-block;
     font-size: inherit;
     height: 36px;
     line-height: 1;
@@ -21032,7 +21042,7 @@
     border: 1px solid rgb(191, 210, 217);
     border-radius: 4px;
     padding: 0 10px;
-    width: 1%;
+    width: 1px;
     white-space: nowrap;
 }
 .el-input-group__append .el-select, .el-input-group__append .el-button, .el-input-group__prepend .el-select, .el-input-group__prepend .el-button {
@@ -21884,7 +21894,7 @@
     border: 1px solid rgb(191, 210, 217);
     box-sizing: border-box;
     color: rgb(31, 53, 61);
-    display: block;
+    display: inline-block;
     font-size: inherit;
     height: 36px;
     line-height: 1;
@@ -21974,7 +21984,7 @@
     border: 1px solid rgb(191, 210, 217);
     border-radius: 4px;
     padding: 0 10px;
-    width: 1%;
+    width: 1px;
     white-space: nowrap;
 }
 .el-input-group__append .el-select, .el-input-group__append .el-button, .el-input-group__prepend .el-select, .el-input-group__prepend .el-button {
@@ -22158,6 +22168,7 @@
     cursor: pointer;
     background: #fff;
     border: 1px solid rgb(191, 210, 217);
+    border-color: #c4c4c4;
     color: rgb(31, 53, 61);
     -webkit-appearance: none;
     text-align: center;
@@ -22743,7 +22754,8 @@
     outline: none;
     position: absolute;
     margin: 0;
-    visibility: hidden;
+    width: 0;
+    height: 0;
     left: -999px;
 }
 .el-checkbox__label {
