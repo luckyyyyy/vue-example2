@@ -27,19 +27,19 @@
 							<div class="common-tabs__content">
 								<div class="offline-logo"><img src="../../assets/images/account/offlineLogo.png" height="30" width="103"></div>
 								<div class='message'>
-									<p class="label">开户名称：</p>：
+									<p class="label">开户名称：</p>
 									<span>杭州艾草科技有限公司</span>
 								</div>
 								<div class='message'>
-									<p class="label">开户银行：</p>：
+									<p class="label">开户银行：</p>
 									<span>上海浦东发展银行杭州钱塘支行</span>
 								</div>
 								<div class='message'>
-									<p class="label">银行账号：</p>：
+									<p class="label">银行账号：</p>
 									<span class="focus">9509 0154 8000 04952</span>
 								</div>
 								<div class='message'>
-									<p class="label">联系电话：</p>：
+									<p class="label">联系电话：</p>
 									<span>0571-22222222</span>
 								</div>
 							</div>
