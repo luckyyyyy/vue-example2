@@ -55,7 +55,7 @@
 									</router-link>
 								</template>
 								<template v-if="!item.trashStatus">
-									<router-link :to="{ name: 'live_detail_image', params: { liveid: item.id } }">
+									<router-link :to="{ name: 'live_detail_authorize', params: { liveid: item.id } }">
 										<i class="iconfont icon-wefill"></i>
 										<span>互动设置</span>
 									</router-link>
@@ -125,7 +125,7 @@
 		computed: {
 			...mapState('live', ['data', 'lock']),
 		},
-		mounted () {
+		created () {
 			this.findLiveList(true);
 		},
 		methods: {

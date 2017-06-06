@@ -80,7 +80,7 @@
 				timer: null,
 			}
 		},
-		mounted() {
+		mounted () {
 			this.$nextTick(() => {
 				this.volume = this.$refs.$video.volume * 100;
 			});

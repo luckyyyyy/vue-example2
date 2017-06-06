@@ -62,7 +62,7 @@
 				info: state => state.channel
 			})
 		},
-		mounted () {
+		created () {
 			this.channel = Object.assign({}, this.info);
 		},
 		methods: {

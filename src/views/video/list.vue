@@ -82,7 +82,7 @@
 		computed: {
 			...mapState('video', ['data', 'lock']),
 		},
-		mounted () {
+		created () {
 			this.findVideoList(true);
 		},
 		methods: {

@@ -190,7 +190,7 @@
 			}),
 			...mapState('live', ['data', 'lock']),
 		},
-		mounted () {
+		created () {
 			this.channel = Object.assign({}, this.info);
 			this.findLiveList(true);
 			this.getChannelLive();

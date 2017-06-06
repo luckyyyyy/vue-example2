@@ -127,8 +127,10 @@
 				chatroom_init: state => state.init,
 			}),
 		},
-		mounted () {
+		created () {
 			this.onJoinChatroom();
+		},
+		mounted () {
 			if (this.qrcode) {
 				this.qrcode.makeCode(this.live.liveStream.pushStreamUrl);
 			} else {

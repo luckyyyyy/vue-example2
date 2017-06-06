@@ -77,7 +77,7 @@
 			}),
 			...mapState('user', [ 'user' ])
 		},
-		mounted () {
+		created () {
 			this.onChange();
 		},
 		methods: {
