@@ -82,7 +82,7 @@
 						<el-table :data="orders" width="100%" border >
 							<el-table-column label="日期" min-width="200" :resizable="false">
 								<template scope="scope">
-									<span>{{ scope.row.createTime | dateFormat('YYYY-MM-DD HH:mm:ss') }}</span>
+									<span>{{ scope.row.createTime | dateFormat('YYYY-MM-DD') }}</span>
 								</template>
 							</el-table-column>
 							<el-table-column prop="editionName" label="购买项目" min-width="140" :resizable="false"></el-table-column>
@@ -152,7 +152,7 @@
 									</div>
 									<div class="message">
 										<p class="label">购买项目：</p>
-										<span class="focus">{{ form.name }}</span>
+										<span class="focus">{{ form.editionName }}</span>
 									</div>
 									<div class="message">
 										<p class="label">应付金额：</p>
@@ -266,7 +266,7 @@
 							this.selectPage();
 							this.updateInfo();
 						}).catch(() => {
-							this.$message.warning('已取消支付');
+							this.$message.info('已取消支付');
 							this.updateInfo();
 						});
 						window.open(res);

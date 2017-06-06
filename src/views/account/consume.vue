@@ -160,8 +160,8 @@
 			}
 		},
 		mounted () {
-			this.time=moment().format('YYYY-MM-DD HH:mm:ss');
-			this.fTime=moment(this.time).add(this.form.quantity, 'years').format('YYYY-MM-DD HH:mm:ss');
+			this.time=moment().format('YYYY-MM-DD');
+			this.fTime=moment(this.time).add(this.form.quantity, 'years').format('YYYY-MM-DD');
 		},
 		methods: {
 			...mapActions('pay/consume_create', {
@@ -183,33 +183,33 @@
 				}
 			},
 			onSubmit () {
-				// this.createConsume(this.form).then(res => {
-				// 	if (typeof res == 'string') {
-				// 		// 支付宝充值
-				// 		this.$confirm('在新窗口为您打开充值界面，请按提示进行操作', '提示信息', {
-				// 			confirmButtonText: '支付成功',
-				// 			type: 'info',
-				// 			closeOnClickModal: false,
-				// 		}).then(() => {
-				// 			this.updateInfo();
-				// 			this.$router.push({ path: 'overview' });
-				// 		}).catch(() => {
-				// 			this.updateInfo();
-				// 			this.$message.warning('已取消支付');
-				// 		});
-				// 		window.open(res);
-				// 	} else {
-				// 		// 非支付宝充值
-				// 		this.$alert('账户余额支付成功', '提示信息', {
-				// 			type: 'success',
-				// 		}).then(() => {
-				// 			this.updateInfo();
-				// 			this.$router.push({ path: 'overview' });
-				// 		})
-				// 	}
-				// }).catch(err => {
+				this.createConsume(this.form).then(res => {
+					if (typeof res == 'string') {
+						// 支付宝充值
+						this.$confirm('在新窗口为您打开充值界面，请按提示进行操作', '提示信息', {
+							confirmButtonText: '支付成功',
+							type: 'info',
+							closeOnClickModal: false,
+						}).then(() => {
+							this.updateInfo();
+							this.$router.push({ path: 'overview' });
+						}).catch(() => {
+							this.updateInfo();
+							this.$message.warning('已取消支付');
+						});
+						window.open(res);
+					} else {
+						// 非支付宝充值
+						this.$alert('账户余额支付成功', '提示信息', {
+							type: 'success',
+						}).then(() => {
+							this.updateInfo();
+							this.$router.push({ path: 'overview' });
+						})
+					}
+				}).catch(err => {
 
-				// })
+				})
 			},
 		},
 		watch: {
@@ -232,5 +232,3 @@
 <style scoped lang="less">
 	@import "../../assets/styles/views/account/consume.less";
 </style>
-
-
