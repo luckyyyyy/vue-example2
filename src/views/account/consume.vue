@@ -218,7 +218,7 @@
 					this.quantity = this.quantity.toFixed(0);
 				}
 				this.form.quantity = this.quantity;
-				this.fTime = moment(this.time).add(this.form.quantity, 'years').format('YYYY-MM-DD HH:mm:ss');
+				this.fTime = moment(this.time).add(this.form.quantity, 'years').format('YYYY-MM-DD');
 			}
 		},
 		computed: {
