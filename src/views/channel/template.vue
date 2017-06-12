@@ -177,6 +177,9 @@
 									<div class="banner-content__button">关注</div>
 								</div>
 							</div>
+							<ul class="temp-list">
+								<li class="temp-item"></li>
+							</ul>
 						</div>
 						<div class="temp-box__foot"></div>
 					</div>
