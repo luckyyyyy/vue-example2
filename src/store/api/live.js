@@ -58,8 +58,8 @@ export const live_share = ({ id, shareStatus, shareImageId, shareTitle, shareCon
 	return http.put(`live/share/${id}`, { shareStatus, shareImageId, shareTitle, shareContent })
 }
 // PUT /api/v1/live/{id}
-export const live_update = ({ id, name, nickName, avatarImageId }) => {
-	return http.put(`live/${id}`, { name, nickName, avatarImageId })
+export const live_update = ({ id, name, nickName, avatarImageId, coverImage }) => {
+	return http.put(`live/${id}`, { name, nickName, avatarImageId, coverImage })
 }
 
 // PUT /api/v1/live/auth_watch/{id}
@@ -71,16 +71,3 @@ export const live_auth_watch = ({ id, authWatchStatus, chargeHints, price, authC
 export const live_notice = ({ id, content }) => {
 	return http.post(`live/notice/${id}`, { content })
 }
-
-
-
-
-
-
-
-
-
-
-
-
-

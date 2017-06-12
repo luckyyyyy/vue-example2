@@ -6,23 +6,33 @@
 		<div class="body">
 			<div class="action">
 				<el-form label-position="left" ref="form" :model="form" label-width="100px" class="form">
-					<el-form-item label="直播间标题">
+					<el-form-item label="直播标题：">
 						<el-input @change="onDebounce" v-model="form.name" placeholder="不超过10个字符"></el-input>
 					</el-form-item>
-					<el-form-item label="直播昵称">
+					<el-form-item label="直播昵称：">
 						<el-input @change="onDebounce" v-model="form.nickName" placeholder="不超过10个字符"></el-input>
 					</el-form-item>
-					<el-form-item label="直播头像">
-						<el-button type="ghost" @click="openAlbum">
+					<el-form-item label="直播头像：">
+						<el-button type="ghost" @click="openAlbum('avatarImage')">
 							<i class="el-icon-upload"></i> 上传图片
 						</el-button>
 						<p class="tips">
-							<i class="el-icon-warning warning"></i> 400 x 400
+							400 x 400
 						</p>
-
+					</el-form-item>
+					<el-form-item label="直播封面：">
+						<el-button type="ghost" @click="openAlbum('coverImage')">
+							<i class="el-icon-upload"></i> 上传图片
+						</el-button>
+						<p class="tips">
+							注：此图将显示在微信端频道主页
+						</p>
+						<p class="tips">
+							大小：800*500像素
+						</p>
+						<el-button @click="onSubmit(1)" class="preview-button" type="primary">点击预览 <i class="el-icon-search"></i></el-button>
 					</el-form-item>
 				</el-form>
-
 				<div class="preview">
 					<div class="preview-box">
 						<h2 class="preview__head">{{ live.name || channel.name }}</h2>
@@ -36,7 +46,6 @@
 						<img class="preview__background" src="../../assets/images/live/setting.png" alt="直播间设置">
 					</div>
 				</div>
-
 			</div>
 		</div>
 	</div>
@@ -64,11 +73,18 @@
 			...mapActions('live', {
 				liveUpdate: 'LIVE_UPDATE'
 			}),
-			openAlbum () {
-				Album('3', (select, data) => {
-					this.form.avatarImageId = select;
-					this.onChange()
-				});
+			openAlbum (type) {
+				if (type === 'avatarImage') {
+					Album('3', (select, data) => {
+						this.form.avatarImageId = select;
+					});
+				}
+				if (type === 'coverImage') {
+					Album('1', (select, data) => {
+						this.form.coverImageId = select;
+					});
+				}
+				this.onChange()
 			},
 			onChange () {
 				const data = Object.assign({}, this.form);
@@ -80,6 +96,9 @@
 					this.debounce = debounce(this.onChange, 200);
 				}
 				this.debounce();
+			},
+			onSubmit (id) {
+				this.$router.push({ name: 'channel_template', params: { templateID: id } })
 			}
 		}
 	}
