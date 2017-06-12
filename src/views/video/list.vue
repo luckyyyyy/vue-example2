@@ -17,7 +17,7 @@
 				<el-col v-for="item in data" :key="item.id" class="item" :xs="12" :sm="12" :md="8" :lg="6">
 					<div class="box">
 						<div class="body">
-							<img :src="item.coverImageUrl + '/live_cover'">
+							<img :src="item.liveInfo.coverImageUrl + '/live_cover'">
 							<div class="status" :class="{ done: !!item.transcodeStatus }">
 								{{ item.transcodeStatus === 1 ? '转码完成' : '转码中' }}
 							</div>

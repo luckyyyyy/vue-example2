@@ -38,8 +38,8 @@ export const video_share = ({ id, shareStatus, shareImageId, shareTitle, shareCo
   return http.put(`video/share/${id}`, { shareStatus, shareImageId, shareTitle, shareContent })
 }
 // PUT /api/v1/video/{id}
-export const video_update = ({ id, name, nickName, avatarImageId }) => {
-  return http.put(`video/${id}`, { name, nickName, avatarImageId })
+export const video_update = ({ id, name, nickName, avatarImageId, coverImageId }) => {
+  return http.put(`video/${id}`, { name, nickName, avatarImageId, coverImageId })
 }
 // PUT /api/v1/video/auth_watch/{id}
 export const video_auth_watch = ({ id, authWatchStatus, chargeHints, price, authCode, authCodeHints }) => {
@@ -49,12 +49,3 @@ export const video_auth_watch = ({ id, authWatchStatus, chargeHints, price, auth
 export const video_media_delete = ({ id }) => {
 	return http.delete(`video/media/${id}`)
 }
-
-
-
-
-
-
-
-
-

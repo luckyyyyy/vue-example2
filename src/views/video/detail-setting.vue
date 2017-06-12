@@ -81,14 +81,14 @@
 				if (type === 'avatarImage') {
 					Album('3', (select, data) => {
 						this.form.avatarImageId = select;
+						return this.onChange()
 					});
-				}
-				if (type === 'coverImage') {
+				} else if (type === 'coverImage') {
 					Album('1', (select, data) => {
 						this.form.coverImageId = select;
+						return this.onChange()
 					});
 				}
-				this.onChange()
 			},
 			onChange () {
 				const data = Object.assign({}, this.form);
