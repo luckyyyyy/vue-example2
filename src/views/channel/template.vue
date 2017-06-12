@@ -3,7 +3,7 @@
 		<div class="template">
 			<ra-card>
 				<p slot="title">频道编辑</p>
-				<div class="wrap">
+				<!-- <div class="wrap">
 					<div class="temp">
 						<div class="temp__main">
 							<div class="phone__title">
@@ -38,7 +38,7 @@
 											<div class="content">
 												<img class="content__bg" :src="channel.coverImageUrl">
 												<div class="content__musk"></div>
-												<!-- <div class="content__musk"  :style="{ background: 'url(' + channel.coverImageUrl + ') no-repeat center' }"></div> -->
+												<div class="content__musk"  :style="{ background: 'url(' + channel.coverImageUrl + ') no-repeat center' }"></div>
 											</div>
 										</div>
 									</li>
@@ -162,6 +162,23 @@
 								</ul>
 							</transition>
 						</div>
+					</div>
+				</div> -->
+				<div class="temp-wrap">
+					<div class="temp-box">
+						<div class="temp-box__head">
+							<p class="title">{{ channel.title || '页面标题' }}</p>
+						</div>
+						<div class="temp-box__body">
+							<div class="banner" :style="{ backgroundImage: `url(${ channel.coverImageUrl })` }">
+								<div class="banner-content">
+									<img :src="channel.logoImageUrl + '/avatar'" alt="头像" class="banner-content__avatar">
+									<p class="banner-content__title">{{ channel.name }}</p>
+									<div class="banner-content__button">关注</div>
+								</div>
+							</div>
+						</div>
+						<div class="temp-box__foot"></div>
 					</div>
 				</div>
 			</ra-card>
