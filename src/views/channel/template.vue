@@ -168,6 +168,50 @@
 					<div class="temp-box">
 						<div class="temp-box__head">
 							<p class="title">{{ channel.title || '页面标题' }}</p>
+							<div class="pop">
+								<div class="pop-horizontal">
+									<div class="pop-box">
+										<p class="pop-box__title">页面标题：</p>
+										<div class="pop-box__input">
+											<el-input
+											size="small"
+											placeholder="请输入内容"
+											@change="onDebounce"
+											v-model="channel.title">
+											</el-input>
+										</div>
+									</div>
+									<div class="pop-box">
+										<p class="pop-box__title">频道名称：</p>
+										<div class="pop-box__input">
+											<el-input
+											size="small"
+											placeholder="请输入内容"
+											@change="onDebounce"
+											v-model="channel.name">
+											</el-input>
+										</div>
+									</div>
+								</div>
+								<div class="pop-horizontal">
+									<div class="pop-box">
+										<p class="pop-box__title">频道背景：</p>
+										<div class="pop-box__input">
+											<a @click="openCoverAlbum" class="button" href="javascript:;" :style="{ backgroundImage: `url(${ channel.coverImageUrl })` }">
+											</a>
+											<p class="tip">750 * 300像素</p>
+										</div>
+									</div>
+									<div class="pop-box">
+										<p class="pop-box__title">频道LOGO：</p>
+										<div class="pop-box__input">
+											<a @click="openLogoAlbum" class="button" href="javascript:;" :style="{ backgroundImage: `url(${channel.logoImageUrl}/avatar)` }">
+											</a>
+											<p class="tip">200 * 200像素</p>
+										</div>
+									</div>
+								</div>
+							</div>
 						</div>
 						<div class="temp-box__body">
 							<div class="banner" :style="{ backgroundImage: `url(${ channel.coverImageUrl })` }">
@@ -178,7 +222,23 @@
 								</div>
 							</div>
 							<ul class="temp-list">
-								<li class="temp-item"></li>
+								<li class="temp-item" v-if="topBeing">
+									<div class="temp-item__head">
+										<span class="line"></span>
+										<p class="title">正在直播</p>
+										<p class="link">更多 ></p>
+									</div>
+									<div class="temp-item__card">
+										<div class="head">
+											<img class="head__avatar" :src="`${topBeing.liveInfo.avatarImageUrl}/avatar`">
+											<div class="head__txt">
+												<p class="nick-name">{{ topBeing.liveInfo.nickName }}</p>
+												<p class="name">{{ topBeing.liveInfo.name }}</p>
+											</div>
+										</div>
+										<div class="body" :style="{ backgroundImage: `url(${ topBeing.liveInfo.coverImageUrl })` }"></div>
+									</div>
+								</li>
 							</ul>
 						</div>
 						<div class="temp-box__foot"></div>
@@ -209,11 +269,20 @@
 				info: state => state.channel
 			}),
 			...mapState('live', ['data', 'lock']),
+			...mapState('template', ['topInfo']),
+			topBeing () {
+				return this.topInfo.being
+			},
+			topAbout () {
+				return this.topInfo.aboutTo
+			},
+			topAbout () {
+				return this.topInfo.video
+			},
 		},
 		created () {
 			this.channel = Object.assign({}, this.info);
-			this.findLiveList(true);
-			this.getChannelLive();
+			this.getTopLiveInfo();
 		},
 		methods: {
 			...mapActions('channel', {
@@ -222,23 +291,9 @@
 			...mapActions('live', {
 				getLiveList: 'LIVE_FIND_REQUEST'
 			}),
-			...mapActions('channel', {
-				getChannelLive: 'CHANNEL_LIVE'
+			...mapActions('template', {
+				getTopLiveInfo: 'TEMPLATE_QUERY'
 			}),
-			findLiveList (reload) {
-				if(!this.lock || reload && !this.loading){
-					this.loading = true;
-					this.getLiveList({ reload, status: this.status }).then(() => {
-						this.loading = false;
-						if(!this.lock){
-							// 这里不能用滚动触发 分页请求，所以先一次性全加载完，不做滚动加载了
-							this.findLiveList();
-						}
-					}).catch(() => {
-						this.loading = false;
-					})
-				}
-			},
 			openCoverAlbum () {
 				Album('1', (select, data) => {
 					this.channel.coverImageId = select;

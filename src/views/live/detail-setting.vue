@@ -68,7 +68,6 @@
 		},
 		created () {
 			this.form = Object.assign({}, this.live.liveInfo);
-			console.log(this.form)
 		},
 		methods: {
 			...mapActions('live', {

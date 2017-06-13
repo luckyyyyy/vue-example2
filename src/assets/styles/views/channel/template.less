@@ -11,6 +11,7 @@
 .temp-box {
 	width: 320px;
 	&__head {
+		position: relative;
 		height: 50px;
 		background-image: url(../../../images/live/header.png);
 		background-size: cover;
@@ -60,8 +61,142 @@
 				}
 			}
 		}
+		.temp-list {
+			.temp-item {
+				padding: 0 16px 16px;
+				background-color: #f2f2f2;
+				&__head {
+					display: flex;
+					margin: 0 -16px;
+					height: 34px;
+					line-height: 34px;
+					background-color: #fff;
+					color: @defaultPink;
+					.line {
+						margin-top: 9px;
+						width: 3px;
+						height: 16px;
+						background-color: @defaultPink;
+					}
+					.title {
+						flex: 1 1 auto;
+						margin-left: 14px;
+					}
+					.link {
+						margin-right: 12px;
+						font-size: 12px;
+					}
+				}
+				&__card {
+					margin-top: 16px;
+					width: 288px;
+					.head {
+						display: flex;
+						padding: 6px 12px;
+						height: 44px;
+						background-color: #fff;
+						border-radius: 8px 8px 0 0;
+						&__avatar {
+							width: 32px;
+							height: 32px;
+							border-radius: 50%;
+						}
+						&__txt {
+							margin-left: 10px;
+							font-size: 12px;
+							line-height: 16px;
+							.nick-name {
+								color: #9b9b9b;
+							}
+							.name {
+								color: #4a4a4a;
+							}
+						}
+					}
+					.body {
+						position: relative;
+						height: 180px;
+						background-color: #4e546c;
+						background-size: 100%;
+						background-position: center;
+						background-repeat: no-repeat;
+						border-radius: 0 0 8px 8px;
+					}
+				}
+			}
+		}
 	}
 }
+
+.temp-box {
+	.pop {
+		position: absolute;
+		top: 0;
+		left: 350px;
+		padding: 22px 26px;
+		width: 540px;
+		background-color: #4e546c;
+		border-radius: 8px;
+		&::before {
+			content: '';
+			position: absolute;
+			top: 20px;
+			left: -17px;
+			border: 9px solid transparent;
+			border-right-color: #4e546c;
+		}
+		&-horizontal {
+			display: flex;
+			margin-bottom: 26px;
+			&:last-child {
+				margin: 0;
+			}
+		}
+		.pop-box {
+			width: 50%;
+			padding-right: 60px;
+			&__title {
+				color: #fff;
+				line-height: 20px;
+				&:before {
+					content: '';
+					display: inline-block;
+					margin-right: 10px;
+					width: 10px;
+					height: 10px;
+					background-color: #31bedb;
+					border-radius: 50%;
+				}
+			}
+			&__input {
+				display: flex;
+				margin-top: 12px;
+				padding-left: 20px;
+				.button {
+					display: block;
+					width: 40px;
+					height: 40px;
+					background-color: #fff;
+					background-size: 100%;
+					background-position: center;
+					background-repeat: no-repeat;
+					border-radius: 4px;
+				}
+				.tip  {
+					margin-left: 10px;
+					line-height: 40px;
+					color: #fff;
+				}
+			}
+		}
+	}
+}
+
+
+
+
+
+
 /* .wrap {
 	display: flex;
 }

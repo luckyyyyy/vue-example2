@@ -48,6 +48,17 @@ export const LIVE = export_var('LIVE',
 	'COUNTDOWN', 'GUIDE', 'SHARE', 'UPDATE', 'AUTH'
 );
 
+//template频道模板
+export const TEMPLATE = export_var('TEMPLATE',
+	'QUERY',//查询
+	'FIND_ABOUT', 'FIND_BEING', 'FIND_FINISHED',//分页
+	'SORT_ABOUT', 'SORT_BEING', 'SORT_FINISHED',//是否排序
+	'FIRST_ABOUT', 'FIRST_BEING', 'FIRST_FINISHED',//置顶
+	'ABOUT_REQUEST', 'ABOUT_SUCCESS', 'ABOUT_FAILURE',
+	'BEING_REQUEST', 'BEING_SUCCESS', 'BEING_FAILURE',
+	'FINISHED_REQUEST', 'FINISHED_SUCCESS', 'FINISHED_FAILURE',
+)
+
 // VIDEO
 export const VIDEO = export_var('VIDEO',
 	'QUERY',
@@ -78,13 +89,3 @@ export const IM_CHATROOM = export_var('IM_CHATROOM',
 export const WALLET = export_var('WALLET',
 	'QUERY'
 )
-
-
-
-
-
-
-
-
-
-

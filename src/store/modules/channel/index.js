@@ -119,7 +119,6 @@ const mutations = {
 	},
 	[CHANNEL.LIVE] (state, data) {
 		state.live  = data;
-		console.log(data);
 	}
 }
 export default {

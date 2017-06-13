@@ -25,7 +25,7 @@ import accountModule    from '@/store/modules/account'
 import weChatModule     from '@/store/modules/wechat/auth_url'
 import commodityModule  from '@/store/modules/commodity/catalogs'
 import multimediaModule from '@/store/modules/multimedia'
-
+import templateModule		from '@/store/modules/template'
 
 Vue.use(Vuex)
 const state = {}
@@ -46,6 +46,7 @@ store.registerModule('account',     accountModule);
 store.registerModule('wechat',      weChatModule);
 store.registerModule('catalogs',    commodityModule);
 store.registerModule('multimedia',  multimediaModule);
+store.registerModule('template',		templateModule);
 
 export const getAuthorization = async () => {
 	if (!store.state.user.user) {
