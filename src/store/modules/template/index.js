@@ -10,35 +10,27 @@
 import * as api from '@/store/api/template'
 import { TEMPLATE } from '@/store/types'
 
-const state = {
-	topInfo: {} // 置顶信息
-}
-
-const getters = {
-
-}
-
-const actions = {
-	[TEMPLATE.QUERY] ({ commit }) {
-		return new Promise((resolve, reject) => {
-			api.query_live().then(res => {
-				commit(TEMPLATE.QUERY, res.data);
-				resolve(res.data);
-			}).catch(err => {
-				reject(err);
-			})
-		})
-	}
-}
-const mutations = {
-	[TEMPLATE.QUERY] (state, data) {
-		state.topInfo = data;
-	}
-}
 export default {
 	namespaced: true,
-	state,
-	getters,
-	actions,
-	mutations
+	state: {
+		topInfo: {} // 置顶信息
+	},
+	getters: {},
+	actions: {
+		[TEMPLATE.QUERY] ({ commit }) {
+			return new Promise((resolve, reject) => {
+				api.query_live().then(res => {
+					commit(TEMPLATE.QUERY, res.data);
+					resolve(res.data);
+				}).catch(err => {
+					reject(err);
+				})
+			})
+		}
+	},
+	mutations: {
+		[TEMPLATE.QUERY] (state, data) {
+			state.topInfo = data;
+		}
+	}
 }

@@ -10,41 +10,34 @@
 import { login } from '../../api'
 import { LOGIN } from '../../types'
 
-const state = {
-	lock: false
-}
-
-const getters = {}
-
-const actions = {
-	[LOGIN.REQUEST] ({ commit }, ...args) {
-		commit(LOGIN.REQUEST);
-		return new Promise((resolve, reject) => {
-			login(...args).then(res => {
-				commit(LOGIN.SUCCESS, res.data);
-				resolve();
-			}).catch(err => {
-				commit(LOGIN.FAILURE, err);
-				reject();
-			})
-		})
-	}
-}
-
-const mutations = {
-	[LOGIN.REQUEST] (state) {
-		state.lock = true
-	},
-	[LOGIN.SUCCESS] (state, { data }) {
-		state.lock = false;
-	},
-	[LOGIN.FAILURE] (state, err) {
-		state.lock = false;
-	},
-}
 export default {
-	state,
-	getters,
-	actions,
-	mutations
+	state: {
+		lock: false
+	},
+	getters: {},
+	actions: {
+		[LOGIN.REQUEST] ({ commit }, ...args) {
+			commit(LOGIN.REQUEST);
+			return new Promise((resolve, reject) => {
+				login(...args).then(res => {
+					commit(LOGIN.SUCCESS, res.data);
+					resolve();
+				}).catch(err => {
+					commit(LOGIN.FAILURE, err);
+					reject();
+				})
+			})
+		}
+	},
+	mutations: {
+		[LOGIN.REQUEST] (state) {
+			state.lock = true
+		},
+		[LOGIN.SUCCESS] (state, { data }) {
+			state.lock = false;
+		},
+		[LOGIN.FAILURE] (state, err) {
+			state.lock = false;
+		},
+	}
 }
