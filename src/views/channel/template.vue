@@ -223,6 +223,7 @@
 								</div>
 							</div>
 							<ul class="temp-list">
+								<!-- 正在直播 -->
 								<li class="temp-item" v-if="topBeing">
 									<div class="temp-item__head">
 										<span class="line"></span>
@@ -251,21 +252,131 @@
 												</div>
 												<div class="pop-box">
 													<div class="pop-box__radio">
-														<el-radio class="radio" v-model="radio" label="1">自定义首位</el-radio>
+														<el-radio class="radio" v-model="radio" label="2">自定义首位</el-radio>
 														<p class="tip">自定义选中排为首位</p>
 													</div>
 												</div>
 											</div>
 										</div>
-										<div class="pop pop--select">
-											<div class="pop__button"></div>
-											<ul class="live-list">
-												<li class="live-item"></li>
-												<li class="live-item"></li>
-												<li class="live-item"></li>
-											</ul>
-											<div class="pop__button"></div>
+										<transition name="el-fade-in-linear">
+											<div class="pop pop--select" v-if="radio == '2'">
+												<div class="pop__button">
+													<span class="prev"></span>
+												</div>
+												<ul class="live-list">
+													<li class="live-item live-item--active"></li>
+													<li class="live-item"></li>
+													<li class="live-item"></li>
+												</ul>
+												<div class="pop__button">
+													<span class="next"></span>
+												</div>
+											</div>
+										</transition>
+									</div>
+								</li>
+								<!-- 直播预告 -->
+								<li class="temp-item" v-if="topAbout">
+									<div class="temp-item__head">
+										<span class="line"></span>
+										<p class="title">直播预告</p>
+										<p class="link">更多 ></p>
+									</div>
+									<div class="temp-item__body">
+										<div class="temp-card">
+											<div class="temp-card__head">
+												<img class="head__avatar" :src="`${topAbout.liveInfo.avatarImageUrl}/avatar`">
+												<div class="head__txt">
+													<p class="nick-name">{{ topAbout.liveInfo.nickName }}</p>
+													<p class="name">{{ topAbout.liveInfo.name }}</p>
+												</div>
+											</div>
+											<div class="temp-card__body" :style="{ backgroundImage: `url(${ topAbout.liveInfo.coverImageUrl })` }"></div>
 										</div>
+										<!-- 修改控件 -->
+										<div class="pop">
+											<div class="pop-horizontal">
+												<div class="pop-box">
+													<div class="pop-box__radio">
+														<el-radio class="radio" v-model="radio" label="1">默认顺序</el-radio>
+														<p class="tip">直播开始时间排序</p>
+													</div>
+												</div>
+												<div class="pop-box">
+													<div class="pop-box__radio">
+														<el-radio class="radio" v-model="radio" label="2">自定义首位</el-radio>
+														<p class="tip">自定义选中排为首位</p>
+													</div>
+												</div>
+											</div>
+										</div>
+										<transition name="el-fade-in-linear">
+											<div class="pop pop--select" v-if="radio == '2'">
+												<div class="pop__button">
+													<span class="prev"></span>
+												</div>
+												<ul class="live-list">
+													<li class="live-item live-item--active"></li>
+													<li class="live-item"></li>
+													<li class="live-item"></li>
+												</ul>
+												<div class="pop__button">
+													<span class="next"></span>
+												</div>
+											</div>
+										</transition>
+									</div>
+								</li>
+								<!-- 精彩回放 -->
+								<li class="temp-item" v-if="topVideo">
+									<div class="temp-item__head">
+										<span class="line"></span>
+										<p class="title">精彩回放</p>
+										<p class="link">更多 ></p>
+									</div>
+									<div class="temp-item__body">
+										<div class="temp-card">
+											<div class="temp-card__head">
+												<img class="head__avatar" :src="`${topVideo.liveInfo.avatarImageUrl}/avatar`">
+												<div class="head__txt">
+													<p class="nick-name">{{ topVideo.liveInfo.nickName }}</p>
+													<p class="name">{{ topVideo.liveInfo.name }}</p>
+												</div>
+											</div>
+											<div class="temp-card__body" :style="{ backgroundImage: `url(${ topVideo.liveInfo.coverImageUrl })` }"></div>
+										</div>
+										<!-- 修改控件 -->
+										<div class="pop">
+											<div class="pop-horizontal">
+												<div class="pop-box">
+													<div class="pop-box__radio">
+														<el-radio class="radio" v-model="radio" label="1">默认顺序</el-radio>
+														<p class="tip">直播开始时间排序</p>
+													</div>
+												</div>
+												<div class="pop-box">
+													<div class="pop-box__radio">
+														<el-radio class="radio" v-model="radio" label="2">自定义首位</el-radio>
+														<p class="tip">自定义选中排为首位</p>
+													</div>
+												</div>
+											</div>
+										</div>
+										<transition name="el-fade-in-linear">
+											<div class="pop pop--select" v-if="radio == '2'">
+												<div class="pop__button">
+													<span class="prev"></span>
+												</div>
+												<ul class="live-list">
+													<li class="live-item live-item--active"></li>
+													<li class="live-item"></li>
+													<li class="live-item"></li>
+												</ul>
+												<div class="pop__button">
+													<span class="next"></span>
+												</div>
+											</div>
+										</transition>
 									</div>
 								</li>
 							</ul>
@@ -306,7 +417,7 @@
 			topAbout () {
 				return this.topInfo.aboutTo
 			},
-			topAbout () {
+			topVideo () {
 				return this.topInfo.video
 			},
 		},
