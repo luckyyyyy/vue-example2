@@ -168,6 +168,7 @@
 					<div class="temp-box">
 						<div class="temp-box__head">
 							<p class="title">{{ channel.title || '页面标题' }}</p>
+							<!-- 修改控件 -->
 							<div class="pop">
 								<div class="pop-horizontal">
 									<div class="pop-box">
@@ -228,15 +229,43 @@
 										<p class="title">正在直播</p>
 										<p class="link">更多 ></p>
 									</div>
-									<div class="temp-item__card">
-										<div class="head">
-											<img class="head__avatar" :src="`${topBeing.liveInfo.avatarImageUrl}/avatar`">
-											<div class="head__txt">
-												<p class="nick-name">{{ topBeing.liveInfo.nickName }}</p>
-												<p class="name">{{ topBeing.liveInfo.name }}</p>
+									<div class="temp-item__body">
+										<div class="temp-card">
+											<div class="temp-card__head">
+												<img class="head__avatar" :src="`${topBeing.liveInfo.avatarImageUrl}/avatar`">
+												<div class="head__txt">
+													<p class="nick-name">{{ topBeing.liveInfo.nickName }}</p>
+													<p class="name">{{ topBeing.liveInfo.name }}</p>
+												</div>
+											</div>
+											<div class="temp-card__body" :style="{ backgroundImage: `url(${ topBeing.liveInfo.coverImageUrl })` }"></div>
+										</div>
+										<!-- 修改控件 -->
+										<div class="pop">
+											<div class="pop-horizontal">
+												<div class="pop-box">
+													<div class="pop-box__radio">
+														<el-radio class="radio" v-model="radio" label="1">默认顺序</el-radio>
+														<p class="tip">直播开始时间排序</p>
+													</div>
+												</div>
+												<div class="pop-box">
+													<div class="pop-box__radio">
+														<el-radio class="radio" v-model="radio" label="1">自定义首位</el-radio>
+														<p class="tip">自定义选中排为首位</p>
+													</div>
+												</div>
 											</div>
 										</div>
-										<div class="body" :style="{ backgroundImage: `url(${ topBeing.liveInfo.coverImageUrl })` }"></div>
+										<div class="pop pop--select">
+											<div class="pop__button"></div>
+											<ul class="live-list">
+												<li class="live-item"></li>
+												<li class="live-item"></li>
+												<li class="live-item"></li>
+											</ul>
+											<div class="pop__button"></div>
+										</div>
 									</div>
 								</li>
 							</ul>
@@ -262,6 +291,7 @@
 				loading: false,
 				text: '',
 				labelSelect: 0,
+				radio: '1',
 			}
 		},
 		computed: {
@@ -325,10 +355,7 @@
 	@import "../../assets/styles/views/channel/template.less";
 </style>
 <style lang="less">
-.textarea {
-	textarea {
-		height: 54px;
-		max-height: 54px;
-	}
+.el-radio__label {
+	padding-left: 10px;
 }
 </style>
