@@ -37,7 +37,7 @@
 									<div class="pop-box">
 										<p class="pop-box__title">频道背景：</p>
 										<div class="pop-box__input">
-											<a @click="openCoverAlbum" class="button" href="javascript:;" :style="{ backgroundImage: `url(${ channel.coverImageUrl })` }">
+											<a @click="openAlbum('1', 'coverImage')" class="button" href="javascript:;" :style="{ backgroundImage: `url(${ channel.coverImageUrl })` }">
 											</a>
 											<p class="tip">750 * 300像素</p>
 										</div>
@@ -45,7 +45,7 @@
 									<div class="pop-box">
 										<p class="pop-box__title">频道LOGO：</p>
 										<div class="pop-box__input">
-											<a @click="openLogoAlbum" class="button" href="javascript:;" :style="{ backgroundImage: `url(${channel.logoImageUrl}/avatar)` }">
+											<a @click="openAlbum('5', 'logoImage')" class="button" href="javascript:;" :style="{ backgroundImage: `url(${channel.logoImageUrl}/avatar)` }">
 											</a>
 											<p class="tip">200 * 200像素</p>
 										</div>
@@ -281,17 +281,15 @@
 				findBeing: 			'TEMPLATE_FIND_BEING',
 				findFinished:   'TEMPLATE_FIND_FINISHED'
 			}),
-			openCoverAlbum () {
-				Album('1', (select, data) => {
-					this.channel.coverImageId = select;
-					this.channel.coverImageUrl = data.url;
-					this.updateChannel(this.channel);
-				})
-			},
-			openLogoAlbum () {
-				Album('5', (select, data) => {
-					this.channel.logoImageId = select;
-					this.channel.logoImageUrl = data.url;
+			openAlbum (value, type) {
+				Album(value, (select, data) => {
+					if (type == 'coverImage') {
+						this.channel.coverImageId  = select;
+						this.channel.coverImageUrl = data.url;
+					} else if (type == 'logoImage') {
+						this.channel.logoImageId   = select;
+						this.channel.logoImageUrl  = data.url;
+					}
 					this.updateChannel(this.channel);
 				})
 			},
