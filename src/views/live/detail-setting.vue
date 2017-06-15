@@ -13,7 +13,7 @@
 						<el-input @change="onDebounce" v-model="form.nickName" placeholder="不超过10个字符"></el-input>
 					</el-form-item>
 					<el-form-item label="直播头像：">
-						<el-button type="ghost" @click="openAlbum('avatarImage')">
+						<el-button type="ghost" @click="openAlbum('3', 'avatarImage')">
 							<i class="el-icon-upload"></i> 上传图片
 						</el-button>
 						<p class="tips">
@@ -21,7 +21,7 @@
 						</p>
 					</el-form-item>
 					<el-form-item label="直播封面：">
-						<el-button type="ghost" @click="openAlbum('coverImage')">
+						<el-button type="ghost" @click="openAlbum('1', 'coverImage')">
 							<i class="el-icon-upload"></i> 上传图片
 						</el-button>
 						<p class="tips">
@@ -30,7 +30,7 @@
 						<p class="tips">
 							大小：800*500像素
 						</p>
-						<el-button @click="onSubmit(1)" class="preview-button" type="primary">点击预览 <i class="el-icon-search"></i></el-button>
+						<!-- <el-button @click="onSubmit(1)" class="preview-button" type="primary">点击预览 <i class="el-icon-search"></i></el-button> -->
 					</el-form-item>
 				</el-form>
 				<div class="preview">
@@ -74,18 +74,14 @@
 				liveUpdate: 'LIVE_UPDATE'
 			}),
 			openAlbum (type) {
-				if (type === 'avatarImage') {
-					Album('3', (select, data) => {
+				Album(value, (select, data) => {
+					if (type == 'avatarImage') {
 						this.form.avatarImageId = select;
-						return this.onChange()
-					});
-				} else if (type === 'coverImage') {
-					Album('1', (select, data) => {
+					} else if (type === 'coverImage') {
 						this.form.coverImageId = select;
-						return this.onChange()
-					});
-				}
-
+					}
+					return this.onChange()
+				})
 			},
 			onChange () {
 				const data = Object.assign({}, this.form);
