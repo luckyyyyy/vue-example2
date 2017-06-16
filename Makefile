@@ -7,6 +7,7 @@ all:
 	@echo "make build: create dist folder"
 	@echo "make update: update npm package"
 	@echo "make dev: start dev server"
+	@echo "make push: git push"
 	@echo "------------------------------------------"
 
 master-check:
@@ -23,3 +24,8 @@ update: master-check
 
 dev: master-check
 	yarn dev
+
+push: master-check
+	git add .
+	git commit -m 'fixed'
+	git push
