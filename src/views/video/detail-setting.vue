@@ -30,7 +30,6 @@
 						<p class="tips">
 							大小：800*500像素
 						</p>
-						<!-- <el-button @click="onSubmit(1)" class="preview-button" type="primary">点击预览 <i class="el-icon-search"></i></el-button> -->
 					</el-form-item>
 				</el-form>
 				<div class="preview">
@@ -98,9 +97,6 @@
 				}
 				this.debounce();
 			},
-			onSubmit (id) {
-				this.$router.push({ name: 'channel_template', params: { templateID: id } })
-			}
 		}
 	}
 </script>
