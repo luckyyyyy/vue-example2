@@ -13,11 +13,10 @@ import { TEMPLATE } from '@/store/types'
 export default {
 	namespaced: true,
 	state: {
-		topInfo: {},				// 置顶信息
-		beingInfo: {},			// 分页信息-正在直播
-		beingStart: 0,
-		finishedInfo: {},		// 分页信息-精彩回放
-		finishedStart: 0,
+		topInfo: {},					// 置顶信息
+		beingData: {},				// 分页信息-正在直播
+		finishedData: [],			// 分页信息-精彩回放
+		finishedTotalPage: 0,
 		limits: 3,
 	},
 	getters: {},
@@ -38,17 +37,23 @@ export default {
 		[TEMPLATE.SORT_FINISHED] ({ commit }, params) {
 			return api.sort_finished(params)
 		},
-		[TEMPLATE.FIND_BEING] ({ commit, state }, params) {
+		[TEMPLATE.FIND_BEING] ({ commit, state }, page) {
 			return new Promise((resolve, reject) => {
-				api.find_being(state).then(res => {
+				api.find_being({ page, limits:state.limits }).then(res => {
 					commit(TEMPLATE.BEING_SUCCESS, res.data)
+					resolve();
+				}).catch(err => {
+					reject();
 				})
 			})
 		},
-		[TEMPLATE.FIND_FINISHED] ({ commit, state }, params) {
+		[TEMPLATE.FIND_FINISHED] ({ commit, state }, page) {
 			return new Promise((resolve, reject) => {
-				api.find_finished(state).then(res => {
+				api.find_finished({ page, limits:state.limits }).then(res => {
 					commit(TEMPLATE.FINISHED_SUCCESS, res.data)
+					resolve();
+				}).catch(err => {
+					reject();
 				})
 			})
 		},
@@ -58,12 +63,11 @@ export default {
 			state.topInfo = data;
 		},
 		[TEMPLATE.BEING_SUCCESS] (state, data) {
-			state.beingInfo  = data.lives;
-			state.beingStart = state.beingStart + state.limits;
+			state.beingData  = data.lives;
 		},
 		[TEMPLATE.FINISHED_SUCCESS] (state, data) {
-			state.finishedInfo  = data.videos;
-			state.finishedStart = state.finishedStart + state.limits;
+			state.finishedData  		= data.videos;
+			state.finishedTotalPage = Math.ceil(data.total / state.limits);
 		},
 	}
 }

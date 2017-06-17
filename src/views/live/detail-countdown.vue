@@ -156,4 +156,3 @@
 <style scoped lang="less">
 	@import url('../../assets/styles/views/live/detail.less');
 </style>
-

@@ -28,14 +28,19 @@ export const sort_finished = (order) => {
 }
 
 //	GET /api/v1/channel-live/being
-export const find_being = ({ beingStart, limits }) => {
-	return http.get(`channel-live/being`, { params: { start: beingStart, limits } })
+export const find_being = ({ page, limits }) => {
+	return http.get(`channel-live/being`, { params: { page, limits } })
 }
 //	GET /api/v1/channel-live/about-to
-export const find_about = ({ aboutStart, limits }) => {
-	return http.get(`channel-live/about-to`, { params: { start: aboutStart, limits } })
+export const find_about = ({ page, limits }) => {
+	return http.get(`channel-live/about-to`, { params: { page, limits } })
 }
 //	GET /api/v1/channel-live/finished
-export const find_finished = ({ finishedStart, limits }) => {
-	return http.get(`channel-live/finished`, { params: { start: finishedStart, limits } })
+export const find_finished = ({ page, limits }) => {
+	return http.get(`channel-live/finished`, { params: { page, limits } })
+}
+
+//	PUT /api/v1/channel-live/finished/first-place/{live_id}
+export const first_finished = (live_id) => {
+	return http.put(`channel-live/finished/first-place/${live_id}`)
 }

@@ -63,7 +63,7 @@
 							</div>
 							<ul class="temp-list">
 								<!-- 正在直播 -->
-								<li class="temp-item" v-if="topBeing">
+								<li class="temp-item" v-if="topInfo.being">
 									<div class="temp-item__head">
 										<span class="line"></span>
 										<p class="title">正在直播</p>
@@ -72,13 +72,13 @@
 									<div class="temp-item__body">
 										<div class="temp-card">
 											<div class="temp-card__head">
-												<img class="head__avatar" :src="`${topBeing.liveInfo.avatarImageUrl}/avatar`">
+												<img class="head__avatar" :src="`${topInfo.being.liveInfo.avatarImageUrl}/avatar`">
 												<div class="head__txt">
-													<p class="nick-name">{{ topBeing.liveInfo.nickName }}</p>
-													<p class="name">{{ topBeing.liveInfo.name }}</p>
+													<p class="nick-name">{{ topInfo.being.liveInfo.nickName }}</p>
+													<p class="name">{{ topInfo.being.liveInfo.name }}</p>
 												</div>
 											</div>
-											<div class="temp-card__body" :style="{ backgroundImage: `url(${ topBeing.liveInfo.coverImageUrl })` }"></div>
+											<div class="temp-card__body" :style="{ backgroundImage: `url(${ topInfo.being.liveInfo.coverImageUrl })` }"></div>
 										</div>
 										<!-- 修改控件 -->
 										<div class="pop"><!-- 这里有个坑，刚打开页面，如何获取是用户自定义还是默认设置 -->
@@ -115,7 +115,7 @@
 									</div>
 								</li>
 								<!-- 直播预告 -->
-								<li class="temp-item" v-if="topAbout">
+								<li class="temp-item" v-if="topInfo.aboutTo">
 									<div class="temp-item__head">
 										<span class="line"></span>
 										<p class="title">直播预告</p>
@@ -124,13 +124,13 @@
 									<div class="temp-item__body">
 										<div class="temp-card">
 											<div class="temp-card__head">
-												<img class="head__avatar" :src="`${topAbout.liveInfo.avatarImageUrl}/avatar`">
+												<img class="head__avatar" :src="`${topInfo.aboutTo.liveInfo.avatarImageUrl}/avatar`">
 												<div class="head__txt">
-													<p class="nick-name">{{ topAbout.liveInfo.nickName }}</p>
-													<p class="name">{{ topAbout.liveInfo.name }}</p>
+													<p class="nick-name">{{ topInfo.aboutTo.liveInfo.nickName }}</p>
+													<p class="name">{{ topInfo.aboutTo.liveInfo.name }}</p>
 												</div>
 											</div>
-											<div class="temp-card__body" :style="{ backgroundImage: `url(${ topAbout.liveInfo.coverImageUrl })` }"></div>
+											<div class="temp-card__body" :style="{ backgroundImage: `url(${ topInfo.aboutTo.liveInfo.coverImageUrl })` }"></div>
 										</div>
 										<!-- 修改控件 -->
 										<div class="pop">
@@ -167,7 +167,7 @@
 									</div>
 								</li>
 								<!-- 精彩回放 -->
-								<li class="temp-item" v-if="topFinished">
+								<li class="temp-item" v-if="topInfo.video">
 									<div class="temp-item__head">
 										<span class="line"></span>
 										<p class="title">精彩回放</p>
@@ -176,13 +176,13 @@
 									<div class="temp-item__body">
 										<div class="temp-card">
 											<div class="temp-card__head">
-												<img class="head__avatar" :src="`${topFinished.liveInfo.avatarImageUrl}/avatar`">
+												<img class="head__avatar" :src="`${topInfo.video.liveInfo.avatarImageUrl}/avatar`">
 												<div class="head__txt">
-													<p class="nick-name">{{ topFinished.liveInfo.nickName }}</p>
-													<p class="name">{{ topFinished.liveInfo.name }}</p>
+													<p class="nick-name">{{ topInfo.video.liveInfo.nickName }}</p>
+													<p class="name">{{ topInfo.video.liveInfo.name }}</p>
 												</div>
 											</div>
-											<div class="temp-card__body" :style="{ backgroundImage: `url(${ topFinished.liveInfo.coverImageUrl })` }"></div>
+											<div class="temp-card__body" :style="{ backgroundImage: `url(${ topInfo.video.liveInfo.coverImageUrl })` }"></div>
 										</div>
 										<!-- 修改控件 -->
 										<div class="pop">
@@ -203,15 +203,17 @@
 										</div>
 										<transition name="el-fade-in-linear">
 											<div class="pop pop--select" v-if="finishedRadio == 'user-defined'">
-												<div class="pop__button">
+												<div class="pop__button" @click="prevPage">
 													<span class="prev"></span>
 												</div>
-												<ul class="live-list">
-													<li class="live-item live-item--active"></li>
-													<li class="live-item"></li>
-													<li class="live-item"></li>
+												<ul class="live-list" v-loading="loading">
+													<li
+													 v-for="(item, index) in finishedData"
+													 :style="{ backgroundImage: `url(${item.liveInfo.coverImageUrl})` }"
+													 :class="['live-item', { 'live-item--active': finishedPage == 1 && index == 0 }]">
+													 </li>
 												</ul>
-												<div class="pop__button">
+												<div class="pop__button" @click="nextPage">
 													<span class="next"></span>
 												</div>
 											</div>
@@ -239,12 +241,11 @@
 				channel: {},
 				status: this.$route.params.status || 'public',
 				loading: false,
-				text: '',
-				labelSelect: 0,
 				beingRadio: 'default',
-				finishedRadio: 'default',
 				aboutRadio: 'default',
-				radio: '1',
+				finishedRadio: 'default',
+				finishedPage: 1,
+				loading: false,
 			}
 		},
 		computed: {
@@ -252,20 +253,11 @@
 				info: state => state.channel
 			}),
 			...mapState('live', ['data', 'lock']),
-			...mapState('template', ['topInfo', 'finishedInfo']),
-			topBeing () {
-				return this.topInfo.being
-			},
-			topAbout () {
-				return this.topInfo.aboutTo
-			},
-			topFinished () {
-				return this.topInfo.video
-			},
+			...mapState('template', ['topInfo', 'finishedData', 'finishedTotalPage']),
 		},
 		created () {
 			this.channel = Object.assign({}, this.info);
-			this.getTopLiveInfo();
+			this.init();
 		},
 		methods: {
 			...mapActions('channel', {
@@ -275,12 +267,19 @@
 				getLiveList: 'LIVE_FIND_REQUEST'
 			}),
 			...mapActions('template', {
-				getTopLiveInfo: 'TEMPLATE_QUERY',
+				getTopInfo: 		'TEMPLATE_QUERY',
 				sortBeing:      'TEMPLATE_SORT_BEING',
 				sortFinished:   'TEMPLATE_SORT_FINISHED',
 				findBeing: 			'TEMPLATE_FIND_BEING',
 				findFinished:   'TEMPLATE_FIND_FINISHED'
 			}),
+			init () {
+				this.getTopInfo().then(() => {
+					this.beingRadio = this.topInfo.beingOrderBy
+					this.aboutRadio = this.topInfo.aboutToOrderBy
+					this.finishedRadio = this.topInfo.videoOrderBy
+				})
+			},
 			openAlbum (value, type) {
 				Album(value, (select, data) => {
 					if (type == 'coverImage') {
@@ -310,14 +309,38 @@
 				})
 			},
 			finishedOnChange (value) {
+				this.finishedPage = 1;
+				this.loading = true;
 				this.sortFinished(value).then(() => {
 					if (value == 'user-defined') {
-						this.findFinished()
+						this.findFinished().then(res => {
+							this.loading = false;
+						}).catch(err => {
+							this.loading = false;
+						})
 					}
 				}).catch(() => {
 
 				})
 			},
+			nextPage () {
+				this.finishedPage ++;
+				this.loading = true;
+				this.findFinished(this.finishedPage).then(res => {
+					this.loading = false;
+				}).catch(err => {
+					this.loading = false;
+				});
+			},
+			prevPage () {
+				this.finishedPage --;
+				this.loading = true;
+				this.findFinished(this.finishedPage).then(res => {
+					this.loading = false;
+				}).catch(err => {
+					this.loading = false;
+				});;
+			}
 		},
 	}
 </script>
