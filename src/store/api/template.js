@@ -41,6 +41,6 @@ export const find_finished = ({ page, limits }) => {
 }
 
 //	PUT /api/v1/channel-live/finished/first-place/{live_id}
-export const first_finished = (live_id) => {
-	return http.put(`channel-live/finished/first-place/${live_id}`)
+export const first_finished = (id) => {
+	return http.put(`channel-live/finished/first-place/${id}`)
 }

@@ -81,7 +81,7 @@
 											<div class="temp-card__body" :style="{ backgroundImage: `url(${ topInfo.being.liveInfo.coverImageUrl })` }"></div>
 										</div>
 										<!-- 修改控件 -->
-										<div class="pop"><!-- 这里有个坑，刚打开页面，如何获取是用户自定义还是默认设置 -->
+										<!-- <div class="pop">
 											<el-radio-group @change="beingOnChange" class='radio-group' v-model="beingRadio">
 												<div class="pop-box">
 													<div class="pop-box__radio">
@@ -111,7 +111,7 @@
 													<span class="next"></span>
 												</div>
 											</div>
-										</transition>
+										</transition> -->
 									</div>
 								</li>
 								<!-- 直播预告 -->
@@ -133,37 +133,6 @@
 											<div class="temp-card__body" :style="{ backgroundImage: `url(${ topInfo.aboutTo.liveInfo.coverImageUrl })` }"></div>
 										</div>
 										<!-- 修改控件 -->
-										<div class="pop">
-											<el-radio-group @change="beingOnChange" class='radio-group' v-model="aboutRadio">
-												<div class="pop-box">
-													<div class="pop-box__radio">
-														<el-radio class="radio" label="default">默认顺序</el-radio>
-														<p class="tip">直播开始时间排序</p>
-													</div>
-												</div>
-												<div class="pop-box">
-													<div class="pop-box__radio">
-														<el-radio class="radio" label="user-defined">自定义首位</el-radio>
-														<p class="tip">自定义选中排为首位</p>
-													</div>
-												</div>
-											</el-radio-group>
-										</div>
-										<transition name="el-fade-in-linear">
-											<div class="pop pop--select" v-if="aboutRadio == 'user-defined'">
-												<div class="pop__button">
-													<span class="prev"></span>
-												</div>
-												<ul class="live-list">
-													<li class="live-item live-item--active"></li>
-													<li class="live-item"></li>
-													<li class="live-item"></li>
-												</ul>
-												<div class="pop__button">
-													<span class="next"></span>
-												</div>
-											</div>
-										</transition>
 									</div>
 								</li>
 								<!-- 精彩回放 -->
@@ -185,39 +154,16 @@
 											<div class="temp-card__body" :style="{ backgroundImage: `url(${ topInfo.video.liveInfo.coverImageUrl })` }"></div>
 										</div>
 										<!-- 修改控件 -->
-										<div class="pop">
-											<el-radio-group @change="finishedOnChange" class='radio-group' v-model="finishedRadio">
-												<div class="pop-box">
-													<div class="pop-box__radio">
-														<el-radio class="radio" label="default">默认顺序</el-radio>
-														<p class="tip">直播开始时间排序</p>
-													</div>
-												</div>
-												<div class="pop-box">
-													<div class="pop-box__radio">
-														<el-radio class="radio" label="user-defined">自定义首位</el-radio>
-														<p class="tip">自定义选中排为首位</p>
-													</div>
-												</div>
-											</el-radio-group>
-										</div>
-										<transition name="el-fade-in-linear">
-											<div class="pop pop--select" v-if="finishedRadio == 'user-defined'">
-												<div class="pop__button" @click="prevPage">
-													<span class="prev"></span>
-												</div>
-												<ul class="live-list" v-loading="loading">
-													<li
-													 v-for="(item, index) in finishedData"
-													 :style="{ backgroundImage: `url(${item.liveInfo.coverImageUrl})` }"
-													 :class="['live-item', { 'live-item--active': finishedPage == 1 && index == 0 }]">
-													 </li>
-												</ul>
-												<div class="pop__button" @click="nextPage">
-													<span class="next"></span>
-												</div>
-											</div>
-										</transition>
+										<select-box
+										 :orderBy="topInfo.videoOrderBy"
+										 :data="finishedData"
+										 :totalPage="finishedTotalPage"
+										 :loading="loading"
+										 :reset="finishedReset"
+										 v-on:pageChange="finishedPage"
+										 v-on:radioChange="finishedRadio"
+										 v-on:onSelect="finishedSelect"
+										></select-box>
 									</div>
 								</li>
 							</ul>
@@ -234,18 +180,18 @@
 	import { mapState, mapActions } from 'vuex'
 	import debounce from 'debounce'
 	import Album from '@/components/item/album'
+	import selectBox from '@/components/template/selectBox'
 
 	export default{
+		components: {
+			'select-box': selectBox,
+		},
 		data () {
 			return {
 				channel: {},
 				status: this.$route.params.status || 'public',
 				loading: false,
-				beingRadio: 'default',
-				aboutRadio: 'default',
-				finishedRadio: 'default',
-				finishedPage: 1,
-				loading: false,
+				finishedReset: false,
 			}
 		},
 		computed: {
@@ -253,7 +199,10 @@
 				info: state => state.channel
 			}),
 			...mapState('live', ['data', 'lock']),
-			...mapState('template', ['topInfo', 'finishedData', 'finishedTotalPage']),
+			...mapState('template', [
+				'topInfo',
+				'finishedData', 'finishedTotalPage',
+			]),
 		},
 		created () {
 			this.channel = Object.assign({}, this.info);
@@ -271,14 +220,11 @@
 				sortBeing:      'TEMPLATE_SORT_BEING',
 				sortFinished:   'TEMPLATE_SORT_FINISHED',
 				findBeing: 			'TEMPLATE_FIND_BEING',
-				findFinished:   'TEMPLATE_FIND_FINISHED'
+				findFinished:   'TEMPLATE_FIND_FINISHED',
+				firstFinished: 	'TEMPLATE_FIRST_FINISHED'
 			}),
 			init () {
-				this.getTopInfo().then(() => {
-					this.beingRadio = this.topInfo.beingOrderBy
-					this.aboutRadio = this.topInfo.aboutToOrderBy
-					this.finishedRadio = this.topInfo.videoOrderBy
-				})
+				this.getTopInfo()
 			},
 			openAlbum (value, type) {
 				Album(value, (select, data) => {
@@ -301,45 +247,50 @@
 				}
 				this.debounce();
 			},
-			beingOnChange (value) {
-				this.sortBeing(value).then(() => {
-
-				}).catch(() => {
-
+			finishedPage (page) {
+				this.loading = true
+				this.findFinished(page).then(_ => {
+					this.loading = false
+				}).catch(_ => {
+					this.loading = false
 				})
 			},
-			finishedOnChange (value) {
-				this.finishedPage = 1;
-				this.loading = true;
-				this.sortFinished(value).then(() => {
-					if (value == 'user-defined') {
-						this.findFinished().then(res => {
-							this.loading = false;
-						}).catch(err => {
-							this.loading = false;
+			finishedRadio (value) {
+				this.sortFinished(value)
+				if (value == 'user-defined') {
+					this.loading = true
+					this.findFinished().then(_ => {
+						this.loading = false
+					}).catch(_ => {
+						this.loading = false
+					})
+				}
+			},
+			finishedSelect (id) {
+				this.$confirm('提示什么什么什么什么的内容', '提示', {
+          confirmButtonText: '确定',
+          cancelButtonText: '取消',
+          type: 'info'
+        }).then(() => {
+					this.firstFinished(id).then(_ => {
+						this.loading = true
+						this.findFinished().then(_ => {
+							this.finishedReset = !this.finishedReset // 触发组件重置
+							this.loading = false
+						}).catch(_ => {
+							this.loading = false
 						})
-					}
-				}).catch(() => {
-
-				})
-			},
-			nextPage () {
-				this.finishedPage ++;
-				this.loading = true;
-				this.findFinished(this.finishedPage).then(res => {
-					this.loading = false;
-				}).catch(err => {
-					this.loading = false;
-				});
-			},
-			prevPage () {
-				this.finishedPage --;
-				this.loading = true;
-				this.findFinished(this.finishedPage).then(res => {
-					this.loading = false;
-				}).catch(err => {
-					this.loading = false;
-				});;
+						this.$message({
+	            type: 'success',
+	            message: '置顶成功!'
+	          });
+					})
+        }).catch(() => {
+          this.$message({
+            type: 'info',
+            message: '已取消置顶'
+          });
+        });
 			}
 		},
 	}

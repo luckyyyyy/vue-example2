@@ -13,10 +13,10 @@ import { TEMPLATE } from '@/store/types'
 export default {
 	namespaced: true,
 	state: {
-		topInfo: {},					// 置顶信息
-		beingData: {},				// 分页信息-正在直播
-		finishedData: [],			// 分页信息-精彩回放
-		finishedTotalPage: 0,
+		topInfo: {},						// 置顶信息
+		beingData: {},					// 分页信息-正在直播
+		finishedData: {},				// 分页信息-精彩回放
+		finishedTotalPage: 0,	//
 		limits: 3,
 	},
 	getters: {},
@@ -48,26 +48,36 @@ export default {
 			})
 		},
 		[TEMPLATE.FIND_FINISHED] ({ commit, state }, page) {
+			page = page == undefined ? 1 : page
 			return new Promise((resolve, reject) => {
 				api.find_finished({ page, limits:state.limits }).then(res => {
 					commit(TEMPLATE.FINISHED_SUCCESS, res.data)
-					resolve();
+					resolve()
 				}).catch(err => {
-					reject();
+					reject(err)
 				})
 			})
 		},
+		[TEMPLATE.FIRST_FINISHED] ({ commit,state }, id) {
+			return new Promise((resolve, reject) => {
+				api.first_finished(id).then(_ => {
+					resolve()
+				}).catch(_ => {
+					reject()
+				})
+			})
+		}
 	},
 	mutations: {
 		[TEMPLATE.QUERY] (state, data) {
-			state.topInfo = data;
+			state.topInfo = data
 		},
 		[TEMPLATE.BEING_SUCCESS] (state, data) {
-			state.beingData  = data.lives;
+			state.beingData  = data
 		},
 		[TEMPLATE.FINISHED_SUCCESS] (state, data) {
-			state.finishedData  		= data.videos;
-			state.finishedTotalPage = Math.ceil(data.total / state.limits);
+			state.finishedData = data
+			state.finishedTotalPage = Math.ceil(data.total / state.limits)
 		},
 	}
 }
