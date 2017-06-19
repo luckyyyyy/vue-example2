@@ -204,7 +204,7 @@
 		},
 		created () {
 			this.channel = Object.assign({}, this.info);
-			this.init();
+			this.getTopInfo()
 		},
 		methods: {
 			...mapActions('channel', {
@@ -225,9 +225,6 @@
 				firstBeing: 		'TEMPLATE_FIRST_BEING',
 				firstAbout: 		'TEMPLATE_FIRST_ABOUT',
 			}),
-			init () {
-				this.getTopInfo()
-			},
 			openAlbum (value, type) {
 				Album(value, (select, data) => {
 					if (type == 'coverImage') {
