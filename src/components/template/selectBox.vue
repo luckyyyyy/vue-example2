@@ -22,7 +22,7 @@
 					<span class="prev"></span>
 				</div>
 				<ul class="live-list">
-					<el-tooltip :content="item.name" placement="top" v-for="(item, index) in ( data.videos || data.lives)">
+					<el-tooltip :key="item.id" :content="item.name" placement="top" v-for="(item, index) in ( data.videos || data.lives)">
 						<li
 							:style="{ backgroundImage: `url(${item.liveInfo.coverImageUrl})` }"
 							:class="['live-item', { 'live-item--active': page == 1 && index == 0 }]"
