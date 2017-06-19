@@ -84,6 +84,24 @@ export default {
 					reject()
 				})
 			})
+		},
+		[TEMPLATE.FIRST_ABOUT] ({ commit,state }, id) {
+			return new Promise((resolve, reject) => {
+				api.first_about(id).then(_ => {
+					resolve()
+				}).catch(_ => {
+					reject()
+				})
+			})
+		},
+		[TEMPLATE.FIRST_BEING] ({ commit,state }, id) {
+			return new Promise((resolve, reject) => {
+				api.first_being(id).then(_ => {
+					resolve()
+				}).catch(_ => {
+					reject()
+				})
+			})
 		}
 	},
 	mutations: {
