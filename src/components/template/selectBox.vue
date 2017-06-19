@@ -23,7 +23,7 @@
 				</div>
 				<ul class="live-list">
 					<li
-					 v-for="(item, index) in data.videos"
+					 v-for="(item, index) in ( data.videos || data.lives)"
 					 :style="{ backgroundImage: `url(${item.liveInfo.coverImageUrl})` }"
 					 :class="['live-item', { 'live-item--active': page == 1 && index == 0 }]"
 					 @click="onSelect(item.id, index)">

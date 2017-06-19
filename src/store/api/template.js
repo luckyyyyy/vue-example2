@@ -44,3 +44,11 @@ export const find_finished = ({ page, limits }) => {
 export const first_finished = (id) => {
 	return http.put(`channel-live/finished/first-place/${id}`)
 }
+//	PUT /api/v1/channel-live/about-to/first-place/{live_id}
+export const first_about = (id) => {
+	return http.put(`channel-live/about-to/first-place/${id}`)
+}
+//	PUT /api/v1/channel-live/being/first-place/{live_id}
+export const first_being = (id) => {
+	return http.put(`channel-live/being/first-place/${id}`)
+}

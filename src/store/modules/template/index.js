@@ -15,8 +15,11 @@ export default {
 	state: {
 		topInfo: {},						// 置顶信息
 		beingData: {},					// 分页信息-正在直播
+		beingTotalPage: 0,
 		finishedData: {},				// 分页信息-精彩回放
-		finishedTotalPage: 0,	//
+		finishedTotalPage: 0,
+		aboutData: {},					// 分页信息-直播预告
+		aboutTotalPage: 0,
 		limits: 3,
 	},
 	getters: {},
@@ -37,7 +40,11 @@ export default {
 		[TEMPLATE.SORT_FINISHED] ({ commit }, params) {
 			return api.sort_finished(params)
 		},
+		[TEMPLATE.SORT_ABOUT] ({ commit }, params) {
+			return api.sort_about(params)
+		},
 		[TEMPLATE.FIND_BEING] ({ commit, state }, page) {
+			page = page == undefined ? 1 : page
 			return new Promise((resolve, reject) => {
 				api.find_being({ page, limits:state.limits }).then(res => {
 					commit(TEMPLATE.BEING_SUCCESS, res.data)
@@ -52,6 +59,17 @@ export default {
 			return new Promise((resolve, reject) => {
 				api.find_finished({ page, limits:state.limits }).then(res => {
 					commit(TEMPLATE.FINISHED_SUCCESS, res.data)
+					resolve()
+				}).catch(err => {
+					reject(err)
+				})
+			})
+		},
+		[TEMPLATE.FIND_ABOUT] ({ commit, state }, page) {
+			page = page == undefined ? 1 : page
+			return new Promise((resolve, reject) => {
+				api.find_about({ page, limits:state.limits }).then(res => {
+					commit(TEMPLATE.ABOUT_SUCCESS, res.data)
 					resolve()
 				}).catch(err => {
 					reject(err)
@@ -74,10 +92,15 @@ export default {
 		},
 		[TEMPLATE.BEING_SUCCESS] (state, data) {
 			state.beingData  = data
+			state.beingTotalPage = Math.ceil(data.total / state.limits)
 		},
 		[TEMPLATE.FINISHED_SUCCESS] (state, data) {
 			state.finishedData = data
 			state.finishedTotalPage = Math.ceil(data.total / state.limits)
+		},
+		[TEMPLATE.ABOUT_SUCCESS] (state, data) {
+			state.aboutData = data
+			state.aboutTotalPage = Math.ceil(data.total / state.limits)
 		},
 	}
 }
