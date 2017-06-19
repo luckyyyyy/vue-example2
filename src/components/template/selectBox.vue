@@ -18,18 +18,19 @@
 		</div>
 		<transition name="el-fade-in-linear">
 			<div class="pop pop--select" v-if="orderByRadio == 'user-defined'" v-loading="loading">
-				<div class="pop__button" :class="{ 'pop__button--disabled': page <= 1 }" @click="prevPage">
+				<div title="上一页" class="pop__button" :class="{ 'pop__button--disabled': page <= 1 }" @click="prevPage">
 					<span class="prev"></span>
 				</div>
 				<ul class="live-list">
-					<li
-					 v-for="(item, index) in ( data.videos || data.lives)"
-					 :style="{ backgroundImage: `url(${item.liveInfo.coverImageUrl})` }"
-					 :class="['live-item', { 'live-item--active': page == 1 && index == 0 }]"
-					 @click="onSelect(item.id, index)">
-					</li>
+					<el-tooltip :content="item.name" placement="top" v-for="(item, index) in ( data.videos || data.lives)">
+						<li
+							:style="{ backgroundImage: `url(${item.liveInfo.coverImageUrl})` }"
+							:class="['live-item', { 'live-item--active': page == 1 && index == 0 }]"
+							@click="onSelect(item.id, index)">
+						</li>
+					</el-tooltip>
 				</ul>
-				<div class="pop__button" :class="{ 'pop__button--disabled': page >= totalPage }" @click="nextPage">
+				<div title="下一页" class="pop__button" :class="{ 'pop__button--disabled': page >= totalPage }" @click="nextPage">
 					<span class="next"></span>
 				</div>
 			</div>
@@ -37,105 +38,105 @@
 	</div>
 </template>
 
-<script scoped>
-import { mapState, mapActions } from 'vuex'
+<script>
+	import { mapState, mapActions } from 'vuex'
 
-export default {
-	props: {
-		orderBy: {
-			type: String,
-			required: true,
-			default: 'default'
-		},
-		totalPage: {
-			type: Number,
-			required: true,
-			defalut: 0,
-		},
-		data: {
-			type: Object,
-			required: true,
-			defalut: {},
-		},
-		loading: {
-			type: Boolean,
-			defalut: false,
-		},
-		reset: {
-			type: Boolean,
-			required: true,
-		}
-	},
-	data () {
-		return {
-			orderByRadio: this.orderBy,
-			page: 1,
-		}
-	},
-	computed: {
-
-	},
-	created () {
-		if (this.orderBy == 'user-defined') {
-			this.$emit('radioChange', this.orderByRadio)
-		}
-	},
-	methods: {
-		...mapActions('template', {
-			sortBeing:      'TEMPLATE_SORT_BEING',
-			sortFinished:   'TEMPLATE_SORT_FINISHED',
-			findBeing: 			'TEMPLATE_FIND_BEING',
-			findFinished:   'TEMPLATE_FIND_FINISHED'
-		}),
-		/**
-		 * 触发radioChange事件 重置page
-		 * @method onChange
-		 * @return null
-		 */
-		onChange () {
-			this.page = 1
-			this.$emit('radioChange', this.orderByRadio)
-		},
-		/**
-		 * 选中选项，触发onSelect事件
-		 * @method onSelect
-		 * @param  {number} id    直播id
-		 * @param  {number} index 数组下标
-		 * @return {null}
-		 */
-		onSelect (id, index) {
-			if(index == 0 && this.page ==1 ){
-				return
+	export default {
+		props: {
+			orderBy: {
+				type: String,
+				required: true,
+				default: 'default'
+			},
+			totalPage: {
+				type: Number,
+				required: true,
+				defalut: 0,
+			},
+			data: {
+				type: Object,
+				required: true,
+				defalut: {},
+			},
+			loading: {
+				type: Boolean,
+				defalut: false,
+			},
+			reset: {
+				type: Boolean,
+				required: true,
 			}
-			this.$emit('onSelect', id);
 		},
-		/**
-		 * 上一页
-		 * @method prevPage
-		 * @return {null}
-		 */
-		prevPage () {
-			if (this.page <= 1) return
-			this.page --
-			this.$emit('pageChange', this.page)
+		data () {
+			return {
+				orderByRadio: this.orderBy,
+				page: 1,
+			}
 		},
-		/**
-		 * 下一页
-		 * @method nextPage
-		 * @return {null}
-		 */
-		nextPage () {
-			if (this.page >= this.totalPage) return
-			this.page ++
-			this.$emit('pageChange', this.page)
-		}
-	},
-	watch: {
-		reset () {
-			return this.page = 1
+		computed: {
+
+		},
+		created () {
+			if (this.orderBy == 'user-defined') {
+				this.$emit('radioChange', this.orderByRadio)
+			}
+		},
+		methods: {
+			...mapActions('template', {
+				sortBeing:      'TEMPLATE_SORT_BEING',
+				sortFinished:   'TEMPLATE_SORT_FINISHED',
+				findBeing: 			'TEMPLATE_FIND_BEING',
+				findFinished:   'TEMPLATE_FIND_FINISHED'
+			}),
+			/**
+			 * 触发radioChange事件 重置page
+			 * @method onChange
+			 * @return null
+			 */
+			onChange () {
+				this.page = 1
+				this.$emit('radioChange', this.orderByRadio)
+			},
+			/**
+			 * 选中选项，触发onSelect事件
+			 * @method onSelect
+			 * @param  {number} id    直播id
+			 * @param  {number} index 数组下标
+			 * @return {null}
+			 */
+			onSelect (id, index) {
+				if(index == 0 && this.page ==1 ){
+					return
+				}
+				this.$emit('onSelect', id);
+			},
+			/**
+			 * 上一页
+			 * @method prevPage
+			 * @return {null}
+			 */
+			prevPage () {
+				if (this.page <= 1) return
+				this.page --
+				this.$emit('pageChange', this.page)
+			},
+			/**
+			 * 下一页
+			 * @method nextPage
+			 * @return {null}
+			 */
+			nextPage () {
+				if (this.page >= this.totalPage) return
+				this.page ++
+				this.$emit('pageChange', this.page)
+			}
+		},
+		watch: {
+			reset () {
+				return this.page = 1
+			}
 		}
 	}
-}
 </script>
 
 <style lang="less">
@@ -232,23 +233,21 @@ export default {
 			border-radius: 6px;
 			background-color: #2C2E44;
 			cursor: pointer;
-			.next {
-				margin-left: -7px;
+			.next, .prev {
+
 				display: block;
 				width: 14px;
 				height: 14px;
 				border-top: 1px solid #fff;
 				border-right: 1px solid #fff;
+			}
+			.next {
+				margin-left: -7px;
 				transform: rotateZ(45deg);
 			}
 			.prev {
-				margin-right: -7px;
-				display: block;
-				width: 14px;
-				height: 14px;
-				border-top: 1px solid #fff;
-				border-left: 1px solid #fff;
-				transform: rotateZ(-45deg);
+				margin-left: 7px;
+				transform: rotateZ(225deg);
 			}
 			&--disabled {
 				cursor: not-allowed;

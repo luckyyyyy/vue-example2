@@ -21,9 +21,7 @@ export default {
 		live: {},
 	},
 	getters: {
-		channel: state => {
-			return state.channel;
-		},
+		channel: state => state.channel,
 	},
 	actions: {
 		[CHANNEL.GET] ({ commit }, id) {

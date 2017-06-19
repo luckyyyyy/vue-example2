@@ -14,10 +14,10 @@
 										<p class="pop-box__title">页面标题：</p>
 										<div class="pop-box__input">
 											<el-input
-											size="small"
-											placeholder="请输入内容"
-											@change="onDebounce"
-											v-model="channel.title">
+												size="small"
+												placeholder="请输入内容"
+												@change="onDebounce"
+												v-model="channel.title">
 											</el-input>
 										</div>
 									</div>
@@ -25,10 +25,10 @@
 										<p class="pop-box__title">频道名称：</p>
 										<div class="pop-box__input">
 											<el-input
-											size="small"
-											placeholder="请输入内容"
-											@change="onDebounce"
-											v-model="channel.name">
+												size="small"
+												placeholder="请输入内容"
+												@change="onDebounce"
+												v-model="channel.name">
 											</el-input>
 										</div>
 									</div>
@@ -82,14 +82,14 @@
 										</div>
 										<!-- 修改控件 -->
 										<select-box
-										 :orderBy="topInfo.beingOrderBy"
-										 :data="beingData"
-										 :totalPage="beingTotalPage"
-										 :loading="beingLoading"
-										 :reset="beingReset"
-										 v-on:pageChange="beingPage"
-										 v-on:radioChange="beingRadio"
-										 v-on:onSelect="beingSelect">
+											:orderBy="topInfo.beingOrderBy"
+											:data="beingData"
+											:totalPage="beingTotalPage"
+											:loading="beingLoading"
+											:reset="beingReset"
+											v-on:pageChange="beingPage"
+											v-on:radioChange="beingRadio"
+											v-on:onSelect="beingSelect">
 										 </select-box>
 									</div>
 									<h3 class="temp-item__foot" v-else>暂时没有任何内容</h3>
@@ -114,14 +114,14 @@
 										</div>
 										<!-- 修改控件 -->
 										<select-box
-										 :orderBy="topInfo.aboutToOrderBy"
-										 :data="aboutData"
-										 :totalPage="aboutTotalPage"
-										 :loading="aboutLoading"
-										 :reset="aboutReset"
-										 v-on:pageChange="aboutPage"
-										 v-on:radioChange="aboutRadio"
-										 v-on:onSelect="aboutSelect">
+											:orderBy="topInfo.aboutToOrderBy"
+											:data="aboutData"
+											:totalPage="aboutTotalPage"
+											:loading="aboutLoading"
+											:reset="aboutReset"
+											v-on:pageChange="aboutPage"
+											v-on:radioChange="aboutRadio"
+											v-on:onSelect="aboutSelect">
 										 </select-box>
 									</div>
 									<h3 class="temp-item__foot" v-else>暂时没有任何内容</h3>
@@ -146,17 +146,17 @@
 											</div>
 											<!-- 修改控件 -->
 											<select-box
-											 :orderBy="topInfo.videoOrderBy"
-											 :data="finishedData"
-											 :totalPage="finishedTotalPage"
-											 :loading="finishedLoading"
-											 :reset="finishedReset"
-											 v-on:pageChange="finishedPage"
-											 v-on:radioChange="finishedRadio"
-											 v-on:onSelect="finishedSelect">
-										 	</select-box>
+												:orderBy="topInfo.videoOrderBy"
+												:data="finishedData"
+												:totalPage="finishedTotalPage"
+												:loading="finishedLoading"
+												:reset="finishedReset"
+												v-on:pageChange="finishedPage"
+												v-on:radioChange="finishedRadio"
+												v-on:onSelect="finishedSelect">
+											</select-box>
 										</div>
-										<h3 class="temp-item__foot" v-else>暂时没有任何内容</h3>
+									<h3 class="temp-item__foot" v-else>暂时没有任何内容</h3>
 								</li>
 							</ul>
 						</div>
@@ -215,24 +215,24 @@
 			}),
 			...mapActions('template', {
 				getTopInfo: 		'TEMPLATE_QUERY',
-				sortBeing:      'TEMPLATE_SORT_BEING',
-				sortFinished:   'TEMPLATE_SORT_FINISHED',
-				sortAbout:      'TEMPLATE_SORT_ABOUT',
+				sortBeing:			'TEMPLATE_SORT_BEING',
+				sortFinished:	    'TEMPLATE_SORT_FINISHED',
+				sortAbout:			'TEMPLATE_SORT_ABOUT',
 				findBeing: 			'TEMPLATE_FIND_BEING',
-				findFinished:   'TEMPLATE_FIND_FINISHED',
-				findAbout:   		'TEMPLATE_FIND_ABOUT',
-				firstFinished: 	'TEMPLATE_FIRST_FINISHED',
+				findFinished:	    'TEMPLATE_FIND_FINISHED',
+				findAbout:	 		'TEMPLATE_FIND_ABOUT',
+				firstFinished:   	'TEMPLATE_FIRST_FINISHED',
 				firstBeing: 		'TEMPLATE_FIRST_BEING',
 				firstAbout: 		'TEMPLATE_FIRST_ABOUT',
 			}),
 			openAlbum (value, type) {
 				Album(value, (select, data) => {
 					if (type == 'coverImage') {
-						this.channel.coverImageId  = select;
+						this.channel.coverImageId	= select;
 						this.channel.coverImageUrl = data.url;
 					} else if (type == 'logoImage') {
-						this.channel.logoImageId   = select;
-						this.channel.logoImageUrl  = data.url;
+						this.channel.logoImageId	 = select;
+						this.channel.logoImageUrl	= data.url;
 					}
 					this.updateChannel(this.channel);
 				})
@@ -267,36 +267,36 @@
 			},
 			finishedSelect (id) {
 				this.$confirm('提示什么什么什么什么的内容', '提示', {
-          confirmButtonText: '确定',
-          cancelButtonText: '取消',
-          type: 'info'
-        }).then(() => {
-					this.firstFinished(id).then(_ => {
+					confirmButtonText: '确定',
+					cancelButtonText: '取消',
+					type: 'info'
+				}).then(() => {
+					this.firstFinished(id).then(() => {
 						this.loading = true
 						this.getTopInfo()
-						this.findFinished().then(_ => {
+						this.findFinished().then(() => {
 							this.finishedReset = !this.finishedReset // 触发select组件重置
-							this.loading       = false
-						}).catch(_ => {
+							this.loading			 = false
+						}).catch(() => {
 							this.loading = false
 						})
 						this.$message({
-	            type: 'success',
-	            message: '置顶成功!'
-	          });
+							type: 'success',
+							message: '置顶成功!'
+						});
 					})
-        }).catch(() => {
-          this.$message({
-            type: 'info',
-            message: '已取消置顶'
-          });
-        });
+				}).catch(() => {
+					this.$message({
+						type: 'info',
+						message: '已取消置顶'
+					});
+				});
 			},
 			aboutPage (page) {
 				this.loading = true
-				this.findAbout(page).then(_ => {
+				this.findAbout(page).then(() => {
 					this.loading = false
-				}).catch(_ => {
+				}).catch(() => {
 					this.loading = false
 				})
 			},
@@ -304,7 +304,7 @@
 				this.sortAbout(value)
 				if (value == 'user-defined') {
 					this.loading = true
-					this.findAbout().then(_ => {
+					this.findAbout().then(() => {
 						this.loading = false
 					}).catch(_ => {
 						this.loading = false
@@ -313,30 +313,30 @@
 			},
 			aboutSelect (id) {
 				this.$confirm('提示什么什么什么什么的内容', '提示', {
-          confirmButtonText: '确定',
-          cancelButtonText: '取消',
-          type: 'info'
-        }).then(() => {
+					confirmButtonText: '确定',
+					cancelButtonText: '取消',
+					type: 'info'
+				}).then(() => {
 					this.firstAbout(id).then(_ => {
 						this.loading = true
 						this.getTopInfo()
 						this.findAbout().then(_ => {
 							this.aboutReset = !this.aboutReset // 触发select组件重置
-							this.loading       = false
+							this.loading			 = false
 						}).catch(_ => {
 							this.loading = false
 						})
 						this.$message({
-	            type: 'success',
-	            message: '置顶成功!'
-	          });
+							type: 'success',
+							message: '置顶成功!'
+						});
 					})
-        }).catch(() => {
-          this.$message({
-            type: 'info',
-            message: '已取消置顶'
-          });
-        });
+				}).catch(() => {
+					this.$message({
+						type: 'info',
+						message: '已取消置顶'
+					});
+				});
 			},
 			beingPage (page) {
 				this.loading = true
@@ -359,30 +359,30 @@
 			},
 			beingSelect (id) {
 				this.$confirm('提示什么什么什么什么的内容', '提示', {
-          confirmButtonText: '确定',
-          cancelButtonText: '取消',
-          type: 'info'
-        }).then(() => {
+					confirmButtonText: '确定',
+					cancelButtonText: '取消',
+					type: 'info'
+				}).then(() => {
 					this.firstBeing(id).then(_ => {
 						this.loading = true
 						this.getTopInfo()
 						this.findBeing().then(_ => {
 							this.beingReset = !this.beingReset // 触发select组件重置
-							this.loading       = false
+							this.loading			 = false
 						}).catch(_ => {
 							this.loading = false
 						})
 						this.$message({
-	            type: 'success',
-	            message: '置顶成功!'
-	          });
+							type: 'success',
+							message: '置顶成功!'
+						});
 					})
-        }).catch(() => {
-          this.$message({
-            type: 'info',
-            message: '已取消置顶'
-          });
-        });
+				}).catch(() => {
+					this.$message({
+						type: 'info',
+						message: '已取消置顶'
+					});
+				});
 			}
 		},
 	}
