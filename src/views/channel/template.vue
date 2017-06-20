@@ -176,7 +176,7 @@
 
 	export default{
 		components: {
-			'select-box': selectBox,
+			selectBox,
 		},
 		data () {
 			return {
