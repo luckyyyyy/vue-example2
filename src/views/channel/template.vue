@@ -248,9 +248,9 @@
 			},
 			finishedPage (page) {
 				this.loading = true
-				this.findFinished(page).then(_ => {
+				this.findFinished(page).then(() => {
 					this.loading = false
-				}).catch(_ => {
+				}).catch(() => {
 					this.loading = false
 				})
 			},
@@ -258,9 +258,9 @@
 				this.sortFinished(value)
 				if (value == 'user-defined') {
 					this.loading = true
-					this.findFinished().then(_ => {
+					this.findFinished().then(() => {
 						this.loading = false
-					}).catch(_ => {
+					}).catch(() => {
 						this.loading = false
 					})
 				}
@@ -306,7 +306,7 @@
 					this.loading = true
 					this.findAbout().then(() => {
 						this.loading = false
-					}).catch(_ => {
+					}).catch(() => {
 						this.loading = false
 					})
 				}
@@ -317,13 +317,13 @@
 					cancelButtonText: '取消',
 					type: 'info'
 				}).then(() => {
-					this.firstAbout(id).then(_ => {
+					this.firstAbout(id).then(() => {
 						this.loading = true
 						this.getTopInfo()
-						this.findAbout().then(_ => {
+						this.findAbout().then(() => {
 							this.aboutReset = !this.aboutReset // 触发select组件重置
 							this.loading			 = false
-						}).catch(_ => {
+						}).catch(() => {
 							this.loading = false
 						})
 						this.$message({
@@ -340,9 +340,9 @@
 			},
 			beingPage (page) {
 				this.loading = true
-				this.findBeing(page).then(_ => {
+				this.findBeing(page).then(() => {
 					this.loading = false
-				}).catch(_ => {
+				}).catch(() => {
 					this.loading = false
 				})
 			},
@@ -350,9 +350,9 @@
 				this.sortBeing(value)
 				if (value == 'user-defined') {
 					this.loading = true
-					this.findBeing().then(_ => {
+					this.findBeing().then(() => {
 						this.loading = false
-					}).catch(_ => {
+					}).catch(() => {
 						this.loading = false
 					})
 				}
@@ -363,13 +363,13 @@
 					cancelButtonText: '取消',
 					type: 'info'
 				}).then(() => {
-					this.firstBeing(id).then(_ => {
+					this.firstBeing(id).then(() => {
 						this.loading = true
 						this.getTopInfo()
-						this.findBeing().then(_ => {
+						this.findBeing().then(() => {
 							this.beingReset = !this.beingReset // 触发select组件重置
 							this.loading			 = false
-						}).catch(_ => {
+						}).catch(() => {
 							this.loading = false
 						})
 						this.$message({
