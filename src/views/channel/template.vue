@@ -265,8 +265,8 @@
 					})
 				}
 			},
-			finishedSelect (id) {
-				this.$confirm('提示什么什么什么什么的内容', '提示', {
+			finishedSelect ({ id, index, name }) {
+				this.$confirm(`您确定要置顶直播 ${name} 吗?`, '提示', {
 					confirmButtonText: '确定',
 					cancelButtonText: '取消',
 					type: 'info'
@@ -311,8 +311,8 @@
 					})
 				}
 			},
-			aboutSelect (id) {
-				this.$confirm('提示什么什么什么什么的内容', '提示', {
+			aboutSelect ({ id, index, name }) {
+				this.$confirm(`您确定要置顶直播 ${name} 吗?`, '提示', {
 					confirmButtonText: '确定',
 					cancelButtonText: '取消',
 					type: 'info'
@@ -357,8 +357,8 @@
 					})
 				}
 			},
-			beingSelect (id) {
-				this.$confirm('提示什么什么什么什么的内容', '提示', {
+			beingSelect ({ id, index, name }) {
+				this.$confirm(`您确定要置顶直播 ${name} 吗?`, '提示', {
 					confirmButtonText: '确定',
 					cancelButtonText: '取消',
 					type: 'info'

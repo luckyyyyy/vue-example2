@@ -26,7 +26,7 @@
 						<li
 							:style="{ backgroundImage: `url(${item.liveInfo.coverImageUrl})` }"
 							:class="['live-item', { 'live-item--active': page == 1 && index == 0 }]"
-							@click="onSelect(item.id, index)">
+							@click="onSelect({ id: item.id, index , name: item.name })">
 						</li>
 					</el-tooltip>
 				</ul>
@@ -139,7 +139,7 @@
 	}
 </script>
 
-<style lang="less">
+<style lang="less" scoped>
 .select-box {
 	position: absolute;
 	top: 0;
