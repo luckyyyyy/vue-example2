@@ -106,7 +106,6 @@
 			 */
 			onSelect ({ id, index, name }) {
 				if (index == 0 && this.page == 1 ) return
-				console.log(index, this.page)
 				this.$emit('onSelect', { id, name, index })
 			},
 			/**
