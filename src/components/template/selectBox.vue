@@ -26,7 +26,7 @@
 						<li
 							:style="{ backgroundImage: `url(${item.liveInfo.coverImageUrl})` }"
 							:class="['live-item', { 'live-item--active': page == 1 && index == 0 }]"
-							@click="onSelect({ id: item.id, index , name: item.name })">
+							@click="onSelect({ id: item.id, index , name: item.name, index })">
 						</li>
 					</el-tooltip>
 				</ul>
@@ -104,11 +104,10 @@
 			 * @param  {number} index 数组下标
 			 * @return {null}
 			 */
-			onSelect (id, index) {
-				if(index == 0 && this.page ==1 ){
-					return
-				}
-				this.$emit('onSelect', id);
+			onSelect ({ id, index, name }) {
+				if (index == 0 && this.page == 1 ) return
+				console.log(index, this.page)
+				this.$emit('onSelect', { id, name, index })
 			},
 			/**
 			 * 上一页
